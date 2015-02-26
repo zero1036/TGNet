@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TS.Base
+namespace TG.Example
 {
     public class ExaminationClass
     {

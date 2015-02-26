@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace TS.Base
+namespace TG.Example
 {
     public partial class Form1 : Form
     {

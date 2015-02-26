@@ -1,4 +1,4 @@
-﻿namespace TS.Base
+﻿namespace TG.Example
 {
     partial class Form1
     {

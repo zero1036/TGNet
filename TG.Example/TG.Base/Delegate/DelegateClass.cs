@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.Windows.Forms;
 
-namespace TS.Base
+namespace TG.Example
 {
     public class DelegateClass
     {

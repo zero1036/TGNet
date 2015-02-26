@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Collections.Concurrent;
 
-namespace TS.Base
+namespace TG.Example
 {
     public class ThreadClass
     {

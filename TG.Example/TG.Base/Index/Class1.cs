@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TS.Base
+namespace TG.Example
 {
     public class IndexClass
     {

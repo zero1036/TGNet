@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TS.Base
+namespace TG.Example
 {
     public partial class Form3 : Form
     {

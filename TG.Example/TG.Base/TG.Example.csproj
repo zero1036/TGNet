@@ -7,8 +7,8 @@
     <ProjectGuid>{0E304481-B41E-49FF-B724-6FBA4916269B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TS.Base</RootNamespace>
-    <AssemblyName>TS.Base</AssemblyName>
+    <RootNamespace>TG.Example</RootNamespace>
+    <AssemblyName>TG.Example</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
