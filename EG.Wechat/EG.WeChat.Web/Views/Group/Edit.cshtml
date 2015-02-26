@@ -1,0 +1,43 @@
+﻿@model EG.WeChat.Web.Models.GroupVM
+@{
+    ViewBag.Title = "组修改";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+@section HeaderContent
+{
+
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.GroupID)
+    <ul class="content_info">
+        <li>
+            <h4>Group Name<span class="requireText">*</span>
+            </h4>
+            @Html.TextBoxFor(m => m.GroupName)
+            @Html.ValidationMessageFor(m => m.GroupName)
+            <label class="field_description">1-50 characters</label>
+        </li>
+        <li>
+            <h4>Description
+            </h4>
+            @Html.TextBoxFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description)
+        </li>
+        <li>
+            <h4>State
+            </h4>
+            @Html.TextBoxFor(m => m.State)
+            @Html.ValidationMessageFor(m => m.State)
+        </li>
+
+        <li>
+            <label id="errorLabel">@Html.ValidationMessage("ErrorMessage")</label>
+        </li>
+        <li>
+            <input type="submit" class="ui_input_btn01" value="OK" />
+        </li>
+    </ul>
+}

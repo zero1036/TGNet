@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "组列表";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+
+@section HeaderContent
+{
+    @Styles.Render("~/Bundles/Authority/Css")
+    <script src="~/Scripts/Shared/Pagination.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            OperationData = [{ Name: "用户管理", OnCheck: "UserManage(this)" }, { Name: "权限管理", OnCheck: "RightManage(this)" }];
+            GetPagingList();
+        });
+
+
+        function btn_New(url) {
+            window.location.href = url;
+        }
+
+        function btn_Edit(url) {
+            var tr = $("#table tr").has("td input[type='checkbox']:checked");
+            if (tr.length == 1) {
+                var userID = tr.find("td").eq(1).text();
+                window.location.href = url + "?GroupID=" + userID;
+            } else {
+                alert("请选择一条记录！");
+            }
+        }
+
+        function btn_Del(url) {
+            var tr = $("#table tr").has("td input[type='checkbox']:checked");
+            if (tr.length == 1) {
+                var id = tr.find("td").eq(1).text();
+                if (confirm("是否确认删除选项？")) {
+                    $.post(url, { GroupID: id }, function (data) {
+                        if (data.IsSuccess) {
+                            alert("操作成功！");
+                            GetPagingList();
+                        } else {
+                            alert("操作失败！");
+                        }
+                    });
+                }
+            } else {
+                alert("请选择一条记录！");
+            }
+        }
+
+
+        function UserManage(obj) {
+            var tr = $(obj).parents("td").siblings();
+            window.location.href = "/User/UserGroup?GroupID=" + tr.eq(1).text();
+        }
+
+        function RightManage(obj) {
+            var tr = $(obj).parents("td").siblings();
+            window.location.href = "/AccessRight/List?GroupID=" + tr.eq(1).text();
+        }
+
+
+
+
+    </script>
+}
+
+
+@using (Html.BeginForm())
+{ 
+    <div class="ui_content">
+        <div class="ui_text_indent">
+            <div id="box_border">
+                <div>
+                    <input type="button" value="添加" class="ui_input_btn01" onclick="btn_New('/Group/New');" />
+                    <input type="button" value="修改" class="ui_input_btn01" onclick="btn_Edit('/Group/Edit');" />
+                    <input type="button" value="删除" class="ui_input_btn01" onclick="btn_Del('/Group/Delete');" />
+                </div>
+                <div id="box_top">搜索</div>
+                <div id="box_center">
+                    GroupID：
+                        @Html.TextBox("GroupID", null, new { @class = "ui_input_txt02" })
+                    GroupName：
+                        @Html.TextBox("GroupName", null, new { @class = "ui_input_txt02" })
+                </div>
+                <div id="box_bottom">
+                    <input type="button" value="查詢" class="ui_input_btn01" onclick="GetPagingList();" />
+                </div>
+            </div>
+        </div>
+    </div>
+    Html.RenderPartial("~/Views/Shared/_PartialList.cshtml");
+}

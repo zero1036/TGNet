@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "會員列表";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+
+@section HeaderContent
+{
+    @Styles.Render("~/Bundles/Authority/Css")
+    <script src="~/Scripts/Shared/Pagination.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            GetPagingList();
+        });
+
+    </script>
+}
+
+
+@using (Html.BeginForm())
+{ 
+    <div class="ui_content">
+        <div class="ui_text_indent">
+            <div id="box_border">
+
+                <div id="box_top">搜索</div>
+                <div id="box_center">
+                    Name：
+                        @Html.TextBox("Name", null, new { @class = "ui_input_txt02" })
+                </div>
+                <div id="box_bottom">
+                    <input type="button" value="查詢" class="ui_input_btn01" onclick="GetPagingList();" />
+                </div>
+            </div>
+        </div>
+    </div>
+    Html.RenderPartial("~/Views/Shared/_PartialList.cshtml");
+}
+

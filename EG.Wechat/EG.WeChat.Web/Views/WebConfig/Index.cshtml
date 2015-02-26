@@ -1,0 +1,184 @@
+﻿@using EG.WeChat.Web.Models;
+@model WebConfigVM
+@{
+    ViewBag.Title = "網站參數配置";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+@section HeaderContent
+{
+    @Styles.Render("~/Bundles/Authority/Css")
+
+    <style>
+        .functionDiv {
+            padding:5px 30px 5px 30px ;
+        }
+        
+        .functionDiv fieldset{
+            padding:10px 20px 10px 20px ;
+        }
+
+        .functionDiv input[type=text],.functionDiv input[type=password] {
+            width:100%;
+            }
+
+        .cellTitle {
+            text-align:right;
+            width:80px;
+        }
+
+
+    </style>
+
+    <script src="~/Scripts/Shared/Pagination.js"></script>
+    <script type="text/javascript">
+
+        /* 初始化 */
+        $(function () {
+            initPwdStyle();
+        });
+
+        /* 密码框控件的样式控制 */
+        function initPwdStyle() {
+            //##默认禁用[重复密码框]
+            $("#pwd_DBPSW2").prop("disabled", true);
+            //##Change事件
+            $("#pwd_DBPSW1").change(function() {
+                funcClearDataIfEmpry($(this).val());
+            });
+            $("#pwd_DBPSW2").change(function () {
+                funcClearDataIfEmpry($(this).val());
+            });
+
+            //##清空密码框、启用禁用
+            var funcClearDataIfEmpry = function(value) {
+                if (value == '') {
+                    $("#pwd_DBPSW1").val('');
+                    $("#pwd_DBPSW2").val('');
+                    $("#pwd_DBPSW2").prop("disabled", true);
+                }
+                else {
+                    $("#pwd_DBPSW2").prop("disabled", false);
+                }
+            };            
+        }        
+
+        /* 提交配置的数据 */
+        function submitConfig() {
+            //数据检测
+            if ($("#DB_PORT").val() != '' && $.isNumeric($("#DB_PORT").val())== false) {
+                alert("端口必須為有效數字或者留空。");
+                $("#DB_PORT").focus();
+                return;
+            }
+            if ($("#pwd_DBPSW1").val() != $("#pwd_DBPSW2").val()) {
+                alert("兩次輸入的資料庫密碼不一致，請重新輸入。");
+                $("#pwd_DBPSW2").focus();
+                return;
+            }
+
+            //提示用户
+            if (confirm("修改配置之後，需要重啟整個網站。\n這可能需要您等待幾秒到一分鐘時間。\n\n請確認是否繼續保存？") == false) {
+                return;
+            }
+
+            //执行post提交
+            $.post('@Url.Action("SaveConfig")', $("#page :input").serialize(), function (ret) {
+                if (ret.IsSuccess) {
+                    //##隐藏提交按钮，显示提示文字
+                    $("#AreaButtons").hide();
+                    $("#AreaTiptext").show();
+
+                    //跳转到默认页面
+                    location.href = '@Url.Action("Index")';
+                }
+                else {
+                    alert(ret.Message);
+                }                
+            })
+        }
+
+        /* 取消配置的数据 */
+        function cancelConfig() {
+            //跳转到默认页面，重新读取数据
+            if (confirm("是否要放棄當前的編輯資料，重新讀取？")) {
+                location.href = '@Url.Action("Index")';
+            }
+        }
+    </script>
+}
+
+
+<div class="ui_content">
+    <div id="page" class="ui_tb">
+        @* 公众平台GroupBox *@
+        <div class="functionDiv">
+           <fieldset>
+               <legend>微信公眾平臺參數</legend>
+
+               <table style="width:100%">
+                   <tr>
+                       <td class="cellTitle">AppId：</td>
+                       <td>@Html.TextBoxFor(Model => Model.WX_appID)</td>
+                   </tr>
+                   <tr>
+                       <td class="cellTitle">AppSecret：</td>
+                       <td>@Html.TextBoxFor(Model => Model.WX_appsecret)</td>
+                   </tr>
+                   <tr>
+                       <td class="cellTitle">Token：</td>
+                       <td>@Html.TextBoxFor(Model => Model.WX_Token)</td>
+                   </tr>
+               </table>
+
+           </fieldset>
+        </div>
+
+        @* 数据库GroupBox *@
+        <div class="functionDiv">
+           <fieldset>
+               <legend>資料庫參數</legend>
+
+                <table style="width:100%">
+                   <tr>
+                       <td class="cellTitle">類型：</td>
+                       <td>@Html.DropDownListFor(Model => Model.DB_TYPE,new SelectList(Enum.GetValues(typeof(WebConfigVM.DBType))) )</td>
+                   </tr>
+                   <tr>
+                       <td class="cellTitle">地址：</td>
+                       <td>@Html.TextBoxFor(Model => Model.DB_IP)</td>
+                   </tr>
+                   <tr>
+                       <td class="cellTitle">端口：</td>
+                       <td>@Html.TextBoxFor(Model => Model.DB_PORT, new { @placeholder = "空白，為使用對應資料庫類型預設的端口號" })</td>
+                   </tr>
+                   <tr>
+                       <td class="cellTitle">庫名稱：</td>
+                       <td>@Html.TextBoxFor(Model => Model.DB_DATABASE)</td>
+                   </tr>
+                   <tr>
+                       <td class="cellTitle">用戶名：</td>
+                       <td>@Html.TextBoxFor(Model => Model.DB_USER)</td>
+                   </tr>
+                   <tr>
+                       <td class="cellTitle">密碼：</td>
+                       <td>
+                            @Html.PasswordFor(Model => Model.DB_PSW, new {  @placeholder="空白，為保持原有密碼", @style = "width:calc(50.0% - 10px);float:left",@id="pwd_DBPSW1"})
+                            <input type="password" placeholder="請再次輸入密碼" style = "width:calc(50.0% - 10px);float:right;" id="pwd_DBPSW2"/>                       
+                       </td>
+                   </tr>
+               </table>
+           </fieldset>
+        </div>
+
+        @* 功能按钮 *@
+        <div align="center" id="AreaButtons">
+            <input type="button" value="保存修改" onclick="submitConfig()" /> &nbsp;
+            <input type="button" value="取消修改" onclick="cancelConfig()" /> &nbsp;
+        </div>
+        <div align="center" id="AreaTiptext" style="display: none;color:red">
+            保存成功！ <br />網站正在重啟中，請耐心稍後。。。
+        </div>
+    </div>
+</div>
+

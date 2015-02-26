@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Message2";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html ng-app="WXApp">
+<head>
+    <meta charset="utf-8">
+    <!--IE兼容标签-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--响应式布局-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--默认使用webkit内核进行渲染-->
+    <meta name="renderer" content="webkit">
+    <!-- bootstrapcss 采用百度CDN -->
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body ng-controller="OrgCtrl">
+
+    <!-- 採用CDN數據源，JQuery Bootstrap 由于Jquery2.0版本以上不支持IE678，改用1.9.1-->
+    <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    @Scripts.Render("~/Bundles/angularjs")
+    <!--jquery.json-->
+    @Scripts.Render("~/Scripts/jquery.json-2.3.min.js")
+    <!-- Controllers -->
+    @Scripts.Render("~/Scripts/Controllers/app.js")
+    @Scripts.Render("~/Scripts/Controllers/WXBaseController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXOrgController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXResController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXService.js")
+    @Scripts.Render("~/Scripts/Controllers/WXDirective.js")
+    <!-- EGCommon -->
+    @Scripts.Render("~/Scripts/EGCommon.js")
+
+    <title>英皇金業集團</title>
+
+    <message></message>
+</body>
+</html>

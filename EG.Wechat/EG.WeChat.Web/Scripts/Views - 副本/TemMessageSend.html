@@ -1,0 +1,43 @@
+﻿<div class="container-fluid">
+    <div class="row" style="margin-left: 20px; margin-right: 20px">
+        <form action="/TemplateMessage/MessageSend" method="post" id="id_form1">
+            <!--<input id="id_OpenID" name="OpenID" type="hidden">-->
+            <input id="Hidden1" name="OpenID" type="hidden" value="{{curOpenID}}">
+            <div class="row">
+                <div class="box_column">
+                    <p>
+                        <br>
+                        <label>選擇模板：</label>
+                        <select name="" id="fyHx" class="ui_select01">
+                            <option value="1">新任务提醒</option>
+                        </select>
+                    </p>
+                    <p>
+                        <textarea style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="2" id="id_first" name="first" placeholder="標題："></textarea>
+                    </p>
+                    <p>
+                        <textarea style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="2" id="id_keyword1" name="keyword1" placeholder="描述："></textarea>
+                    </p>
+                    <p>
+                        <textarea style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="2" id="id_keyword2" name="keyword2" placeholder="工作量："></textarea>
+                    </p>
+                    <p>
+                        <textarea style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="2" id="id_keyword3" name="keyword3" placeholder="備註："></textarea>
+                    </p>
+                    <p>
+                        <textarea style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="2" id="id_keyword4" name="keyword4" placeholder="時限："></textarea>
+                    </p>
+                    <p>
+                        <textarea style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="2" id="id_keyword5" name="keyword5" placeholder="來自："></textarea>
+                    </p>
+                    <p>
+                        <textarea style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="2" id="id_remark" name="remark" placeholder="詳情："></textarea>
+                    </p>
+                    <!--<input type="submit" value="確定發送" class="btn btn-primary">-->
+                    <!--<input type="button" value="確定發送" class="btn btn-primary" ng-click="SendMessage()">-->
+                    <button id="ui_btnLoading" data-loading-text="發送中，請稍後……" type="button" class="btn btn-primary" ng-click="SendMessage()">確認發送</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+﻿@model Senparc.Weixin.MP.Entities.GetMenuResult
+@{
+    ViewBag.Title = "菜單配置工具";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+        .txtButton {
+            width: 120px;
+        }
+
+        select.dllButtonDetails {
+            padding: 5px;
+        }
+
+            select.dllButtonDetails option {
+                padding: 5px;
+            }
+
+        .txtButtonDetails {
+            width: 200px;
+        }
+
+        .txtToken {
+            width: 80%;
+        }
+
+        .submitArea {
+            clear: both;
+        }
+
+        .leftArea {
+            width: 450px;
+        }
+
+        #rootMenuRow {
+            border-top: 1px solid #808688;            
+        }
+    </style>
+}
+@section Featured
+{
+    
+}
+<section class="content-wrapper main-content clear-fix">
+    <h1>菜單配置工具</h1>
+    <div class="clear-fix"></div>
+    <div id="menuLogin"></div>
+    <div id="menuEditor">
+        <h3>使用說明及規則，請仔細閱讀</h3>
+        <ul>
+            <li>官方要求：一級功能表按鈕個數為2-3個</li>
+            <li>官方要求：如果設置了二級功能表，子按鈕個數為2-5個</li>
+            <li>官方要求：按鈕描述，既按鈕名字，不超過16個位元組，子功能表不超過40個位元組</li>
+            <li>如果name不填，此按鈕將被忽略</li>
+            <li>如果一級功能表為空，該列所有設置的二級功能表都會被忽略</li>
+            <li>key僅在SingleButton（按一下按鈕，無下級功能表）的狀態下設置，如果此按鈕有下級功能表，key將被忽略</li>
+            <li>所有二級菜單都為SingleButton</li>
+            <li>如果要快速看到微信上的功能表最新狀態，需要重新關注，否則需要靜靜等待N小時</li>
+        </ul>
+        <p></p>
+        <h3>編輯工具</h3>
+        @using (Html.BeginForm("CreateMenu", "WXMenu", FormMethod.Post, new { id = "form_Menu" }))
+        {
+            <p hidden="hidden">
+                當前Token:
+                <input id="tokenStr" name="token" type="text" class="txtToken" readonly="readonly" /><br />
+            </p>
+            <p>
+                <input id="btnGetMenu" type="button" value="重新獲取當前菜單" />
+                <input id="btnDeleteMenu" type="button" value="刪除菜單" />
+            </p>
+            <p>
+                操作狀態：<strong id="menuState">-</strong>
+            </p>
+            <div class="float-left">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>第一列</th>
+                            <th>第二列</th>
+                            <th>第三列</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < 6; i++)
+                        {
+                            var isRootMenu = i == 5;
+                            <tr id="@(isRootMenu ? "rootMenuRow" : "subMenuRow_" + i)" >
+                                <td>
+                                    @if (isRootMenu)
+                                    {
+                                        <strong>【一級菜單】</strong>
+                                    }
+                                    else
+                                    {
+                                        @("二級菜單No." + (i + 1))
+                                    }
+                                </td>
+                                @for (int j = 0; j < 3; j++)
+                                {
+                                    var namePrefix = isRootMenu ? string.Format("menu.button[{0}]", j) : string.Format("menu.button[{0}].sub_button[{1}]", j, i);
+                                    var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
+                                    <td>
+                                        <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_key"/>
+                                        <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
+                                        <input type="hidden" name="@(namePrefix).url" id="@(idPrefix)_url" />
+                                        <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_ClickThenResponse" />
+                                        <input type="text" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="float-left" id="buttonDetails">
+                <h3>按钮其他参数</h3>
+                <p>Name：<input type="text" id="buttonDetails_name" class="txtButton" disabled="disabled" /></p>
+                <p>
+                    Type：
+                    <select id="buttonDetails_type" class="dllButtonDetails">
+                        <option value="click" selected="selected">點擊事件（傳回伺服器）</option>
+                        <option value="ClickThenResponse" selected="selected">點擊事件，跳轉到應答鏈指定節點</option>
+                        <option value="view">訪問網頁（直接跳轉）</option>
+                        <option value="location_Select">彈出地理位置選擇器</option>
+                        <option value="pic_photo_or_album">彈出拍照或者相冊發圖</option>
+                        <option value="pic_sysphoto">彈出系統拍照發圖</option>
+                        <option value="pic_weixin">彈出微信相冊發圖器</option>
+                        <option value="scancode_push">掃碼推事件</option>
+                        <option value="scancode_waitmsg">掃碼推事件且彈出“消息接收中”提示框</option>
+                    </select>
+                </p>
+                <p id="buttonDetails_key_area">
+                    Key：<input id="buttonDetails_key" type="text" class="txtButtonDetails" />
+                </p>
+                <p id="buttonDetails_url_area">
+                    Url：<input id="buttonDetails_url" type="text" class="txtButtonDetails" />
+                </p>
+                <p id="buttonDetails_ClickThenResponse_area">
+                    節點：<input id="buttonDetails_ClickThenResponse" type="text" class="txtButtonDetails" />
+                </p>
+                <p>
+                    如果還有下級功能表請忽略Type和Key、Url。<br />
+                </p>
+            </div>
+            <div class="clear-fix"></div>
+            <div id="submitArea">
+                <input type="button" value="更新到伺服器" id="submitMenu" />
+            </div>
+        }
+    </div>
+</section>
+
+<script src="@Url.Content("~/Scripts/senparc.menu.js")"></script>
+<script>
+    $(function () {
+        senparc.menu.init();
+        senparc.menu.setToken('@Senparc.Weixin.MP.CommonAPIs.WeiXinSDKExtension.GetCurrentAccessToken()');
+        $("#btnGetMenu").trigger("click");
+    });
+</script>

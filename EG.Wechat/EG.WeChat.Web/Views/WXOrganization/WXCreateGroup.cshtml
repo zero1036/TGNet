@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "WXCreateGroup";
+    Layout = null;
+}
+
+@*<js引用>*@
+@Scripts.Render("~/Scripts/jquery-1.7.1.js")
+@Scripts.Render("~/Scripts/wizard/scrollable.js")
+@*<css引用>*@
+@Styles.Render("~/Content/authority/common_style.css")
+@Styles.Render("~/Content/authority/basic_layout.css")
+
+<script>
+    //submit表单
+    function EditConfig() {
+        var txt = $("#ui_txt").val();
+        if (txt == undefined || txt == "") {
+            alert("請輸入分組名稱");
+            return;
+        }
+        var postData = { "groupname": txt };
+        //执行post请求
+        $.post("/WXOrganization/CreateWXGroup", postData, function (data2) {
+            if (data2.IsSuccess) {
+                $(".ui_input_btn01").hide();
+            }
+            $("#Label_Message").text(data2.Message);
+        }).success(function () {
+            this.parent.window.location.reload();
+        });
+    }
+
+</script>
+
+<div class="divContent">
+    <div id="box_top">
+        <h3>新建分組<br />
+        </h3>
+    </div>
+    <div id="box_Context">
+        <div class="box_column">
+            <textarea id="ui_txt" class="ui_inputpage_input_txt02" placeholder="分組名稱 *："></textarea>
+            <label id="Label_Message"></label>
+            <input type="button" value="確定保存" class="ui_input_btn01" onclick="EditConfig();" />
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,229 @@
+﻿@{
+    ViewBag.Title = "用户分组";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+@section HeaderContent
+{
+    <style type="text/css">
+        .div_rightsetlist
+        {
+            border: 1px solid #CDCDCD;
+            margin: 10px 0 0 10px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            padding: 0;
+            width: 90%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            scrollbar-face-color: #CFCFCF;
+            scrollbar-shadow-color: #CFCFCF;
+            scrollbar-highlight-color: #CFCFCF;
+            scrollbar-3dlight-color: #CFCFCF;
+            scrollbar-darkshadow-color: #697074;
+            scrollbar-track-color: #F7F7F7;
+            scrollbar-arrow-color: #666666;
+        }
+
+
+        .ul_grouplist
+        {
+            margin: 7px 0 0 0;
+            padding: 0;
+        }
+
+            .ul_grouplist li
+            {
+                list-style: none;
+                font-size: 14px;
+                height: 28px;
+                line-height: 28px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+                .ul_grouplist li:hover
+                {
+                    border: 2px solid #CDDAEB;
+                }
+
+                .ul_grouplist li a
+                {
+                    padding: 0 0 0 15px;
+                }
+
+                .ul_grouplist li input
+                {
+                    margin: 0 0 0 5px;
+                }
+
+        .div_rightset_right
+        {
+            float: left;
+            height: 100%;
+            width: 43%;
+            min-width: 100px;
+            display: inline-block;
+            *display: inline;
+        }
+
+        .div_rightset_left
+        {
+            float: left;
+            height: 100%;
+            width: 43%;
+            min-width: 100px;
+            display: inline-block;
+            *display: inline;
+        }
+
+        .div_rightset_mid
+        {
+            float: left;
+            height: 100%;
+            padding: 200px 0 0 0;
+            display: inline-block;
+            *display: inline;
+        }
+
+    </style>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            Load_Selected_User();
+            Load_Select_User();
+        });
+
+
+        function Load_Selected_User() {
+            var strhtml = new StringBuilder();
+            $.post("/User/GetSelectedUser", { GroupID: $("#GroupID").val(), SelectedUser: $("#SelectedUser").val() }, function (data) {
+                if (data.IsSuccess) {
+                    $.each(data.EntityList, function (n, m) {
+                        if (n % 2 == 0) {
+                            strhtml.Append("<li class='odd'>");
+                        } else {
+                            strhtml.Append("<li class='even'>");
+                        }
+                        strhtml.AppendFormat("<input type='checkbox' uid='{0}' />", m.UserID);
+                        strhtml.AppendFormat("<a href='#'>{0}</a>", m.UserName);
+                        strhtml.Append("</li>");
+                    })
+                    $("#SelectedUserList").html(strhtml.ToString());
+                } else {
+                    alert(data.Exception);
+                }
+            });
+        }
+
+        function Load_Select_User() {
+            var strhtml = new StringBuilder();
+            $.post("/User/GetSelectUser", { GroupID: $("#GroupID").val(), SelectUser: $("#SelectUser").val() }, function (data) {
+                if (data.IsSuccess) {
+                    $.each(data.EntityList, function (n, m) {
+                        if (n % 2 == 0) {
+                            strhtml.Append("<li class='odd'>");
+                        } else {
+                            strhtml.Append("<li class='even'>");
+                        }
+                        strhtml.AppendFormat("<input type=\"checkbox\" uid=\"{0}\" />", m.UserID);
+                        strhtml.AppendFormat("<a href=\"#\">{0}</a>", m.UserName);
+                        strhtml.Append("</li>");
+                    })
+                    $("#SelectUserList").html(strhtml.ToString());
+                } else {
+                    alert(data.Exception);
+                }
+            });
+        }
+
+
+        function AddUser() {
+            var uids = "";
+            $.each($("#SelectUserList input:checked"), function (n, m) {
+                var uid = $(m).attr("uid");
+                uids += uid + ",";
+            });
+            if (uids.length == 0) {
+                alert("Please select a user!");
+                return false;
+            }
+            $.post("/User/AddUserGroup", { groupID: $("#GroupID").val(), userUIDs: uids }, function (data) {
+                if (data.IsSuccess) {
+                    Load_Selected_User();
+                    Load_Select_User();
+                } else {
+                    alert(data.Exception);
+                }
+            });
+        }
+
+
+        function DelUser() {
+            var uids = "";
+            $.each($("#SelectedUserList input:checked"), function (n, m) {
+                var uid = $(m).attr("uid");
+                uids += uid + ",";
+            });
+            if (uids.length == 0) {
+                alert("Please select a user!");
+                return false;
+            }
+            $.post("/User/DelUserGroup", { groupID: $("#GroupID").val(), userUIDs: uids }, function (data) {
+                if (data.IsSuccess) {
+                    Load_Selected_User();
+                    Load_Select_User();
+                } else {
+                    alert(data.Exception);
+                }
+            });
+        }
+
+
+    </script>
+}
+
+
+
+@Html.Hidden("GroupID")
+
+<div style="padding: 30px;">
+    <div class="div_rightset_left">
+        <div class="daiding">
+            <div>
+                <span style="margin-right: 5px; font-size: 14px; margin-left: 15px;">已选用户</span>
+                @Html.TextBox("SelectedUser")
+                <input type="button" value="查找" onclick="Load_Selected_User()" />
+            </div>
+            <div class="div_rightsetlist">
+                <ul class="ul_grouplist" id="SelectedUserList">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="div_rightset_mid">
+        <div class="div_choosebar">
+            <input type="button" value=">>" onclick="DelUser()" />
+            <br />
+            <br />
+            <input type="button" value="<<" onclick="AddUser()" />
+        </div>
+    </div>
+    <div class="div_rightset_right">
+        <div>
+            <span style="margin-right: 5px; font-size: 14px; margin-left: 15px;">可选用户</span>
+            @Html.TextBox("SelectUser")
+            <input type="button" onclick="Load_Select_User()" value="查找" />
+        </div>
+        <div class="div_rightsetlist">
+            <ul class="ul_grouplist" id="SelectUserList">
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+

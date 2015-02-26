@@ -1,0 +1,47 @@
+﻿@model EG.WeChat.Web.Models.LoginVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>英皇微信管理系统</title>
+    <link href="~/Content/authority/login_css.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="login_area">
+        <div id="login_box">
+
+            <div id="login_tip">
+            </div>
+            <div id="login_form">
+                @using (Html.BeginForm())
+                {       
+                    <h4 style="color: #575757">英皇微信管理系统</h4>
+                    <ul>
+                        <li style="padding: 0 0 0 20px;">帳戶：
+                            @Html.TextBoxFor(z => z.UserID, new { @class = "username" })
+                            @Html.ValidationMessageFor(z => z.UserID)
+                        </li>
+                        <li style="padding: 0 0 0 20px;">密碼：
+                            @Html.PasswordFor(z => z.Password, new { @class = "pwd" })
+                            @Html.ValidationMessageFor(z => z.Password)
+                        </li>
+                        <li>
+                            <label style="color: red;">&nbsp;@Html.ValidationMessage("ErrorMessage")</label>
+                        </li>
+                    </ul>
+                    <div id="btn_area">
+
+                        <input type="Submit" value="登錄" class="login_btn" />
+                    </div>
+                    
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

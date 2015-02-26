@@ -1,0 +1,449 @@
+﻿@*@model EG.WeChat.Web.Models.AccountVM*@
+@*@model IEnumerable<Senparc.Weixin.MP.AdvancedAPIs.UserInfoJson>*@
+@model EG.WeChat.Web.Models.WXMessageBinding
+
+@{
+    ViewBag.Title = "Message";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/Scripts/EGCommon.js")
+    @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")
+    @*@Scripts.Render("~/Scripts/jquery.json-2.3.js")*@
+    @Scripts.Render("~/Scripts/jquery.json-2.3.min.js")
+    @Scripts.Render("~/Scripts/authority/commonAll.js")
+    @*@Scripts.Render("~/Scripts/fancybox/jquery.fancybox-1.3.4.js")*@
+    @Scripts.Render("~/Scripts/fancybox/jquery.fancybox-1.3.4.pack.js")
+    @Scripts.Render("~/Scripts/table/tablepage.js")
+
+    @Styles.Render("~/Content/authority/jquery.fancybox-1.3.4.css")
+    @Styles.Render("~/Content/authority/basic_layout.css")
+    @Styles.Render("~/Content/authority/common_style.css")
+
+    <title>英皇金業集團</title>
+
+    <script>
+        //定义总用户全局变量
+        var _totalCount;
+        //每页显示行数
+        var intRowCountInPage = 15;
+        //用户列表中checkbox控件的name
+        var _CheckBoxName = "ids";
+        //初始化等待遮罩对象
+        var _MaskObj = Object.create(CommonMaskUI);
+        //
+        function ChangeForGroup_Event() {
+            var groupid = $("#ui_SelectGroupID").val();
+            //获取选中openid数组
+            var selectArray = new Array();
+            selectArray = GetSelectValueFromCheckBox(_CheckBoxName);
+            if (selectArray == undefined || selectArray.length == 0) {
+                alert("請選擇目標移動分組用戶");
+                return;
+            }
+            //选中openid数组转换为json数据
+            var postData = $.toJSON(selectArray);
+            _MaskObj.StartMask();
+            $.ajax({
+                url: '@Url.Action("ChangeGroup", "WXOrganization")',
+                data: { "ListOpenID": postData, "GroupID": groupid },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    _MaskObj.EndMask();
+                    if (data.IsSuccess == true) {
+                        alert("操作成功");
+                        window.location.reload();
+                    }
+                    else
+                        alert(data.Message);
+                }
+            });
+        }
+        //查询用户事件
+        function QueryUser_Event() {
+            var openid = $("#tbOpenID").val();
+            var nickname = $("#tbNickName").val();
+
+            var param = { "PageIndex": "", "RowCountInPage": "", "openid": openid, "nickname": nickname, "groupid": "", "country": "", "province": "", "city": "", "sex": "" };
+            var param2 = { "PageIndex": "1", "RowCountInPage": intRowCountInPage, "openid": openid, "nickname": nickname, "groupid": "", "country": "", "province": "", "city": "", "sex": "" };
+            /**table分页处理 **/
+            $.post("/WXOrganization/QueryUserTable", param, function (data) {
+                var total = data;
+                _totalCount = total;
+                PageClick(1, total, 3, param2, "QueryUserTable");
+            });
+        }
+        //重新加载分组用户信息
+        function LoadUserTableByGroupID(groupid) {
+            var param = { "PageIndex": "", "RowCountInPage": "", "GroupId": groupid };
+            /**table分页处理 **/
+            $.post("/WXOrganization/LoadUserTable", param, function (data) {
+                var total = data;
+                _totalCount = total;
+                PageClick(1, total, 3, param, "LoadUserTable");
+            });
+        }
+        //加载页面
+        $(document).ready(function () {
+            var param = { "PageIndex": 1, "RowCountInPage": intRowCountInPage, "GroupId": "-1" };
+            /**table分页处理 **/
+            $.post("/WXOrganization/LoadUserTable", null, function (data) {
+                var total = data;
+                _totalCount = total;
+                PageClick(1, total, 3, param, "LoadUserTable");
+            });
+
+            PageClick = function (pageIndex, total, spanInterval, param, actionname) {
+                $.ajax({
+
+                    url: '/WXOrganization/' + actionname,
+                    //data: { "PageIndex": pageIndex, "RowCountInPage": intRowCountInPage, "GroupId": groupid },
+                    data: param,
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+
+
+                        //索引从1开始
+                        //将当前页索引转为int类型
+                        var intPageIndex = parseInt(pageIndex);
+
+                        //获取显示数据的表格
+                        var table = $("#table");
+                        //var table = $("#tableBody"); 
+                        //清楚表格中内容
+                        //$("#content tbody").remove();
+                        $("#table tbody").empty();
+
+                        table.append($("<tr><th width='25'><input type='checkbox' group='ids' class='checkboxCtrl'></th><th>Open ID</th><th>微信昵稱</th><th>備註名</th><th>用戶組</th><th>國家</th><th>省份</th><th>城市</th><th>性別</th><th width='210'>操作</th></tr>"));
+
+                        var openid = "";
+                        var nickname = "";
+                        var remarkname = "";
+                        var groupid = "";
+                        var country = "";
+                        var province = "";
+                        var city = "";
+                        var sex = "";
+                        //向表格中添加内容
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].openid != null)
+                                openid = data[i].openid;
+                            if (data[i].nickname != null)
+                                nickname = data[i].nickname;
+                            if (data[i].remarkname != null)
+                                remarkname = data[i].remarkname;
+                            if (data[i].groupid != null)
+                                groupid = data[i].groupid;
+                            if (data[i].country != null)
+                                country = data[i].country;
+                            if (data[i].province != null)
+                                province = data[i].province;
+                            if (data[i].city != null)
+                                city = data[i].city;
+                            if (data[i].sex != null) {
+                                sex = data[i].sex;
+                                if (sex == '1')
+                                    sex = "男";
+                                else if (sex == '2')
+                                    sex = "女";
+                                else
+                                    sex = "未知";
+                            }
+
+                            table.append(
+                                $("<tr><td><input name='ids' type='checkbox' value='" + openid + "'></td><td>" +
+                                openid
+                                + "</td><td>" +
+                                nickname
+                                + "</td><td>" +
+                                remarkname
+                                + "</td><td>" +
+                                groupid
+                                + "</td><td>" +
+                                country
+                                + "</td><td>" +
+                                province
+                                + "</td><td>" +
+                                city
+                                + "</td><td>" +
+                                sex
+                                + "</td>" +
+                                "<td><a title='發送模板消息' width='400' height='300' class='edit' href='/TemplateMessage/MessageSend?openid=" + data[i].openid
+                                + "'><span>發送消息</span></a><a style='margin-left:5px;' title='修改備註' width='400' height='300' class='edit' href='/TemplateMessage/MessageSend?openid=" + data[i].openid
+                                + "'><span>修改備註</span></a></td></tr>")
+                                );
+                        } //for
+
+                        //开启FancyBox
+                        OpenFancyBox();
+
+                        //创建分页
+                        //将总记录数结果 得到 总页码数
+                        var pageS = total.length
+                        if (pageS % intRowCountInPage == 0)
+                            pageS = pageS / intRowCountInPage;
+                        else
+                            pageS = parseInt(total.length / intRowCountInPage) + 1;
+                        var $pager = $("#pager");
+
+                        //清楚分页div中的内容
+                        $("#pager span").remove();
+                        $("#pager a").remove();
+
+                        //添加第一页
+                        if (intPageIndex == 1)
+                            $pager.append("<span class='disabled'> 第一页 </span>");
+                        else {
+                            var first = $("<a href='javascript:void(0)' first='" + 1 + "'> 第一页 </a>").click(function () {
+                                PageClick($(this).attr('first'), total, spanInterval);
+                                return false;
+                            });
+                            $pager.append(first);
+                        }
+
+
+                        //添加上一页
+                        if (intPageIndex == 1)
+                            $pager.append("<span class='disabled'> 上一页 </span>");
+                        else {
+                            var pre = $("<a href='javascript:void(0)' pre='" + (intPageIndex - 1) + "'> 上一页 </a>").click(function () {
+                                PageClick($(this).attr('pre'), total, spanInterval);
+                                return false;
+                            });
+                            $pager.append(pre);
+                        }
+
+                        //设置分页的格式  这里可以根据需求完成自己想要的结果
+                        var interval = parseInt(spanInterval); //设置间隔
+                        var start = Math.max(1, intPageIndex - interval); //设置起始页
+                        var end = Math.min(intPageIndex + interval, pageS)//设置末页
+
+                        if (intPageIndex < interval + 1) {
+                            end = (2 * interval + 1) > pageS ? pageS : (2 * interval + 1);
+                        }
+
+                        if ((intPageIndex + interval) > pageS) {
+                            start = (pageS - 2 * interval) < 1 ? 1 : (pageS - 2 * interval);
+
+                        }
+
+
+                        //生成页码
+                        for (var j = start; j < end + 1; j++) {
+                            if (j == intPageIndex) {
+                                var spanSelectd = $("<span class='ui_txt_bold04'>" + " " + j + " " + "</span>");
+                                $pager.append(spanSelectd);
+                            } //if 
+                            else {
+                                var a = $("<a href='javascript:void(0)'>" + " " + j + " " + "</a>").click(function () {
+                                    PageClick($(this).text(), total, spanInterval);
+                                    return false;
+                                });
+                                $pager.append(a);
+                            } //else
+                        } //for
+
+                        //上一页
+                        //if (intPageIndex == total) {
+                        if (intPageIndex == pageS) {
+                            $pager.append("<span class='disabled'> 下一页 </span>");
+
+                        }
+                        else {
+
+                            var next = $("<a href='javascript:void(0)' next='" + (intPageIndex + 1) + "'> 下一页 </a>").click(function () {
+                                PageClick($(this).attr("next"), total, spanInterval);
+                                return false;
+                            });
+                            $pager.append(next);
+                        }
+
+                        //最后一页
+                        if (intPageIndex == pageS) {
+                            $pager.append("<span class='disabled'> 最后一页 </span>");
+
+                        }
+                        else {
+                            var last = $("<a href='javascript:void(0)' last='" + pageS + "'> 最后一页 </a>").click(function () {
+                                PageClick($(this).attr("last"), total, spanInterval);
+                                return false;
+                            });
+                            $pager.append(last);
+                        }
+
+                        //最后输出共有条数
+                        $pager.append("<span class='disabled'> 共有 " + total.length + " 条 </span>");
+
+                    } //sucess
+
+                }); //ajax
+
+            }; //function
+
+        });
+        //submit表单
+        function ReloadUser() {
+            _MaskObj.StartMask();//showBg();
+            //执行post请求
+            $.post("/WXOrganization/ReLoadWXUser", $("Form").serialize(), function (data2) {
+                _MaskObj.EndMask();//  closeBg();
+                if (data2.IsSuccess != undefined && !data2.IsSuccess)
+                    alert(data2.Message)
+                else
+                    alert('完成同步');
+                //刷新表格table
+                window.location.reload();
+            })
+            //完成请求关闭遮罩
+            .success(function () {
+                _MaskObj.EndMask();//  closeBg();
+            });
+
+        }
+        /**局部刷新表也**/
+        function RefreshTable() {
+            //刷新表格table
+            window.location.reload();
+        }
+        /** 鼠标经过table页面效果**/
+        function tableMouseOver() {
+            $(".table tr").mouseover(function () {
+                $(this).css({ background: "#CDDAEB" });
+                $(this).children('td').each(function (index, ele) {
+                    $(ele).css({ color: "#1D1E21" });
+                });
+            }).mouseout(function () {
+                $(this).css({ background: "#FFF" });
+                $(this).children('td').each(function (index, ele) {
+                    $(ele).css({ color: "#909090" });
+                });
+            });
+        }
+        /** 开启发送模板消息fancybox**/
+        function OpenFancyBox() {
+            /**编辑   **/
+            $("a.edit").fancybox({
+                //'autoScale': true,
+                'width': 500,
+                'height': 530,
+                'type': 'iframe',
+                'hideOnOverlayClick': true,
+                'titleShow': false,
+                'showCloseButton': true,
+                'scrolling': 'no',
+                'onClosed': function () {
+                    //window.location.href = 'Message';
+                    //fancybox关闭后，重新刷新页面
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+    <style>
+        #ui_content_X {
+            border: 1px solid #ECECEC;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    @* <div class="page">*@
+    <div id="container">
+        <div class="ui_content">
+            <div class="ui_text_indent">
+                <div id="box_border">
+                    <div id="box_top">搜索</div>
+                    <div id="box_center">
+                        OpenID：						
+                        <input type="text" id="tbOpenID" name="fangyuanEntity.fyZldz" class="ui_input_txt02" />
+                        微信昵稱：
+                        <input type="text" id="tbNickName" name="fangyuanEntity.fyZldz" class="ui_input_txt02" />
+                        <input type="button" value="查詢" class="ui_input_btn01" onclick="QueryUser_Event();" />
+                        <input type="button" value="同步用戶" class="ui_input_btn01" onclick="ReloadUser();" />
+                        <input type="button" value="刷新顯示" class="ui_input_btn01" onclick="RefreshTable();" />
+                    </div>
+                    <div id="box_bottom">
+                        <select style="float: left" name="fangyuanEntity.fyXqCode" id="ui_SelectGroupID" class="ui_select01">
+                            @if (Model.GroupList != null && Model.GroupList.Count > 0)
+                            {
+                                foreach (Senparc.Weixin.MP.AdvancedAPIs.GroupsJson_Group pGroup in Model.GroupList)
+                                {
+                                <option value="@pGroup.id">@pGroup.name (@pGroup.count)</option>
+                                }
+                            }
+                        </select>
+                        <input type="button" value="移動分組" class="ui_input_btn01" onclick="ChangeForGroup_Event();" style="float: left" />
+                        <a href="@Url.Action("CreateWXGroupView", "WXOrganization")" class="edit"><span>新建分組</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui_content" id="ui_content_X">
+            <div id="ui_div_content_left" style="float: left; width: 85%">
+                <div id="page" class="ui_tb_X">
+                    <table id="table" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" onmouseover="tableMouseOver()">
+                        @*<thead id="TT">*@
+                        <th width='25'>
+                            <input type='checkbox' group='ids' class='checkboxCtrl'>
+                        </th>
+                        <th>Open ID
+                        </th>
+                        <th>微信昵稱
+                        </th>
+                        <th>備註名
+                        </th>
+                        <th>用戶組
+                        </th>
+                        <th>國家
+                        </th>
+                        <th>省份
+                        </th>
+                        <th>城市
+                        </th>
+                        <th>性別
+                        </th>
+                        <th width='210'>操作</th>
+                        @*</thead>*@
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="ui_div_content_right" style="float: left; width: 15%">
+                <a href='javascript:void(0);' onclick="LoadUserTableByGroupID(-1)">
+                    <div style="height: 38px;" onmouseover="this.style.backgroundColor='#CDDAEB'" onmouseout="this.style.backgroundColor='white'">
+                        <span style="margin-left: 40px;">全部分组</span>
+                    </div>
+                </a>
+                @if (Model.GroupList != null && Model.GroupList.Count != 0)
+                {
+                    foreach (Senparc.Weixin.MP.AdvancedAPIs.GroupsJson_Group pGroup in Model.GroupList)
+                    {
+                    <a href='javascript:void(0);' onclick="LoadUserTableByGroupID(@pGroup.id)">
+                        <div style="height: 38px;" onmouseover="this.style.backgroundColor='#CDDAEB'" onmouseout="this.style.backgroundColor='white'">
+                            <p style="margin-left: 40px;">@pGroup.name (@pGroup.count)</p>
+                        </div>
+                    </a>
+                    }
+                }
+            </div>
+        </div>
+        <div id="pager" class="ui_tb_h30"></div>
+
+    </div>
+    <div id="fullbg"></div>
+    <div id="dialog">
+        <img style="left:30%;" src="@Url.Content("~/Images/loading.gif")"/>
+        <p>
+            正在同步中，請稍後...
+        <p />
+    </div>
+</body>
+</html>

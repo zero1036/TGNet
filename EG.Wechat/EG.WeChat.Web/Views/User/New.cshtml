@@ -1,0 +1,53 @@
+﻿@model EG.WeChat.Web.Models.UserVM
+
+@{
+    ViewBag.Title = "用户添加";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+
+@section HeaderContent
+{
+
+
+}
+
+@using (Html.BeginForm())
+{
+    <ul class="content_info">
+        <li>
+            <h4>User ID <span class="requireText">*</span>
+            </h4>
+            @Html.TextBoxFor(m => m.UserID)
+            @Html.ValidationMessageFor(m => m.UserID)
+            <label class="field_description">1-20 characters</label>
+        </li>
+        <li>
+            <h4>User Name <span class="requireText">*</span>
+            </h4>
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+            <label class="field_description">1-50 characters</label>
+        </li>
+        <li>
+            <h4>Password <span class="requireText">*</span>
+            </h4>
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </li>
+        <li>
+            <h4>Confirm Password <span class="requireText">*</span>
+            </h4>
+            @Html.PasswordFor(m => m.ConfirmPassword)
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </li>
+        <li>
+            <label id="errorLabel">@Html.ValidationMessage("ErrorMessage")</label>
+        </li>
+        <li>
+            <input type="submit" class="ui_input_btn01" value="OK" />
+        </li>
+    </ul>
+}
+
+

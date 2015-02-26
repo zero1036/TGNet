@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{39A42F72-3AD0-4F56-A577-41074CE37FE1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EG.WeChat.Utility</RootNamespace>
+    <AssemblyName>EG.WeChat.Utility</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EGCommon">
+      <HintPath>..\..\Lib\EGCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP.MvcExtension">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.QY">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.QY.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Cache\CacheConfig.cs" />
+    <Compile Include="Tools\Cache\ICacheConfig.cs" />
+    <Compile Include="Tools\Delegate\CommonDelegate.cs" />
+    <Compile Include="Tools\Entity\CommonFunction.cs" />
+    <Compile Include="Tools\Exception\EGException.cs" />
+    <Compile Include="Tools\IoC\AssemblyEn.cs" />
+    <Compile Include="Tools\IoC\AssemblyHelper.cs" />
+    <Compile Include="Tools\Log\DebugWriter.cs" />
+    <Compile Include="Tools\Log\Logger.cs" />
+    <Compile Include="Tools\Media\FormatConverter.cs" />
+    <Compile Include="Tools\MvcExtension\MvcHtmlStringExtension.cs" />
+    <Compile Include="Tools\Proxy\AspectF.cs" />
+    <Compile Include="Tools\Proxy\CastleAOPUtil.cs" />
+    <Compile Include="Tools\Proxy\Interceptor\DataWritingInterceptor.cs" />
+    <Compile Include="Tools\TimeStamp\UnixTimeStampHelper.cs" />
+    <Compile Include="Tools\WCF\WcfClient.cs" />
+    <Compile Include="Tools\WebHelper\AmazeUI\AUIBase.cs" />
+    <Compile Include="Tools\WS\DynamicInvokerService.cs" />
+    <Compile Include="WeiXin\Extension\ControllerExtension.cs" />
+    <Compile Include="Tools\Query\PredicateExtensions.cs" />
+    <Compile Include="Tools\Query\QueryEntity.cs" />
+    <Compile Include="WeiXin\MessageHandler\CustomMessageHandler\CustomMessageContext.cs" />
+    <Compile Include="WeiXin\MessageHandler\CustomMessageHandler\CustomMessageHandler.cs" />
+    <Compile Include="WeiXin\MessageHandler\CustomMessageHandler\CustomMessageHandler_Events.cs" />
+    <Compile Include="WeiXin\MessageHandler\CustomMessageHandler\MessageHandlerExtend.cs" />
+    <Compile Include="WeiXin\MessageHandler\EventService.cs" />
+    <Compile Include="WeiXin\MessageHandler\LocationService.cs" />
+    <Compile Include="WeiXin\ResponseChain\Attribute\DataTypeLimitAttribute.cs" />
+    <Compile Include="WeiXin\ResponseChain\Attribute\DealingHandlerAdditionalBehaviorAttribute.cs" />
+    <Compile Include="WeiXin\ResponseChain\Attribute\DescriptionAttribute.cs" />
+    <Compile Include="WeiXin\ResponseChain\Const\ConstString.cs" />
+    <Compile Include="WeiXin\ResponseChain\Const\DataTypes.cs" />
+    <Compile Include="WeiXin\ResponseChain\Const\DealingHandlerAdditionalBehaviorType.cs" />
+    <Compile Include="WeiXin\ResponseChain\Const\FunctionActionType.cs" />
+    <Compile Include="WeiXin\ResponseChain\Const\HandlerResult.cs" />
+    <Compile Include="WeiXin\ResponseChain\Const\NodeStatusTypes.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\CustomHandlers\ConfigClassOfCustomHandlerHelper.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\CustomHandlers\CustomHandlerConfig.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\CustomHandlers\ICustomHandler.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\InternalHandlers\DefaultDealingHandler.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\InternalHandlers\DefaultDoneHandler.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\InternalHandlers\IHandler.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\InternalHandlers\InternalHandlerConfig.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\InternalHandlers\TextFullMatchHandler.cs" />
+    <Compile Include="WeiXin\ResponseChain\Handlers\InternalHandlers\TextMenuHandler.cs" />
+    <Compile Include="WeiXin\ResponseChain\ResponseConfig\ConfigHelper.cs" />
+    <Compile Include="WeiXin\ResponseChain\ResponseConfig\IConfig.cs" />
+    <Compile Include="WeiXin\ResponseChain\ResponseConfig\ResponseConfigNode.cs" />
+    <Compile Include="WeiXin\ResponseChain\ResponseConfig\ResponseConfigTree.cs" />
+    <Compile Include="WeiXin\ResponseChain\ResponseService\NodeInstanceService.cs" />
+    <Compile Include="WeiXin\ResponseChain\ResponseService\ResponseService.cs" />
+    <Compile Include="WeiXin\ResponseChain\Results\ResponseArtificialCustomerResult.cs" />
+    <Compile Include="WeiXin\ResponseChain\Results\ResponseRawResult.cs" />
+    <Compile Include="WeiXin\ResponseChain\Results\IConfig_Result.cs" />
+    <Compile Include="WeiXin\ResponseChain\Results\IResponseResult.cs" />
+    <Compile Include="WeiXin\ResponseChain\Results\ResponseJumpNodeResult.cs" />
+    <Compile Include="WeiXin\ResponseChain\Results\ResponseNewsResult.cs" />
+    <Compile Include="WeiXin\ResponseChain\Results\ResponseTextResult.cs" />
+    <Compile Include="WeiXin\ResponseChain\Structs\DataCan.cs" />
+    <Compile Include="WeiXin\ResponseChain\Structs\IDataCan.cs" />
+    <Compile Include="WeiXin\ResponseChain\Validators\DataTypeValidator.cs" />
+    <Compile Include="WeiXin\ResponseChain\Validators\NodeIdValidator.cs" />
+    <Compile Include="WeiXin\Packaging\WeiXinConfiguration.cs" />
+    <Compile Include="WeiXin\Packaging\WeixinMessageSender.cs" />
+    <Compile Include="WeiXin\Packaging\WeiXinSDKExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WeiXin\Packaging\_ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WeiXin\ResponseChain\Attribute\_ReadMe.txt" />
+    <Content Include="WeiXin\ResponseChain\Handlers\CustomHandlers\_ReadMe.txt" />
+    <Content Include="WeiXin\ResponseChain\Handlers\InternalHandlers\_ReadMe.txt" />
+    <Content Include="WeiXin\ResponseChain\ResponseConfig\_ReadMe.txt" />
+    <Content Include="WeiXin\ResponseChain\ResponseService\_ReadMe.txt" />
+    <Content Include="WeiXin\ResponseChain\Results\_ReadMe.txt" />
+    <Content Include="WeiXin\ResponseChain\Validators\_ReadMe.txt" />
+    <Content Include="WeiXin\ResponseChain\_ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

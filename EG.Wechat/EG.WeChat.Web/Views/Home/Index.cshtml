@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "微信服務號";
+}
+
+@{ var mode = System.Configuration.ConfigurationManager.AppSettings["LayoutMode"].ToString(); }
+
+@Scripts.Render("~/Scripts/Controllers/WXBaseController.js")
+@Scripts.Render("~/Scripts/Controllers/WXOrgController.js")
+@Scripts.Render("~/Scripts/Controllers/WXResController.js")
+@Scripts.Render("~/Scripts/Controllers/WXService.js")
+@Scripts.Render("~/Scripts/Controllers/WXDirective.js")
+
+@if (mode == "2")
+{
+    @Scripts.Render("~/Scripts/Controllers/app.js")
+    <section class="content-wrapper main-content clear-fix">
+
+        <p>官方服務號帳號： 000000(等待設置)</p>
+        <p>
+            或者掃描以下二維碼添加關注：
+    <br />
+            <img src="Images/qrcode.jpg" />
+        </p>
+    </section>
+}
+else if (mode == "3")
+{
+    @Scripts.Render("~/Scripts/Controllers/appAg.js")
+    <div ng-view id="mainView"></div>
+}
+
+

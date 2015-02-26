@@ -1,0 +1,193 @@
+﻿body {
+    font-family: Verdana;
+    font-size: 14px;
+    margin: 0;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    background-color: #3f4959;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-family: 'Microsoft JhengHei UI';
+    font-size: 23px;
+    text-shadow: 0 1px 0 #222;
+    margin: 0;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+
+.divheader {
+    height: 60px;
+    /*background: #6cf;*/
+    margin-bottom: 0px;
+    background-color: #dea02f;
+}
+
+.divbody {
+    height: 330px;
+    font-family: Arial;
+    border: 0px solid #E1E1E1;
+    border-radius: 12px;
+    /*padding: 30px 30px;*/
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    background-color: #E1E1E1;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow: 2px 2px 10px #222;
+}
+
+.divPart1 {
+    height: 280px;
+    max-height: 280px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.divPart2 {
+    height: 40px;
+    /*margin: 0;*/
+    /*margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;*/
+    /*padding-top: 0px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            padding-left: 0px;*/
+    float: left;
+    width: 100%;
+}
+
+.bindingButton {
+    text-decoration: none;
+    text-align: center;
+    font-size: 17px;
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    /*padding: 10px 36px;*/
+    /*padding-top: 10px;*/
+    /*padding-right: 50%;*/
+    /*padding-bottom: 0px;*/
+    /*padding-left: 36px;*/
+    /*background: #61B509;*/
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: auto;
+    /*background-repeat-x: initial;
+            background-repeat-y: initial;*/
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background: #DD9D2E;
+    color: #FFF;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: 'Microsoft JhengHei UI';
+    /*margin: auto;*/
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    width: 100%;
+    border-radius: 0px 0px 12px 12px;
+    /*border-color: #DD9D2E;*/
+}
+
+form {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.TextInput {
+    border: 2px solid #998776;
+    border-color: #998776;
+    /*background-image: url(images/long-input.png);
+            background-repeat: no-repeat;
+            background-position-x: right;*/
+    margin-top: 20px;
+    padding-left: 3px;
+    padding-right: 3px;
+    height: 30px;
+    font-size: 14px;
+    width: 100%;
+    border-radius: 8px; /* css 3标准 */
+    -moz-border-radius: 8px; /* mozilla */
+    -webkit-border-radius: 8px; /* webkit */
+}
+
+#UserName {
+    margin-bottom: 0px;
+    height: 25px;
+    font-size: 20px;
+    color: gray;
+    font-family: 'Microsoft JhengHei UI';
+}
+
+.WarningInfo {
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Microsoft JhengHei UI';
+}
+
+#fullbg {
+    background-color: gray;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+}
+
+#dialog {
+    background-color: #EDEDED;
+    /*border: 5px solid rgba(0,0,0, 0.4);*/
+    height: 110px;
+    left: 30%;
+    /*margin: -200px 0 0 -200px;*/
+    padding: 1px;
+    position: fixed !important;
+    position: absolute;
+    top: 10%;
+    width: 160px;
+    z-index: 5;
+    border-radius: 12px;
+    display: none;
+    font-size: 12px;
+    text-align: center;
+    font-family: 'Microsoft JhengHei UI';
+    color: black;
+}
+
+
+/*#dialog p {
+                margin: 0 0 12px;
+                height: 24px;
+                line-height: 24px;
+                background: #CCCCCC;
+            }
+
+                #dialog p.close {
+                    text-align: right;
+                    padding-right: 10px;
+                }
+
+                    #dialog p.close a {
+                        color: #fff;
+                        text-decoration: none;
+                    }*/

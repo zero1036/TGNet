@@ -1,0 +1,83 @@
+﻿
+
+/* 添加文本样式*/
+.content_info
+{
+    padding: 0px 0 0 15px;
+    list-style-type: none;
+    width: 90%;
+    *margin: 0;
+}
+
+    .content_info li
+    {
+        margin: 0;
+        *float: left;
+    }
+
+    .content_info h4
+    {
+        width: 180px;
+        display: inline-block;
+        margin-right: 30px;
+        *float: left;
+        font-size: 15px;
+        font-weight: normal;
+    }
+
+    .content_info textarea
+    {
+        border-width: 0;
+    }
+
+.requireText
+{
+    color: red;
+}
+
+
+/*authority 提取过来*/
+#box_top
+{
+    height: 37px;
+    line-height: 37px;
+    color: #fff;
+    background: #044599;
+    padding-left: 20px;
+}
+
+.ui_input_btn01
+{
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-style: none;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
+    background: url('../../images/login/btn.jpg') 0px -1px no-repeat;
+}
+
+    .ui_input_btn01:hover
+    {
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border-style: none;
+        cursor: pointer;
+        font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
+        background: url('../../images/login/btn_hover.jpg') 0px 0px no-repeat;
+        color: #fff;
+    }
+
+/*authority 为基础修改*/
+.table a
+{
+    cursor: pointer;
+}
+
+.ui_tb_h30 a
+{
+    cursor: pointer;
+}

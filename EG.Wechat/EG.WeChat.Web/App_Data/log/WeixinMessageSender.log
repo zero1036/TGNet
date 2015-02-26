@@ -1,0 +1,9 @@
+2015-01-26 10:35:52.050[8]ERROR WeixinMessageSender- WeixinMessageSenderError
+Senparc.Weixin.Exceptions.ErrorJsonResultException: 微信Post请求发生错误！错误代码：45015，说明：response out of time limit
+   at Senparc.Weixin.HttpUtility.Post.GetResult[T](String returnText)
+   at Senparc.Weixin.HttpUtility.Post.PostGetJson[T](String url, CookieContainer cookieContainer, Stream fileStream, Encoding encoding)
+   at Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send[T](String accessToken, String urlFormat, Object data, CommonJsonSendType sendType)
+   at Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send(String accessToken, String urlFormat, Object data, CommonJsonSendType sendType)
+   at Senparc.Weixin.MP.AdvancedAPIs.Custom.SendNews(String accessToken, String openId, List`1 articles)
+   at EG.WeChat.Service.WeiXin.WeixinMessageSender.<>c__DisplayClass4.<SendArticle>b__3() in d:\EM_Project\WeChat\CommonLibrary\EG.WeChat.Utility\WeiXin\Packaging\WeixinMessageSender.cs:line 79
+   at EG.WeChat.Service.WeiXin.WeixinMessageSender.ExecuteTryCatch(Action action) in d:\EM_Project\WeChat\CommonLibrary\EG.WeChat.Utility\WeiXin\Packaging\WeixinMessageSender.cs:line 307

@@ -1,0 +1,729 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9A4E286B-FE2C-4985-AFBC-FA1A598F97C1}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EG.WeChat.Web</RootNamespace>
+    <AssemblyName>EG.WeChat.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EGCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\EGCommon.dll</HintPath>
+      <Aliases>global</Aliases>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Senparc.Weixin, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP, Version=9.5.7.30296, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP.MvcExtension, Version=3.0.0.27733, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.QY, Version=1.1.4.31607, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.QY.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UtilityLib">
+      <HintPath>..\..\Lib\UtilityLib.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\ActionAttribute.cs" />
+    <Compile Include="Common\ConstString.cs" />
+    <Compile Include="Common\DataConvert.cs" />
+    <Compile Include="Common\StaticLibrary.cs" />
+    <Compile Include="Common\TransactionProxy.cs" />
+    <Compile Include="Controllers\AccessController.cs" />
+    <Compile Include="Controllers\BaseController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Client\MemberController.cs" />
+    <Compile Include="Controllers\OAUTHRedirectController.cs" />
+    <Compile Include="Controllers\RedirectController.cs" />
+    <Compile Include="Controllers\FilterTestController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ResponseChainCustomHandler\AdvantanceConfig_CustomHandler_ArtificialServiceController.cs" />
+    <Compile Include="Controllers\Service\Market\MemberMController.cs" />
+    <Compile Include="Controllers\Service\Security\AccessRightController.cs" />
+    <Compile Include="Controllers\Service\Security\GroupController.cs" />
+    <Compile Include="Controllers\Service\Security\MenuController.cs" />
+    <Compile Include="Controllers\ResponseChainConfigController.cs" />
+    <Compile Include="Controllers\WebConfigController.cs" />
+    <Compile Include="Controllers\WeiXin\UserMessageController.cs" />
+    <Compile Include="Controllers\WeiXin\WXArticleController.cs" />
+    <Compile Include="Controllers\WeiXin\WXMenuController.cs" />
+    <Compile Include="Controllers\OAuth2Controller.cs" />
+    <Compile Include="Controllers\Service\Security\ActiveUserController.cs" />
+    <Compile Include="Controllers\Service\Security\UserController.cs" />
+    <Compile Include="Controllers\WeiXin\SimulateToolController.cs" />
+    <Compile Include="Controllers\WeiXin\TemplateMessageController.cs" />
+    <Compile Include="Controllers\TenPayV3Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\TestUploadMediaFileController.cs" />
+    <Compile Include="Controllers\WeiXin\WeixinController.cs" />
+    <Compile Include="Controllers\WeiXin\WeixinController_OldPost.cs" />
+    <Compile Include="Controllers\WeiXin\WXOrganizationController.cs" />
+    <Compile Include="Controllers\WeiXin\WXResourceController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CommonVM.cs" />
+    <Compile Include="Models\Market\CardApplyVM.cs" />
+    <Compile Include="Models\Market\MemberVM.cs" />
+    <Compile Include="Models\Security\AccessRightVM.cs" />
+    <Compile Include="Models\Security\GroupVM.cs" />
+    <Compile Include="Models\Security\MenuVM.cs" />
+    <Compile Include="Models\SessionHelper.cs" />
+    <Compile Include="Models\TemplateMessageConfigM.cs" />
+    <Compile Include="Models\TemplateMode.cs" />
+    <Compile Include="Models\Security\UserVM.cs" />
+    <Compile Include="Models\ValidateCode.cs" />
+    <Compile Include="Models\WCTemplateBinding.cs" />
+    <Compile Include="Models\WebConfigVM.cs" />
+    <Compile Include="Models\WXMessageBinding.cs" />
+    <Compile Include="Models\WXResourceConfig\WCArticleBinding.cs" />
+    <Compile Include="Models\WXResourceConfig\WXArticlesBinding.cs" />
+    <Compile Include="Models\WXResourceConfig\WXPictureBindng.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\WeChatWS.asmx.cs">
+      <DependentUpon>WeChatWS.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\ReadMe.txt" />
+    <Content Include="Content\auicss\admin.css" />
+    <Content Include="Content\auicss\amazeui.css" />
+    <Content Include="Content\auicss\amazeui.flat.css" />
+    <Content Include="Content\auicss\amazeui.flat.min.css" />
+    <Content Include="Content\auicss\amazeui.min.css" />
+    <Content Include="Content\auicss\app.css" />
+    <Content Include="Content\zTreeStyle\demo.css" />
+    <Content Include="Content\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Content\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Content\zTreeStyle\img\diy\2.png" />
+    <Content Include="Content\zTreeStyle\img\diy\3.png" />
+    <Content Include="Content\zTreeStyle\img\diy\4.png" />
+    <Content Include="Content\zTreeStyle\img\diy\5.png" />
+    <Content Include="Content\zTreeStyle\img\diy\6.png" />
+    <Content Include="Content\zTreeStyle\img\diy\7.png" />
+    <Content Include="Content\zTreeStyle\img\diy\8.png" />
+    <Content Include="Content\zTreeStyle\img\diy\9.png" />
+    <Content Include="Content\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Content\zTreeStyle\img\loading.gif" />
+    <Content Include="Content\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Content\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Content\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Images\common\del.png" />
+    <Content Include="Images\common\delHover.png" />
+    <Content Include="Images\common\faq.png" />
+    <Content Include="Images\common\nav_item_minus.jpg" />
+    <Content Include="Images\common\nav_item_plus.jpg" />
+    <Content Include="Images\common\nav_item_v_hover.jpg" />
+    <Content Include="Images\common\phone.jpg" />
+    <Content Include="Images\common\phone.png" />
+    <Content Include="Images\common\play.png" />
+    <Content Include="Images\common\user.jpg" />
+    <Content Include="Images\common\会员卡示例.png" />
+    <Content Include="Scripts\amazeui\amazeui.js" />
+    <Content Include="Scripts\amazeui\amazeui.legacy.js" />
+    <Content Include="Scripts\amazeui\amazeui.legacy.min.js" />
+    <Content Include="Scripts\amazeui\amazeui.min.js" />
+    <Content Include="Scripts\amazeui\amazeui.widgets.helper.js" />
+    <Content Include="Scripts\amazeui\amazeui.widgets.helper.min.js" />
+    <Content Include="Scripts\amazeui\app.js" />
+    <Content Include="Scripts\amazeui\handlebars.min.js" />
+    <Content Include="Scripts\amazeui\jquery.min.js" />
+    <Content Include="Scripts\amazeui\polyfill\rem.min.js" />
+    <Content Include="Scripts\amazeui\polyfill\respond.min.js" />
+    <Content Include="Content\authority\basic_layout.css" />
+    <Content Include="Content\authority\common_style.css" />
+    <Content Include="Content\authority\Copy of zTreeStyle.css" />
+    <Content Include="Content\authority\jquery.fancybox-1.3.4.css" />
+    <Content Include="Content\authority\login_css.css" />
+    <Content Include="Content\authority\main_css.css" />
+    <Content Include="Content\authority\zTreeStyle.css" />
+    <Content Include="Content\Style.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\ValidationStyle.css" />
+    <Content Include="Content\ValidationStyleAndroid.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\WeChatConfig.pubxml" />
+    <Content Include="Images\authority\+.gif" />
+    <Content Include="Images\authority\-.gif" />
+    <Content Include="Images\authority\1.gif" />
+    <Content Include="Images\authority\11.gif" />
+    <Content Include="Images\authority\1_add.png" />
+    <Content Include="Images\authority\1_close.png" />
+    <Content Include="Images\authority\1_open.png" />
+    <Content Include="Images\authority\2.gif" />
+    <Content Include="Images\authority\22.gif" />
+    <Content Include="Images\authority\2_edit.png" />
+    <Content Include="Images\authority\33.gif" />
+    <Content Include="Images\authority\3_del.png" />
+    <Content Include="Images\authority\404.jpg" />
+    <Content Include="Images\authority\act_btn.gif" />
+    <Content Include="Images\authority\add.jpg" />
+    <Content Include="Images\authority\ajax-loading.gif" />
+    <Content Include="Images\authority\arrow.gif" />
+    <Content Include="Images\authority\back.gif" />
+    <Content Include="Images\authority\bar9.gif" />
+    <Content Include="Images\authority\bg.gif" />
+    <Content Include="Images\authority\blank.gif" />
+    <Content Include="Images\authority\border.png" />
+    <Content Include="Images\authority\box_tit_bg.gif" />
+    <Content Include="Images\authority\closed.gif" />
+    <Content Include="Images\authority\controls.png" />
+    <Content Include="Images\authority\del.gif" />
+    <Content Include="Images\authority\edt.gif" />
+    <Content Include="Images\authority\fancybox-x.png" />
+    <Content Include="Images\authority\fancybox-y.png" />
+    <Content Include="Images\authority\fancybox.png" />
+    <Content Include="Images\authority\fancy_close.png" />
+    <Content Include="Images\authority\fancy_loading.png" />
+    <Content Include="Images\authority\fancy_nav_left.png" />
+    <Content Include="Images\authority\fancy_nav_right.png" />
+    <Content Include="Images\authority\fancy_shadow_e.png" />
+    <Content Include="Images\authority\fancy_shadow_n.png" />
+    <Content Include="Images\authority\fancy_shadow_ne.png" />
+    <Content Include="Images\authority\fancy_shadow_nw.png" />
+    <Content Include="Images\authority\fancy_shadow_s.png" />
+    <Content Include="Images\authority\fancy_shadow_se.png" />
+    <Content Include="Images\authority\fancy_shadow_sw.png" />
+    <Content Include="Images\authority\fancy_shadow_w.png" />
+    <Content Include="Images\authority\fancy_title_left.png" />
+    <Content Include="Images\authority\fancy_title_main.png" />
+    <Content Include="Images\authority\fancy_title_over.png" />
+    <Content Include="Images\authority\fancy_title_right.png" />
+    <Content Include="Images\authority\first.gif" />
+    <Content Include="Images\authority\go.gif" />
+    <Content Include="Images\authority\home.gif" />
+    <Content Include="Images\authority\last.gif" />
+    <Content Include="Images\authority\left_tabid_cnt_top.png" />
+    <Content Include="Images\authority\left_tab_Selected.png" />
+    <Content Include="Images\authority\left_tab_Selectedno.png" />
+    <Content Include="Images\authority\left_tt.gif" />
+    <Content Include="Images\authority\line_conn.gif" />
+    <Content Include="Images\authority\loading.gif" />
+    <Content Include="Images\authority\loading_background.png" />
+    <Content Include="Images\authority\login_1.gif" />
+    <Content Include="Images\authority\login_1.jpg" />
+    <Content Include="Images\authority\login_2.gif" />
+    <Content Include="Images\authority\login_3.gif" />
+    <Content Include="Images\authority\login_4.gif" />
+    <Content Include="Images\authority\login_5.gif" />
+    <Content Include="Images\authority\login_6.gif" />
+    <Content Include="Images\authority\logo.png" />
+    <Content Include="Images\authority\main_12_me.gif" />
+    <Content Include="Images\authority\main_12_me2.gif" />
+    <Content Include="Images\authority\minus.jpg" />
+    <Content Include="Images\authority\next.gif" />
+    <Content Include="Images\authority\tab.gif" />
+    <Content Include="Images\authority\tableline.jpg" />
+    <Content Include="Images\authority\tableline_bottom.jpg" />
+    <Content Include="Images\authority\tableline_top.jpg" />
+    <Content Include="Images\authority\tablemde.jpg" />
+    <Content Include="Images\authority\tab_03.gif" />
+    <Content Include="Images\authority\tab_05.gif" />
+    <Content Include="Images\authority\tab_07.gif" />
+    <Content Include="Images\authority\tab_12.gif" />
+    <Content Include="Images\authority\tab_15.gif" />
+    <Content Include="Images\authority\tab_17.gif" />
+    <Content Include="Images\authority\tab_18.gif" />
+    <Content Include="Images\authority\tab_19.gif" />
+    <Content Include="Images\authority\tab_20.gif" />
+    <Content Include="Images\authority\tb.gif" />
+    <Content Include="Images\authority\tdbj.gif" />
+    <Content Include="Images\authority\tip.gif" />
+    <Content Include="Images\authority\top.jpg" />
+    <Content Include="Images\authority\top_bg.jpg" />
+    <Content Include="Images\authority\top_bg.png" />
+    <Content Include="Images\authority\top_logo.jpg" />
+    <Content Include="Images\authority\top_logo.png" />
+    <Content Include="Images\authority\top_tt_bg.gif" />
+    <Content Include="Images\authority\VerifyCode.png" />
+    <Content Include="Images\authority\zTreeStandard.gif" />
+    <Content Include="Images\authority\zTreeStandard.png" />
+    <Content Include="Images\authority\zTreeStandard1.gif" />
+    <Content Include="Images\common\add.png" />
+    <Content Include="Images\common\close.jpg" />
+    <Content Include="Images\common\nav_hide.png" />
+    <Content Include="Images\common\nav_show.png" />
+    <Content Include="Images\common\select1.png" />
+    <Content Include="Images\common\图文g.png" />
+    <Content Include="Images\common\图文s.png" />
+    <Content Include="Images\common\图片g.png" />
+    <Content Include="Images\common\图片s.png" />
+    <Content Include="Images\common\文本g.png" />
+    <Content Include="Images\common\文本s.png" />
+    <Content Include="Images\common\视频g.png" />
+    <Content Include="Images\common\视频s.png" />
+    <Content Include="Images\common\音频g.png" />
+    <Content Include="Images\common\音频s.png" />
+    <Content Include="Images\login\btn.jpg" />
+    <Content Include="Images\login\btn_hover.jpg" />
+    <Content Include="Images\login\login.png" />
+    <Content Include="Scripts\Angular\angular-mocks.js" />
+    <Content Include="Scripts\Angular\angular-resource.js" />
+    <Content Include="Scripts\Angular\angular-route.js" />
+    <Content Include="Scripts\Angular\angular.js" />
+    <Content Include="Scripts\Angular\angular.min.js" />
+    <Content Include="Scripts\Angular\controllers.js" />
+    <Content Include="Scripts\authority\commonAll.js" />
+    <Content Include="Scripts\Bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Scripts\Bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\Bootstrap\css\bootstrap.css" />
+    <Content Include="Scripts\Bootstrap\css\bootstrap.min.css" />
+    <Content Include="Scripts\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\Bootstrap\js\bootstrap.js" />
+    <Content Include="Scripts\Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Bootstrap\js\npm.js" />
+    <Content Include="Scripts\Controllers\app.js" />
+    <Content Include="Scripts\Controllers\appAg.js" />
+    <Content Include="Scripts\Controllers\WXBaseController.js" />
+    <Content Include="Scripts\Controllers\WXDirective.js" />
+    <Content Include="Scripts\Controllers\WXOrgController.js" />
+    <Content Include="Scripts\Controllers\WXResController.js" />
+    <Content Include="Scripts\Controllers\WXService.js" />
+    <Content Include="Scripts\Dropzone\css\basic.css" />
+    <Content Include="Scripts\Dropzone\css\dropzone.css" />
+    <Content Include="Scripts\Dropzone\dropzone-amd-module.js" />
+    <Content Include="Scripts\Dropzone\dropzone-amd-module.min.js" />
+    <Content Include="Scripts\Dropzone\dropzone.js" />
+    <Content Include="Scripts\Dropzone\dropzone.min.js" />
+    <Content Include="Scripts\Dropzone\images\spritemap%402x.png" />
+    <Content Include="Scripts\Dropzone\images\spritemap.png" />
+    <Content Include="Scripts\editor\nicEdit.js" />
+    <Content Include="Scripts\editor\nicEditorIcons.gif" />
+    <Content Include="Scripts\fancybox\jquery.easing-1.3.pack.js" />
+    <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.js" />
+    <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.pack.js" />
+    <Content Include="Scripts\fancybox\jquery.mousewheel-3.0.4.pack.js" />
+    <Content Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\financial.jpg" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\qrcode.jpg" />
+    <Content Include="Images\Logo.jpg" />
+    <Content Include="Images\qrcode_for_souidea.jpg" />
+    <Content Include="Images\T1nAXdXb0jXXXXXXXX.png" />
+    <Content Include="Images\WeiWeiHiQrCode.jpg" />
+    <Content Include="Images\weiweihi_menu.png" />
+    <Content Include="Scripts\EGCommon.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery.json-2.3.js" />
+    <Content Include="Scripts\jquery.json-2.3.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\Shared\Commom.js" />
+    <Content Include="Scripts\Shared\Pagination.js" />
+    <Content Include="Scripts\senparc.menu.js" />
+    <Content Include="Scripts\table\tablepage.js" />
+    <Content Include="Scripts\Views\PagesUC.html" />
+    <Content Include="Scripts\Views\Page\GroupSend.html" />
+    <Content Include="Scripts\Views\Page\GroupSendReview.html" />
+    <Content Include="Scripts\Views\Page\Message.html" />
+    <Content Include="Scripts\Views\Page\WXArticleEdit.html" />
+    <Content Include="Scripts\Views\Page\WXArticlesConfig.html" />
+    <Content Include="Scripts\Views\Page\WXPictureConfig.html" />
+    <Content Include="Scripts\Views\Page\WXVideosConfig.html" />
+    <Content Include="Scripts\Views\Page\WXVoicesConfig.html" />
+    <Content Include="Scripts\Views\ResourceManage.html" />
+    <Content Include="Scripts\Views\TemMessageSend.html" />
+    <Content Include="Scripts\Views\WXArticleDisplay.html" />
+    <Content Include="Scripts\Views\WXArticles.html" />
+    <Content Include="Scripts\Views\WXPictureDisplay.html" />
+    <Content Include="Scripts\Views\WXPictures.html" />
+    <Content Include="Scripts\Views\WXVideoPlay.html" />
+    <Content Include="Scripts\Views\WXVideos.html" />
+    <Content Include="Scripts\Views\WXVoicePlay.html" />
+    <Content Include="Scripts\Views\WXVoices.html" />
+    <Content Include="Scripts\WeiXinJS.js" />
+    <Content Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\wizard\scrollable.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.all-3.2.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.all-3.2.min.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.core-3.2.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.core-3.2.min.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.excheck-3.2.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.excheck-3.2.min.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.exedit-3.2.js" />
+    <Content Include="Scripts\zTree\jquery.ztree.exedit-3.2.min.js" />
+    <Content Include="WebServices\WeChatWS.asmx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\WXMenu\Index.cshtml" />
+    <Content Include="Views\OAuth2\Index.cshtml" />
+    <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
+    <Content Include="Views\SimulateTool\Index.cshtml" />
+    <Content Include="Views\TenPay\JsApi.cshtml" />
+    <Content Include="Views\TenPay\FeedBack.cshtml" />
+    <Content Include="Views\TenPay\Index.cshtml" />
+    <Content Include="Views\TenPay\Native.cshtml" />
+    <Content Include="Views\TenPay\NativeCall.cshtml" />
+    <Content Include="Views\TenPay\PayNotifyUrl.cshtml" />
+    <Content Include="Views\TenPay\Delivernotify.cshtml" />
+    <Content Include="Views\TenPay\SharedAddress.cshtml" />
+    <Content Include="Views\TenPayV3\JsApi.cshtml" />
+    <Content Include="Views\TemplateMessage\Message.cshtml" />
+    <Content Include="Views\TemplateMessage\MessageSend.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Home\Introduce.cshtml" />
+    <Content Include="Views\TemplateMessage\TestView.cshtml" />
+    <Content Include="Views\User\New.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\User\ActiveList.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\TemplateMessage\MessageConfig.cshtml" />
+    <Content Include="Views\TemplateMessage\TemplateEdit.cshtml" />
+    <Content Include="Views\Shared\Message.cshtml" />
+    <Content Include="Views\Shared\_PartialList.cshtml" />
+    <Content Include="Views\Shared\_PartialCheckboxList.cshtml" />
+    <Content Include="Views\Group\New.cshtml" />
+    <Content Include="Views\Group\List.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\ResponseChainConfig\Index.cshtml" />
+    <Content Include="Views\WXResource\WXPictureConfig.cshtml" />
+    <Content Include="Views\TemplateMessage\GroupSend.cshtml" />
+    <Content Include="Views\WXResource\WXArticleConfig.cshtml" />
+    <Content Include="Views\Shared\_SubLayout.cshtml" />
+    <Content Include="Views\WXResource\WXArticlesConfig.cshtml" />
+    <Content Include="Views\User\UserGroup.cshtml" />
+    <Content Include="Views\AccessRight\List.cshtml" />
+    <Content Include="Views\WXOrganization\WXCreateGroup.cshtml" />
+    <Content Include="Views\WebConfig\Index.cshtml" />
+    <Content Include="Views\Member\CardApply.cshtml" />
+    <Content Include="Scripts\Angular\angular.min.js.map" />
+    <Content Include="Scripts\Bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Scripts\Bootstrap\css\bootstrap.css.map" />
+    <Content Include="Scripts\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\Dropzone\css\stylus\basic.styl" />
+    <Content Include="Scripts\Dropzone\css\stylus\dropzone.styl" />
+    <Content Include="Views\ResponseChainConfig\Preview.cshtml" />
+    <Content Include="Views\ResponseChainConfig\TreeIndex.cshtml" />
+    <Content Include="Views\Shared\_Layout3.cshtml" />
+    <Content Include="Views\TemplateMessage\GroupSendReview.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\TemplateMessage\Message2.cshtml" />
+    <Content Include="Views\WXResource\WXArticlesConfig2.cshtml" />
+    <Content Include="Views\WXResource\WXPictureConfig2.cshtml" />
+    <Content Include="Views\MemberM\List.cshtml" />
+    <Content Include="Views\WXArticle\Index.cshtml" />
+    <Content Include="Views\WXResource\WXVideosConfig.cshtml" />
+    <Content Include="Views\UserMessage\List.cshtml" />
+    <Content Include="Views\WXResource\WXVoicesConfig.cshtml" />
+    <Content Include="Views\ResponseChainCustomHandler\AdvantanceConfig_CustomHandler_ArtificialService\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Views\UserControl\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TG.Utility\EG.WeChat.Utility\EG.WeChat.Utility.csproj">
+      <Project>{39a42f72-3ad0-4f56-a577-41074ce37fe1}</Project>
+      <Name>EG.WeChat.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EG.WeChat.Business\EG.WeChat.Business.csproj">
+      <Project>{9adb79cc-ed42-4d09-83e3-a237cabfaa8f}</Project>
+      <Name>EG.WeChat.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EG.WeChat.Platform\EG.WeChat.Platform.csproj">
+      <Project>{b886aea1-0b4a-4f1a-a208-64c9dd720fc3}</Project>
+      <Name>EG.WeChat.Platform</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Publishes|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51528</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:19000/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/Bundles/JQ")
+    @Scripts.Render("~/Bundles/JS")
+    @Styles.Render("~/Bundles/Css")
+    @RenderSection("HeaderContent", false)
+</head>
+<body>
+    <div id="box_top">@ViewBag.Title</div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

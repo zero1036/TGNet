@@ -1,0 +1,15 @@
+﻿<div class="ui_content">
+    <div id="page" class="ui_tb">
+        <table id="table" class="table"  style="width:100%; align-content:center;" cellspacing="0" cellpadding="0"   border="0" onmouseover="tableMouseOver()">
+            <thead></thead>
+            <tbody></tbody>
+            <tfoot></tfoot>
+        </table>
+    </div>
+    <div id="pager" class="ui_tb_h30">
+        @Html.Hidden("PageIndex", 1)
+    </div>
+    @Html.Hidden("TotalPages")
+    @Html.Hidden("TotalCount")
+</div>
+

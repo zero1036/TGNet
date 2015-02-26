@@ -1,0 +1,112 @@
+﻿@model List<EG.WeChat.Model.TR_Group_Right>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+    //Layout = null;
+}
+
+
+@section HeaderContent
+{
+    <script type="text/javascript">
+        var oldData;
+
+        $(function () {
+            oldData = GetRight();
+        });
+
+
+        function SelectAll(obj) {
+            var tabletr = $(obj).parent().parent();
+            tabletr.find("input:checkbox").attr("checked", obj.checked);
+        }
+
+
+        function GetRight() {
+            var data = new StringBuilder();
+            $.each($("table tbody tr"), function (n, m) {
+                var controller = $(m).find(".span_controller a").attr("code").trim();
+                var action = "";
+                $.each($(m).find(".span_action input:checked + a"), function (i, j) {
+                    action += $(j).attr("code").trim() + ",";
+                });
+                if (action.length > 0) {
+                    action = action.substring(0, action.length - 1);
+                }
+                data.AppendFormat("{0}:{1};", controller, action);
+            });
+            return data.ToString();
+        }
+
+
+        function SaveRight() {
+            var newData = GetRight();
+            if (oldData != newData) {
+                $.post("/AccessRight/SaveList", { GroupID: $("#GroupID").val(), Data: newData }, function (data) {
+                    if (data.IsSuccess) {
+                        alert("操作成功！");
+                        oldData = newData;
+                    } else {
+                        alert(data.Exception);
+                    }
+                });
+            }
+        }
+
+    </script>
+}
+
+<style type="text/css">
+    .span_action
+    {
+        display: -moz-inline-box;
+        display: inline-block;
+        text-align: left;
+        width: 150px;
+    }
+
+    .span_controller
+    {
+        display: inline-block;
+        width: 150px;
+        vertical-align: middle;
+        /*top:expression((body.clientHeight)/2);*/
+    }
+</style>
+
+@{var model = Model.GroupBy(z => z.Controller);}
+
+<div class="div_grouprightsetedlist">
+    @Html.Hidden("GroupID")
+    <table>
+        <thead>
+            <tr>
+                <th title="Controller" >模塊</th>
+                <th title="Action">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Controller in model)
+            {
+                <tr>
+                    <td class="span_controller">
+                        <input type="checkbox" onclick="SelectAll(this)" /><a code="@Controller.Key" title="@Controller.First().ControllerD"> @Controller.First().ControllerName </a></td>
+                    <td>
+                        @foreach (var Action in Controller)
+                        {
+                            <span class="span_action">
+                                <input type="checkbox"  @Html.Raw(Action.GroupID == 0 ? "" : "checked")  />
+                                <a code="@Action.Action" title="@Action.ActionD">@Action.ActionName </a></span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <input type="button" class="ui_input_btn01" value=" 保存" onclick="SaveRight()" />
+
+</div>
+
+
+

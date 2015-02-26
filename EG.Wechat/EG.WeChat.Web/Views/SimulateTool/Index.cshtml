@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "微信消息模擬工具";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var nonce = "JeffreySu";
+    var timestamp = DateTime.Now.Ticks.ToString();
+    var echostr = DateTime.Now.Ticks.ToString();
+    var token = ViewData["Token"] as string;
+}
+@section HeaderContent
+{
+    <style>
+        .param {
+            display: none;
+        }
+
+        .messageXmlArea {
+            width: 100%;
+        }
+
+            .messageXmlArea textarea {
+                width: 100%;
+                height: 200px;
+            }
+
+        .paramAreaLeft {
+            float: left;
+            width: 45%;
+            margin-right: 6%;
+        }
+
+        .paramArearight {
+            width: 45%;
+            float: left;
+        }
+
+        #requestType, #eventType {
+            padding: 5px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('#requestType').change(checkRequestType);
+            $('#eventType').change(checkEventType);
+            checkRequestType();
+            checkEventType();
+        });
+
+        function checkRequestType() {
+            var requestType = $('#requestType').val();
+            var paramId = 'param' + requestType;
+            $('div[id^=param]').hide();
+            $('#' + paramId).show();
+        }
+
+        function checkEventType() {
+            var requestType = $('#eventType').val();
+            var eventId = 'event' + requestType;
+            $('div[id^=event]').hide();
+            $('#' + eventId).show();
+        }
+
+        function sendMessage() {
+            var url = $('#Url').val();
+            var token = $('#Token').val();
+            var requestType = $('#requestType').val();
+            var eventType = $('#eventType').val();
+            var param = { url: url, token: token, requestType: requestType };
+            var paramId = 'param' + requestType;
+            var eventId = 'event' + eventType;
+            var msgId = $('#txtMsgId').val();
+
+            if (!msgId) {
+                alert('MsgId必须填写！');
+                return;
+            }
+
+            //设置参数
+            if (requestType != 'Event') {
+                $.each($('#' + paramId).find('input'), function (i, item) {
+                    param[$(item).attr('name')] = $(item).val();
+                });
+            } else {
+                param.eventType = eventType;
+                $.each($('#' + eventId).find('input'), function (i, item) {
+                    param[$(item).attr('name')] = $(item).val();
+                });
+            }
+            param.MsgId = msgId;
+
+            var txtResponseMessageXML = $('#responseMessageXML');
+            var txtRequestMessageXML = $('#requestMessageXML');
+
+            txtResponseMessageXML.html('载入中...');
+            txtRequestMessageXML.html('载入中...');
+
+            $.post('@Url.Action("Index")', param, function (result) {
+                txtResponseMessageXML.text(result);
+            });
+
+            $.post('@Url.Action("GetRequestMessageXml")', param, function (result) {
+                txtRequestMessageXML.text(result);
+            });
+        }
+    </script>
+}
+@section Featured
+{
+
+}
+<section class="content-wrapper main-content clear-fix">
+    <h1>微信消息模擬工具</h1>
+    <div class="clear-fix"></div>
+    <div id="simulateTool">
+        <div class="paramAreaLeft">
+            <h3>接口設置</h3>
+            <div>
+                URL：@Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host))<br />
+                Token：@Html.TextBox("Token", token)
+            </div>
+            <h3>發送參數</h3>
+            <div>
+                類型：<select id="requestType">
+                    <option value="Text">文本</option>
+                    <option value="Location">地理位置</option>
+                    <option value="Image">圖片</option>
+                    <option value="Voice">語音</option>
+                    <option value="Video">視頻</option>
+                    @*<option value="Link">連接資訊</option>*@
+                    <option value="Event">事件推送</option>
+                </select>
+            </div>
+            <div>
+                參數：
+                <div id="paramText" class="param">
+                    內容：<input name="Content" />
+                </div>
+                <div id="paramLocation" class="param">
+                    標籤：<input name="Label" /><br />
+                    X座標：<input name="Location_X" type="number" value="0" /><br />
+                    Y座標：<input name="Location_Y" type="number" value="0" /><br />
+                    縮放：<input name="Scale" type="number" value="0" step="1" /><br />
+                </div>
+                <div id="paramImage" class="param">
+                    圖片Url：<input name="PicUrl" /><br />
+                </div>
+                <div id="paramVoice" class="param">
+                    格式：<input name="Format" value="arm" /><br />
+                    識別：<input name="Recognition" /><br />
+                </div>
+                <div id="paramVideo" class="param">
+                    消息MsgId：<input name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
+                    ThumbMediaId：<input name="ThumbMediaId" /><br />
+                </div>
+                @*<div id="paramLink" class="param"></div>*@
+                <div id="paramEvent" class="param">
+                    事件类型：<select id="eventType">
+                        @*<option value="ENTER">进入会话</option>*@
+                        <option value="LOCATION">地理位置</option>
+                        <option value="subscribe">訂閱</option>
+                        <option value="unsubscribe">取消訂閱</option>
+                        <option value="CLICK">自訂菜單點擊事件</option>
+                        <option value="scan">二維碼掃描</option>
+                        <option value="VIEW">URL跳轉</option>
+                        <option value="MASSSENDJOBFINISH">事件推送群發結果</option>
+                    </select>
+                    @*<div id="eventENTER" class="param"></div>*@
+                    <div id="eventLOCATION" class="param">
+                        緯度：<input name="Event.Latitude" type="number" value="0"/><br />
+                        經度：<input name="Event.Longitude" type="number" value="0"/><br />
+                        精度：<input name="Event.Precision" type="number" value="0"/><br />
+                    </div>
+                    <div id="eventsubscribe" class="param">
+                        事件EventKey：<input name="Event.EventKey" /><br />
+                    </div>
+                    <div id="eventunsubscribe" class="param"></div>
+                    <div id="eventCLICK" class="param">
+                        事件EventKey：<input name="Event.EventKey" /><br />
+                    </div>
+                    <div id="eventscan" class="param">
+                        事件EventKey：<input name="Event.EventKey" /><br />
+                        事件Ticket：<input name="Event.Ticket" /><br />
+                    </div>
+                    <div id="eventVIEW" class="param">
+                        事件EventKey：<input name="Event.EventKey" value="http://" /><br />
+                    </div>
+                    <div id="eventMASSSENDJOBFINISH" class="param">
+                        ErrorCount：<input name="Event.ErrorCount" type="number" value="0"/><br />
+                        FilterCount：<input name="Event.FilterCount" type="number" value="0"/><br />
+                        SendCount：<input name="Event.SendCount" type="number" value="0"/><br />
+                        Status：<input name="Event.Status"/><br />
+                        TotalCount：<input name="Event.TotalCount" type="number" value="0"/><br />
+                    </div>
+                    
+                </div>
+                <div>
+                    <div>
+                        MsgId：<input id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" /><br />
+                    </div>
+                   
+                    <input type="button" value="提交" onclick="sendMessage()" />
+                </div>
+            </div>
+        </div>
+        <div class="paramArearight">
+
+            <div class="messageXmlArea">
+                <h3>發送內容（根據參數自動生成）</h3>
+                <textarea id="requestMessageXML" readonly="readonly"></textarea>
+            </div>
+            <div class="messageXmlArea">
+                <h3>接收内容</h3>
+                <textarea id="responseMessageXML"></textarea>
+            </div>
+        </div>
+    </div>
+</section>

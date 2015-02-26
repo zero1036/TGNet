@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <!--IE兼容标签-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--响应式布局-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--默认使用webkit内核进行渲染-->
+    <meta name="renderer" content="webkit">
+    <!-- 採用CDN數據源，JQuery Bootstrap 由于Jquery2.0版本以上不支持IE678，改用1.9.1-->
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            var mid = GetQueryString('mid');
+            var idx = GetQueryString('idx');
+
+            $.ajax({
+                url: '/WXArticle/LoadModel',
+                data: { "mid": mid, "idx": idx },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //console.log($("#ui_h2").attr('title'));
+                    $("#ui_h2").html(data.title);
+                    $("#ui_img").attr('src', data.RPath);
+                    $("#ui_div_content").html(data.content);
+                    $("#ui_a").attr('href', data.content_source_url);
+                }
+            });
+        });
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+    </script>
+    <div style="background-color: white; padding: 7px 7px 7px 7px">
+        <h2 id="ui_h2" style="margin-left: 5px; margin-top: 5px"></h2>
+        <p style="font-size: 15px; color: gray;">@DateTime.Now.ToString()&nbsp;&nbsp;<a href="javascript:void(0);"><span>泛智(广州)咨询</span></a></p>
+        <img id="ui_img" style="width: 96%">
+        <br />
+        <br />
+        <style type="text/css">
+            .suofang {
+                MARGIN: auto;
+                /*WIDTH: 315px;*/
+                width: 100%;
+            }
+            /*.suofang img {
+                    MAX-WIDTH: 100%!important;
+                    HEIGHT: auto!important;
+                    width: expression(this.width > 315 ? "315px" : this.width)!important;
+                }*/
+        </style>
+        <div class="suofang">
+            <div id="ui_div_content">
+            </div>
+        </div>
+        <br />
+        <p style="font-size: 15px; color: gray"><a id="ui_a" href="#"><span>阅读原文</span></a>&nbsp;&nbsp;阅读&nbsp;5&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;赞</p>
+    </div>
+</body>
+</html>

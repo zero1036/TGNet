@@ -1,0 +1,337 @@
+﻿@model List<EG.WeChat.Web.Models.TemplateMessageConfigM>
+@{
+    ViewBag.Title = "MessageConfig";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    @*js脚本*@
+    @Scripts.Render("~/Scripts/EGCommon.js")
+    @Scripts.Render("~/Scripts/jquery-1.7.1.js")
+    @Scripts.Render("~/Scripts/authority/commonAll.js")
+    @Scripts.Render("~/Scripts/fancybox/jquery.fancybox-1.3.4.js")
+    @Scripts.Render("~/Scripts/fancybox/jquery.fancybox-1.3.4.pack.js")
+    @Scripts.Render("~/Scripts/table/tablepage.js")
+
+    @*css样式*@
+    @Styles.Render("~/Content/authority/jquery.fancybox-1.3.4.css")
+    @Styles.Render("~/Content/authority/basic_layout.css")
+    @Styles.Render("~/Content/authority/common_style.css")
+
+    <title>英皇金業集團</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /** 开启发送模板消息fancybox**/
+
+            /**编辑   **/
+            $("a.edit").fancybox({
+                //'autoScale': true,
+                'width': 500,
+                'height': 530,
+                'type': 'iframe',
+                'hideOnOverlayClick': true,
+                'titleShow': false,
+                'showCloseButton': true,
+                'scrolling': 'no',
+                //'onClosed': function () {
+                //    window.location.href = 'Message';
+                //}
+            });
+
+        });
+        //submit表单
+        function EditConfig(pIndexValue) {
+            $.post("/TemplateMessage/TemplateEdit", { pIndex: pIndexValue }, function (data) {
+                alert('ok');
+
+            });
+        }
+    </script>
+    <style>
+        #wrapper1 {
+            width: 975px;
+            height: 480px;
+            position: absolute;
+            top: 80px;
+        }
+
+        .thumbx {
+            position: absolute;
+            background: #044599;
+            line-height: 20px;
+            width: 260px;
+            height: 300px;
+            box-shadow: 1px 1px 6px #222;
+        }
+
+        #thumb1 {
+            left: 0px;
+            top: 20px;
+        }
+
+        #thumb2 {
+            left: 270px;
+            top: 20px;
+        }
+
+        #thumb3 {
+            left: 540px;
+            top: 20px;
+        }
+
+        #thumb4 {
+            left: 810px;
+            top: 20px;
+        }
+
+        #thumb5 {
+            left: 1080px;
+            top: 20px;
+        }
+
+        #thumb6 {
+            left: 0px;
+            top: 330px;
+        }
+
+        #thumb7 {
+            left: 270px;
+            top: 330px;
+        }
+
+        #thumb8 {
+            left: 540px;
+            top: 330px;
+        }
+
+        #thumb9 {
+            left: 810px;
+            top: 330px;
+        }
+
+        #thumb10 {
+            left: 1080px;
+            top: 330px;
+        }
+
+        .textHeader {
+            color: #044599;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            font: 18px "Microsoft YaHei";
+        }
+
+        .textContent {
+            color: white;
+            position: absolute;
+            left: 10px;
+            top: 40px;
+            right: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="container">
+        <div class="ui_content">
+            <div class="ui_text_indent">
+                <div id="box_border">
+                    <div id="box_top">消息模板管理</div>
+                    <div id="box_bottom">
+                        <input type="button" value="同步云端" class="ui_input_btn01" onclick="javascript: alert('暫缺');" />
+                        <input type="button" value="剩余模板数" class="ui_input_btn01" onclick="javascript: alert('暫缺');" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui_content">
+            <div id="page" class="ui_tb">
+                <div id="wrapper1">
+
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=0'>
+                        <div id="thumb1" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'"
+                            onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 1)
+                            {
+                                <p class="textHeader">
+                                    @MvcHtmlString.Create(Model[0].Title + "（示例）")
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[0].ExampleDisplay)
+                                </p>                               
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=1'>
+                        <div id="thumb2" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'" onclick="@Url.Action("TemplateEdit", "TemplateMessage", 0)">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 2)
+                            {
+                                <p class="textHeader">
+                                    @Model[1].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[1].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=2'>
+                        <div id="thumb3" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 3)
+                            {
+                                <p class="textHeader">
+                                    @Model[2].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[2].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=3'>
+                        <div id="thumb4" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 4)
+                            {
+                                <p class="textHeader">
+                                    @Model[3].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[3].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=4'>
+                        <div id="thumb5" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 5)
+                            {
+                                <p class="textHeader">
+                                    @Model[4].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[4].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=5'>
+                        <div id="thumb6" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 6)
+                            {
+                                <p class="textHeader">
+                                    @Model[5].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[5].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=6'>
+                        <div id="thumb7" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 7)
+                            {
+                                <p class="textHeader">
+                                    @Model[6].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[6].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=7'>
+                        <div id="thumb8" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 8)
+                            {
+                                <p class="textHeader">
+                                    @Model[7].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[7].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=8'>
+                        <div id="thumb9" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 9)
+                            {
+                                <p class="textHeader">
+                                    @Model[8].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[8].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+                    <a class='edit' href='/TemplateMessage/TemplateEdit?pIndex=9'>
+                        <div id="thumb10" class="thumbx" onmouseover="this.style.backgroundColor='#5380CF'" onmouseout="this.style.backgroundColor='#044599'">
+                            @if (Model != null && Model.Count != 0 && Model.Count >= 10)
+                            {
+                                <p class="textHeader">
+                                    @Model[9].Title
+                                </p>
+                                <p class="textContent">
+                                    @MvcHtmlString.Create(Model[9].ExampleDisplay)
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/common/add.png" width="40px" height="40px">
+                            }
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

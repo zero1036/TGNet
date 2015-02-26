@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConfigService>
+  <TemplateMessage key="1jrlBA0RQeCaBzN7CaUiWZjfRbIh6I_7tG8eGlg0x-8">{"Content":null,"Example":"您收到了一个新的工作任务\u000d\u000a描述：制作14A016项目工艺指导书\u000d\u000a工作量：1天\u000d\u000a备注：参考13A001项目\u000d\u000a时限：2014年9月15日\u000d\u000a来自：工艺部部长XXX\u000d\u000a您目前还有N个项目，本月已完成工作量：10天","ID":"1jrlBA0RQeCaBzN7CaUiWZjfRbIh6I_7tG8eGlg0x-8","Property":"first,keyword1,keyword2,keyword3,keyword4,keyword5,remark","Title":"新任务提醒"}</TemplateMessage>
+  <TemplateMessage key="eBfdUggBTbh4V1NdipXxeOGnqMazI-4nmcfdWMpIomE">{"Content":null,"Example":"您好，您已购买成功。\u000d\u000a\u000d\u000a商品名：微信数据容灾服务\u000d\u000a购买数量：1份\u000d\u000a有效期：2014-09-12\u000d\u000a备注：如有疑问，请致电13912345678联系我们，或回复M来了解详情。","ID":"eBfdUggBTbh4V1NdipXxeOGnqMazI-4nmcfdWMpIomE","Property":"productType,name,number,expDate,remark","Title":"购买成功通知"}</TemplateMessage>
+</ConfigService>

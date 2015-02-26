@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <title>Stencil</title>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.all-3.2.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.core-3.2.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.excheck-3.2.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.exedit-3.2.js"></script>
+
+
+        <script type="text/javascript">
+	<!--
+    var setting = {
+        view: {
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            selectedMulti: false,
+            fontCss: setFontCss
+        },
+        edit: {
+            enable: true,
+            showRemoveBtn: CheckshowRemoveBtn,
+            showRenameBtn: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeDrag: zTreeBeforeDrag,
+            beforeRemove: beforeRemove
+        }
+    };
+
+    function zTreeBeforeDrag(treeId, treeNodes) {
+        return false;
+    };
+
+    //是否显示"删除按钮"
+    function CheckshowRemoveBtn(treeId, treeNode) {
+        return treeNode.Deleteable;
+    }
+
+    //删除节点前
+    function beforeRemove(treeId, treeNode) {
+        if (window.confirm('請確認是否刪除？')) {
+            //提交后台处理成功返回true，失败返回false；
+            window.location = '@Url.Action("Delete")' + '?CallBackIndexView=TreeIndex&nodeID=' + treeNode.NodeID;
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#editBtn_" + treeNode.tId).length > 0) return;
+
+        if (treeNode.Editable) {
+            var editStr = "<span class='button edit' id='editBtn_" + treeNode.tId
+               + "' title='修改節點' onfocus='this.blur();'></span>";
+
+            sObj.after(editStr);
+            $("#editBtn_" + treeNode.tId).bind("click", function () {
+                //修改节点
+                window.location.href = "/responseChainConfig/Edit?CallBackIndexView=TreeIndex&nodeID=" + treeNode.NodeID;
+            });
+        }
+
+    };
+    function removeHoverDom(treeId, treeNode) {
+        if (treeNode.Editable) {
+            $("#editBtn_" + treeNode.tId).unbind().remove();
+        }
+    };
+
+
+    $(document).ready(function () {
+        GetzNodes();
+    });
+
+
+    function GetzNodes() {
+        $.post('@Url.Action("GetTreeStruct")', {}, function (data) {
+            var ret = eval("(" + data + ")");
+            $.fn.zTree.init($("#treeDemo"), setting, ret);
+        });
+    }
+
+    /* 添加新的节点 */
+    function AddNewNode() {
+        window.location.href = "/responseChainConfig/AddNewNode?CallBackIndexView=TreeIndex";
+    }
+
+    function setFontCss(treeId, treeNode) {
+        return { background: treeNode.background };
+    };
+
+    //-->
+</script>
+</head>
+<body style="padding:30px">
+    <div style="width: 100%">
+        <nl><a href="javascript:void(0)" onclick="AddNewNode()">+ 添加新節點</a> </nl>
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</body>
+</html>

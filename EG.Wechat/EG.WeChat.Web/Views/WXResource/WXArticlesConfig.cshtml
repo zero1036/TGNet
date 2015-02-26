@@ -1,0 +1,170 @@
+﻿@model EG.WeChat.Web.Models.WXArticlesBinding
+@{
+    ViewBag.Title = "WXArticlesConfig";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    @*<js引用>*@
+    @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")
+    @Scripts.Render("~/Scripts/jquery.form.js")
+    @*<css引用>*@
+    @Styles.Render("~/Content/authority/common_style.css")
+    @Styles.Render("~/Content/authority/basic_layout.css")
+
+    <script type="text/javascript">
+        //设置选中资源，并返回到父页（只有在子页为IFrame时有效）
+        function SetSelection(path, resourceId, title) {
+            if (parent != null)
+                parent.selectArticle(path, resourceId, title);
+        }
+        // 
+        function isImageFileName(str) {
+            var reg = /([0-9]{1,}.jpg)|([0-9]{1,}.gif)/;
+            if (reg.test(str)) {
+                return true;
+            }
+            return false;
+        }//这个函数是判断返回的值是不是包含图片，因为后天返回值有几种，正确上传返回图片存储路径
+        //上传图片
+        function AjaxUpLoadFile() {
+            $('#UpLoadForm').ajaxSubmit({
+                success: function (html, status) {
+                    //var result = html.replace("<pre>", "");
+                    //result = result.replace("</pre>", "");
+                    //$("#image").attr('src', result);
+                    //alert(result);
+
+                    var start = html.indexOf(">");
+                    if (start != -1) {
+                        var end = html.indexOf("<", start + 1);
+                        if (end != -1) {
+                            msg = html.substring(start + 1, end);
+                        }
+                    }//上面这一段是因为在谷歌等一些浏览器会导致获取的值包含<pre>标签
+                    var regex = new RegExp("\"", "g");
+                    html = html.replace(regex, "")
+                    //这段是有些浏览器会给msg字符串加上双引号的标签，现在就去掉双引号标签
+                    if (isImageFileName(html)) {
+                        alert(html);
+                        $("#image").attr('src', html);//这里是重新设置图片的地址
+                    }
+                    else
+                        alert(html);
+                }
+            });
+        }
+
+    </script>
+    <style>
+        #tbOpenID {
+            width: 300px;
+        }
+
+        #box_center {
+            border-bottom: 0px solid #fff;
+            height: 100px;
+        }
+
+        #wrapper1 {
+            /*width: 975px;
+            height: 480px;*/
+            position: absolute;
+            top: 160px;
+        }
+
+        .thumbx {
+            position: absolute;
+            background-color: white;
+            line-height: 20px;
+            width: 170px;
+            height: 230px;
+            /*box-shadow: 1px 1px 2px #044599;*/
+            border: 1px solid #DBDBDB;
+        }
+
+        .textHeader {
+            color: #044599;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            font: 18px "Microsoft YaHei";
+        }
+
+        .textContent {
+            color: white;
+            position: absolute;
+            left: 10px;
+            top: 40px;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="ui_content">
+            <div class="ui_text_indent">
+                <div id="box_border">
+                    <div id="box_top">編輯</div>
+                    <div id="box_center">
+                        <a href="@Url.Action("WXArticleConfig", "WXResource", new { IsCreated = "true", MediaID = "" })" class="withFbox"><span>新建图文资源</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui_content">
+            <div id="page" class="ui_tb">
+                <div id="wrapper1">
+                    @if (Model != null && Model.ListArticles.Count != 0)
+                    {
+                        int iGe = 10;
+                        int x = 0;
+                        int y = 0;
+                        int iRow = 0;
+                        int iCol = 0;
+                        int i = 0;
+
+                        foreach (EG.WeChat.Platform.Model.WXArticleResultJson result in Model.ListArticles)
+                        {
+                            if (i != 0 && (i % (Model.ColumnCount)) == 0)
+                            {
+                                iRow += 1;
+                                iCol = 0;
+                            }
+                            x = (iGe + 170) * iCol;
+                            y = ((iGe + 230) * iRow);
+                            iCol += 1;
+
+                            if (result.ListNews != null && result.ListNews.Count != 0)
+                            {              
+                        <a class='edit' onclick="SetSelection('@result.ListNews[0].digest','@result.media_id','@result.ListNews[0].title')">
+                            <div id="thumb1" class="thumbx" onmouseover="this.style.backgroundColor='#EDEDED'"
+                            onmouseout="this.style.backgroundColor='white'" style="top: @(y)px;left:@(x)px">
+                                <p class="mb15">
+                                    <img src="@Url.Content(result.ListNews[0].digest)" id="image" width="170" height="170" />
+                                    <br />
+                                </p>
+                                <p style="margin-left: 40px; color: gray">標題：@result.ListNews[0].title</p>
+                                <a style="margin-left: 40px; color: gray" href="@Url.Action("WXArticleConfig", "WXResource", new { IsCreated = "false", MediaID = result.media_id })" class="withFbox"><span>編輯</span></a>
+                                <a style="margin-left: 20px; color: gray" href="javascript:void(0);" onclick="alert('暂缺')" class="withFbox"><span>删除</span></a>
+                            </div>
+                        </a>
+                            }
+                            i += 1;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

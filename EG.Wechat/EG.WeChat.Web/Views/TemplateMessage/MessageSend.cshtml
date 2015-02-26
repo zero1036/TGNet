@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Titele = "發送模板消息";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--IE兼容标签-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--响应式布局-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--默认使用webkit内核进行渲染-->
+    <meta name="renderer" content="webkit">
+    <!-- bootstrapcss 采用百度CDN -->
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 本页定制CSS -->
+</head>
+<body>
+    <!-- 採用CDN數據源，JQuery Bootstrap -->
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <!--script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>-->
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <!-- <script>
+        $(document).ready(function () {
+            $('#id_OpenID').val(getQueryString("openid"));
+
+        });
+        function getQueryString(name) {//取URL参数  你要得到userid 就传userid
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+    </script>-->
+    <title>發送模板消息</title>
+
+    <!-- 主功能页面 -->
+    <temmessagesend></temmessagesend>
+</body>
+</html>

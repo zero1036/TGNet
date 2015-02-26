@@ -1,0 +1,229 @@
+﻿@model EG.WeChat.Web.Models.CardApplyVM
+@{
+    //ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!doctype html>
+<html class="no-js">
+<header class="am-topbar am-topbar-fixed-top">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>英皇會員</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    @*    <link rel="stylesheet" href="Common/Card/Scripts/css/amazeui.min.css">
+    <link rel="stylesheet" href="Common/Card/Scripts/css/app.css">*@
+
+    <link rel="stylesheet" href="~/Content/auicss/amazeui.min.css">
+    <link rel="stylesheet" href="~/Content/auicss/app.css">
+    <style>
+        .hope {
+            background: #DDF6FF;
+            padding: 50px 0;
+        }
+
+        .hope-img {
+            text-align: center;
+        }
+
+        .hope-hr {
+            border-color: #149C88;
+        }
+
+        .hope-title {
+            font-size: 140%;
+        }
+    </style>
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="#">VIP</a>
+        </h1>
+
+        @*       <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
+            data-am-collapse="{target: '#collapse-head'}">
+            <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
+        </button>
+
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="#">首页</a></li>
+                <li><a href="#">项目</a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">下拉菜单 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li class="am-dropdown-header">标题</li>
+                        <li><a href="#">1. 默认样式</a></li>
+                        <li><a href="#">2. 基础设置</a></li>
+                        <li><a href="#">3. 文字排版</a></li>
+                        <li><a href="#">4. 网格系统</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="am-topbar-right">
+                <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span>注册</button>
+            </div>
+
+            <div class="am-topbar-right">
+                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span>登录</button>
+            </div>
+        </div>*@
+    </div>
+
+
+</header>
+
+<body>
+    <!--[if lte IE 9]>
+    <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 不提供支持。 请 <a
+      href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+      以获得更好的体验！</p>
+    <![endif]-->
+
+    <script src="~/Scripts/amazeui/jquery.min.js"></script>
+    @*<script src="Scripts/jquery-1.7.1.min.js"></script>*@
+    <script src="~/Scripts/amazeui/amazeui.js"></script>
+    <script src="~/Scripts/amazeui/handlebars.min.js"></script>
+    <script src="~/Scripts/amazeui/amazeui.widgets.helper.js"></script>
+    <script src="~/Scripts/amazeui/app.js"></script>
+
+    <script type="text/x-handlebars-template" id="amz-tpl">
+        @*{{>header header}}*@
+
+        {{>menu menu}}
+
+        {{>slider slider}}
+
+        {{>accordion accordionX}}
+
+        @*{{>list_news list1}}*@
+
+        @*{{>gallery gallery}}*@
+
+        @*{{>list_news list2}}*@
+
+        @*{{>footer footer}}*@
+
+        {{>navbar navbar}}
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            //当申请成为会员后，重新输入消息
+            var message ='@(Model.NewMemberInfo)';
+            if(message!=''&&message!=null&&message!=undefined)
+                alert(message);
+
+            var ASliderData =  @Html.Raw(Json.Encode(Model.ASliderData));
+            var AccordionData =  @Html.Raw(Json.Encode(Model.AccordionData));
+            //var postData = $.toJSON(obj);
+
+            loadSlider2(1,ASliderData);
+            loadAccordion2(2,AccordionData);
+            loadNavbar();
+            //生成并加载所有UI
+            loadUI();
+        });
+        ////submit表单
+        //function Binding() {
+        //    ////检查输入
+        //    //var error = CheckInput();
+        //    //if (error != "") {
+        //    //    $("#Label_Message").text(error);
+        //    //    return;
+        //    //}
+     
+        //    //执行post请求
+        //    $.post("/Member/Register", $("Form").serialize(), function (data2) {
+        //        //if (data2.IsSuccess) {
+        //        //    Success2CloseWindow();
+        //        //}
+        //        alert(data2);
+        //        $("#Label_Message").text(data2.Message);
+        //    })
+         
+        //}
+    </script>
+
+    <div id="div1"></div>
+    @*<br/>*@
+    <div name="divTool">
+        <button onclick="ScrollToBottom()" style="width: 100%" class="am-btn am-btn-success" data-am-popover="{content: '填写认证立即领取会员卡', trigger: 'hover focus'}">立 即 領 取</button>
+    </div>
+    @*<br/>*@
+    <div id="div2"></div>
+    <br />
+
+    <div class="hope">
+        <div class="am-g am-container">
+            <div class="am-u-lg-12">
+                <h2 class="about-title about-color">會員基本信息</h2>
+                <div class="am-g">
+                    <div class="am-u-lg-6 am-u-md-4 am-u-sm-12">
+                        <form class="am-form" action="~/Member/Register" method="post" enctype="multipart/form-data">
+                            @Html.HiddenFor(z => z.OpenID)
+                            <label for="name" class="about-color">你的大名</label>
+                            @*<input id="Name" type="text">*@
+                            @*@Html.TextBoxFor(z => z.Name, new { @type = "text", @id = "id", @class = "am-form-field" })*@
+
+                            <div class="am-input-group am-input-group-seconday">
+                                <span class="am-input-group-label"><i class="am-icon-user"></i></span>
+                                @*<input type="text" class="am-form-field" placeholder="Username">*@
+                                @Html.TextBoxFor(z => z.Name, new { @type = "text", @id = "id", @class = "am-form-field", @placeholder = "*" })
+                            </div>
+                            <br />
+                            <br />
+                            <label for="phone" class="about-color">移動電話</label>
+                            @*<input id="Phone" type="text">*@
+
+                            <div class="am-input-group am-input-group-seconday">
+                                <span class="am-input-group-label">M</span>
+                                @*<input type="text" class="am-form-field" placeholder="Username">*@
+                                @Html.TextBoxFor(z => z.Phone, new { @type = "text", @id = "phone", @class = "am-form-field", @placeholder = "*" })
+                            </div>
+                            <br />
+                            <br />
+                            <label for="email" class="about-color">電郵地址</label>
+                            @*<input id="Mail" type="email">*@
+                            <div class="am-input-group am-input-group-warning">
+                                <span class="am-input-group-label">E</span>
+                                @Html.TextBoxFor(z => z.Mail, new { @type = "email", @id = "email", @class = "am-form-field", @placeholder = "*" })
+                            </div>
+                            <br />
+                            @*     <label class="am-form-label" for="doc-ipt-error">验证失败</label>
+                            <input type="text" id="doc-ipt-error" class="am-form-field">*@
+                            <br />
+                            <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-check"></i>申  請</button>
+                        </form>
+                        <hr class="am-article-divider am-show-sm-only">
+                    </div>
+
+                    @* <div class="am-u-lg-6 am-u-md-8 am-u-sm-12">
+                        <h4 class="about-color">关于会员卡</h4>
+                        <p>
+                            说明文本1
+                        </p>
+                        <h4 class="about-color">申请说明</h4>
+                        <p>
+                            说明文本2
+                        </p>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div name="divTool">
+        <button style="width: 100%" data-am-smooth-scroll class="am-btn am-btn-success" data-am-popover="{content: '返回頂部', trigger: 'hover focus'}">返 回 頂 部</button>
+    </div>
+
+
+</body>
+</html>

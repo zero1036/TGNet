@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<link href="~/Content/zTreeStyle/demo.css" rel="stylesheet" />*@
+    <link href="~/Content/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <title>树形预览</title>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.all-3.2.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.core-3.2.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.excheck-3.2.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.exedit-3.2.js"></script>
+
+
+    <script type="text/javascript">
+		<!--
+    var setting = {
+        view: {
+            selectedMulti: false,
+            fontCss: setFontCss
+        },
+        edit: {
+            enable: true,
+            showRemoveBtn: false,
+            showRenameBtn: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeDrag: zTreeBeforeDrag
+        }
+    };
+
+    $(document).ready(function () {
+        GetzNodes();
+    });
+
+    function zTreeBeforeDrag(treeId, treeNodes) {
+        return false;
+    };
+
+    function GetzNodes() {
+        $.post('@Url.Action("GetTreeStruct")', {}, function (data) {
+            var ret = eval("(" + data + ")");
+            $.fn.zTree.init($("#treeDemo"), setting, ret);
+        });
+    }
+
+    function setFontCss(treeId, treeNode) {
+        return { background: treeNode.background };
+    };
+
+    //-->
+    </script>
+
+
+</head>
+<body>
+    <div style="width: 100%;">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</body>
+</html>

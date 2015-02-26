@@ -1,0 +1,514 @@
+﻿@model EG.WeChat.Web.Models.WXArticleBinding
+@{
+    ViewBag.Title = "WXArticleConfig";
+    Layout = null;
+}
+<html>
+<head>
+    @*<js引用>*@
+    @Scripts.Render("~/Scripts/editor/nicEdit.js")
+    @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")
+
+    <script title="样式脚本">
+        var area1, area2;
+             
+        //bkLib.onDomLoaded(function () { toggleArea1(); });
+        //生成富文本
+        function toggleArea1() {
+            if (!area1) {
+                area1 = new nicEditor({ fullPanel: true }).panelInstance('myArea1', { hasPanel: true });
+            } else {
+                area1.removeInstance('myArea1');
+                area1 = null;
+            }
+        }
+        //选中图片资源
+        function selectPicture(path, resourceId) {            
+            $("#ui_img_imgContent").attr("src",path);  
+            $("#ui_img_imgContent").attr("data-medit",resourceId);           
+        }
+        
+    </script>
+    <script>
+        //初始化事件
+        $(document).ready(function () {
+            /**开启fancybox**/
+            $("a.withFbox").fancybox({
+                'padding': 0,
+                //'autoScale': true,
+                'width': 560,
+                'height': 650,
+                'type': 'iframe',
+                'hideOnOverlayClick': true,
+                'titleShow': false,
+                'showCloseButton': true,
+                'scrolling': 'yes',
+                //'onClosed': function () {
+                //    selectPicture();
+                //}
+            });
+            //初始化加载时声称富文本编辑
+            toggleArea1();
+            //生成段落集合
+            loadNewsModelList();            
+        });
+        //单个段落淡入事件
+        function FadeIn_Event(){
+            //$("#btn1").fadeIn(200);           
+            $("#"+this.id).css({"background-color":"rgba(229, 229, 229, 0.85)"});
+            //this.css({"background-color":"#f4f5f9"});
+        }
+        //单个段落淡出事件
+        function FadeOut_Event(){         
+            //$("#btn1").fadeOut(200);         
+            $("#"+this.id).css({"background-color":"white"});
+        }
+        //点击单个段落编辑按钮事件
+        function EditParagraph_Event()
+        {
+            //var id= $("#btn1").attr("name");
+            var btnId = this.name;
+            EditParagraph(btnId);
+        }
+        //删除单个段落按钮事件
+        function DeleteParagraph_Event()
+        {
+            var btnId = this.name;
+            DeleteParagraph(btnId);
+        }
+    </script>
+    <script>
+        //全局模型数据
+        var _arrayNews=new Array();
+        //当前选择段落索引，默认为0
+        var _currentPIndex=0;
+        //从响应中获取当前图文的段落列表
+        function loadNewsModelList() {
+            //模型属性转换js文本
+            var ss = "@Model.iTest";
+            //初始化全局模型数据
+            _arrayNews=new Array(@Model.ListNews.Count);
+            //模型转换为Array数组
+            _arrayNews = @Html.Raw(Json.Encode(Model.ListNews));
+            //刷新段落集合数组，并重新生成元素
+            RefreshModel();
+        }     
+        //刷新段落集合数组，并重新生成元素
+        function RefreshModel(){
+            //获取Array数组长度
+            var arrlength = _arrayNews.length; 
+            //遍历数组并读出对象
+            for(var i=0;i<arrlength;++i){
+                var pNews = _arrayNews[i];               
+                //添加段落预览元素div
+                AddParagraphForElement(i,pNews);
+            }
+            //刷新后，默认选中第一段落进行编辑
+            EditParagraph(0);
+        }
+        //创建新段落
+        function CreateNewParagraph()
+        {
+            var pNews=Object.create(NewsModel);           
+            pNews.thumb_media_id =null;
+            pNews.author =null;
+            pNews.title = null;
+            pNews.content_source_url =null;
+            pNews.content = null;        
+            pNews.digest =null;          
+            return pNew;    
+            //_arrayNews.push(pNews);
+        }
+        //保存前檢查輸入
+        function CheckInputForArticle(){
+            //获取Array数组长度
+            var arrlength = _arrayNews.length; 
+            //遍历数组并读出对象
+            for(var i=0;i<arrlength;++i){
+                var pNews = _arrayNews[i];               
+                if(pNews.title=="")
+                {
+                    alert("第"+(i+1)+"段落缺少標題，請填寫");
+                    return false;
+                }
+                else if(pNews.thumb_media_id=="")
+                {
+                    alert("第"+(i+1)+"段落缺少配圖，請選擇");
+                    return false;
+                }
+                else if(pNews.content=="")
+                {
+                    alert("第"+(i+1)+"段落缺少正文，請填寫");
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        //保存当前图文
+        function SaveArticle() {
+            var err=CheckInputForArticle();
+            if(err==false)
+                return;
+            //if(err!==null&&err!==undefined&&err!="")
+            //    return;
+
+            var postData = $.toJSON(_arrayNews); 
+            postData = postData.replace(/</g,"《");
+            postData = postData.replace(/>/g,"》");
+            $.ajax({
+                url: '@Url.Action("ArticleUpLoad", "WXResource")',
+                data: {"ListNews":postData},
+                type: "post",
+                dataType: "json",
+                success: function (data) {                    
+                    //if (data.IsSuccess == false)
+                    alert(data.Message);
+                    //else
+                    //    alert("发送成功");
+                }
+            });
+        }
+        //保存段落
+        function SaveParagraph()
+        {
+            if(_currentPIndex==undefined)
+            {
+                alert("請選擇段落");
+                return;
+            }
+            if( $("#tbTitle").val()==""||$("#tbTitle").val()==undefined)
+            {
+                alert("請填寫標題");
+                return;
+            }
+            if($("#ui_img_imgContent").attr("data-medit")==""||$("#ui_img_imgContent").attr("data-medit")==undefined)
+            {
+                alert("請選擇配圖資源");
+                return;
+            }
+           
+            //移除富文本插件
+            area1.removeInstance('myArea1');
+            //赋值段落内容，由於mvc有防止腳本注入的控制，不能再請求中填入html标识<>，因此，将<>统一转换为《》        
+            var valueContent = $("#myArea1").val();
+            if(valueContent=="")
+            {
+                alert("請填寫正文內容");
+                return;
+            }
+
+            valueContent = valueContent.replace(/</g,"《");
+            valueContent = valueContent.replace(/>/g,"》");
+
+            //先找出目标段落
+            var pNews = _arrayNews[_currentPIndex]; 
+            pNews.content = valueContent;
+            //再加入富文本插件
+            area1 = new nicEditor({ fullPanel: true }).panelInstance('myArea1');
+            //赋值段落标题
+            pNews.title = $("#tbTitle").val();
+            //赋值段落作者
+            pNews.author = $("#tbAuthor").val();  
+            //赋值缩略图media_id
+            pNews.thumb_media_id = $("#ui_img_imgContent").attr("data-medit"); 
+            //赋值缩略图服务器路径
+            pNews.digest= $("#ui_img_imgContent").attr("src"); 
+            //原文地址
+            pNews.content_source_url= $("#tbUrl").val();
+
+            var ph1INdex=parseInt(_currentPIndex)+1;
+            var btnEditId= "ui_btn_Edit"+_currentPIndex;
+            var imgThumId = "ui_img_th"+_currentPIndex;
+            $("#"+btnEditId).text("段落"+ph1INdex+"  "+pNews.title);
+            $("#"+imgThumId).attr("src",pNews.digest)
+            alert("段落保存成功！");
+        }
+        //编辑段落
+        function EditParagraph(PTargetEditIndex){    
+            _currentPIndex = PTargetEditIndex;  
+            var ph1Index=parseInt(_currentPIndex)+1;
+            //先找出目标段落
+            var pNews = _arrayNews[_currentPIndex]; 
+            //移除富文本插件
+            area1.removeInstance('myArea1');
+            //赋值段落内容
+            $("#myArea1").val(pNews.content);
+            //再加入富文本插件
+            area1 = new nicEditor({ fullPanel: true }).panelInstance('myArea1');
+            //赋值段落索引
+            $("#ui_h1").text(ph1Index);
+            //赋值段落标题
+            $("#tbTitle").val(pNews.title);
+            //赋值段落作者
+            $("#tbAuthor").val(pNews.author);
+            //赋值缩略图media_id
+            $("#ui_img_imgContent").attr("src",pNews.digest)
+            //赋值缩略图服务器路径
+            $("#ui_img_imgContent").attr("data-medit",pNews.thumb_media_id)
+            //添加原文地址
+            $("#tbUrl").val(pNews.content_source_url);
+        }  
+        //删除段落
+        function DeleteParagraph(PTargetEditIndex){
+            //如果段落剩余一条，不允许删除
+            if(_arrayNews.length==1)
+                return;
+            //直接将段落集合div的内容清掉
+            document.getElementById('ui_div_newadd').innerHTML="";
+            //目标段落移出数组
+            _arrayNews.splice(PTargetEditIndex,1);
+            //刷新段落集合数组，并重新生成元素
+            RefreshModel();
+        }
+        //创建新段落
+        function AddParagraph(){
+            //检查是否已超出10个段落
+            if(_arrayNews.length==8)
+            {
+                alert("你最多只可以加入8條圖文段消息");
+                return;
+            }
+
+            //首先系当前文章中创建新段落
+            var pNewParagraph=Object.create(NewsModel);           
+            pNewParagraph.thumb_media_id ="";
+            pNewParagraph.author ="";
+            pNewParagraph.title = "";
+            pNewParagraph.content_source_url ="";
+            pNewParagraph.content = "";        
+            pNewParagraph.digest ="";          
+          
+            //加入数组
+            _arrayNews.push(pNewParagraph);
+            //设置当前索引
+            _currentPIndex = _arrayNews.length - 1;
+            //添加段落预览元素div
+            AddParagraphForElement(_currentPIndex,pNewParagraph);
+                
+        }
+        //添加段落预览元素div
+        function AddParagraphForElement(PIndex, pNews){
+            var btnEditClass= "ui_btn_Edit";
+            var btnEditID = btnEditClass + PIndex;
+            var btnDeleteClass= "ui_btn_Delete";
+            var imgThumbClass = "ui_img_th";
+            var imgThumbID=imgThumbClass+PIndex;
+            var divSectionClass="ui_div_Section";
+            var divSectionID = divSectionClass + PIndex;
+            var divTitleDisplayClass="ui_div_TitleDisplay";
+            var divMaskClass="ui_div_mask";
+            //var divMaskID=divMaskClass+pNextIndex;
+            
+            //创建内容父页Div
+            var divSection = document.createElement("div");
+            divSection.className=divSectionClass;
+            divSection.id = divSectionID;
+            divSection.onmouseover = FadeIn_Event;
+            divSection.onmouseout = FadeOut_Event;
+            document.getElementById("ui_div_newadd").appendChild(divSection);    
+            //创建缩略图
+            var imgThumb = document.createElement("img");
+            imgThumb.id=imgThumbID;
+            imgThumb.onerror = PicNofind;
+            imgThumb.className = imgThumbClass;
+            imgThumb.src=pNews.digest;
+            divSection.appendChild(imgThumb);
+          
+            //创建标题底图div
+            var divTitleDisplay = document.createElement("div");
+            divTitleDisplay.className = divTitleDisplayClass;
+            divSection.appendChild(divTitleDisplay);
+            //创建标题显示
+            var pt = document.createElement("a");
+            pt.className = btnEditClass;
+            pt.id=btnEditID;
+            pt.name=PIndex;
+            pt.innerHTML="段落"+(PIndex+1)+"  "+pNews.title;
+            pt.onclick = EditParagraph_Event;
+            divTitleDisplay.appendChild(pt);
+            //创建删除按钮
+            var pDel = document.createElement("input");
+            pDel.className = btnDeleteClass;
+            pDel.name=PIndex;
+            pDel.type = "button";
+            pDel.onclick = DeleteParagraph_Event;
+            divTitleDisplay.appendChild(pDel);
+          
+            //
+            ////创建编辑按钮
+            //var btn = document.createElement("input");
+            //btn.id = btnEditID;
+            //btn.name = PIndex;
+            //btn.type = "button";
+            //btn.value="编辑";
+            ////btn.className = divMaskClass;
+            //btn.onclick = EditParagraph_Event;
+            //divSection.appendChild(btn);
+        }
+    </script>
+    <style>
+        /*全局div*/
+        .ui_div_Content {
+            float: left;
+            border: 1px solid #e7e7eb;
+            margin: 20px 20px 20px 20px;
+        }
+        /*左侧单个段落div样式——class*/
+        .ui_div_Section {
+            float: none;
+            border-bottom: 1px solid #e7e7eb;
+            height: 204px;
+        }
+        /*左侧添加按钮啊div样式——class*/
+        .ui_div_SectionForAdd {
+            border-bottom: 1px solid #e7e7eb;
+            height: 70px;
+        }
+        /*左侧整体div*/
+        #ui_div_left {
+            width: 320px;
+            /*position: absolute;*/
+        }
+        /*右侧整体明细*/
+        #ui_div_right {
+            padding: 15px 15px 15px 15px;
+            width: 560px;
+            height: 1200px;
+            background-color: #f4f5f9;
+        }
+        /*左侧单个段落缩略图样式*/
+        .ui_img_th {
+            width: 290px;
+            height: 140px;
+            margin-left: 14px;
+            margin-top: 20px;
+        }
+        /*左侧单个段落标题样式（带连接）*/
+        .ui_btn_Edit {
+            width: 290px;
+            /*text-align: center;*/
+            background-color: gray;
+            color: white;
+            margin-left: 1px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        /*左侧标题简图底图div*/
+        .ui_div_TitleDisplay {
+            margin-left: 14px;
+            margin-top: 1px;
+            margin-right: 15px;
+            background-color: gray;
+        }
+        /*左侧段落删除按钮*/
+        .ui_btn_Delete {
+            float: right;
+            width: 20px;
+            height: 20px;
+            line-height: 30px;
+            text-align: center;
+            border-style: none;
+            cursor: pointer;
+            font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
+            background: url('../../Images/common/del.png') 0px -1px no-repeat;
+        }
+
+            .ui_btn_Delete:hover {
+                width: 20px;
+                height: 20px;
+                line-height: 30px;
+                text-align: center;
+                border-style: none;
+                cursor: pointer;
+                font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
+                background: url('../../Images/common/delHover.png') 0px 0px no-repeat;
+                color: #fff;
+            }
+        /*左侧单个段落遮罩样式*/
+        .ui_div_mask {
+            display: none;
+            position: fixed;
+            /*width: 100%;
+            height: 100%;*/
+            /*background: #000;*/
+            z-index: 2;
+            /*height: 120px;
+            width: 320px;*/
+            /*top: 0;*/
+            /*top: 0;
+            height: 500px;
+            width: 500px;*/
+            /*opacity: 0.3;*/
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="ui_content">
+            <div id="ui_div_left" class="ui_div_Content">
+                <div id="ui_div_newadd">
+                </div>
+                <a href="javascript:void(0);" onclick="AddParagraph()">
+                    <div class="ui_div_SectionForAdd" onmouseover="this.style.backgroundColor='rgba(229, 229, 229, 0.85)'" onmouseout="this.style.backgroundColor='white'">
+                        <img src="~/Images/common/add.png" style="margin-left: 120px; margin-top: 10px; width: 60px; height: 60px">
+                    </div>
+                </a>
+                <a href="javascript:void(0);" onclick="SaveArticle()">
+                    <div class="ui_div_SectionForAdd" onmouseover="this.style.backgroundColor='rgba(229, 229, 229, 0.85)'" onmouseout="this.style.backgroundColor='white'">
+                        <img src="~/Images/common/select1.png" style="margin-left: 120px; margin-top: 10px; width: 60px; height: 60px">
+                    </div>
+                </a>
+                @*   <input type="button" value="生成" onclick="addNews();" />
+                <input type="button" value="保存" onclick="SaveArticle();" />*@
+            </div>
+            <div id="ui_div_right" class="ui_div_Content">
+                <div style="height: 40px; clear: both">
+                    <h1 id="ui_h1" style="margin-left: 8px; margin-bottom: 10px; float: left"></h1>
+                    <input style="float: right" id="ui_btn_savepara" class="ui_input_btn01" type="button" data-id="" value="保存段落" onclick="SaveParagraph()" />
+                    @*<input type="text" id="tbTitle" class="ui_input_txt04" />*@
+                </div>
+                <div style="height: 90px; clear: both">
+                    <p style="margin-left: 8px; margin-bottom: 10px">標題：</p>
+                    <input type="text" id="tbTitle" class="ui_input_txt04" />
+                </div>
+                <div style="height: 90px; clear: both">
+                    <p style="margin-left: 8px; margin-bottom: 10px">作者（選填）：</p>
+                    <input type="text" id="tbAuthor" class="ui_input_txt04" />
+                </div>
+                <div style="height: 90px; clear: both">
+                    <p style="margin-left: 8px; margin-bottom: 10px">原文地址（選填）：</p>
+                    <input type="text" id="tbUrl" class="ui_input_txt04" />
+                </div>
+                <div style="height: 210px; clear: both">
+                    <p style="margin-left: 8px; margin-bottom: 10px">封面（小圖片建議尺寸：200像素 * 200像素）：</p>
+                    @* <input type="button" class="ui_input_btn01" value="圖片庫" onclick="@Url.Action("WXPictureConfig", "WXResource", new { ColCount = "3" })" />*@
+                    <img id="ui_img_imgContent" onerror="PicNofind();" src="/Images/common/gallery.png" data-medit="0x" style="height: 100px; width: 100px;" />
+                    <a href="@Url.Action("WXPictureConfig", "WXResource", new { ColCount = "3" })" class="withFbox"><span>圖片庫</span></a>
+                    <a href="javascript:void(0);">刪除</a>
+                    <br />
+                    <br />
+                    正文（自动保存：2014-11-26 18:23:42）
+                </div>
+                <div style="width: 550px; height: 500px;">
+                    <textarea style="width: 550px; height: 500px; background-color: white;" id="myArea1"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="ui_content"></div>
+    </div>
+
+    @Scripts.Render("~/Scripts/jquery.form.js")
+    @Scripts.Render("~/Scripts/jquery.json-2.3.min.js")
+    @Scripts.Render("~/Scripts/EGCommon.js")
+    @Scripts.Render("~/Scripts/fancybox/jquery.fancybox-1.3.4.pack.js")
+    @*<css引用>*@
+    @Styles.Render("~/Content/authority/jquery.fancybox-1.3.4.css")
+    @Styles.Render("~/Content/authority/basic_layout.css")
+    @Styles.Render("~/Content/authority/common_style.css")
+    <!-- EGCommon -->
+    @Scripts.Render("~/Scripts/EGCommon.js")
+</body>
+</html>
+

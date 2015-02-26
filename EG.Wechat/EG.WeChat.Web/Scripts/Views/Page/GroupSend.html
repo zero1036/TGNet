@@ -1,0 +1,273 @@
+﻿<div>
+    <!-- 模态框（Modal） 选择图文资源-->
+    <div class="modal fade bs-example-modal-lg" id="SelectArticleModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width: 70%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">選擇群發圖文信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <wxarticles ng-controller="ArticleListCtrl"></wxarticles>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                        關  閉
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                        確定選中
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 选择图片资源-->
+    <div class="modal fade bs-example-modal-lg" id="SelectPictureModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width: 60%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="H1">選擇群發圖片信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <wxpictures ng-controller="PictureListCtrl"></wxpictures>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                        關  閉
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                        確定選中
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 选择視頻资源-->
+    <div class="modal fade bs-example-modal-lg" id="SelectVideoModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width: 60%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="H2">選擇群發視頻信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <wxvideos ng-controller="VideoListCtrl"></wxvideos>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                        關  閉
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                        確定選中
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 选择音頻资源-->
+    <div class="modal fade bs-example-modal-lg" id="SelectVoiceModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width: 60%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="H3">選擇群發音頻信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <wxvoices ng-controller="VoiceListCtrl"></wxvoices>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                        關  閉
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                        確定選中
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <style>
+        .tab_navs, .tab_navs li {
+            list-style: none; /* 将默认的列表符号去掉 */
+            padding: 0; /* 将默认的内边距去掉 */
+            margin: 0; /* 将默认的外边距去掉 */
+            margin-left: 7px;
+            margin-right: 30px;
+            margin-top: 4px;
+        }
+
+            .tab_navs li {
+                float: left;
+            }
+    </style>
+
+    <!-- 主功能页面 -->
+    <div class="container-fluid">
+        <div class="row" style="margin-left: 10px; margin-right: 10px">
+            <div class="panel panel-default" style="margin-left: 20px; margin-right: 20px">
+                <div class="panel-body">
+                    <div class="row" style="margin-left: 15px; margin-bottom: 25px">
+                        <ul class="tab_navs">
+                            <li data-type="1" data-tab=".js_textArea" data-tooltip="文字">
+                                <a href="javascript:void(0);" class="ui_btn_text" ng-click="SelectRes('text',null)">
+                                    <img onmousemove="this.src='/Images/common/文本s.png'" onmouseout="this.src='/Images/common/文本g.png'" src="/Images/common/文本g.png">
+                                </a>
+                            </li>
+                            <li data-tooltip="图片">
+                                <a ng-click="SelectRes('image','SelectPictureModal')">
+                                    <img onmousemove="this.src='/Images/common/图片s.png'" onmouseout="this.src='/Images/common/图片g.png'" src="/Images/common/图片g.png">
+                                </a>
+                            </li>
+                            <li data-tooltip="语音">
+                                <a href="javascript:void(0);" ng-click="SelectRes('voice','SelectVoiceModal')">
+                                    <img onmousemove="this.src='/Images/common/音频s.png'" onmouseout="this.src='/Images/common/音频g.png'" src="/Images/common/音频g.png">
+                                </a>
+                            </li>
+                            <li data-tooltip="视频">
+                                <a href="javascript:void(0);" ng-click="SelectRes('video','SelectVideoModal')">
+                                    <img onmousemove="this.src='/Images/common/视频s.png'" onmouseout="this.src='/Images/common/视频g.png'" src="/Images/common/视频g.png">
+                                </a>
+                            </li>
+                            <li data-tooltip="图文消息">
+                                <a href="javascript:void(0);" ng-click="SelectRes('mpnews','SelectArticleModal')">
+                                    <img onmousemove="this.src='/Images/common/图文s.png'" onmouseout="this.src='/Images/common/图文g.png'" src="/Images/common/图文g.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr style="filter: alpha(opacity=100,finishopacity=0,style=1); width: 100%;" />
+                    <div class="row" id="fra">
+                        <div ng-show="msgType=='text'">
+                            <textarea ng-model="text" style="margin-left: 15px; width: 96%" class="form-control" placeholder="請輸入群發消息文本內容" rows="7"></textarea>
+                        </div>
+                        <div ng-show="msgType=='image'" class="row well" style="width: 260px; margin-left: 20px;">
+                            <wxpicturedisplay></wxpicturedisplay>
+                        </div>
+                        <div ng-show="msgType=='voice'" class="row well" style="width: 600px; margin-left: 20px;">
+                            <wxvoiceplay></wxvoiceplay>
+                        </div>
+                        <div ng-show="msgType=='video'" class="row well" style="width: 600px; margin-left: 20px;">
+                            <wxvideoplay></wxvideoplay>
+                        </div>
+                        <div ng-show="msgType=='mpnews'" class="row well" style="width: 360px; margin-left: 20px;">
+                            <wxarticledisplay></wxarticledisplay>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <style>
+                            .ui_div_panelfooter p {
+                                font-family:   "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+                                color: gray;
+                                margin-left: 20px;
+                            }
+
+                            .ui_div_panelfooter div {
+                                position: relative;
+                                display: inline-block;
+                            }
+
+                            .ui_div_panelfooter a:hover {
+                                color: #00B6AD;
+                                text-decoration: none;
+                                -moz-text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 35px #feff89;
+                                -webkit-text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 35px #feff89;
+                                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 35px #feff89;
+                            }
+
+                            .ui_div_panelfooter a:link, .ui_div_panelfooter a:visited {
+                                text-decoration: none; /*超链接无下划线*/
+                            }
+                        </style>
+                        <div class="ui_div_panelfooter">
+                            <div>
+                                <p>
+                                    點擊<span class="label label-sm label-primary">創&nbsp;建</span>群發消息，加入待審核發送隊伍             
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    發送用戶群體：
+                                </p>
+                            </div>
+                            <div>
+                                <div class="dropdown">
+                                    <div>
+                                        <a href="javascript:void(0);" class="dropdown-toggle" id="dLabel" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">{{sendTypeText}}
+    <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <li role="presentation">
+                                                <a ng-click="sendType=1;sendTypeText='全部用戶'" role="menuitem" tabindex="-1" href="javascript:void(0);">全部用戶</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a ng-click="sendType=2;sendTypeText='按分組選擇'" role="menuitem" tabindex="-1" href="javascript:void(0);">按分組選擇</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    &nbsp;
+                                    <div ng-if="sendType==2">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">{{curGroupText}}<b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                            <li role="presentation" ng-repeat="group in groups">
+                                                <a ng-click="ChangeSelectGroup(group.id,group.name)" role="menuitem" tabindex="-1" href="javascript:void(0);">{{group.name+'('+group.count+')'}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="ui_btnLoading_Cre1" data-loading-text="創建中，請稍後……" style="width: 200px; margin-left: 20px" type="button" class="btn btn-primary btn-sm" ng-click="CreateGroupMessage()">創&nbsp;&nbsp;建</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

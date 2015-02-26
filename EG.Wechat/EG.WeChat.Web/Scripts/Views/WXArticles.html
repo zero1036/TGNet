@@ -1,0 +1,150 @@
+﻿<div>
+    <div ng-if="EditMode==0" class="container-fluid">
+        <div class="row" style="margin-left: 10px; margin-right: 10px">
+            <div class="panel panel-default" style="margin: 20px 10px 20px 10px">
+                <div class="panel-body">
+                    <div class="row">
+                        <div style="margin-left: 20px; margin-right: 20px">
+                            <nav class="navbar navbar-default" role="navigation">
+                                <div class="container-fluid">
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="javascript:void(0);">搜索資源</a>
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <form class="navbar-form navbar-left" role="search">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="標題">
+                                            </div>
+                                            <button type="submit" class="btn btn-default">搜  索</button>
+                                        </form>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li>
+                                                <a href="javascript:void(0);" ng-click="Edit(null)"><span>新建圖文資源</span></a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">資源類型 <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="javascript:void(0);">微信資源</a></li>
+                                                    <li><a href="javascript:void(0);">本地資源</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="javascript:void(0);">所有資源</a></li>
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <!-- /.navbar-collapse -->
+                                </div>
+                                <!-- /.container-fluid -->
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <style>
+                            ul {
+                                list-style: none;
+                            }
+
+                            .ui_span_name {
+                                font-size: 12px;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
+                            }
+
+                            li.ui_li_items {
+                                float: right;
+                                height: 30px;
+                                line-height: 30px;
+                                width: 30px;
+                                -moz-border-radius: 15px;
+                                -webkit-border-radius: 15px;
+                                border-radius: 15px;
+                                text-align: center;
+                                background: #428bca;
+                                color: #fff;
+                                margin-left: 5px;
+                            }
+
+                                li.ui_li_items.info {
+                                    float: left;
+                                    height: 30px;
+                                    line-height: 30px;
+                                    -moz-border-radius: 15px;
+                                    -webkit-border-radius: 15px;
+                                    border-radius: 15px;
+                                    background: #fff;
+                                    color: gray;
+                                    font-size: 20px;
+                                    text-align: center;
+                                }
+
+                                    li.ui_li_items.info.lcid {
+                                        margin-left: -40px;
+                                        width: 30px;
+                                    }
+
+                                    li.ui_li_items.info.lcname {
+                                        width: 100%;
+                                        max-width: 120px;
+                                        line-height: 28px;
+                                        padding: 0px 10px 0px 10px;
+                                    }
+
+                                li.ui_li_items.del {
+                                    background: #ff4b4b;
+                                }
+
+                                li.ui_li_items:hover {
+                                    background: #00B6AD;
+                                }
+                        </style>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" ng-repeat="article in Articles">
+                            <div class="well" style="padding: 3px 3px 19px 3px">
+                                <wxarticledisplay></wxarticledisplay>
+                                <ul>
+                                    <a href="javascript:void(0);" ng-click="Delete($index,article)">
+                                        <li class="ui_li_items del"><span class="glyphicon glyphicon-remove"></span></li>
+                                    </a>
+                                    <a href="javascript:void(0);" ng-click="SetSelection(article)">
+                                        <li class="ui_li_items"><span class="glyphicon glyphicon-ok"></span></li>
+                                    </a>
+                                    <a href="javascript:void(0);" ng-click="Edit(article)">
+                                        <li class="ui_li_items"><span class="glyphicon glyphicon-pencil"></span></li>
+                                    </a>
+                                    <li class="ui_li_items info lcid">
+                                        <p>
+                                            <span>{{article.lcId}}</span>
+                                        </p>
+                                    </li>
+                                    <li class="ui_li_items info lcname">
+                                        <p class="ui_span_name">
+                                            <span>{{article.lcName}}</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <br />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <pagesuc></pagesuc>
+                    </div>
+                </div>
+                <div class="panel-footer">圖文資源列表</div>
+            </div>
+
+        </div>
+    </div>
+    <wxarticleedit ng-if="EditMode==1" ng-controller="ArticleEditCtrl"></wxarticleedit>
+</div>

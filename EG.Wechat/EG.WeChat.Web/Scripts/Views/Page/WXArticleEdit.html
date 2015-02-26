@@ -1,0 +1,130 @@
+﻿<div>
+    <!-- 模态框（Modal） 选择图片资源-->
+    <div class="modal fade bs-example-modal-lg" id="SelectPictureModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width: 60%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="H1">選擇群發圖片信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <wxpictures ng-controller="PictureListCtrl"></wxpictures>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                        關  閉
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                        確定選中
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <style>
+        /*.row {
+        margin-left: 10px;
+        margin-right: 10px;
+    }*/
+
+        .note-editable {
+            background-color: white;
+        }
+
+        .modal-backdrop {
+            visibility: hidden;
+        }
+    </style>
+
+    <!-- 主功能页面 -->
+    <div class="container-fluid">
+        <div class="row" style="margin-left: 20px;">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 well" style="border-radius: 0px">
+
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span>&nbsp;名 稱 及 分 類</span>
+                    <input ng-model="article.lcName" type="text" class="form-control" placeholder="資源名稱    示例：會員卡A" />
+                    <input ng-model="article.lcClassify" type="text" class="form-control" placeholder="資源分類    示例：會員卡、金融" />
+                </div>
+                <!--      <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;微 信 端 編 號</span>
+                    <input ng-model="media_id" type="text" class="form-control" />
+                </div>-->
+                <br />
+                <wxarticledisplay></wxarticledisplay>
+                <button type="button" class="btn btn-default btn-sm btn-block" ng-click="AddNewsModel()"><span class="glyphicon glyphicon-plus">. 添 加 段 落</span></button>
+                <button ng-click="EndEdit()" type="button" class="btn btn-default btn-sm btn-block"><span class="glyphicon glyphicon-chevron-left">. 返 回 列 表</span></button>
+                <button type="button" class="btn btn-primary btn-md btn-block" ng-click="SaveArticle()" id="ui_btnLoading_SaveA" data-loading-text="保存中，請稍後……" ng-show="article!=null"><span class="glyphicon glyphicon-plus-sign">. 保 存 圖 文</span></button>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 well" style="border-radius: 0px; margin-left: 15px; padding-left: 35px; padding-right: 35px">
+                <div ng-show="curIndex<1">
+                    <h3>編  輯  區</h3>
+                    <p>
+                        1、點擊段落預覽進入編輯頁面；<br />
+                        2、一條圖文消息最多可以添加10組段落內容；<br />
+                        3、圖文消息可用於回覆用戶消息、發送群發消息及客服消息。
+                    </p>
+                </div>
+                <div ng-show="curIndex>0">
+                    <div class="row">
+                        <h1 style="margin-left: 8px; margin-bottom: 10px; float: left">{{curIndex}}</h1>
+                        <button style="float: right" type="button" class="btn btn-danger btn-sm" ng-click="DeleteNewsModel(curIndex-1)">刪 除 段 落</button>
+                        <br />
+                    </div>
+                    <div class="row">
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">標題</span>
+                            <input ng-model="curNewsModel.title" type="text" class="form-control">
+                            <span class="input-group-addon">*</span>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">摘要</span>
+                            <input ng-model="curNewsModel.digest" type="text" class="form-control">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">作者</span>
+                            <input ng-model="curNewsModel.author" type="text" class="form-control">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">原文地址</span>
+                            <input ng-model="curNewsModel.content_source_url" type="text" class="form-control">
+                            <span class="input-group-addon">*</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br />
+                        <p>封面（小圖片建議尺寸：200像素 * 200像素）：</p>
+                        <div class="input-group">
+                            <span class="input-group-addon"><a data-toggle="modal" data-target="#SelectPictureModal" href="javascript:void(0);">圖片庫</a></span>
+                            <img src="{{curNewsModel.RPath}}" data-medit="0x" style="height: 100px; width: 200px;" />
+                        </div>
+                        <br />
+                        <p>正文</p>
+                    </div>
+                    <div class="row">
+                        <textarea ng-model="curNewsModel.content" class="input-block-level" style="height: 400px" id="summernote" name="content" rows="18"></textarea>
+
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default btn-sm btn-block" ng-click="ContentAsHTML()">查看HTML</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

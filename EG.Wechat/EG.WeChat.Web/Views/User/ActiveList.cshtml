@@ -1,0 +1,69 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "在线用户";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+
+@section HeaderContent
+{
+    @Styles.Render("~/Bundles/Authority/Css")
+    <script src="~/Scripts/Shared/Pagination.js"></script>
+
+    <script type="text/javascript">
+
+        function Logout(obj) {
+            var tr = $(obj).parents("tr");
+            var id = tr.find("td").eq(1).text().trim();
+            if (confirm("是否强制退出该用户？")) {
+                $.post("/ActiveUser/Delete", { sessionId: id }, function (data) {
+                    if (data.IsSuccess) {
+                        alert("操作成功！");
+                        tr.remove();
+                    } else {
+                        alert("操作失败！");
+                    }
+                });
+            }
+        }
+
+    </script>
+}
+
+
+<div class="ui_content">
+    <div id="page" class="ui_tb">
+        <table id="table" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" onmouseover="tableMouseOver()">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <th width='25'>
+                        <input type='checkbox' class='checkboxCtrl'>
+                    </th>
+                    @foreach (System.Data.DataColumn item in Model.Columns)
+                    {
+                        <th>@item.ColumnName</th>
+                    }
+                    <th>Operation
+                    </th>
+                </tr>
+                @foreach (System.Data.DataRow item in Model.Rows)
+                {
+                    <tr>
+                        <td width='25'>
+                            <input type='checkbox' class='checkboxCtrl'>
+                        </td>
+                        @foreach (var itemColumn in item.ItemArray)
+                        {
+                            <td>@itemColumn.ToString()</td>
+                        }
+                        <td>
+                            <a onclick="Logout(this)">退出</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

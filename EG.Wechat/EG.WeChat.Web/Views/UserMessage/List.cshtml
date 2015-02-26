@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "用戶消息列表";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+@section HeaderContent
+{
+    @Styles.Render("~/Bundles/Authority/Css")
+    <script src="~/Scripts/Shared/Pagination.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            OperationData = [{ Name: "保存媒體", OnCheck: "SaveMedia(this)" }];
+            GetPagingList();
+        });
+
+
+
+        function Operation() {
+
+            //补充Operation列
+            if (OperationData != null && $("#Type").val() >= 0) {
+                $("#table tbody tr").has("th").first().append("<th>Operation</th>");
+                $.each($("#table tbody tr").has("td"), function (n, m) {
+                    var strhtml = new StringBuilder();
+                    strhtml.Append("<td>");
+                    $.each(OperationData, function (i, j) {
+                        strhtml.AppendFormat(" <a onclick='{0}' >{1}</a> ", j.OnCheck, j.Name);
+                    });
+                    strhtml.Append("</td>");
+                    $(m).append(strhtml.ToString());
+                });
+            }
+
+            //隐藏不希望显示出来的列
+            switch ($("#Type").val()) {
+                case "0":
+                case "1":
+                case "2":
+                //case "3":        
+                    hideTargetColunm(4);
+                    hideTargetColunm(5);
+                    break;
+            }
+            
+        }
+
+        /* 隐藏指定的列 */
+        function hideTargetColunm(colnumNumber) {
+            $("#table tr").find("th:eq(" + colnumNumber + ")").hide();
+            $("#table tr").find("td:eq(" + colnumNumber + ")").hide();
+        }
+
+        function SaveMedia(obj) {
+            var tr = $(obj).parents("td").siblings();
+            var MediaID = tr.eq(3).text();
+            var OpenId  = tr.eq(4).text();
+            var Type    = tr.eq(5).text();
+
+            //##Post数据到Controller
+            $.post('@Url.Action("SaveMedia")',
+                   { openId: OpenId, MediaID: MediaID, type: Type },
+                   function (result) {
+                       if (result.IsSuccess) {
+                           alert("保存成功！");
+                       }
+                       else {
+                           alert(result.Message);
+                       }
+                   });
+        }
+
+    </script>
+}
+
+
+@using (Html.BeginForm())
+{ 
+    <div class="ui_content">
+        <div class="ui_text_indent">
+            <div id="box_border">
+                <div id="box_center">
+                    指定OpenID：
+                        @Html.TextBox("OpenID", null, new { @class = "ui_input_txt02" , @placeholder= "保留空白為查詢所有用戶" ,@style="height:30px;width:165px;" })
+                    指定日期：
+                        @Html.TextBox("Date", null, new { @class = "ui_input_txt02" , @placeholder= "保留空白為查詢所有日期"  ,@style="height:30px;width:165px;" })
+                    類型：
+                        @Html.DropDownList("Type",ViewBag.TypeList as SelectListItem[])
+                </div>
+                <div id="box_bottom">
+                    <input type="button" value="查詢" class="ui_input_btn01" onclick="GetPagingList();" />
+                </div>
+            </div>
+        </div>
+    </div>
+    Html.RenderPartial("~/Views/Shared/_PartialList.cshtml");
+}
+

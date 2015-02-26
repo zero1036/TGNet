@@ -1,0 +1,106 @@
+﻿    body {
+            font-family: Verdana;
+            font-size: 14px;
+            margin: 0;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            background-color: #EEEFF4;
+        }
+
+        .divheader {
+            height: 60px;
+            /*background: #6cf;*/
+            margin-bottom: 0px;
+            background-color: #dea02f;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-family: 'Microsoft JhengHei UI';
+            font-size: 23px;
+            text-shadow: 0 1px 0 #222;
+            margin: 0;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+        }
+
+        .divbody {
+            height: 280px;
+            font-family: Arial;
+            margin: auto;
+        }
+
+        .divPart1 {
+            height: 230px;
+            max-height: 230px;
+            padding-right: 30px;
+            padding-left: 30px;
+        }
+
+        .divPart2 {
+            height: 40px;
+            float: left;
+            width: 100%;
+        }
+
+        .bindingButton {
+            text-decoration: none;
+            text-align: center;
+            font-size: 17px;
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            background-image: initial;
+            background-position-x: initial;
+            background-position-y: initial;
+            background-size: auto;
+            /*background-repeat-x: initial;
+            background-repeat-y: initial;*/
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            background: #DD9D2E;
+            color: #FFF;
+            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            font-family: 'Microsoft JhengHei UI';
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 30px;
+            width: 93%;
+            border-radius: 8px 8px 8px 8px;
+        }
+
+        form {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .TextInput {
+            background-color: #EEEFF4;
+            /*border-bottom:dashed medium red;*/
+            /*border-bottom-width: medium;*/
+            border-bottom: 2px solid #DD9D2E;
+            /*border-bottom-color: #DD9D2E;*/
+            border-top: 0px;
+            border-left: 0px;
+            /*border-color: #EEEFF4;*/
+            /*border: 2px solid #998776;*/
+            /*border-color: #EEEFF4;*/
+            margin-top: 20px;
+            padding-left: 3px;
+            padding-right: 3px;
+            height: 30px;
+            font-size: 11px;
+            width: 100%;
+            /*border-radius: 8px; 
+            -moz-border-radius: 8px; 
+            -webkit-border-radius: 8px;*/
+        }

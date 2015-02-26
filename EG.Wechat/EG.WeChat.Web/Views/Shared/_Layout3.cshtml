@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" ng-app="WXApp">
+<head>
+    <meta charset="utf-8">
+    <!--IE兼容标签-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--响应式布局-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--默认使用webkit内核进行渲染-->
+    <meta name="renderer" content="webkit">
+    <!-- bootstrapcss 采用百度CDN -->
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Dropzone -->
+    @Styles.Render("~/Scripts/Dropzone/css/basic.css")
+    @Styles.Render("~/Scripts/Dropzone/css/dropzone.css")
+    <!-- VideoJs -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/video.js/4.8.3/video-js.min.css" />
+    <!-- authority CSS-->
+    @Styles.Render("~/Content/authority/main_css.css")
+    @Styles.Render("~/Content/authority/zTreeStyle.css")
+    <!-- summernote 富文本编辑插件 采用bootcss CDN数据源-->
+    <link href="http://cdn.bootcss.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://cdn.bootcss.com/summernote/0.6.0/summernote.min.css" rel="stylesheet" />
+
+    <!-- 採用CDN數據源，JQuery Bootstrap 由于Jquery2.0版本以上不支持IE678，改用1.9.1-->
+    <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!--jquery.json-->
+    @Scripts.Render("~/Scripts/jquery.json-2.3.min.js")
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    @Scripts.Render("~/Bundles/angularjs")
+    @*@Scripts.Render("~/Scripts/Angular/angular.js")
+    @Scripts.Render("~/Scripts/Angular/angular-route.js")*@
+    <!-- Dropzone -->
+    @Scripts.Render("~/Scripts/Dropzone/dropzone.js")
+    <!-- Bootstrap HTML5 Video -->
+    <script src="http://cdn.bootcss.com/video.js/4.8.3/video.js"></script>
+    <!-- summernote 富文本编辑插件 采用bootcss CDN数据源-->
+    <script src="http://cdn.bootcss.com/summernote/0.6.0/summernote.min.js" />
+    <!-- EGCommon -->
+    @Scripts.Render("~/Bundles/egcommonjs")
+    <!-- ztree -->
+    @Scripts.Render("~/Scripts/zTree/jquery.ztree.core-3.2.js")
+    @Scripts.Render("~/Scripts/authority/commonAll.js")
+
+    <script type="text/javascript">
+        /**退出系统**/
+        function logout() {
+            if (confirm("您確定要退出平臺嗎？")) {
+                window.location.href = "/Home/Logout";
+            }
+        }
+
+        /**获得当前日期**/
+        function getDate01() {
+            var time = new Date();
+            var myYear = time.getFullYear();
+            var myMonth = time.getMonth() + 1;
+            var myDay = time.getDate();
+            if (myMonth < 10) {
+                myMonth = "0" + myMonth;
+            }
+            document.getElementById("yue_fen").innerHTML = myYear + "." + myMonth;
+            //document.getElementById("day_day").innerHTML = myYear + "." + myMonth + "." + myDay;
+        }
+    </script>
+
+</head>
+@{ var session = HttpContext.Current.Session; }
+<body onload="getDate01()" ng-controller="BaseCtrl">
+    <div id="top">
+        <div id="top_logo">
+            <img alt="logo" src="/Images/common/logo.jpg" height="50" style="vertical-align: middle;">
+        </div>
+        <div id="top_links">
+            <div id="top_op">
+                <ul>
+                    <li>
+                        <img alt="當前用戶" src="/Images/common/user.jpg">：
+						 <span>@session[EG.WeChat.Web.Common.ConstString.S_UserName]</span>
+                    </li>
+                    <li>
+                        <img alt="事務月份" src="/Images/common/month.jpg">：
+						<span id="yue_fen"></span>
+                    </li>
+                </ul>
+            </div>
+            <div id="top_close">
+                <a href="javascript:void(0);" onclick="logout();" target="_parent">
+                    <img alt="退出系統" title="退出系统" src="/Images/common/close.jpg" style="position: relative; top: 10px; left: 25px;">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- side menu start -->
+    <div id="side">
+        <div id="left_menu">
+            <ul id="TabPage2" style="height: 200px; margin-top: 50px;">
+                <li id="left_tab1" class="selected" onclick="javascript:switchTab('TabPage2','left_tab1');" title="微信服務模塊"></li>
+            </ul>
+
+
+            <div id="nav_show" style="position: absolute; bottom: 0px; padding: 10px;">
+                <a href="javascript:;" id="show_hide_btn">
+                    <img alt="顯示/隱藏" title="顯示/隱藏" src="/Images/common/nav_hide.png" width="35" height="35">
+                </a>
+            </div>
+        </div>
+        <div id="left_menu_cnt">
+            <div id="nav_resource">
+                <ul id="ui_ztree" tree class="ztree" ng-model="selectNode">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#TabPage2 li').click(function () {
+                var index = $(this).index();
+                $(this).find('img').attr('src', 'Images/common/' + (index + 1) + '_hover.jpg');
+                $(this).css({ background: '#fff' });
+                $('#nav_module').find('img').attr('src', 'Images/common/module_' + (index + 1) + '.png');
+                $('#TabPage2 li').each(function (i, ele) {
+                    if (i != index) {
+                        $(ele).find('img').attr('src', 'Images/common/' + (i + 1) + '.jpg');
+                        $(ele).css({ background: '#044599' });
+                    }
+                });
+                // 显示侧边栏
+                switchSysBar(true);
+            });
+
+            // 显示隐藏侧边栏
+            $("#show_hide_btn").click(function () {
+                switchSysBar();
+            });
+        });
+
+        /**隐藏或者显示侧边栏**/
+        function switchSysBar(flag) {
+            var side = $('#side');
+            var left_menu_cnt = $('#left_menu_cnt');
+            if (flag == true) {	// flag==true
+                left_menu_cnt.show(500, 'linear');
+                side.css({ width: '280px' });
+                $('#top_nav').css({ width: '77%', left: '304px' });
+                $('#main').css({ left: '280px' });
+            } else {
+                if (left_menu_cnt.is(":visible")) {
+                    left_menu_cnt.hide(10, 'linear');
+                    side.css({ width: '60px' });
+                    $('#top_nav').css({ width: '100%', left: '60px', 'padding-left': '28px' });
+                    $('#main').css({ left: '60px' });
+                    $("#show_hide_btn").find('img').attr('src', 'Images/common/nav_show.png');
+                } else {
+                    left_menu_cnt.show(500, 'linear');
+                    side.css({ width: '280px' });
+                    $('#top_nav').css({ width: '77%', left: '304px', 'padding-left': '0px' });
+                    $('#main').css({ left: '280px' });
+                    $("#show_hide_btn").find('img').attr('src', 'Images/common/nav_hide.png');
+                }
+            }
+        }
+    </script>
+    <!-- side menu start -->
+    <div id="top_nav">
+        <span id="here_area">當前位置：系統&nbsp;>&nbsp;初始主頁</span>
+
+    </div>
+    <div id="main" style="overflow: auto;">
+        <a hidden="hidden" id="dttt" href="/HomeX">t1</a>
+        <a hidden="hidden" href="#/HomeX">Home</a>
+        <a hidden="hidden" href="#/WXOrganization/WXUserManager">t3</a>
+
+        @RenderBody()
+        @* @this.RenderSection("Body_Content", true)
+        @this.RenderSection("Body_Content2", true)*@
+    </div>
+    <div style="display: none">
+        <script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+    </div>
+</body>
+</html>

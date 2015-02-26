@@ -1,0 +1,63 @@
+﻿@model EG.WeChat.Web.Models.TemplateMessageConfigM
+
+@{
+    ViewBag.Title = "TemplateEdit";
+    Layout = null;
+}
+
+@*<js引用>*@
+@Scripts.Render("~/Scripts/jquery-1.7.1.js")
+@Scripts.Render("~/Scripts/wizard/scrollable.js")
+@*<css引用>*@
+@Styles.Render("~/Content/authority/common_style.css")
+@Styles.Render("~/Content/authority/basic_layout.css")
+
+<script>
+    //submit表单
+    function EditConfig() {
+        //执行post请求
+        $.post("/TemplateMessage/TemplateEdit", $("Form").serialize(), function (data2) {
+            $("#Label_Message").text(data2.Message);
+        });
+    }
+
+</script>
+
+@using (Html.BeginForm())
+{       
+    <div class="divContent">
+        <div id="box_top">
+            <h3>编辑消息模板<br />
+            </h3>
+        </div>
+        <div id="box_Context">
+            <div class="box_column">
+                <p>
+                    @*<label>標題：</label>*@
+                    @Html.TextAreaFor(z => z.ID, new { @class = "ui_inputpage_input_txt02", @placeholder = "消息模板ID *：" })
+                </p>
+                <p>
+                    @*<label>段落1：</label>*@
+                    @Html.TextAreaFor(z => z.Title, new { @class = "ui_inputpage_input_txt02", @placeholder = "标题 *：" })
+                </p>
+                <p>
+                    @*<label>段落2：</label>*@
+                    @Html.TextAreaFor(z => z.Property, new { @class = "ui_inputpage_input_txt02", @placeholder = "模板字段 *：" })
+                </p>
+                <p>
+                    @*<label>段落3：</label>*@
+                    @Html.TextAreaFor(z => z.Content, new { @class = "ui_inputpage_input_txt02", @placeholder = "对应内容：" })
+                </p>
+                <p>
+                    @*<label>段落4：</label>*@
+                    @Html.TextAreaFor(z => z.Example, new { @class = "ui_inputpage_input_txt03", @placeholder = "示例：" })
+                </p>
+                <label id="Label_Message"></label>
+                <input type="button" value="確定保存" class="ui_input_btn01" onclick="EditConfig();" />
+            </div>
+
+        </div>
+    </div>
+    
+   
+}

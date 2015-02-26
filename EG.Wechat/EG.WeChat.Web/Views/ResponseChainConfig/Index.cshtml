@@ -1,0 +1,529 @@
+﻿@{
+    ViewBag.Title = "應答鏈配置工具";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string RootNodeId           = EG.WeChat.Utility.WeiXin.ResponseChain.ConstString.ROOT_NODE_ID;
+    string CallBackIndexView    = ViewBag.CallBackIndexView;
+}
+@section HeaderContent
+{
+    <script src="~/Scripts/jquery-ui-1.8.20.js"></script>
+    <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
+    <style>
+        .param {
+            display: none;
+        }
+
+        .messageXmlArea {
+            width: 100%;
+        }
+
+        .messageXmlArea textarea {
+            width: 100%;
+            height: 200px;
+        }
+
+        #requestType, #eventType {
+            padding: 5px;
+        }
+
+        #tableWhole td {
+            vertical-align:text-top;
+        }
+
+        #tableWhole input[type=text] {
+            height: 15px;
+        }
+
+        .HorizontalBorderTr {
+            border-bottom: 1px solid #808688;
+            border-top: 1px solid #808688;
+            border-collapse: collapse;
+        }
+
+    </style>
+    <script>
+        $(function () {
+            $('#ddlDealingHandler').change(checkDealingHandler);
+            $('#ddlDoneHandler').change(checkDoneHandler);
+            checkDealingHandler();
+            checkDoneHandler();
+            showEditedNodeInformation();
+            checkInputElementIsEmpty();
+            InitPreview_TreeStruct();
+            $('#DealingHandler_CustomHandler').change(customHandlerChanged);
+            customHandlerChanged();
+            InitAdvantanceConfigForCustomHandler();
+        });
+
+        /* 处理阶段处理器 选中项切换时 */
+        function checkDealingHandler() {
+            var requestType = $('#ddlDealingHandler').val();
+            var DealingId = 'Dealing' + requestType;
+            $('div[id^=Dealing]').hide();
+            $('#' + DealingId).show();
+
+            //其他处理： 当使用“多菜单时”，不需要再配置Done阶段
+            if (requestType == 'TextMenu') {
+                $("#Module_Done").hide();
+            }
+            else {
+                $("#Module_Done").show();
+            }
+        }
+
+        /* 完毕阶段处理器 选中项切换时 */
+        function checkDoneHandler() {
+            var requestType = $('#ddlDoneHandler').val();
+            var DoneId = 'Done' + requestType;
+            $('div[id^=Done]').hide();
+            $('#' + DoneId).show();
+        }
+
+        /* 自定义处理器 选中项切换时 */
+        function customHandlerChanged() {            
+            //##1.隐藏<A>参数设置</A>
+            $('#alinkConfigForCustomHandler').hide();
+
+            //##2.查询当前的自定义处理器，是否支持配置
+            $.post('@Url.Action("GetConfigClassInfoOfCustomHandler")', { customHandlerTypeName: $('#DealingHandler_CustomHandler').val() }, function (result) {
+                if (result.IsConfigable) {
+
+                    //##3.显示<A>参数设置</A>
+                    $('#alinkConfigForCustomHandler').show();
+                    //##4.设置配置时的目标Url
+                    $('#alinkConfigForCustomHandler').attr('targetUrl', result.Url);
+                }
+            });
+        }
+
+        /* 页面加载完之后，如果是编辑状态，则根据当前的配置信息，处理界面 */
+        function showEditedNodeInformation() {
+            var runThisFunction = '@(ViewData["CurrentEditedNode"] != null)';
+            if (runThisFunction == 'False')
+                return;
+
+            //开始解析配置信息
+            @if (ViewData["CurrentEditedNode"] != null)
+            {
+                var config = ViewData["CurrentEditedNode"] as EG.WeChat.Utility.WeiXin.ResponseChain.ResponseNodeConfig;
+                
+                //##DealingHandler
+                if (config.DealingHandlerConfig != null)
+                {
+                    if (config.DealingHandlerConfig is EG.WeChat.Utility.WeiXin.ResponseChain.DefaultDealingHandlerConfig)
+                    {
+                        var dealingHandler = config.DealingHandlerConfig as EG.WeChat.Utility.WeiXin.ResponseChain.DefaultDealingHandlerConfig;
+                        if (dealingHandler.DataType == EG.WeChat.Utility.WeiXin.ResponseChain.DataTypes.Text)
+                        {
+                            @Html.Raw("$('#ddlDealingHandler').val('DefaultText');") 
+                            @Html.Raw(String.Format("$('#DealingHandler_DefaultText').val('{0}');", dealingHandler.RawData.ToString().Replace(@"\",@"\\").Replace("\n",@"\n")))
+                        }
+                        else
+                        {
+                            @Html.Raw("$('#ddlDealingHandler').val('DefaultNews');") 
+                            var article = dealingHandler.RawData as EG.WeChat.Utility.WeiXin.ResponseChain.ArticleCan;
+                            @Html.Raw(String.Format("$('#DealingHandler_DefaultNews_title').val('{0}');", article.Title))
+                            @Html.Raw(String.Format("$('#DealingHandler_DefaultNews_description').val('{0}');", article.Description))
+                            @Html.Raw(String.Format("$('#DealingHandler_DefaultNews_picUrl').val('{0}');", article.PicUrl))
+                            @Html.Raw(String.Format("$('#DealingHandler_DefaultNews_pageUrl').val('{0}');", article.Url))
+                        }
+                    }
+                    else if (config.DealingHandlerConfig is EG.WeChat.Utility.WeiXin.ResponseChain.TextMenuHandlerConfig)
+                    {
+                        @Html.Raw("$('#ddlDealingHandler').val('TextMenu');")
+                    }
+                    else if (config.DealingHandlerConfig is EG.WeChat.Utility.WeiXin.ResponseChain.CustomHandlers.CustomHandlerConfig)
+                    {
+                        var dealingHandler = config.DealingHandlerConfig as EG.WeChat.Utility.WeiXin.ResponseChain.CustomHandlers.CustomHandlerConfig;                        
+                        @Html.Raw("$('#ddlDealingHandler').val('CustomHandler');")
+                        @Html.Raw(String.Format("$('#DealingHandler_CustomHandler').val('{0}');", dealingHandler.HandlerTypeName))
+                    }
+                }
+
+                //##DoneHandler
+                if (config.DoneHandlerConfig != null)
+                {
+                    var doneHandler = config.DoneHandlerConfig as EG.WeChat.Utility.WeiXin.ResponseChain.DefaultDoneHandlerConfig;
+                    if (doneHandler != null && doneHandler.NodeId != RootNodeId)
+                    {                       
+                        @Html.Raw("$('#ddlDoneHandler').val('DefaultTargetNode');")
+                        @Html.Raw(String.Format("$('#DoneDefaultTargetNode_JumpNode').val('{0}');", doneHandler.NodeId))
+                        @Html.Raw(String.Format("$('#DoneDefaultTargetNode_TipText').val('{0}');", doneHandler.TipText))
+                    }
+                    else
+                    {
+                        @Html.Raw("$('#ddlDoneHandler').val('DefaultRootNode');")        
+                    }
+                }
+            }
+
+            //隐藏其他action用途的控件
+            $("a[TheGroup=Action]").hide();
+
+            //刷新界面 隐藏和显示
+            checkDealingHandler();
+            checkDoneHandler();
+        }
+
+        /* 取消编辑 */
+        function cancelEdit() {
+            if (confirm("您確認要取消保存？")) {
+                location.href = "@Url.Action(CallBackIndexView)";
+            }
+        }
+
+        /* 保存编辑 */
+        function saveEdit() {
+
+            //##构建“参数Dictionary”  
+            /* 不同处理器，需要不同的参数，因此不使用Model传输了。交给后台处理。
+               当然这里会存在许多问题，比如 网页源文件 可以看见全部这些信息，etc.
+            */
+            var param = new Object();
+            param['NodeID']         = '@( ViewData["CurrentEditedNode"] == null ?
+                                       "" : ((EG.WeChat.Utility.WeiXin.ResponseChain.ResponseNodeConfig)ViewData["CurrentEditedNode"]).NodeID)';            
+            param['DealingHandler'] = $('#ddlDealingHandler').val();
+            param['DoneHandler'] = $('#ddlDoneHandler').val();
+
+            //New NodeID
+            if (param['NodeID'] == '@RootNodeId')
+                param['NewNodeId'] = param['NodeID'];
+            else
+                param['NewNodeId'] = $('#txtNewNodeID').val();
+
+            //##根据不同类型的DealingHandler，填充不同的参数
+            switch (param['DealingHandler']) {
+                case "DefaultText":
+                    param['DealingHandler_DefaultText'] = $('#DealingHandler_DefaultText').val();
+                    break;
+
+                case "DefaultNews":
+                    var news = {
+                        title:          $("#DealingHandler_DefaultNews_title").val(),
+                        description:    $("#DealingHandler_DefaultNews_description").val(),
+                        picUrl:         $("#DealingHandler_DefaultNews_picUrl").val(),
+                        pageUrl:        $("#DealingHandler_DefaultNews_pageUrl").val()
+                    };
+                    param['DealingHandler_DefaultNews'] = JSON.stringify(news);
+                    break;
+
+                case "TextMenu":
+                    param['DealingHandler_TextMenu_ReadyMessage'] = $("#DealingTextMenu_readyMessageText").val();
+
+                    var menus = new Object();
+                    var MenuitemList = $("#DealingDefaultTextMenu_MenusArea Div");
+                    var menus = new Object();
+                    for (var i = 0; i < MenuitemList.length; i++) {
+                        var nodeId  = $("input[useFor=NodeId]", MenuitemList[i]).val();
+                        var input   = $("input[useFor=inputText]", MenuitemList[i]).val();
+                        menus["#" + i] =  { Id :nodeId,data : input};        //??Json序列化时，如果Key为纯数字（即使类型是字符串），会被排序。因此这个用#前缀处理。
+                    }
+                    param['DealingHandler_TextMenu_Menus'] = JSON.stringify(menus);
+
+                    break;
+
+                case "CustomHandler":
+                    param['DealingHandler_CustomHandler'] = $('#DealingHandler_CustomHandler').val();
+                    break;
+            }
+
+
+            //##根据不同类型的DoneHandler，填充不同的参数
+            switch (param['DoneHandler']) {
+                case "DefaultRootNode":
+                    break;
+
+                case "DefaultTargetNode":
+                    param['DoneHandler_JumpNode']   = $('#DoneDefaultTargetNode_JumpNode').val();
+                    param['DoneHandler_TipText']    = $('#DoneDefaultTargetNode_TipText').val();                    
+                    break;
+            }
+
+            //##Post数据到Controller
+            $.post('@Url.Action("SaveEdit")', { parmDic: param }, function (result) {
+                if (result.IsSuccess) {
+                    alert("保存成功！");
+                    location.href = "@Url.Action(CallBackIndexView)";
+                }
+                else {
+                    alert(result.errorMessage);
+                }
+
+            });
+        }
+
+        /* 删除指定的菜单项 */
+        function DelelteTargetMenu(input) {
+            var targetDiv = $(input).parent();
+            targetDiv.remove();
+        }
+        
+        /* 上移指定的菜单项 */
+        function MoveUpTargetMenu(input) {
+            var targetDiv = $(input).parent();
+            var prevDiv     = targetDiv.prev();
+
+            if (prevDiv.length != 0) {      //非最前一个元素
+                targetDiv.remove();
+                prevDiv.before(targetDiv);
+            }
+        }
+
+        /* 下移指定的菜单项 */
+        function MoveDownTargetMenu(input) {
+            var targetDiv   = $(input).parent();
+            var nextDiv     = targetDiv.next();
+
+            if (nextDiv.length != 0) {      //非最后一个元素
+                targetDiv.remove();
+                nextDiv.after(targetDiv);
+            }
+        }
+
+        /* 新增菜单项 */
+        function AppendNewMenu(inputText, jumpNodeId) {
+            var targetDiv = $("#DealingDefaultTextMenu_MenusArea");
+
+            var str = '<div>使用者輸入的文字：<input type="text" value="' + inputText + '" style="height:15px;width:100px;"  useFor="inputText" /> &nbsp;&nbsp;'
+                    + '對應跳轉的目標節點：<input type="text" value="' + jumpNodeId + '" style="width:50px;height:15px;" useFor="NodeId" />&nbsp;&nbsp;'
+                    + '<input type="button" value="刪除" onclick="DelelteTargetMenu(this);" /> '
+                    + '<input type="button" value="上移" onclick="MoveUpTargetMenu(this);" /> '
+                    + '<input type="button" value="下移" onclick="MoveDownTargetMenu(this);" /> '
+                    + '</div>';
+            targetDiv.append(str);
+        }
+
+        /* 如果输入数据的控件为空，则用红框提醒下用户 */
+        function checkInputElementIsEmpty() {
+            $("input,textarea,select").blur(function () {
+                if ($(this).val() == '') {
+                    $(this).css('outline', 'solid 1px red');
+                }
+                else {
+                    $(this).css('outline', '');
+                }
+            });
+        }
+
+            function InitPreview_TreeStruct() {
+                $("#dlgPreview").dialog({   //模态窗口的div标签id
+                    autoOpen: false,        //是否页面载入时自动打开
+                    height: 700,
+                    width: 1000,
+                    resizable : false,      //不允许改变大小
+                    modal: true,            //是否模态
+                    title: "樹形結構預覽",
+                    buttons: {              //在下方增加关闭按钮
+                        關閉/*关闭按钮上显示的文字*/: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            }
+            function ShowPreview_TreeStruct() {                
+                $("#dlgPreview").html('<iframe src="@Url.Action("Preview")" width="100%" height="100%"  frameborder="0" />');
+                $("#dlgPreview").dialog("open");
+            }
+
+
+        function InitAdvantanceConfigForCustomHandler() {
+            $("#AdvantanceConfigForCustomHandler").dialog({   //模态窗口的div标签id
+                autoOpen: false,        //是否页面载入时自动打开
+                height: 600,
+                width: 800,
+                resizable: false,      //不允许改变大小
+                modal: true,            //是否模态
+                title: "自訂處理器-參數配置",
+            });
+        }
+        /* 打开 自定义处理器 的参数设置对话框 */
+        function OpenAdvantanceConfigForCustomHandler() {
+            @if (ViewData["CurrentEditedNode"] != null)
+            {
+                @Html.Raw(String.Format("var nodeId = {0} ;", ((EG.WeChat.Utility.WeiXin.ResponseChain.ResponseNodeConfig)ViewData["CurrentEditedNode"]).NodeID));
+            }
+
+            var targetUrl = $('#alinkConfigForCustomHandler').attr('targetUrl') + '?nodeid=' + nodeId ;
+            $("#AdvantanceConfigForCustomHandler").html('<iframe src="' + targetUrl + '" width="100%" height="100%"  frameborder="0" />');
+            $("#AdvantanceConfigForCustomHandler").dialog("open");
+        }
+        
+    </script>
+}
+@section Featured
+{
+
+}
+<section class="content-wrapper main-content clear-fix">
+    <h1>應答鏈配置工具</h1>
+    <div class="clear-fix"></div>
+
+    @if (CallBackIndexView == null || CallBackIndexView == "Index")
+    {
+        <div style="float:right;background-color:lightyellow;"><a href="javascript:void(0)" onclick="ShowPreview_TreeStruct()">【樹形結構預覽】</a> </div>
+    }
+
+    <div>&nbsp;</div>
+    <div id="ResponseChainConfigTool">
+        <div id="NodeList">
+            <table border="0" style="background-color:#89C7DE;width:100%;margin:10px;" id="tableWhole">
+                @* 标题 *@
+                <tr style="font-weight:bolder" class="HorizontalBorderTr">
+                    <td style="width:60px">節點ID</td>
+                    <td style="width:auto">內容概況</td>
+                    <td style="width:120px">操作</td>
+                </tr>
+
+            @* 列表内容 *@
+            @foreach (var item in ViewData["ConfigNodeList"] as List<EG.WeChat.Utility.WeiXin.ResponseChain.ResponseNodeConfig>)
+            {
+                if (ViewData["CurrentEditedNode"] == null ||
+                    String.Equals(item.NodeID, (((EG.WeChat.Utility.WeiXin.ResponseChain.ResponseNodeConfig)ViewData["CurrentEditedNode"]).NodeID)) == false)
+                {//普通状态                    
+                    <tr style="background-color:#98FB93" class="HorizontalBorderTr">
+                        <td>@item.NodeID</td>
+                        <td>@item.GetSummary()</td>
+                        <td>@Html.ActionLink("編輯", "Edit", new { nodeID = item.NodeID },new { TheGroup = "Action" }) &nbsp; 
+                            @if (item.NodeID != RootNodeId)
+                            {@Html.ActionLink("删除", "Delete", new { nodeID = item.NodeID },new { TheGroup = "Action", onclick = "return confirm('請確認是否刪除？');" })}
+                        </td>
+                    </tr>
+                }
+                else
+                {//编辑状态
+                    //第一行：节点ID编辑 + 操作按钮
+                    <tr style="background-color:lightyellow;padding-left:10px;">
+                        @if (item.NodeID != RootNodeId)
+                        {<td colspan="2"><strong>節點ID: </strong><input type="text" value="@item.NodeID" style="width:50px;height:15px;" id="txtNewNodeID" /> </td>}
+                        else
+                        {<td colspan="2"><strong>節點ID:</strong>@item.NodeID</td>}
+                        <td>
+                            <input type="button" value="保存" onclick="saveEdit()" />
+                            &nbsp; 
+                            <input type="button" value="取消" onclick="cancelEdit()" />
+                        </td>
+                    </tr>                    
+                        //第二行：具体的编辑控件
+                    <tr style="background-color:lightyellow;padding:5px;">
+                        <td colspan="3">
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:100px">&nbsp;</td>
+                                    <td style="width:100px"><strong>處理類型</strong></td>
+                                    <td ><strong>參數設置</strong></td>
+                                </tr>
+                                <tr id="Module_Dealing">
+                                    <td><strong>主要階段：</strong></td>
+                                    <td>
+                                        <select id="ddlDealingHandler">
+                                          <option value ="DefaultText">呈現指定的文字</option>
+                                          <option value ="DefaultNews">呈現指定的文章</option>
+                                          <option value ="TextMenu">多功能表項目跳轉</option>
+                                          <option value ="CustomHandler">自訂處理器</option>
+                                        </select>
+                                    </td>
+                                    <td>
+
+                                        <div id="DealingDefaultText" class="param">     @*呈现指定的文字*@
+                                            <input type="text" value="" style="height:15px;" id="DealingHandler_DefaultText"/> 
+                                        </div>
+
+                                        <div id="DealingDefaultNews" class="param">     @*呈现指定的文章*@
+                                            文章標題：<input type="text" value="" id="DealingHandler_DefaultNews_title" />  <br />
+                                            概要描述：<input type="text" value="" id="DealingHandler_DefaultNews_description" />  <br />
+                                            圖片链接：<input type="text" value="" id="DealingHandler_DefaultNews_picUrl" />  <br />
+                                            閱讀链接：<input type="text" value="" id="DealingHandler_DefaultNews_pageUrl" />
+                                        </div>
+
+
+                                        <div id="DealingTextMenu" class="param">        @*多菜单项跳转*@
+
+                                              @*文本框，呈现ReadyMessage（目前先只支持"Text类型"）*@
+                                              <div>呈現的提示資訊：</div>
+                                              <div><textarea rows="5" id="DealingTextMenu_readyMessageText"></textarea></div>
+
+                                            <span id="DealingDefaultTextMenu_MenusArea">
+                                            @{
+                                            var config = (EG.WeChat.Utility.WeiXin.ResponseChain.ResponseNodeConfig)ViewData["CurrentEditedNode"];
+                                            if (config.DealingHandlerConfig is EG.WeChat.Utility.WeiXin.ResponseChain.TextMenuHandlerConfig)
+                                                   {
+                                                       var handler      = (EG.WeChat.Utility.WeiXin.ResponseChain.TextMenuHandlerConfig)config.DealingHandlerConfig;
+                                                       var readyMessage = (EG.WeChat.Utility.WeiXin.ResponseChain.ResponseTextMessageConfig)handler.ReadyMessageConfig;                                                
+                                                       
+                                                       <script>$("#DealingTextMenu_readyMessageText").val("@readyMessage.Context.Replace(@"\",@"\\").Replace("\n",@"\n")");
+                                                                                                    
+                                                       @foreach (var menu in handler.Menus)
+                                                       {        
+                                                           @Html.Raw(String.Format("AppendNewMenu('{0}', '{1}');",menu.Key,menu.Value))
+                                                       }
+                                                       </script>
+                                                   }
+                                                   else
+                                                   {
+                                                       <script>
+                                                           $("#DealingTextMenu_readyMessageText").val("請輸入以下指令(數位):\n1.返回主菜單;");
+                                                           AppendNewMenu('1', '@RootNodeId');
+                                                       </script>
+                                                   }
+                                            }
+                                            </span>
+
+                                            <div style="float:right">
+                                                <input type="button" value="新增功能表項目" onclick="javascript:AppendNewMenu('1','0');" />
+                                            </div>
+                                        </div>
+
+                                        <div id="DealingCustomHandler" class="param">   @*自定义处理器*@
+                                            <select id="DealingHandler_CustomHandler">
+                                                @foreach (var keyValue in ViewData["AllCustomHandlerTypes"] as Dictionary<Type, string>)
+                                                {
+		                                            <option value = "@keyValue.Key">@keyValue.Value</option>
+                                                }
+                                            </select>
+
+                                            &nbsp;&nbsp;
+                                            <a href="javascript:void(0);" onclick="OpenAdvantanceConfigForCustomHandler()" 
+                                               targetUrl="about:blank" id="alinkConfigForCustomHandler">參數配置</a>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr id="Module_Done">
+                                    <td><strong>完毕阶段：</strong></td>
+                                    <td>
+                                        <select id="ddlDoneHandler">
+                                          <option value ="DefaultRootNode"  >任意輸入返回主功能表</option>
+                                          <option value ="DefaultTargetNode">匹配#時跳轉指定節點</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div id="DoneDefaultRootNode" class="param">   @*任意输入返回主菜单*@
+                                            <span style="color:#7D7D7D" >* 輸入任意內容，將會返回主功能表(根節點)。</span>
+                                        </div>
+                                        <div id="DoneDefaultTargetNode" class="param"> @*匹配#时跳转指定节点*@
+                                            提示文字：<input type="text" id="DoneDefaultTargetNode_TipText" /> 
+                                            需要跳轉的節點：<input type="text" style="width:50px;height:15px;" id="DoneDefaultTargetNode_JumpNode" /> 
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+
+                @* 底部 *@
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>@Html.ActionLink("+ 添加新節點", "AddNewNode",null,new { TheGroup = "Action" })</strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<div id="dlgPreview" style="overflow-y:hidden"></div>
+<div id="AdvantanceConfigForCustomHandler" style="overflow-y:hidden"></div>

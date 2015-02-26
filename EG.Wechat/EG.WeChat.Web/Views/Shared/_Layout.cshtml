@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+    @RenderSection("HeaderContent", false)
+</head>
+<body>
+    <header style="display:none">
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">
+                    <a href="~/">英皇集團 - 微信公眾平臺</a>
+                </p>
+            </div>
+            <div class="float-right">
+            </div>
+        </div>
+    </header>
+    <div id="body" style="display:none">
+        <section class="featured" >
+            <div class="content-wrapper">
+                <hgroup class="title">
+                    <h1>歡迎您的訪問。集團網址： <a href="http://www.emperorgroup.com/" target="_blank">www.emperorgroup.com</a> </h1>
+                </hgroup>
+
+                @RenderSection("Featured", false)
+                @if (IsSectionDefined("Featured"))
+                {
+                    <p>
+                        辅助工具：
+                    </p>
+                    <h2>@Html.ActionLink("自定义菜单设置工具", "Index", "WXMenu")</h2>
+                    <h2>@Html.ActionLink("消息模拟工具", "Index", "SimulateTool")</h2>                    
+                    <h2>@Html.ActionLink("应答链配置工具", "Index", "responseChainConfig")</h2>    
+                }
+            </div>
+        </section>        
+    </div>
+    
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

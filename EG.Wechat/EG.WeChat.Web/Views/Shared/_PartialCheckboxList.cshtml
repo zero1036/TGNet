@@ -1,0 +1,36 @@
+﻿@model System.Data.DataTable
+
+<div class="ui_content">
+    <div id="page" class="ui_tb">
+        <table id="table" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" onmouseover="tableMouseOver()">
+            <thead>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <th width='25'>
+                        <input type='checkbox' class='checkboxCtrl'>
+                    </th>
+                    @foreach (System.Data.DataColumn item in Model.Columns)
+                    {
+                        <th>@item.ColumnName</th>
+                    }
+                </tr>
+                @foreach (System.Data.DataRow item in Model.Rows)
+                {
+                    <tr>
+                        <td width='25'>
+                            <input type='checkbox' class='checkboxCtrl'>
+                        </td>
+                        @foreach (var itemColumn in item.ItemArray)
+                        {
+                            <td>@itemColumn.ToString()</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div id="pager" class="ui_tb_h30">
+
+    </div>
+</div>
