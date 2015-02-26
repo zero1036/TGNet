@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqls module="test">
+   
+  <sql id="select">
+    <![CDATA[select * from EGCommonADOTest]]>
+  </sql>
+
+  <sql id ="insert">
+    <![CDATA[
+    insert into EGCommonADOTest (id,login_id,user_name,age,Birthday,Gender,Pay) 
+    values([id],[loginid],[name],[age],[birthday],[gender],[pay])
+    ]]>
+  </sql>
+
+  <sql id="insert2">
+    <![CDATA[
+    insert into EGCommonADOTest (login_id,user_name,age,Birthday,Gender,Pay) 
+    values([loginid],[name],[age],[birthday],[gender],[pay])
+    ]]>
+    
+  </sql>
+
+  <sql id="select2">
+    <![CDATA[
+    select * 
+    from EGCommonADOTest 
+    where id=[id] 
+    ]]>
+  </sql>
+
+  <sql id ="select_brace">
+    <![CDATA[
+    select * 
+    from EGCommonADOTest 
+    where 1=1 
+    {and user_name like [name] } 
+    {and age >= [age]}
+    ]]>
+  </sql>
+
+  <sql id ="select_bracket">
+    <![CDATA[
+    select * 
+    from EGCommonADOTest 
+    order by <<name>>
+    ]]>
+  </sql>
+  
+</sqls>
