@@ -37,5 +37,11 @@ namespace TG.Example.View
             TaskFrm frm = new TaskFrm();
             frm.ShowDialog();
         }
+
+        private void btnPLinqExampleClass1_Click(object sender, EventArgs e)
+        {
+            PLinqExampleClass pc = new PLinqExampleClass();
+            pc.Main();
+        }
     }
 }
