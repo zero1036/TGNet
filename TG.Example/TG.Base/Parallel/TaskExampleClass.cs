@@ -5,6 +5,7 @@ using System.Text;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace TG.Example
 {
@@ -255,6 +256,77 @@ namespace TG.Example
             }
 
             Console.Read();
+        }
+        #endregion
+
+        #region
+        /// <summary>
+        /// Task串行，实例参见以下网址
+        /// http://www.cnblogs.com/huangxincheng/archive/2012/04/03/2430638.html
+        /// </summary>
+        public void TaskFunG()
+        {
+            ConcurrentStack<int> stack = new ConcurrentStack<int>();
+
+            //t1先串行
+            var t1 = Task.Factory.StartNew(() =>
+            {
+                stack.Push(1);
+                stack.Push(2);
+            });
+
+            //t2,t3并行执行
+            var t2 = t1.ContinueWith(t =>
+            {
+                int result;
+
+                stack.TryPop(out result);
+            });
+
+            //t2,t3并行执行
+            var t3 = t1.ContinueWith(t =>
+            {
+                int result;
+
+                stack.TryPop(out result);
+            });
+
+            //等待t2和t3执行完
+            Task.WaitAll(t2, t3);
+
+
+            //t4串行执行
+            var t4 = Task.Factory.StartNew(() =>
+            {
+                stack.Push(1);
+                stack.Push(2);
+            });
+
+            //t5,t6并行执行
+            var t5 = t4.ContinueWith(t =>
+            {
+                int result;
+
+                stack.TryPop(out result);
+            });
+
+            //t5,t6并行执行
+            var t6 = t4.ContinueWith(t =>
+            {
+                int result;
+
+                //只弹出，不移除
+                stack.TryPeek(out result);
+            });
+
+            //临界区：等待t5，t6执行完
+            Task.WaitAll(t5, t6);
+
+            //t7串行执行
+            var t7 = Task.Factory.StartNew(() =>
+            {
+                Console.WriteLine("当前集合元素个数：" + stack.Count);
+            });
         }
         #endregion
 

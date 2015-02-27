@@ -51,7 +51,8 @@ namespace TG.Example.View
             //pTestClass.TaskFunC();
             //pTestClass.TaskFunD();
             //pTestClass.TaskFunE();
-            pTestClass.TaskFunF();
+            //pTestClass.TaskFunF();
+            pTestClass.TaskFunG();
             #endregion
 
             long ennd = DateTime.Now.Ticks;
