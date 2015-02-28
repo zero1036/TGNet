@@ -43,5 +43,17 @@ namespace TG.Example.View
             PLinqExampleClass pc = new PLinqExampleClass();
             pc.Main();
         }
+
+        private void btnPLinqExampleClass2_Click(object sender, EventArgs e)
+        {
+            PLinqExampleClass2 pc = new PLinqExampleClass2();
+            pc.Main();
+        }
+
+        private void btnPLinqMapreduceEC_Click(object sender, EventArgs e)
+        {
+            PLinqMapreduceEC pc = new PLinqMapreduceEC();
+            pc.Main();
+        }
     }
 }
