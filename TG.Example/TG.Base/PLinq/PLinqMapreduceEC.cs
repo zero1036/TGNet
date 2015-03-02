@@ -29,6 +29,7 @@ namespace TG.Example
                 new Student(){ ID=1, Name="Aaron", Age=25},
             };
 
+
             list.GroupBy<Student, int>((stu) =>
                       {
                           return stu.Age;
