@@ -760,18 +760,74 @@ jQuery(function () {
     }
     NavMenu.prototype.initX = function () {
         var data = this.options.data;
-        var pul = $("<ul></ul>");
-        pul.addClass("nav nav-list");
 
-        $.each(data, function (index, value) {
-            var pli = $("<li></li>");
-            pli.text(value.resourceName);
+        var buildli = function (phref, pcontent, barrow) {
+
+            var pli = pcontent == "M0001" ? $("<li></li>").addClass("active") : $("<li></li>");
+            var pa = CheckNull(phref) ?
+                $("<a></a>").attr({
+                    "href": "#",
+                    "class": "dropdown-toggle"
+                }) : $("<a></a>").attr("href", "#" + phref);
+            var pi = barrow ? $("<i><i>").addClass("icon-dashboard") : $("<i><i>").addClass("icon-double-angle-right");
+            var psan = barrow ? $("<span></span>").addClass("menu-text").text(pcontent) : pcontent;
+            var pb = barrow ? $("<b></b>").addClass("arrow icon-angle-down") : null;
+
+            pa.append(pi);
+            pa.append(psan);
+            if (pb != null) pa.append(pb);
+            pli.append(pa);
+            return pli;
+        };
+
+        var buildChild = function (cid) {
+            var pList = $.grep(data, function (value) {
+                return value.parentID == cid;
+            });
+            if (pList.length == 0)
+                return null;
+
+            var pul = $("<ul></ul>");
+            pul.addClass("submenu").css({ "display": "block" });
+            for (var j = 0, chd; chd = pList[j++];) {
+                //if (chd.parentID === null || chd.parentID === undefined) {
+                var pli = buildli(chd.accessPath, chd.resourceName, false);
+                pul.append(pli);
+                //}
+                //else {
+                //    continue;
+                //}
+            }
+            return pul;
+        };
+
+        var pulnav = $("<ul></ul>");
+        pulnav.addClass("nav nav-list");
+        for (var i = 0, value; value = data[i++];) {
+            if (CheckNull(value.parentID)) {
+                //var pul = $("<li></li>");
+                //pul.addClass("submenu");
+
+                var pliChild = buildChild(value.resourceID);
+                var pli = buildli(value.accessPath, value.resourceName, pliChild == null ? false : true);
+
+                pli.append(pliChild);
+                //pul.append(pulChild);
+
+                pulnav.append(pli);
+            }
+        }
+        this.$element.append(pulnav);
 
 
-            pul.append(pli);
-        });
-        this.$element.append(pul);
 
+
+    }
+
+    function CheckNull(obj) {
+        if (obj === null || obj === undefined)
+            return true;
+        return false;
     }
 
     function Plugin(option, _relatedTarget) {
