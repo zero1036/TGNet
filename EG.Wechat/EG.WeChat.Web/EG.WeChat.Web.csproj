@@ -285,8 +285,11 @@
     <Content Include="assets\images\gallery\thumb-4.jpg" />
     <Content Include="assets\images\gallery\thumb-5.jpg" />
     <Content Include="assets\images\gallery\thumb-6.jpg" />
+    <Content Include="assets\js\ace-elements.js" />
     <Content Include="assets\js\ace-elements.min.js" />
+    <Content Include="assets\js\ace-extra.js" />
     <Content Include="assets\js\ace-extra.min.js" />
+    <Content Include="assets\js\ace.js" />
     <Content Include="assets\js\ace.min.js" />
     <Content Include="assets\js\additional-methods.min.js" />
     <Content Include="assets\js\bootbox.min.js" />
