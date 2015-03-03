@@ -742,3 +742,52 @@ jQuery(function () {
         return this
     }
 })(window.jQuery);
+
+/* ========================================================================
+ * tg: navmenu.js v1.0.0
+ * ========================================================================
+ * Writer:Tgor
+ * ======================================================================== */
+(function ($) {
+    var NavMenu = function (ele, options) {
+        this.options = options;
+        this.$element = $(ele);
+    }
+    NavMenu.DEFAULTS = {
+        backdrop: true,
+        keyboard: true,
+        show: true
+    }
+    NavMenu.prototype.initX = function () {
+        var data = this.options.data;
+        var pul = $("<ul></ul>");
+        pul.addClass("nav nav-list");
+
+        $.each(data, function (index, value) {
+            var pli = $("<li></li>");
+            pli.text(value.resourceName);
+
+
+            pul.append(pli);
+        });
+        this.$element.append(pul);
+
+    }
+
+    function Plugin(option, _relatedTarget) {
+        return this.each(function () {
+            var $this = $(this)
+            var data = $this.data('tg.navmenu')
+            var options = $.extend({}, NavMenu.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+            if (!data) $this.data('tg.navmenu', (data = new NavMenu(this, options)))
+            if (typeof option == 'string')
+                data[option](_relatedTarget)
+            else if (options.show)
+                data.initX();
+        })
+    }
+
+    $.fn.NavMenu = Plugin;
+    $.fn.NavMenu.Constructor = NavMenu;
+})(jQuery);

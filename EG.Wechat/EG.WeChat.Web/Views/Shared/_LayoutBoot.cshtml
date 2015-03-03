@@ -59,14 +59,8 @@
     <link href="http://cdn.bootcss.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
     <link href="http://cdn.bootcss.com/summernote/0.6.0/summernote.min.css" rel="stylesheet" />
 
-
-
-
-
-
-
-
-
+</head>
+<body ng-controller="BaseCtrl">
 
     <!-- basic scripts -->
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
@@ -119,7 +113,6 @@
     <script src="~/Scripts/jquery.json-2.3.min.js"></script>
 
     <!-- ace scripts -->
-
     <script src="~/assets/js/ace-elements.js"></script>
     <script src="~/assets/js/ace.js"></script>
 
@@ -129,9 +122,6 @@
     @*@Scripts.Render("~/Scripts/authority/commonAll.js")*@
 
     <!-- inline scripts related to this page -->
-
-</head>
-<body ng-controller="BaseCtrl">
 
     <div class="navbar navbar-default" id="navbar">
         <script type="text/javascript">
@@ -152,7 +142,7 @@
 
             <div class="navbar-header pull-right" role="navigation">
                 <ul class="nav ace-nav">
-                    <li class="grey">
+                    @* <li class="grey">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-tasks"></i>
                             <span class="badge badge-grey">4</span>
@@ -356,7 +346,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
 
                     <li class="light-blue">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -447,6 +437,22 @@
                     </div>
                 </div>
                 <!-- #sidebar-shortcuts -->
+
+                <script>
+                    $(document).ready(function () {
+                        $.post("/Menu/GetMenu", null, function (datas) {
+                            $("#nav-left").NavMenu({
+                                url: "/Menu/GetMenu",
+                                data: datas
+                            });
+                        });
+                    });
+
+                    
+
+                </script>
+
+                <div id="nav-left"></div>
 
                 <ul class="nav nav-list">
                     <li class="active">
@@ -868,9 +874,6 @@
         </a>
     </div>
     <!-- /.main-container -->
-
-
-
 
 
 
