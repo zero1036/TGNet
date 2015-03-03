@@ -760,18 +760,28 @@ jQuery(function () {
     }
     NavMenu.prototype.initX = function () {
         var data = this.options.data;
-
-        var buildli = function (phref, pcontent, barrow) {
-
+        var dicIcon = this.options.dicIcon;
+        var ignorelist = this.options.ignorelist;
+        var buildli = function (pid, phref, pcontent, bHasChild) {
+            //barrow:是否存在子项
             var pli = pcontent == "微信管理" ? $("<li></li>").addClass("active") : $("<li></li>");
-            var pa = CheckNull(phref) ?
+            var pa = bHasChild ?
                 $("<a></a>").attr({
                     "href": "#",
                     "class": "dropdown-toggle"
-                }) : $("<a></a>").attr("href", "#" + phref);
-            var pi = barrow ? $("<i><i>").addClass("icon-dashboard") : $("<i><i>").addClass("icon-double-angle-right");
-            var psan = barrow ? $("<span></span>").addClass("menu-text").text(pcontent) : pcontent;
-            var pb = barrow ? $("<b></b>").addClass("arrow icon-angle-down") : null;
+                })
+                :
+                $("<a></a>").attr("href", "#" + phref);
+            pa.css({ "text-decoration": "none" });
+            var pIcon = GetIconFromDic(dicIcon, pid);
+            var pi = bHasChild && pIcon != "" ?
+                $("<i><i>").addClass(pIcon)
+                :
+                $("<i><i>").addClass("icon-double-angle-right");
+            var psan = bHasChild ?
+                $("<span></span>").addClass("menu-text").text(pcontent) : pcontent;
+            var pb = bHasChild ?
+                $("<b></b>").addClass("arrow icon-angle-down") : null;
 
             pa.append(pi);
             pa.append(psan);
@@ -779,57 +789,53 @@ jQuery(function () {
             pli.append(pa);
             return pli;
         };
-
-        var buildChild = function (cid) {
-            var pList = $.grep(data, function (value) {
-                return value.parentID == cid;
+        var buildChildNode = function (cid) {
+            var pList = $.grep(data, function (a) {
+                return a.parentID == cid;
             });
             if (pList.length == 0)
                 return null;
 
             var pul = $("<ul></ul>");
-            pul.addClass("submenu").css({ "display": "block" });
+            pul.addClass("submenu");
             for (var j = 0, chd; chd = pList[j++];) {
-                //if (chd.parentID === null || chd.parentID === undefined) {
-                var pli = buildli(chd.accessPath, chd.resourceName, false);
-                pul.append(pli);
-                //}
-                //else {
-                //    continue;
-                //}
+                //递归创建当前节点的li集合（jq对象）
+                var curli = buildCurNode(chd);
+                pul.append(curli);
+
             }
             return pul;
         };
-
+        var buildCurNode = function (value) {
+            var pliChild = buildChildNode(value.resourceID);
+            var pli = buildli(value.resourceID, value.accessPath, value.resourceName, pliChild == null ? false : true);
+            pli.append(pliChild);
+            return pli;
+        }
         var pulnav = $("<ul></ul>");
         pulnav.addClass("nav nav-list");
         for (var i = 0, value; value = data[i++];) {
-            if (CheckNull(value.parentID)) {
-                //var pul = $("<li></li>");
-                //pul.addClass("submenu");
-
-                var pliChild = buildChild(value.resourceID);
-                var pli = buildli(value.accessPath, value.resourceName, pliChild == null ? false : true);
-
-                pli.append(pliChild);
-                //pul.append(pulChild);
-
-                pulnav.append(pli);
+            //过滤忽略列表
+            if (ignorelist === undefined || ignorelist.indexOf(value.resourceID) < 0) {
+                //只处理最顶层节点
+                if (CheckNull(value.parentID)) {
+                    var pli = buildCurNode(value);
+                    pulnav.append(pli);
+                }
             }
         }
         this.$element.append(pulnav);
-
-
-
-
     }
-
     function CheckNull(obj) {
         if (obj === null || obj === undefined)
             return true;
         return false;
     }
-
+    function GetIconFromDic(dicIcon, id) {
+        if (!CheckNull(dicIcon))
+            return dicIcon[id] || "";
+        return "";
+    }
     function Plugin(option, _relatedTarget) {
         return this.each(function () {
             var $this = $(this)

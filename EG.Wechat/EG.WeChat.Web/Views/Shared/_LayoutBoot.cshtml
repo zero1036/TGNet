@@ -443,7 +443,9 @@
                         $.post("/Menu/GetMenu", null, function (datas) {
                             $("#nav-left").NavMenu({
                                 url: "/Menu/GetMenu",
-                                data: datas
+                                data: datas,
+                                dicIcon: { "M0001": "icon-desktop", "M0002": "icon-comments", "M0003": "icon-edit", "M9999": "icon-dashboard" },
+                                ignorelist: ["M9999"]
                             });
                         });
                     });
@@ -453,7 +455,7 @@
                 <div id="nav-left"></div>
                 <!-- #左侧导航菜单 -->
 
-                <ul class="nav nav-list">
+                @*            <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="icon-dashboard"></i>
@@ -748,7 +750,7 @@
                             </li>
                         </ul>
                     </li>
-                </ul>
+                </ul>*@
                 <!-- /.nav-list -->
 
                 <div class="sidebar-collapse" id="sidebar-collapse">
