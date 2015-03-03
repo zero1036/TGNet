@@ -763,7 +763,7 @@ jQuery(function () {
 
         var buildli = function (phref, pcontent, barrow) {
 
-            var pli = pcontent == "M0001" ? $("<li></li>").addClass("active") : $("<li></li>");
+            var pli = pcontent == "微信管理" ? $("<li></li>").addClass("active") : $("<li></li>");
             var pa = CheckNull(phref) ?
                 $("<a></a>").attr({
                     "href": "#",

@@ -5,6 +5,7 @@ jQuery(function (a) {
     window.ace.click_event = a.fn.tap ? "tap" : "click"
 });
 jQuery(function (a) {
+    //ace.load_custom(jQuery);
     ace.handle_side_menu(jQuery);
     ace.enable_search_ahead(jQuery);
     ace.general_things(jQuery);
@@ -25,7 +26,7 @@ ace.handle_side_menu = function (a) {
         ace.settings.sidebar_collapsed(!c)
     });
     var b = navigator.userAgent.match(/OS (5|6|7)(_\d)+ like Mac OS X/i);
-    a(".nav-list").on(ace.click_event,
+    a(a(".nav-list").parent).on(ace.click_event, ".nav-list",
     function (h) {
         var g = a(h.target).closest("a");
         if (!g || g.length == 0) {
@@ -321,3 +322,11 @@ ace.switch_direction = function (d) {
         e.data("draw").call(e.get(0), e, e.data("chart"), f)
     }
 };
+//ace.load_custom = function (a) {
+//    $.post("/Menu/GetMenu", null, function (datas) {
+//        $("#nav-left").NavMenu({
+//            url: "/Menu/GetMenu",
+//            data: datas
+//        });
+//    });
+//};
