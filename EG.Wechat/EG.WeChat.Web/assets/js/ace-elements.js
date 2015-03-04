@@ -764,7 +764,7 @@ jQuery(function () {
         var ignorelist = this.options.ignorelist;
         var buildli = function (pid, phref, pcontent, bHasChild) {
             //barrow:是否存在子项
-            var pli = pcontent == "微信管理" ? $("<li></li>").addClass("active") : $("<li></li>");
+            var pli = $("<li></li>");
             var pa = bHasChild ?
                 $("<a></a>").attr({
                     "href": "javascript:void(0);",

@@ -6,7 +6,8 @@
 body {
     padding-bottom: 0;
     min-height: 100%;
-    background-color: #e4e6e9;
+    /*background-color: #e4e6e9;*/
+    background: #438eb9 url(~/Images/common/bg-default.png) !important;
     color: #393939;
     font-size: 13px;
     font-family: 'Open Sans';
@@ -60,8 +61,13 @@ body {
     margin-top: 0;
     margin-right: 0;
     margin-left: 190px;
+    margin-bottom: 10px;
     padding: 0;
     min-height: 100%;
+    background-color: rgba(0,0,0,0);
+    box-shadow: 0 0 10px #757575;
+    -moz-box-shadow: 0 0 10px #757575;
+    -webkit-box-shadow: 0 0 10px #757575;
 }
 
 .page-content {
@@ -2813,7 +2819,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
     display: none;
 }
 
-@media only screen and (max-width:991px) {
+@media only screen and (min-width:768px) and (max-width:991px) {
     .sidebar:before {
         display: none;
     }
@@ -2939,6 +2945,187 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
     .nav-list li.active.open > .submenu > li.active > a:after {
         display: none;
     }
+
+    .menu-min .nav-list > li.active:after {
+        display: block;
+    }
+
+    .menu-min .nav-list > li.active > a:after {
+        display: block;
+    }
+}
+
+/*******************************
+    概述：手机版——导航菜单max
+    修改说明：max-width:361px
+    修改人：TG
+    修改时间：20150304
+*******************************/
+@media only screen and (max-width:768px) {
+    .sidebar:before {
+        display: none;
+    }
+
+    .sidebar {
+        position: fixed;
+        height: auto;
+        top: auto!important;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 10;
+        background-color: rgba(10,30,0,0);
+        /*float: none;*/
+        /*display: block;*/
+        /*margin-top: 40px;*/
+        /*border: 1px solid #CCC;
+        box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
+        border-left-width: 0;*/
+    }
+
+        .sidebar.display {
+            display: block;
+        }
+
+        .sidebar > .sidebar-shortcuts {
+            display: none;
+        }
+
+    /*.menu-toggler {
+        position: absolute;
+        left: 0;
+        z-index: 998;
+        display: inline-block;
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        margin-right: 2px;
+        padding-top: 7px;
+        padding-bottom: 1px;
+        padding-left: 33px;
+        width: 52px;
+        height: 32px;
+        background-color: #444;
+        color: #f3f3f3;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: normal;
+    }
+
+        .menu-toggler:hover {
+            text-decoration: none;
+        }
+
+        .menu-toggler:before {
+            position: absolute;
+            top: 13px;
+            left: 4px;
+            z-index: 11;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            width: 24px;
+            height: 2px;
+            border-top: 1px solid #87b87f;
+            border-bottom: 1px solid #6fb3e0;
+            content: "";
+            -webkit-transition: all .1s ease;
+            -o-transition: none;
+            transition: all .1s ease;
+        }
+
+        .menu-toggler:after {
+            position: absolute;
+            top: 19px;
+            left: 4px;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            width: 24px;
+            height: 2px;
+            border-top: 1px solid #ffa24d;
+            border-bottom: 1px solid #d15b47;
+            content: "";
+            -webkit-transition: all .1s ease;
+            -o-transition: none;
+            transition: all .1s ease;
+        }
+
+        .menu-toggler.display:before {
+            top: 8px;
+            height: 4px;
+            border-width: 2px;
+        }
+
+        .menu-toggler.display:after {
+            top: 20px;
+            height: 4px;
+            border-width: 2px;
+        }
+
+        .menu-toggler > .menu-text {
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            display: block;
+            border: 1px solid transparent;
+            border-width: 9px 42px;
+            border-top-color: #444;
+        }
+
+            .menu-toggler > .menu-text:after {
+                position: absolute;
+                top: -41px;
+                left: -8px;
+                display: block;
+                color: #FFF;
+                content: "MENU";
+            }*/
+
+    .sidebar-collapse {
+        display: none;
+    }
+
+    .nav-list {
+        background-color: rgba(10,30,0,0);
+    }
+
+        .nav-list > li {
+            display: inline-block;
+            background: url("/Images/common/side-bar-list-bg.png");
+            /*float: left;*/
+        }
+
+            .nav-list > li:nth-child(1) {
+                width: 34%;
+            }
+
+            .nav-list > li:nth-child(2) {
+                width: 33%;
+            }
+
+            .nav-list > li:nth-child(3) {
+                width: 33%;
+            }
+
+            .nav-list > li > b:before, .nav-list > li > i, .nav-list > li > a {
+                width: 100%;
+                display: inline-block;
+            }
+
+            .nav-list > li.active:after {
+                display: none;
+            }
+
+        .nav-list li.active > a:after {
+            display: none;
+        }
+
+        .nav-list li.active.open > .submenu > li.active > a:after {
+            display: none;
+        }
 
     .menu-min .nav-list > li.active:after {
         display: block;
@@ -15153,11 +15340,12 @@ th[aria-selected=true] {
             font-size: 13px;
         }
 
+
 .btn-scroll-up {
     position: absolute;
     right: 2px;
-    bottom: 2px;
-    z-index: 11;
+    bottom: 30px; /*位置调高一点，避免与底部菜单栏冲突-TG-20150304*/
+    z-index: 21;
     border: 0;
 }
 
