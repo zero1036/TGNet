@@ -765,7 +765,7 @@
     <Content Include="Views\UserMessage\List.cshtml" />
     <Content Include="Views\WXResource\WXVoicesConfig.cshtml" />
     <Content Include="Views\ResponseChainCustomHandler\AdvantanceConfig_CustomHandler_ArtificialService\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutBoot.cshtml" />
+    <Content Include="Views\Shared\_Layout4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
