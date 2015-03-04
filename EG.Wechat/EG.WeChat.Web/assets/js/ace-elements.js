@@ -767,7 +767,7 @@ jQuery(function () {
             var pli = pcontent == "微信管理" ? $("<li></li>").addClass("active") : $("<li></li>");
             var pa = bHasChild ?
                 $("<a></a>").attr({
-                    "href": "#",
+                    "href": "javascript:void(0);",
                     "class": "dropdown-toggle"
                 })
                 :
