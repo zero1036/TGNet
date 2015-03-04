@@ -3086,11 +3086,21 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
         background-color: rgba(10,30,0,0);
     }
 
+        .nav-list > li:first-child {
+            border-top: 1px solid #DDD;
+        }
+
         .nav-list > li {
             display: inline-block;
-            background: url("/Images/common/side-bar-list-bg.png");
+            background-color: #CCC;
+            border: 1px solid #DDD;
             /*float: left;*/
         }
+
+            .nav-list > li > a {
+                background-color: #438eb9;
+                color: white;
+            }
 
             .nav-list > li:nth-child(1) {
                 width: 34%;
