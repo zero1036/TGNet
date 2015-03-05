@@ -344,6 +344,12 @@
     <Content Include="assets\js\typeahead-bs2.min.js" />
     <Content Include="assets\js\x-editable\ace-editable.min.js" />
     <Content Include="assets\js\x-editable\bootstrap-editable.min.js" />
+    <Content Include="Content\ace\ace-ie.min.css" />
+    <Content Include="Content\ace\ace-rtl.min.css" />
+    <Content Include="Content\ace\ace-skins.min.css" />
+    <Content Include="Content\ace\ace.css" />
+    <Content Include="Content\ace\ace.min.css" />
+    <Content Include="Content\ace\font-awesome.min.css" />
     <Content Include="Content\auicss\admin.css" />
     <Content Include="Content\auicss\amazeui.css" />
     <Content Include="Content\auicss\amazeui.flat.css" />
