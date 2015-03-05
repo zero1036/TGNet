@@ -383,6 +383,12 @@
     <Content Include="Images\common\play.png" />
     <Content Include="Images\common\user.jpg" />
     <Content Include="Images\common\会员卡示例.png" />
+    <Content Include="Scripts\ace\ace-elements.js" />
+    <Content Include="Scripts\ace\ace-elements.min.js" />
+    <Content Include="Scripts\ace\ace-extra.js" />
+    <Content Include="Scripts\ace\ace-extra.min.js" />
+    <Content Include="Scripts\ace\ace.js" />
+    <Content Include="Scripts\ace\ace.min.js" />
     <Content Include="Scripts\amazeui\amazeui.js" />
     <Content Include="Scripts\amazeui\amazeui.legacy.js" />
     <Content Include="Scripts\amazeui\amazeui.legacy.min.js" />
