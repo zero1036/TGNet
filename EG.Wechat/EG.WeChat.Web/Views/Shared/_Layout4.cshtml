@@ -32,35 +32,37 @@
     <link rel="stylesheet" href="~/Content/ace/ace-skins.min.css" />
     <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
+	<![endif]-->
 
-
-    <!-- ace settings handler -->
-    <script src="~/assets/js/ace-extra.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
     <!--[if lt IE 9]>
 		<script src="~/assets/js/html5shiv.js"></script>
 		<script src="!/assets/js/respond.min.js"></script>
-		<![endif]-->
+	<![endif]-->
 
-    <!-- Dropzone -->
-    @Styles.Render("~/Scripts/Dropzone/css/basic.css")
-    @Styles.Render("~/Scripts/Dropzone/css/dropzone.css")
+    <!-- Dropzone CSS -->
+    <!--<link rel="stylesheet" href="~/Scripts/Dropzone/css/basic.css" />-->
+    <!--<link rel="stylesheet" href="~/Scripts/Dropzone/css/dropzone.css" />-->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/dropzone/3.12.0/css/basic.css" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/dropzone/3.12.0/css/dropzone.css" />
+
     <!-- authority CSS-->
-    @Styles.Render("~/Content/authority/main_css.css")
-    @Styles.Render("~/Content/authority/zTreeStyle.css")
-    <!-- summernote 富文本编辑插件 采用bootcss CDN数据源-->
+    <link rel="stylesheet" href="~/Content/authority/main_css.css" />
 
+    <!-- zTree CSS-->
+    <link rel="stylesheet" href="~/Content/authority/zTreeStyle.css" />
+
+    <!-- summernote CSS-->
     <link href="http://cdn.bootcss.com/summernote/0.6.0/summernote.min.css" rel="stylesheet" />
 
 </head>
 <body ng-controller="BaseCtrl">
-
+    
     <!-- basic scripts -->
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
-    @* <!--[if !IE]> -->
+    
+    <!--[if !IE]> -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- <![endif]-->
 
@@ -73,53 +75,78 @@
     <!-- <![endif]-->
 
     <!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
-</script>
-<![endif]-->*@
+        <script type="text/javascript">
+         window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+        </script>
+    <![endif]-->
 
     <script type="text/javascript">
         if ("ontouchend" in document) document.write("<script src='~/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.js"></script>
-    <script src="~/assets/js/typeahead-bs2.min.js"></script>
 
+    <!-- bootstrap scripts -->
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
 
-    <script src="~/Scripts/Angular/angular.js"></script>
-    <script src="~/Scripts/Angular/angular-route.js"></script>
-    <script src="~/Scripts/Dropzone/dropzone.js"></script>
-    <script src="~/assets/js/summernote/summernote.js"></script>
+    <!-- Angular scripts -->
+    @*<script src="~/Scripts/Angular/angular.js"></script>
+    <script src="~/Scripts/Angular/angular-route.js"></script>*@
+    <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular.min.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular-route.min.js"></script>
+
+    <!-- dropzone scripts -->
+    @*<script src="~/Scripts/Dropzone/dropzone.js"></script>*@
+    <script src="http://cdn.bootcss.com/dropzone/3.12.0/dropzone.min.js"></script>
+
+    <!-- summernote scripts -->
+    @*<script src="~/assets/js/summernote/summernote.js"></script>*@
+    <script src="http://cdn.bootcss.com/summernote/0.6.0/summernote.min.js"></script>
     <script src="~/Scripts/EGCommon.js"></script>
 
 
-
     <!-- page specific plugin scripts -->
-
     <!--[if lte IE 8]>
 		  <script src="assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-    <script src="~/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="~/assets/js/jquery.ui.touch-punch.min.js"></script>
-    <script src="~/assets/js/jquery.slimscroll.min.js"></script>
-    <script src="~/assets/js/jquery.easy-pie-chart.min.js"></script>
-    <script src="~/assets/js/jquery.sparkline.min.js"></script>
-    @*    <script src="~/assets/js/flot/jquery.flot.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="~/Scripts/jquery.ui.touch-punch.min.js"></script>
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/jquery.easy-pie-chart.min.js"></script>
+    <script src="~/Scripts/jquery.sparkline.min.js"></script>
+    <!--<script src="~/assets/js/flot/jquery.flot.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.pie.min.js"></script>
-    <script src="~/assets/js/flot/jquery.flot.resize.min.js"></script>*@
-    <script src="~/Scripts/jquery.json-2.3.min.js"></script>
+    <script src="~/assets/js/flot/jquery.flot.resize.min.js"></script>-->
 
     <!-- ace scripts -->
     <script src="~/assets/js/ace-elements.js"></script>
     <script src="~/assets/js/ace.js"></script>
-
+    <!-- ace settings handler -->
+    <script src="~/assets/js/ace-extra.js"></script>
 
     <!-- ztree -->
-    @*  @Scripts.Render("~/Scripts/zTree/jquery.ztree.core-3.2.js")
-    @Scripts.Render("~/Scripts/authority/commonAll.js")*@
+    <!--<script src="~/Scripts/zTree/jquery.ztree.core-3.2.js"-->
+    <!--<script src="~/Scripts/authority/commonAll.js"></script> -->
+    <script src="/Scripts/jquery.json-2.3.min.js"></script>
 
-    <!-- inline scripts related to this page -->
-    @Scripts.Render("~/Scripts/Controllers/appAg.js")
+    <!-- Angular Base Controller -->
+    <script src="~/Scripts/Controllers/appAg.js"></script>
+
+    <!-- custom script-->
+    <script>
+        $(document).ready(function () {
+            $.post("/Menu/GetMenu", null, function (datas) {
+                $("#nav-left").NavMenu({
+                    url: "/Menu/GetMenu",
+                    data: datas,
+                    dicIcon: { "M0001": "icon-desktop", "M0002": "icon-comments", "M0003": "icon-edit", "M9999": "icon-dashboard" },
+                    ignorelist: ["M9999"]
+                });
+            });
+        });
+
+    </script>
+
 
     <div class="navbar navbar-default" id="navbar">
         <script type="text/javascript">
@@ -389,6 +416,7 @@
         </div>
         <!-- /.container -->
     </div>
+    <!-- /.navbar -->
 
     <div class="main-container" id="main-container">
         <script type="text/javascript">
@@ -436,19 +464,6 @@
                 </div>*@
                 <!-- #sidebar-shortcuts -->
 
-                <script>
-                    $(document).ready(function () {
-                        $.post("/Menu/GetMenu", null, function (datas) {
-                            $("#nav-left").NavMenu({
-                                url: "/Menu/GetMenu",
-                                data: datas,
-                                dicIcon: { "M0001": "icon-desktop", "M0002": "icon-comments", "M0003": "icon-edit", "M9999": "icon-dashboard" },
-                                ignorelist: ["M9999"]
-                            });
-                        });
-                    });
-
-                </script>
 
                 <div id="nav-left"></div>
                 <!-- #左侧导航菜单 -->

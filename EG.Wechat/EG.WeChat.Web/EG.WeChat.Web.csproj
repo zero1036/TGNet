@@ -591,6 +591,7 @@
     <Content Include="Scripts\Bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\js\bootstrap.min.js" />
     <Content Include="Scripts\Bootstrap\js\npm.js" />
+    <Content Include="Scripts\Bootstrap\js\typeahead-bs2.min.js" />
     <Content Include="Scripts\Controllers\app.js" />
     <Content Include="Scripts\Controllers\appAg.js" />
     <Content Include="Scripts\Controllers\WXBaseController.js" />
@@ -624,8 +625,13 @@
     <Content Include="Scripts\EGCommon.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Scripts\jquery.easy-pie-chart.min.js" />
     <Content Include="Scripts\jquery.json-2.3.js" />
     <Content Include="Scripts\jquery.json-2.3.min.js" />
+    <Content Include="Scripts\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\jquery.sparkline.min.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
