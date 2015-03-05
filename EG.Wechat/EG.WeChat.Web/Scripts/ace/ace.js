@@ -26,6 +26,9 @@ ace.handle_side_menu = function (a) {
         ace.settings.sidebar_collapsed(!c)
     });
     var b = navigator.userAgent.match(/OS (5|6|7)(_\d)+ like Mac OS X/i);
+    //if (a(".nav-list") == null) {
+    //    return;
+    //}
     a(a(".nav-list").parent).on(ace.click_event, ".nav-list",
     function (h) {
         var g = a(h.target).closest("a");
