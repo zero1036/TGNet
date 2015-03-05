@@ -96,6 +96,7 @@
     <script src="~/Scripts/EGCommon.js"></script>
 
 
+
     <!-- page specific plugin scripts -->
 
     <!--[if lte IE 8]>
@@ -118,10 +119,11 @@
 
 
     <!-- ztree -->
-    @*@Scripts.Render("~/Scripts/zTree/jquery.ztree.core-3.2.js")*@
-    @*@Scripts.Render("~/Scripts/authority/commonAll.js")*@
+    @*  @Scripts.Render("~/Scripts/zTree/jquery.ztree.core-3.2.js")
+    @Scripts.Render("~/Scripts/authority/commonAll.js")*@
 
     <!-- inline scripts related to this page -->
+    @Scripts.Render("~/Scripts/Controllers/appAg.js")
 
     <div class="navbar navbar-default" id="navbar">
         <script type="text/javascript">
@@ -781,7 +783,7 @@
                     <div class="nav-search" id="nav-search">
                         <form class="form-search">
                             <span class="input-icon">
-                                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                                <input type="text" placeholder="搜索 ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
                                 <i class="icon-search nav-search-icon"></i>
                             </span>
                         </form>

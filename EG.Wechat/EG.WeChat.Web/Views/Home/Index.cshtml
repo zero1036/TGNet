@@ -1,8 +1,11 @@
 ﻿@{
+    var mode = System.Configuration.ConfigurationManager.AppSettings["LayoutMode"].ToString();
     ViewBag.Title = "微信服務號";
+    var id = Html.ViewContext.RouteData.Values["id"];
+    var layoutMode = id == null ? mode : id;
+    layoutMode = layoutMode == null ? "2" : layoutMode;
+    Layout = "~/Views/Shared/_Layout" + layoutMode + ".cshtml";   
 }
-
-@{ var mode = System.Configuration.ConfigurationManager.AppSettings["LayoutMode"].ToString(); }
 
 @Scripts.Render("~/Scripts/Controllers/WXBaseController.js")
 @Scripts.Render("~/Scripts/Controllers/WXOrgController.js")
@@ -10,9 +13,10 @@
 @Scripts.Render("~/Scripts/Controllers/WXService.js")
 @Scripts.Render("~/Scripts/Controllers/WXDirective.js")
 
-@if (mode == "2")
+@if (layoutMode == "2")
 {
     @Scripts.Render("~/Scripts/Controllers/app.js")
+
     <section class="content-wrapper main-content clear-fix">
 
         <p>官方服務號帳號： 000000(等待設置)</p>
@@ -23,10 +27,9 @@
         </p>
     </section>
 }
-else if (mode == "3" || mode == "4")
-{
-    @Scripts.Render("~/Scripts/Controllers/appAg.js")
-    <div ng-view id="mainView"></div>
-}
+
+
+<div ng-view id="mainView"></div>
+
 
 
