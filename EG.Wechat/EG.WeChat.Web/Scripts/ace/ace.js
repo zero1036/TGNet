@@ -80,7 +80,7 @@ ace.general_things = function (a) {
         });
     }
     catch (e) { }
-    a("#ace-settings-btn").on(ace.click_event,
+    a(a("#ace-settings-btn").parent).on(ace.click_event, "#ace-settings-btn",
     function () {
         a(this).toggleClass("open");
         a("#ace-settings-box").toggleClass("open")

@@ -2986,7 +2986,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
             display: none;
         }
 
-    /*.menu-toggler {
+    .menu-toggler {
         position: absolute;
         left: 0;
         z-index: 998;
@@ -3076,7 +3076,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
                 display: block;
                 color: #FFF;
                 content: "MENU";
-            }*/
+            }
 
     .sidebar-collapse {
         display: none;
@@ -15344,6 +15344,71 @@ th[aria-selected=true] {
             font-size: 13px;
         }
 
+
+/*******************************
+    概述：TG右边固定弹出框
+    修改说明：
+    修改人：TG
+    修改时间：20150304
+*******************************/
+
+/*.ace-settings-container.tg-modal {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    z-index: 13;
+}
+
+.breadcrumbs-fixed .ace-settings-container {
+    top: 9px;
+}
+
+.btn.ace-settings-btn {
+    float: left;
+    display: inline-block;
+    margin: 0;
+    width: 42px!important;
+    border-radius: 6px 0 0 6px!important;
+    vertical-align: top;
+    text-align: center;
+    opacity: .55;
+    filter: alpha(opacity=55.00000000000001);
+}
+
+    .btn.ace-settings-btn:hover, .btn.ace-settings-btn.open {
+        opacity: 1;
+        filter: alpha(opacity=100);
+    }
+
+.ace-settings-box {
+    float: left;
+    display: none;
+    padding: 0 14px;
+    width: 275px;
+    border: 2px solid #ffb34b;
+    background-color: #FFF;
+}
+
+    .ace-settings-box.open {
+        display: block;
+    }
+
+    .ace-settings-box > div {
+        margin: 6px 0;
+        max-height: 200em;
+        color: #444;
+    }
+
+        .ace-settings-box > div > label {
+            font-size: 13px;
+        }*/
+
+/*******************************
+    概述：TG底部固定回到顶部按钮
+    修改说明：
+    修改人：TG
+    修改时间：20150304
+*******************************/
 
 .btn-scroll-up {
     position: absolute;
