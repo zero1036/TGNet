@@ -81,18 +81,19 @@
     <![endif]-->
 
     <script type="text/javascript">
-        if ("ontouchend" in document) document.write("<script src='~/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+        if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
+
+    <!-- bootstrap scripts -->
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
 
     <!-- Angular scripts -->
     @*<script src="~/Scripts/Angular/angular.js"></script>
     <script src="~/Scripts/Angular/angular-route.js"></script>*@
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular.min.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular-route.min.js"></script>
-
-    <!-- bootstrap scripts -->
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
 
     <!-- dropzone scripts -->
     @*<script src="~/Scripts/Dropzone/dropzone.js"></script>*@
@@ -825,7 +826,7 @@
             </div>
             <!-- /.main-content -->
 
-            <div class="ace-settings-container" id="ace-settings-container">
+            @*     <div class="ace-settings-container" id="ace-settings-container">
                 <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
                     <i class="icon-cog bigger-150"></i>
                 </div>
@@ -871,7 +872,7 @@
                         </label>
                     </div>
                 </div>
-            </div>
+            </div>*@
             <!-- /#ace-settings-container -->
         </div>
         <!-- /.main-container-inner -->
