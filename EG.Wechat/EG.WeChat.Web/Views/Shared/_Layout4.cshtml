@@ -60,10 +60,10 @@
 <body ng-controller="BaseCtrl">
 
     <!-- basic scripts -->
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    @*<script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>*@
 
     <!--[if !IE]> -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <!-- <![endif]-->
 
     <!--[if !IE]> -->
@@ -84,15 +84,15 @@
         if ("ontouchend" in document) document.write("<script src='~/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
 
-    <!-- bootstrap scripts -->
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
-
     <!-- Angular scripts -->
     @*<script src="~/Scripts/Angular/angular.js"></script>
     <script src="~/Scripts/Angular/angular-route.js"></script>*@
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular.min.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular-route.min.js"></script>
+
+    <!-- bootstrap scripts -->
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
 
     <!-- dropzone scripts -->
     @*<script src="~/Scripts/Dropzone/dropzone.js"></script>*@
