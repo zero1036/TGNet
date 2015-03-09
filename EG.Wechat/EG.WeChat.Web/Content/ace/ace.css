@@ -15897,7 +15897,7 @@ th[aria-selected=true] {
     修改时间：20150309
 *******************************/
 .tg-wrappanelitem {
-    width: 11em;
+    width: 10em;
     height: 8em;
     float: left;
 }
@@ -15932,3 +15932,13 @@ th[aria-selected=true] {
         .tg-mask > a:hover {
             color: #00B6AD;
         }
+
+/*******************************
+    概述：bootstrap modal取消margin 10px值
+    修改说明：新增
+    修改人：TG
+    修改时间：20150309
+*******************************/
+.modal-dialog {
+    margin: 0;
+}
