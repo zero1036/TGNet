@@ -1,8 +1,10 @@
 ﻿<div>
     <div ng-if="EditMode==0" class="container-fluid">
         <div class="row" style="margin-left: 10px; margin-right: 10px">
-            <button class="btn btn-default btn-block" ng-click="Edit(null)">新建圖文資源</button>
-            <br />
+            <div>
+                <button class="btn btn-default btn-block" ng-click="Edit(null)">新建圖文資源</button>
+                <pagesuc></pagesuc>
+            </div>
             <div class="row">
                 <style>
                     .tg-div-tool {
@@ -36,17 +38,10 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </div>
-
                     </div>
                 </div>
-
-            </div>
-            <div>
-                <pagesuc></pagesuc>
             </div>
             <br />
-
-
         </div>
     </div>
     <wxarticleedit ng-if="EditMode==1" ng-controller="ArticleEditCtrl"></wxarticleedit>
