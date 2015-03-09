@@ -15889,3 +15889,46 @@ th[aria-selected=true] {
 .tg-el-fleft {
     float: left;
 }
+
+/*******************************
+    概述：wrappanel item
+    修改说明：新增
+    修改人：TG
+    修改时间：20150309
+*******************************/
+.tg-wrappanelitem {
+    width: 11em;
+    height: 8em;
+    float: left;
+}
+
+/*******************************
+    概述：mask遮罩
+    修改说明：新增
+    修改人：TG
+    修改时间：20150309
+*******************************/
+.tg-mask {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    background: rgba(0,0,0,0);
+    opacity: 0;
+}
+
+    .tg-mask:hover {
+        background: rgba(229,229,229,0.85)!important;
+        opacity: 1;
+    }
+
+    .tg-mask > a {
+        top: 1em;
+        left: 2em;
+        position: absolute;
+        font-size: 2em;
+        color: white;
+    }
+
+        .tg-mask > a:hover {
+            color: #00B6AD;
+        }
