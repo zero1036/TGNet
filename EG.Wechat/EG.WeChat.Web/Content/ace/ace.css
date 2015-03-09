@@ -6,10 +6,11 @@
 body {
     padding-bottom: 0;
     min-height: 100%;
-    background-color: #e4e6e9;
-    color: #393939;
-    font-size: 13px;
-    font-family: 'Open Sans';
+    /*background-color: #e4e6e9;*/
+    color: gray;
+    font-size: 1.5em;
+    /*font-family: 'Open Sans';*/
+    font-family:   "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
     line-height: 1.5;
 }
 
@@ -15838,4 +15839,53 @@ th[aria-selected=true] {
     .ace-settings-container, body.breadcrumbs-fixed .ace-settings-container {
         top: 65px;
     }
+}
+
+/*******************************
+    概述：圆形按钮
+    修改说明：新增圆形按钮
+    修改人：TG
+    修改时间：20150309
+*******************************/
+.tg-btn-round {
+    height: 2.4em;
+    line-height: 2.4em;
+    width: 2.4em;
+    -moz-border-radius: 1.2em;
+    -webkit-border-radius: 1.2em;
+    border-radius: 1.2em;
+    text-align: center;
+}
+
+    .tg-btn-round:hover {
+        background: #00B6AD;
+    }
+
+/*******************************
+    概述：div工具栏
+    修改说明：新增
+    修改人：TG
+    修改时间：20150309
+*******************************/
+.tg-div-tool {
+    display: block;
+}
+
+    .tg-div-tool > * {
+        /*display: inline-block;*/
+        margin: 0.1em;
+    }
+
+/*******************************
+    概述：TG-UI-Base,基础CSS
+    修改说明：新增
+    修改人：TG
+    修改时间：20150309
+*******************************/
+.tg-el-fright {
+    float: right;
+}
+
+.tg-el-fleft {
+    float: left;
 }
