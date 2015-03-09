@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh-cn" ng-app="WXApp">
 <head>
     <meta charset="utf-8">
@@ -14,7 +14,7 @@
     <!-- font-awesome.css -->
     <!--<link rel="stylesheet" href="~/assets/css/font-awesome.min.css" />-->
     <!--<link rel="stylesheet" href="~/Content/ace/font-awesome.min.css" />-->
-    <link href="http://cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://cdn.bootcss.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
     <!--[if IE 7]>
           <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
     <![endif]-->
@@ -63,7 +63,7 @@
     <!--[if !IE]> -->
 
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
+        window.jQuery || document.write("<script src='~/assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
     </script>
 
     <!-- <![endif]-->
@@ -77,15 +77,16 @@
         if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
 
+    <!-- bootstrap scripts -->
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
+
     <!-- Angular scripts -->
     @*<script src="~/Scripts/Angular/angular.js"></script>
         <script src="~/Scripts/Angular/angular-route.js"></script>*@
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular.min.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular-route.min.js"></script>
-
-    <!-- bootstrap scripts -->
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
 
     <!-- dropzone scripts -->
     @*<script src="~/Scripts/Dropzone/dropzone.js"></script>*@
@@ -130,15 +131,12 @@
     <script>
         $(document).ready(function () {
             $.post("/Menu/GetMenu", null, function (datas) {
-                try {
-                    $("#nav-left").NavMenu({
-                        url: "/Menu/GetMenu",
-                        data: datas,
-                        dicIcon: { "M0001": "icon-desktop", "M0002": "icon-comments", "M0003": "icon-edit", "M9999": "icon-dashboard" },
-                        ignorelist: ["M9999"]
-                    });
-                }
-                catch (e) { console.log(e); }
+                $("#nav-left").NavMenu({
+                    url: "/Menu/GetMenu",
+                    data: datas,
+                    dicIcon: { "M0001": "icon-desktop", "M0002": "icon-comments", "M0003": "icon-edit", "M9999": "icon-dashboard" },
+                    ignorelist: ["M9999"]
+                });
             });
         });
 
@@ -371,8 +369,8 @@
                         </li>*@
 
                     <li class="light-blue">
-                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            @*<img class="nav-user-photo" src="/assets/avatars/user.jpg" alt="Jason's Photo" />*@
+                        <a data-toggle="dropdown" href="javascript:void(0);" class="dropdown-toggle">
+                            @*<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />*@
                             <span class="user-info">
                                 <small>Welcome,</small>
                                 Mark
@@ -421,7 +419,7 @@
         </script>
 
         <div class="main-container-inner">
-            <a class="menu-toggler" id="menu-toggler" href="#">
+            <a class="menu-toggler" id="menu-toggler" href="javascript:void(0);">
                 <span class="menu-text"></span>
             </a>
 

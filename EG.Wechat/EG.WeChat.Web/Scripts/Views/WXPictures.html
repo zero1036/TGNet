@@ -1,65 +1,22 @@
-﻿<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="row">
-            <div style="margin-left: 20px; margin-right: 20px">
-                <nav class="navbar navbar-default" role="navigation">
-                    <div class="container-fluid">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand" href="javascript:void(0);">搜索資源</a>
-                        </div>
-
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <form class="navbar-form navbar-left" role="search">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="標題">
-                                </div>
-                                <button type="submit" class="btn btn-default">搜  索</button>
-                            </form>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">資源類型 <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="javascript:void(0);">微信資源</a></li>
-                                        <li><a href="javascript:void(0);">本地資源</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="javascript:void(0);">所有資源</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.navbar-collapse -->
-                    </div>
-                    <!-- /.container-fluid -->
-                </nav>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3" ng-repeat="picture in pictures">
-                <a href="javascript:void(0);" class="thumbnail" ng-click="SetSelection(picture,picture.media_id)">
-                    <div>
-                        <div class="panel-body">
-                            <img ng-src="{{picture.RPath}}" onerror="PicNofind();" style="height: 100px; width: 100px">
-                        </div>
-                        <div class="panel-footer">
-                            <p style="width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{picture.FileName}}</p>
-                        </div>
-                    </div>
+﻿<div>
+    <style>
+        .tg-wrappanelitem > img {
+            width: inherit;
+            height: inherit;
+        }
+    </style>
+    <div ng-repeat="picture in pictures">
+        <div class="tg-wrappanelitem">
+            <div class="tg-wrappanelitem tg-mask">
+                <!--<p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{picture.FileName}}</p>-->
+                <a href="javascript:void(0);" ng-click="SetSelection(picture,picture.media_id)">
+                    <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
+            <img ng-src="{{picture.RPath}}" onerror="PicNofind();">
+        </div>
 
-        </div>
-        <div>
-            <pagesuc></pagesuc>
-        </div>
     </div>
-    <div class="panel-footer">圖片資源列表</div>
+    <pagesuc style="clear: both;"></pagesuc>
+    <br />
 </div>

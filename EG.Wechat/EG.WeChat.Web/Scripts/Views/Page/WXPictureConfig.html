@@ -1,51 +1,82 @@
-﻿<style>
-    #dropZone {
-        background: gray;
-        border: black dashed 3px;
-        width: 200px;
-        padding: 50px;
-        text-align: center;
-        color: white;
-    }
-</style>
+﻿<div>
+    <style>
+        #dropZone {
+            background: gray;
+            border: black dashed 3px;
+            width: 200px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+        }
+    </style>
 
-<div class="container-fluid">
-    <div class="row" style="margin-left: 10px; margin-right: 10px">
-        <div class="col-lg-8">
-            <wxpictures></wxpictures>
+    <!-- 模态框（Modal） 上传图片资源-->
+    <div class="modal fade bs-example-modal-lg" id="UploadPictureModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true" backdrop="false">
+        <div class="modal-dialog modal-lg" style="width: 100%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">上傳图片资源
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <!--   <input name="kb" type="text" ng-model="ipLcName" />
+                        <input name="kb" type="text" ng-model="ipLcClassify" />-->
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span>&nbsp;名 稱 及 分 類</span>
+                            <input ng-model="ipLcName" type="text" class="form-control" placeholder="資源名稱    示例：會員卡A" />
+                            <input ng-model="ipLcClassify" type="text" class="form-control" placeholder="資源分類    示例：會員卡、金融" />
+                        </div>
+                        <p>點擊以下區域上傳图片资源</p>
+
+                        <div class="jumbotron_M">
+                            <form dropzonex action="/WXResource/ImageUpLoad" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                    <input type="submit" value="Upload" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" id="submit-all" disabled="disabled" class="btn btn-primary btn-lg btn-block">上  传</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                        關  閉
+                    </button>
+                    <!--        <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                        確定選中
+                    </button>-->
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p>选择上传图片资源</p>
-                    <div class="btn-group btn-group-sm btn-group-block" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                            <input type="checkbox" autocomplete="off" checked>
-                            微信資源
-                        </label>
-                        <label class="btn btn-default">
-                            <input type="checkbox" autocomplete="off">
-                            本地資源
-                        </label>
-                    </div>
-
-                    <div class="jumbotron_M">
-                        <form dropzonex action="/WXResource/ImageUpLoad" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
-                            <div class="fallback">
-                                <input name="file" type="file" multiple />
-                                <input type="submit" value="Upload" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" id="submit-all" disabled="disabled" class="btn btn-primary btn-lg btn-block">上  传</button>
-                </div>
-                <div class="panel-footer">圖片資源上傳</div>
+        <!-- /.modal -->
+    </div>
+    <!-- <div class="ace-settings-container" id="ace-settings-container">
+        <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+            <i class="icon-cog bigger-150"></i>
+        </div>
+        <div class="ace-settings-box" id="ace-settings-box">
+            <div>
+                <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#UploadPictureModal">上 傳 圖 片</button>
             </div>
         </div>
-
+    </div>-->
+    <div class="container-fluid">
+        <div class="row" style="margin-left: 10px; margin-right: 10px">
+            <button class="btn btn-default btn-block" ng-click="Edit(null)" data-toggle="modal" data-target="#UploadPictureModal">上 傳 圖 片</button>
+            <wxpictures></wxpictures>
+        </div>
     </div>
-
 </div>
 

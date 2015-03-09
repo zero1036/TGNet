@@ -397,6 +397,14 @@ WXDirective.directive("wxvoices", function () {
         templateUrl: '/Scripts/Views/WXVoices.html'
     }
 });
+//自定义标签——wxarticlesconfig图文列表
+WXDirective.directive("wxarticlesconfig", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/WXArticlesConfig.html'
+    }
+});
 //自定义标签——wxvideos視頻列表
 WXDirective.directive("wxvideosconfig", function () {
     return {

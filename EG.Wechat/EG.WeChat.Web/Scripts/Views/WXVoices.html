@@ -18,7 +18,7 @@
             width: auto;
             position: relative;
             display: block;
-            padding: 0.4em 7em 0.4em 7em;
+            padding: 0.4em 4em 0.4em 4em;
             *padding: 0.4em; /*for ie6/7*/
             margin: 0.5em 0;
             background: #f5f5f5;
@@ -141,18 +141,28 @@
             -ms-transition: all 0.3s ease-out;
             transition: all 0.3s ease-out;
         }
+
+        @media screen and (max-width: 645px) {
+            .sp-hide {
+                display: none;
+            }
+
+            .rounded-list a.info {
+                padding: 0.4em 1.5em 0.4em 1.5em;
+            }
+        }
     </style>
-    <div class="row" style="margin-left: 50px; margin-right: 40px">
+    <div class="row" style="margin-left: 30px; margin-right: 40px">
         <ol class="rounded-list">
             <li ng-repeat="voice in voices">
                 <div style="clear: both; float: left">
                     <div style="float: left">
                         <a href="javascript:void(0);" class="info" ng-click="Play(voice)" name="{{$index+1}}">
-                            <span>名  稱&nbsp;&nbsp;{{voice.lcName}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span style="color: white; font-weight: bolder">|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>分  類&nbsp;&nbsp;{{voice.lcClassify}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span style="color: white; font-weight: bolder">|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>時  長&nbsp;&nbsp;{{voice.VLength}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>名  稱&nbsp;&nbsp;{{voice.lcName}}</span>&nbsp;&nbsp;&nbsp;
+                            <span class="sp-hide" style="color: white; font-weight: bolder">|</span>&nbsp;&nbsp;&nbsp;
+                            <span class="sp-hide">分  類&nbsp;&nbsp;{{voice.lcClassify}}</span>&nbsp;&nbsp;&nbsp;
+                            <span class="sp-hide" style="color: white; font-weight: bolder">|</span>&nbsp;&nbsp;&nbsp;
+                            <span class="sp-hide">時  長&nbsp;&nbsp;{{voice.VLength}}</span>&nbsp;&nbsp;&nbsp;
                         </a>
                     </div>
                     <div style="float: left" ng-click="DeleteVoice($index,voice)">
@@ -164,8 +174,9 @@
             </li>
         </ol>
     </div>
-    <div class="row" style="margin-left: 40px; margin-right: 40px">
+    <div class="row" style="margin-left: 20px;">
         <pagesuc></pagesuc>
+        <br />
     </div>
 </div>
 

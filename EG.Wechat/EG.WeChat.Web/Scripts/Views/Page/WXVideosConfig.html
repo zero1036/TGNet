@@ -12,7 +12,7 @@
     <!-- 模态框（Modal） 选择視頻资源-->
     <div class="modal fade bs-example-modal-lg" id="UploadVideoModal" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" aria-hidden="true" backdrop="false">
-        <div class="modal-dialog modal-lg" style="width: 50%;">
+        <div class="modal-dialog modal-lg" style="width: 100%;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close"
@@ -66,62 +66,15 @@
     <!-- 正文內容 -->
     <div class="container-fluid">
         <div class="row" style="margin-left: 10px; margin-right: 10px">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div style="margin-left: 20px; margin-right: 20px">
-                            <nav class="navbar navbar-default" role="navigation">
-                                <div class="container-fluid">
-                                    <!-- Brand and toggle get grouped for better mobile display -->
-                                    <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                            <span class="sr-only">Toggle navigation</span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                        </button>
-                                        <a class="navbar-brand" href="javascript:void(0);">搜索資源</a>
-                                    </div>
-
-                                    <!-- Collect the nav links, forms, and other content for toggling -->
-                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                        <form class="navbar-form navbar-left" role="search">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="標題">
-                                            </div>
-                                            <button type="submit" class="btn btn-default">搜  索</button>
-                                        </form>
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li>
-                                                <a href="javascript:void(0);" ng-click="UpLoadVideo('UploadVideoModal')"><span>上傳視頻</span></a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">資源類型 <span class="caret"></span></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="javascript:void(0);">微信資源</a></li>
-                                                    <li><a href="javascript:void(0);">本地資源</a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="javascript:void(0);">所有資源</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.navbar-collapse -->
-                                </div>
-                                <!-- /.container-fluid -->
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6" style="border-right: 1px solid #ddd">
-                            <wxvideoplay></wxvideoplay>
-                        </div>
-                        <div class="col-md-6 col-lg-6" style="height: 600px; overflow: auto;">
-                            <wxvideos></wxvideos>
-                        </div>
-                    </div>
+            <!--<a href="javascript:void(0);" ng-click="UpLoadVideo('UploadVideoModal')"><span>上傳視頻</span></a>-->
+            <button class="btn btn-default btn-block" data-toggle="modal" data-target="#UploadVideoModal">上 傳 視 頻</button>
+            <div class="row">
+                <div class="col-md-6 col-lg-6" style="border-right: 1px solid #ddd">
+                    <wxvideoplay></wxvideoplay>
                 </div>
-                <div class="panel-footer">視頻資源列表</div>
+                <div class="col-md-6 col-lg-6" style="height: 600px; overflow: auto;">
+                    <wxvideos></wxvideos>
+                </div>
             </div>
         </div>
     </div>
