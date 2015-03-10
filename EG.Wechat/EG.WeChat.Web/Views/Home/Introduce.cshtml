@@ -1,13 +1,30 @@
 ﻿@{
-    ViewBag.Title = "微信服務號";
+    //ViewBag.Title = "微信服務號";
     Layout = null;
 }
-<section class="content-wrapper main-content clear-fix">
+<div>
+    <style>
+        .tg-div-tool {
+            height: 30rem;
+        }
 
-    <p>官方服務號帳號： 000000(等待設置)</p>
-    <p>
-        或者掃描以下二維碼添加關注：
+            .tg-div-tool > * {
+                text-align: center;
+            }
+
+        #div-wxintro b {
+            font-size: 6rem;
+        }
+    </style>
+    <div class="tg-div-tool" id="div-wxintro">
+        <p>
+            官方服務號帳號
+            <br />
+            <b>EGGZIT</b>
+            <br />
+            或掃描以下二維碼添加關注
     <br />
-        <img src="~/Images/qrcode.jpg" />
-    </p>
-</section>
+            <img src="~/Images/qrcode.jpg" />
+        </p>
+    </div>
+</div>
