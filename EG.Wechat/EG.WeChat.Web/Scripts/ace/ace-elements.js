@@ -777,16 +777,16 @@ jQuery(function () {
             pa.css({ "text-decoration": "none" });
             var pIcon = GetIconFromDic(dicIcon, pid);
             var pi = bHasChild && pIcon != "" ?
-                $("<i><i>").addClass(pIcon)
+                $("<i><i>").addClass(pIcon).append("&nbsp;")
                 :
-                $("<i><i>").addClass("icon-double-angle-right");
+                $("<i><i>");
             var psan = bHasChild ?
-                $("<span></span>").addClass("menu-text").text(pcontent) : pcontent;
+                $("<span></span>").addClass("menu-text").text(pcontent).append("&nbsp;") : pcontent;
             var pb = bHasChild ?
-                $("<b></b>").addClass("arrow icon-angle-down") : null;
+                $("<b></b>").addClass("fa fa-angle-down fa-lg") : null;
 
-            pa.append(pi);
-            pa.append(psan);
+            pa.append(pi);          
+            pa.append(psan);         
             if (pb != null) pa.append(pb);
             pli.append(pa);
             return pli;
