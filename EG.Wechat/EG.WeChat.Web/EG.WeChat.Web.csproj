@@ -193,6 +193,7 @@
     <Compile Include="Controllers\Service\Security\MenuController.cs" />
     <Compile Include="Controllers\ResponseChainConfigController.cs" />
     <Compile Include="Controllers\WebConfigController.cs" />
+    <Compile Include="Controllers\WeiXin\QYController.cs" />
     <Compile Include="Controllers\WeiXin\UserMessageController.cs" />
     <Compile Include="Controllers\WeiXin\WXArticleController.cs" />
     <Compile Include="Controllers\WeiXin\WXMenuController.cs" />

@@ -51,6 +51,9 @@
     <Reference Include="Senparc.Weixin.MP">
       <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
+    <Reference Include="Senparc.Weixin.QY">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.QY.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
