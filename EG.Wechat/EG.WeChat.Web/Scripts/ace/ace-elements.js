@@ -759,6 +759,8 @@ jQuery(function () {
         show: true
     }
     NavMenu.prototype.initX = function () {
+        if (!(this.options.data instanceof Array))
+            return;
         var data = this.options.data;
         var dicIcon = this.options.dicIcon;
         var ignorelist = this.options.ignorelist;
