@@ -141,8 +141,9 @@
                 display: inline-block;
             }
         </style>
-        <div id="div-gsvsearch" class="tg-div-tool">
-            類型：
+        <div class="row" style="margin-left: 10px; margin-right: 10px">
+            <div class="col-lg-5 tg-div-tool" style="padding: 0;">
+                類型：
                         <div class="btn-group" role="group1" aria-label="...">
                             <button type="button" class="btn btn-default" ng-click="ChangeContentType('text')"><i class="fa fa-pencil fa-lg"></i></button>
                             <button type="button" class="btn btn-default" ng-click="ChangeContentType('image')"><i class="fa fa-photo fa-lg"></i></button>
@@ -151,13 +152,16 @@
                             <button type="button" class="btn btn-default" ng-click="ChangeContentType('mpnews')"><i class="fa fa-newspaper-o fa-lg"></i></button>
                             <button type="button" class="btn btn-default" ng-click="ChangeContentType(null)">所有類型</button>
                         </div>
-            状态：
+            </div>
+            <div class="col-lg-5 tg-div-tool" style="padding: 0;">
+                状态：
                         <div class="btn-group" role="group2" aria-label="...">
                             <button type="button" class="btn btn-primary" ng-click="ChangeSState(1)">待審核</button>
                             <button type="button" class="btn btn-warning" ng-click="ChangeSState(3)">已發送</button>
                             <button type="button" class="btn btn-default" ng-click="ChangeSState(null)">所有狀態</button>
                         </div>
-            <a href="javascript:void(0);" ng-click="Query()" class="btn btn-default">查 詢</a>
+                <a href="javascript:void(0);" ng-click="Query()" class="btn btn-default">查 詢</a>
+            </div>
         </div>
         <div class="row" style="margin-left: 10px; margin-right: 10px">
             <div class="col-lg-8">
