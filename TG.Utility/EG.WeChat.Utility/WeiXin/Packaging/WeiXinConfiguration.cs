@@ -24,24 +24,24 @@ namespace EG.WeChat.Utility.WeiXin
         #region 微信账号信息
         /* 只允许赋值一次。请只在Web服务启动的时候，进行赋值。 */
 
-        private static string m_appID       = null;     
+        private static string m_appID = null;
         /// <summary>
         /// appID
         /// </summary>
         public static string appID
         {
             get { return WeiXinConfiguration.m_appID; }
-            set { if (m_appID != null) return;          WeiXinConfiguration.m_appID = value; }
+            set { if (m_appID != null) return; WeiXinConfiguration.m_appID = value; }
         }
 
-        private static string m_appsecret   = null;
+        private static string m_appsecret = null;
         /// <summary>
         /// appsecret
         /// </summary>
         public static string appsecret
         {
             get { return WeiXinConfiguration.m_appsecret; }
-            set { if (m_appsecret != null) return;      WeiXinConfiguration.m_appsecret = value; }
+            set { if (m_appsecret != null) return; WeiXinConfiguration.m_appsecret = value; }
         }
 
         private static string m_Token = null;
@@ -51,7 +51,7 @@ namespace EG.WeChat.Utility.WeiXin
         public static string Token
         {
             get { return WeiXinConfiguration.m_Token; }
-            set { if (m_Token != null) return;          WeiXinConfiguration.m_Token = value; }
+            set { if (m_Token != null) return; WeiXinConfiguration.m_Token = value; }
         }
 
         private static string m_EncodingAESKey = null;
@@ -62,7 +62,7 @@ namespace EG.WeChat.Utility.WeiXin
         {
             get { return WeiXinConfiguration.m_EncodingAESKey; }
             set { if (m_EncodingAESKey != null) return; WeiXinConfiguration.m_EncodingAESKey = value; }
-        }      
+        }
 
 
         private static string m_cropId = null;
@@ -83,6 +83,16 @@ namespace EG.WeChat.Utility.WeiXin
         {
             get { return WeiXinConfiguration.m_corpSecret; }
             set { if (m_corpSecret != null) return; WeiXinConfiguration.m_corpSecret = value; }
+        }
+
+        private static List<IWXCorpInfo> m_corpInfos = null;
+        /// <summary>
+        /// 企业应用集合
+        /// </summary>
+        public static List<IWXCorpInfo> corpInfos
+        {
+            get { return WeiXinConfiguration.m_corpInfos; }
+            set { if (m_corpInfos != null) return; WeiXinConfiguration.m_corpInfos = value; }
         }
 
         #endregion
