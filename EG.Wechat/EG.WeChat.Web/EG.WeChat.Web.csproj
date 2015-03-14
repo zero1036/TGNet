@@ -620,6 +620,7 @@
     <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.js" />
     <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.pack.js" />
     <Content Include="Scripts\fancybox\jquery.mousewheel-3.0.4.pack.js" />
+    <Content Include="Scripts\iscroll.js" />
     <Content Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\financial.jpg" />
     <Content Include="Images\loading.gif" />
@@ -667,6 +668,9 @@
     <Content Include="Scripts\Views\Page\WXVoicesConfig.html" />
     <Content Include="Scripts\Views\ResourceManage.html" />
     <Content Include="Scripts\Views\TemMessageSend.html" />
+    <Content Include="Scripts\Views\Test\iScrollExp.html" />
+    <Content Include="Scripts\Views\Test\touchExp.html" />
+    <Content Include="Scripts\Views\Test\touchMoveElementExp.html" />
     <Content Include="Scripts\Views\WXArticleDisplay.html" />
     <Content Include="Scripts\Views\WXArticles.html" />
     <Content Include="Scripts\Views\WXPictureDisplay.html" />
