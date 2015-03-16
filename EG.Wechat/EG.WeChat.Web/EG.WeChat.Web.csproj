@@ -668,6 +668,9 @@
     <Content Include="Scripts\Views\Page\WXVoicesConfig.html" />
     <Content Include="Scripts\Views\ResourceManage.html" />
     <Content Include="Scripts\Views\TemMessageSend.html" />
+    <Content Include="Scripts\Views\Test\iScrollExp.html" />
+    <Content Include="Scripts\Views\Test\touchExp.html" />
+    <Content Include="Scripts\Views\Test\touchMoveElementExp.html" />
     <Content Include="Scripts\Views\WXArticleDisplay.html" />
     <Content Include="Scripts\Views\WXArticles.html" />
     <Content Include="Scripts\Views\WXPictureDisplay.html" />

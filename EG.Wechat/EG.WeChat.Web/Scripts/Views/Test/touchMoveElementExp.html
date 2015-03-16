@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title></title>
+    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            /*单指拖动*/
+            var obj = document.getElementById('id');
+            obj.addEventListener('touchmove', function (event) {
+                // 如果这个元素的位置内只有一个手指的话
+                if (event.targetTouches.length == 1) {
+                    event.preventDefault();// 阻止浏览器默认事件，重要
+                    var touch = event.targetTouches[0];
+                    // 把元素放在手指所在的位置
+                    obj.style.left = touch.pageX - 50 + 'px';
+                    obj.style.top = touch.pageY - 50 + 'px';
+                }
+            }, false);
+        });
+    </script>
+    <style>
+        .containerX {
+            position: relative;
+            height: 900px;
+            width: 100%;
+        }
+
+        #id {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="containerX">
+        <div id="id"></div>
+    </div>
+
+</body>
+</html>
