@@ -620,6 +620,7 @@
     <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.js" />
     <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.pack.js" />
     <Content Include="Scripts\fancybox\jquery.mousewheel-3.0.4.pack.js" />
+    <Content Include="Scripts\iscroll.js" />
     <Content Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\financial.jpg" />
     <Content Include="Images\loading.gif" />
