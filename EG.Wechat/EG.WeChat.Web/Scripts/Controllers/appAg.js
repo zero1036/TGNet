@@ -9,6 +9,7 @@ appRoot.config(['$routeProvider', '$locationProvider', function ($routeProvider,
     //$locationProvider.hashPrefix('!');
     $routeProvider
         .when('/HomeX', { templateUrl: '/Home/Introduce', controller: 'BaseCtrl' })
+        .when('/Home/Logout', { templateUrl: '/Home/Logout', controller: 'BaseCtrl' })
         .when('/User/List', { templateUrl: '/User/List', controller: 'BaseCtrl' })
         .when('/Group/List', { templateUrl: '/Group/List', controller: 'BaseCtrl' })
         .when('/ActiveUser/List', { templateUrl: '/ActiveUser/List', controller: 'BaseCtrl' })

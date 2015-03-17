@@ -124,7 +124,7 @@
     <!-- ztree -->
     <!--<script src="~/Scripts/zTree/jquery.ztree.core-3.2.js"-->
     <!--<script src="~/Scripts/authority/commonAll.js"></script> -->
-    <script src="/Scripts/jquery.json-2.3.min.js"></script>
+    <script src="~/Scripts/jquery.json-2.3.min.js"></script>
 
     <!-- Angular Base Controller -->
     <script src="~/Scripts/Controllers/appAg.js"></script>
@@ -144,6 +144,12 @@
             //重新路由到主页
             window.location.href = "#HomeX";
         });
+        /**退出系统**/
+        function logout() {
+            if (confirm("您確定要退出平臺嗎？")) {
+                window.location.href = "/Home/Logout";
+            }
+        }
 
     </script>
 
@@ -385,24 +391,24 @@
                         </a>
 
                         <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                            <li>
+                            @*<li>
                                 <a href="#">
                                     <i class="icon-cog"></i>
                                     Settings
                                 </a>
-                            </li>
+                            </li>*@
 
                             <li>
-                                <a href="#">
+                                <a href="#HomeX">
                                     <i class="icon-user"></i>
-                                    Profile
+                                    &nbsp;&nbsp;
                                 </a>
                             </li>
 
                             <li class="divider"></li>
 
                             <li>
-                                <a href="#">
+                                <a href="#Home/Logout">
                                     <i class="icon-off"></i>
                                     Logout
                                 </a>
