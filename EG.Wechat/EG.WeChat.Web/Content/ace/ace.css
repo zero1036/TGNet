@@ -1641,7 +1641,7 @@ blockquote, blockquote.pull-right {
         }
 }
 
-@media only screen and (max-width:460px) {
+@media only screen and (max-width:310px) {
     .navbar .navbar-header.pull-left {
         float: none!important;
         display: block;
@@ -3152,12 +3152,13 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
         }
 
             .menu-toggler > .menu-text:after {
-                position: absolute;
+                /*position: absolute;
                 top: -42px;
                 left: -13px;
                 color: #FFF;
                 font-weight: normal;
-                font-size: 9px;
+                font-size: 9px;*/
+                display: none;
             }
 
         .menu-toggler:before, .menu-toggler:after {
