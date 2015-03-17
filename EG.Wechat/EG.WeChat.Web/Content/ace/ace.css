@@ -3205,7 +3205,11 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
         }
 }
 
-/*.btn {
+.btn {
+    border-radius: 0;
+}
+
+    /*.btn {
 	position: relative;
 	display: inline-block;
 	margin: 0;
@@ -3954,21 +3958,21 @@ button.btn:active {
 	margin-right: 0;
 }*/
 
-.btn.btn-app {
-    position: relative;
-    display: inline-block;
-    margin: 2px;
-    padding: 12px 0 8px;
-    width: 100px;
-    border: 0;
-    border-radius: 12px;
-    color: #FFF;
-    text-align: center;
-    text-shadow: 0 -1px -1px rgba(0,0,0,0.2)!important;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 1.7;
-}
+    .btn.btn-app {
+        position: relative;
+        display: inline-block;
+        margin: 2px;
+        padding: 12px 0 8px;
+        width: 100px;
+        border: 0;
+        border-radius: 12px;
+        color: #FFF;
+        text-align: center;
+        text-shadow: 0 -1px -1px rgba(0,0,0,0.2)!important;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 1.7;
+    }
 
 .btn-app, .btn-app.btn-default, .btn-app.no-hover:hover, .btn-app.btn-default.no-hover:hover, .btn-app.disabled:hover, .btn-app.btn-default.disabled:hover {
     background: #b4c2cc!important;

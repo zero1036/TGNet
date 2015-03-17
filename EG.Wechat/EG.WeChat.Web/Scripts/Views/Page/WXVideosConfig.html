@@ -1,5 +1,10 @@
 ﻿<div>
     <style>
+        .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
         #dropZone {
             background: gray;
             border: black dashed 3px;
@@ -65,11 +70,11 @@
     </div>
     <!-- 正文內容 -->
     <div class="container-fluid">
-        <div class="row" style="margin-left: 10px; margin-right: 10px">
+        <div class="row">
             <!--<a href="javascript:void(0);" ng-click="UpLoadVideo('UploadVideoModal')"><span>上傳視頻</span></a>-->
             <button class="btn btn-default btn-block" data-toggle="modal" data-target="#UploadVideoModal">上 傳 視 頻</button>
             <div class="row">
-                <div class="col-md-6 col-lg-6" style="border-right: 1px solid #ddd">
+                <div class="col-md-6 col-lg-6">
                     <wxvideoplay></wxvideoplay>
                 </div>
                 <div class="col-md-6 col-lg-6" style="height: 600px; overflow: auto;">
