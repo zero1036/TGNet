@@ -2282,7 +2282,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
                 position: relative;
                 display: block;
                 margin: 0;
-                padding: 7px 0 9px 37px;
+                padding: 7px 0 9px 27px;
                 border-top: 1px dotted #e4e4e4;
                 color: #616161;
             }
@@ -2967,6 +2967,10 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
     修改时间：20150304
 *******************************/
 @media only screen and (max-width:768px) {
+    .sidebar.display {
+        display: block;
+    }
+
     .sidebar:before {
         display: none;
     }
@@ -2982,7 +2986,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
         z-index: 10;
         background-color: rgba(10,30,0,0);
         /*float: none;*/
-        /*display: block;*/
+        display: none;
         /*margin-top: 40px;*/
         /*border: 1px solid #CCC;
         box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
@@ -3098,15 +3102,27 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
     }
 
         .nav-list > li:first-child {
-            border-top: 1px solid #DDD;
+            border-top: 1px solid #428bca;
         }
 
         .nav-list > li {
             display: inline-block;
             background-color: #CCC;
-            border: 1px solid #DDD;
+            border: 1px solid #428bca;
             /*float: left;*/
+            /*position: relative;*/
+            bottom: 0px;
+            /*margin: 0;
+            padding: 0;*/
+            /*border: 0;*/
+            /* border-top: 1px solid #fcfcfc; */
+            /* border-bottom: 1px solid #e5e5e5; */
         }
+
+            .nav-list > li.open {
+                bottom: 0;
+                border-bottom: 1px solid #428bca;
+            }
 
             .nav-list > li > a {
                 background-color: #438eb9;
@@ -3114,15 +3130,15 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
             }
 
             .nav-list > li:nth-child(1) {
-                width: 34%;
+                width: 33.4%;
             }
 
             .nav-list > li:nth-child(2) {
-                width: 33%;
+                width: 33.3%;
             }
 
             .nav-list > li:nth-child(3) {
-                width: 33%;
+                width: 33.3%;
             }
 
             .nav-list > li > b:before, .nav-list > li > i, .nav-list > li > a {
@@ -15946,7 +15962,7 @@ th[aria-selected=true] {
     }
 }
 
-@media only screen and (min-width:1014px)  {
+@media only screen and (min-width:1014px) {
     .tg-wrappanelitem {
         width: 10.5em;
         height: 10.5em;
