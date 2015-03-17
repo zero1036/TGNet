@@ -57,14 +57,18 @@ ace.handle_side_menu = function (a) {
             }
             d.find("> .open > .submenu").each(function () {
                 if (this != f && !a(this.parentNode).hasClass("active")) {
-                    a(this).slideUp(200).parent().removeClass("open")
+                    //a(this).slideUp(200).parent().removeClass("open")
+                    //slideUp会导致移动端卡顿，取消使用
+                    a(this).toggle().parent().removeClass("open")
                 }
             })
         } else { }
         if (c && a(f.parentNode.parentNode).hasClass("nav-list")) {
             return false
         }
-        a(f).slideToggle(200).parent().toggleClass("open");
+        //a(f).slideToggle(200).parent().toggleClass("open");
+        //slideToggle会导致移动端卡顿，取消使用
+        a(f).toggle().parent().toggleClass("open");
         return false
     })
 };
