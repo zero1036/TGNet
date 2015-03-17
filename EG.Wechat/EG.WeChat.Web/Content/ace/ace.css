@@ -6,7 +6,6 @@
 body {
     padding-bottom: 0;
     min-height: 100%;
-    /*background-color: #e4e6e9;*/
     color: gray;
     font-size: 1.5em;
     /*font-family: 'Open Sans';*/
@@ -50,7 +49,7 @@ body {
         content: "";
     }
 
-@media(min-width:768px) {
+    /*@media(min-width:768px) {
     .container.main-container:after;
 
 {
@@ -58,11 +57,11 @@ body {
     box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
 }
 
-}
+}*/
 
-.main-container > .main-container-inner {
-    position: relative;
-}
+    .main-container > .main-container-inner {
+        position: relative;
+    }
 
 .container.main-container .sidebar.sidebar-fixed, .container.main-container .sidebar.sidebar-fixed:before {
     left: auto;
@@ -15909,9 +15908,49 @@ th[aria-selected=true] {
     修改时间：20150309
 *******************************/
 .tg-wrappanelitem {
-    width: 10em;
-    height: 8em;
     float: left;
+}
+
+@media only screen and (min-width:310px) and (max-width:350px) {
+    .tg-wrappanelitem {
+        width: 9.8em;
+        height: 9.8em;
+    }
+}
+
+@media only screen and (min-width:350px) and (max-width:365px) {
+    .tg-wrappanelitem {
+        width: 11.1em;
+        height: 11.1em;
+    }
+}
+
+@media only screen and (min-width:365px) and (max-width:404px) {
+    .tg-wrappanelitem {
+        width: 11.7em;
+        height: 11.7em;
+    }
+}
+
+@media only screen and (min-width:404px) and (max-width:758px) {
+    .tg-wrappanelitem {
+        width: 13em;
+        height: 13em;
+    }
+}
+
+@media only screen and (min-width:758px) and (max-width:1014px) {
+    .tg-wrappanelitem {
+        width: 12.1em;
+        height: 12.1em;
+    }
+}
+
+@media only screen and (min-width:1014px)  {
+    .tg-wrappanelitem {
+        width: 10.5em;
+        height: 10.5em;
+    }
 }
 
 /*******************************
@@ -15934,7 +15973,7 @@ th[aria-selected=true] {
     }
 
     .tg-mask > a {
-        top: 1em;
+        top: 0.3em;
         left: 2em;
         position: absolute;
         font-size: 2em;
