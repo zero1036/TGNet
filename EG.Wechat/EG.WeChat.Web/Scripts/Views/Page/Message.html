@@ -2,7 +2,7 @@
     <!-- 模态框（Modal） 选择模板消息发送-->
     <div class="modal fade bs-example-modal-lg" id="MessageSendModal" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" style="width: 50%;">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close"
@@ -30,7 +30,7 @@
     <!-- 模态框（Modal） 选择客服消息发送-->
     <div class="modal fade bs-example-modal-lg" id="CServiceModal" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" style="width: 70%;">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close"
@@ -81,30 +81,57 @@
         </div>
         <!-- /.modal -->
     </div>
+    <style>
+        .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+            padding: 0;
+        }
 
+        .table-responsive {
+            width: 100%;
+            margin-bottom: 15px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            border: 1px solid #dddddd;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+            -webkit-overflow-scrolling: touch;
+        }
+
+            .table-responsive > .table {
+                margin-bottom: 0;
+            }
+
+                .table-responsive > .table > thead > tr > th,
+                .table-responsive > .table > tbody > tr > th,
+                .table-responsive > .table > tfoot > tr > th,
+                .table-responsive > .table > thead > tr > td,
+                .table-responsive > .table > tbody > tr > td,
+                .table-responsive > .table > tfoot > tr > td {
+                    white-space: nowrap;
+                }
+    </style>
     <!-- 主功能页面 -->
     <div class="container-fluid">
-        <div class="row" style="margin-left: 10px; margin-right: 10px">
-            <div class="panel panel-default" style="margin-left: 20px; margin-right: 20px">
-
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="row well" style="margin-left: 15px; margin-right: 15px">
-                            <div class="col-md-8 col-lg-8">
-                                <input style="width: 300px; display: inline" type="text" class="form-control" id="tbOpenID" placeholder="OpenID：">
-                                <input style="width: 100px; display: inline" type="text" class="form-control" id="tbNickName" placeholder="微信昵稱：">
-                                <button id="ui_btnLoading_query" data-loading-text="請稍後……" class="btn btn-default btn-md" ng-click="QueryByInput()">查詢</button>
-                                <button id="ui_btnLoading_reloaduser" data-loading-text="同步中，請稍後……" class="btn btn-default btn-md" ng-click="ReloadUser()">同步用戶</button>
-                            </div>
-
-                            <div class="col-md-4 col-lg-4">
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5">
+                        <input style="display: inline" type="text" class="form-control" id="tbOpenID" placeholder="OpenID：">
                     </div>
-
-                    <div class="col-md-9 col-lg-9">
+                    <div class="col-md-5 col-lg-5">
+                        <input style="display: inline" type="text" class="form-control" id="tbNickName" placeholder="微信昵稱：">
+                    </div>
+                    <div class="col-md-2 col-lg-2">
+                        <button id="ui_btnLoading_query" data-loading-text="請稍後……" class="btn btn-default btn-block" ng-click="QueryByInput()">查詢</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <button id="ui_btnLoading_reloaduser" data-loading-text="同步中，請稍後……" class="btn btn-default btn-block" ng-click="ReloadUser()">同步用戶</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover no-margin-bottom">
-
                             <thead>
                                 <tr>
                                     <th width='25'>
@@ -121,8 +148,6 @@
                                     <th>操作</th>
                                 </tr>
                             </thead>
-
-
                             <tbody>
                                 <tr ng-repeat="user in users">
 
@@ -146,55 +171,51 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row" style="margin-left: 10px;">
-                            <ul class="pagination" style="margin-top: 0px; margin-bottom: 0px;">
-                                <li><a href="javascript:void(0);" ng-click="ChangeTbPage(1)">&laquo;</a></li>
-                                <li ng-repeat="i in pageCount"><a href="javascript:void(0);" ng-click="ChangeTbPage(i)">{{i}}</a></li>
-                                <!--<li><a href="#">&raquo;</a></li>-->
-                            </ul>
-                        </div>
                     </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="well">
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default"
-                                        tabindex="-1">
-                                        目標分組
-                                    </button>
-                                    <button type="button" class="btn btn-default 
-                     dropdown-toggle"
-                                        data-toggle="dropdown" tabindex="-1">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">切换下拉菜单</span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                        <li role="presentation" ng-repeat="group in groups">
-                                            <a ng-click="ChangeSelectGroup(group.id)" role="menuitem" tabindex="-1" href="javascript:void(0);">{{group.name+'('+group.count+')'}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <input type="text" class="form-control" placeholder="選中用戶，移動所屬分組">
-                            </div>
-                            <a ng-click="OpenForm('CreateGroupModal')" style="width: 100%" href="javascript:void(0);" class="btn btn-primary"><span>新建分組</span></a>
-                            <br />
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a ng-click="QueryByGroupID(-1)" href="javascript:void(0);">全部分组</a>
-                                </li>
-                                <li class="list-group-item" ng-repeat="group in groups">
-                                    <a ng-click="QueryByGroupID(group.id)" href="javascript:void(0);">{{group.name+'('+group.count+')'}}</a>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="row">
+                        <ul class="pagination" style="margin-top: 0px; margin-bottom: 0px;">
+                            <li><a href="javascript:void(0);" ng-click="ChangeTbPage(1)">&laquo;</a></li>
+                            <li ng-repeat="i in pageCount"><a href="javascript:void(0);" ng-click="ChangeTbPage(i)">{{i}}</a></li>
+                            <!--<li><a href="#">&raquo;</a></li>-->
+                        </ul>
                     </div>
                 </div>
-                <div class="panel-footer">
-                    微信用戶列表
+                <div class="col-lg-3">
+                    <div class="well">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    tabindex="-1">
+                                    目標分組
+                                </button>
+                                <button type="button" class="btn btn-default 
+                     dropdown-toggle"
+                                    data-toggle="dropdown" tabindex="-1">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">切换下拉菜单</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation" ng-repeat="group in groups">
+                                        <a ng-click="ChangeSelectGroup(group.id)" role="menuitem" tabindex="-1" href="javascript:void(0);">{{group.name+'('+group.count+')'}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <input type="text" class="form-control" placeholder="選中用戶，移動所屬分組">
+                        </div>
+                        <a ng-click="OpenForm('CreateGroupModal')" style="width: 100%" href="javascript:void(0);" class="btn btn-primary"><span>新建分組</span></a>
+                        <br />
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a ng-click="QueryByGroupID(-1)" href="javascript:void(0);">全部分组</a>
+                            </li>
+                            <li class="list-group-item" ng-repeat="group in groups">
+                                <a ng-click="QueryByGroupID(group.id)" href="javascript:void(0);">{{group.name+'('+group.count+')'}}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 

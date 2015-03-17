@@ -539,7 +539,7 @@ WXResController.controller('GroupSendCtrl', ['$scope', '$http', 'instance', func
         }
         else {
             if ($scope.curMediaID == undefined || $scope.curMediaID == null || $scope.curMediaID == "") {
-                alert("請選擇發送內容");
+                alert("微信端素材已失效，請重新上傳素材，或重新選擇發送內容！");
                 return;
             }
         }

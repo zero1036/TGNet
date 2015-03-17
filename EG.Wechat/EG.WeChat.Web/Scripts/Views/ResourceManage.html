@@ -4,8 +4,8 @@
             list-style: none; /* 将默认的列表符号去掉 */
             padding: 0; /* 将默认的内边距去掉 */
             margin: 0; /* 将默认的外边距去掉 */
-            margin-left: 7px;
-            margin-right: 30px;
+            margin-left: 0.5em;
+            margin-right: 1em;
             margin-top: 4px;
         }
 
@@ -40,10 +40,10 @@
             }
     </style>
     <div class="row">
-        <div class="panel panel-default" style="margin-left: 10px; margin-right: 10px">
+        <div class="panel panel-default">
             <div class="panel-body">
                 <div>
-                    <div class="row" style="margin-left: 15px; margin-bottom: 25px">
+                    <div class="row">
                         <ul class="tab_navs">
                             <li data-type="1" data-tab=".js_textArea" data-tooltip="文字">
                                 <a class="ui_btn_text" href="javascript:void(0);" ng-click="SelectRes('text',null)">
@@ -74,22 +74,23 @@
                     </div>
                     <hr style="filter: alpha(opacity=100,finishopacity=0,style=1); width: 100%;" />
                     <div class="row" id="fra">
-                        <div class="col-md-6 col-lg-6" style="border-right: 1px solid #ddd">
+                        <div class="col-md-6 col-lg-6">
                             <div ng-show="msgType=='text'">
-                                <textarea ng-model="text" style="margin-left: 15px; width: 96%" class="form-control" placeholder="請輸入群發消息文本內容" rows="7"></textarea>
+                                <textarea ng-model="text" style="width: 96%" class="form-control" placeholder="請輸入群發消息文本內容" rows="7"></textarea>
                             </div>
-                            <div ng-show="msgType=='image'" class="row well" style="width: 260px; margin-left: 20px;">
+                            <div ng-show="msgType=='image'" class="row" style="width: 260px;">
                                 <wxpicturedisplay></wxpicturedisplay>
                             </div>
-                            <div ng-show="msgType=='voice'" class="row well" style="width: 90%; margin-left: 20px;">
+                            <div ng-show="msgType=='voice'" class="row">
                                 <wxvoiceplay></wxvoiceplay>
                             </div>
-                            <div ng-show="msgType=='video'" class="row well" style="width: 90%; margin-left: 20px;">
+                            <div ng-show="msgType=='video'" class="row">
                                 <wxvideoplay></wxvideoplay>
                             </div>
-                            <div ng-show="msgType=='mpnews'" class="row well" style="width: 360px; margin-left: 20px;">
+                            <div ng-show="msgType=='mpnews'" class="row" style="max-width: 360px;">
                                 <wxarticledisplay></wxarticledisplay>
                             </div>
+                            <br />
                         </div>
                         <div class="col-md-6 col-lg-6" ng-show="msgType!='text'">
                             <ul ng-show="msgType=='mpnews'">
