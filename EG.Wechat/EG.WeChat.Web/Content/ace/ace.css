@@ -22,6 +22,17 @@ body {
         padding-top: 86px;
     }
 
+/*******************************
+    概述：bootstrap .row取消margin 15px值
+    修改说明：新增
+    修改人：TG
+    修改时间：20150317
+*******************************/
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .main-container {
     position: static;
     padding: 0;
