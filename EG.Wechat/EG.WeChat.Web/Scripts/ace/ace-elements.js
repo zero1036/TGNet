@@ -763,6 +763,7 @@ jQuery(function () {
             return;
         var data = this.options.data;
         var dicIcon = this.options.dicIcon;
+        var createbArrow = this.options.bArrow == undefined ? false : this.options.bArrow;
         var ignorelist = this.options.ignorelist;
         var buildli = function (pid, phref, pcontent, bHasChild) {
             //barrow:是否存在子项
@@ -785,9 +786,9 @@ jQuery(function () {
             var pb = bHasChild ?
                 $("<b></b>").addClass("fa fa-angle-down fa-lg") : null;
 
-            pa.append(pi);          
-            pa.append(psan);         
-            if (pb != null) pa.append(pb);
+            pa.append(pi);
+            pa.append(psan);
+            if (createbArrow && pb != null) pa.append(pb);
             pli.append(pa);
             return pli;
         };
