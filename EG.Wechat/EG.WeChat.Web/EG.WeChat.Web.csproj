@@ -637,6 +637,7 @@
     <Content Include="Scripts\jquery.easy-pie-chart.min.js" />
     <Content Include="Scripts\jquery.json-2.3.js" />
     <Content Include="Scripts\jquery.json-2.3.min.js" />
+    <Content Include="Scripts\jquery.mobile.custom.min.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery.sparkline.min.js" />
     <Content Include="Scripts\jquery.ui.touch-punch.min.js" />

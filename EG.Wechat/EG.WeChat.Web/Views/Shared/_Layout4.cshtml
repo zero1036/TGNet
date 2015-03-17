@@ -18,12 +18,12 @@
 
     <!-- bootstrap.css -->
     <!--<link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />-->
-    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- font-awesome.css -->
     <!--<link rel="stylesheet" href="~/assets/css/font-awesome.min.css" />-->
     <!--<link rel="stylesheet" href="~/Content/ace/font-awesome.min.css" />-->
-    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
     <!--[if IE 7]>
           <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
     <![endif]-->
@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/dropzone/3.12.0/css/dropzone.css" />
 
     <!-- zTree CSS-->
-    <link rel="stylesheet" href="~/Content/authority/zTreeStyle.css" />
+    @*<link rel="stylesheet" href="~/Content/authority/zTreeStyle.css" />*@
 
     <!-- summernote CSS-->
     <link href="http://cdn.bootcss.com/summernote/0.6.0/summernote.min.css" rel="stylesheet" />
@@ -59,8 +59,6 @@
 <body ng-controller="BaseCtrl">
 
     <!-- basic scripts -->
-    @*<script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>*@
-
     <!--[if !IE]> -->
     <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <!-- <![endif]-->
@@ -78,12 +76,12 @@
     <![endif]-->
 
     <script type="text/javascript">
-        if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+        if ("ontouchend" in document) document.write("<script src='/Scripts/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
 
     <!-- bootstrap scripts -->
     <script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
 
     <!-- Angular scripts -->
@@ -111,17 +109,17 @@
 
     <script src="~/Scripts/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="~/Scripts/jquery.ui.touch-punch.min.js"></script>
-    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    @*    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
     <script src="~/Scripts/jquery.easy-pie-chart.min.js"></script>
-    <script src="~/Scripts/jquery.sparkline.min.js"></script>
+    <script src="~/Scripts/jquery.sparkline.min.js"></script>*@
     <!--<script src="~/assets/js/flot/jquery.flot.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.pie.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.resize.min.js"></script>-->
     <!-- ace scripts -->
     <script src="~/Scripts/ace/ace-elements.js"></script>
-    <script src="~/Scripts/ace/ace.js"></script>
+    <script src="~/Scripts/ace/ace.min.js"></script>
     <!-- ace settings handler -->
-    <script src="~/Scripts/ace/ace-extra.js"></script>
+    <script src="~/Scripts/ace/ace-extra.min.js"></script>
 
     <!-- ztree -->
     <!--<script src="~/Scripts/zTree/jquery.ztree.core-3.2.js"-->
