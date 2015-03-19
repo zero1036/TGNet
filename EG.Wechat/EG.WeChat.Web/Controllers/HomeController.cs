@@ -57,26 +57,27 @@ namespace EG.WeChat.Web.Controllers
             {
                 try
                 {
-                    LoginInfo rm = UserBL.Login(model.TemData);
+                    //LoginInfo rm = UserBL.Login(model.TemData);
 
-                    if (rm != null)
-                    {
-                      
-                        UserID = rm.UserID;
-                        UserName = rm.UserName;
-                        AccessRightList = rm.AccessRight;
+                    //if (rm != null)
+                    //{
 
-                        if (!StaticLibrary.ActiveSession.ContainsKey(HttpSession.SessionID))
-                        {
-                            StaticLibrary.ActiveSession.Add(HttpSession.SessionID, HttpSession);
-                        }
+                    //    UserID = rm.UserID;
+                    //    UserName = rm.UserName;
+                    //    AccessRightList = rm.AccessRight;
 
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("ErrorMessage", "User or password is not correct!");
-                    }
+                    //    if (!StaticLibrary.ActiveSession.ContainsKey(HttpSession.SessionID))
+                    //    {
+                    //        StaticLibrary.ActiveSession.Add(HttpSession.SessionID, HttpSession);
+                    //    }
+                    var pMode = model.BMode ? 4 : 2;
+                    return RedirectToAction("Index", "Home", new { id = pMode });
+                    //return RedirectToAction("Index");
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError("ErrorMessage", "User or password is not correct!");
+                    //}
                 }
                 catch (Exception e)
                 {
