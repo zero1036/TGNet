@@ -6,7 +6,10 @@ WXResController.controller('PageCtrl', ['$scope', '$http', 'instance', '$routePa
     $scope.load = function () {
         $scope.QueryX();
     }
-    $scope.$on('QueryPage', function (e, pageIndex) {
+    $scope.$on('QueryPage', function (e, pageIndex, pRowCountInP) {
+        if (pRowCountInP !== undefined && pRowCountInP !== null) {
+            _intRowCountInPage = pRowCountInP;
+        }
         $scope.ChangeTbPage(pageIndex);
     });
     $scope.ChangeTbPage = function (pageIndex) {
@@ -73,7 +76,7 @@ WXResController.controller('PictureListCtrl', ['$scope', '$http', 'instance', fu
             QueryItems: pArray,
             Results: null
         };
-        $scope.$broadcast('QueryPage', 1);
+        $scope.$broadcast('QueryPage', 1, 18);
     }
     $scope.RefreshList = function () {
         $scope.pictures = instance.QItem.Results;
