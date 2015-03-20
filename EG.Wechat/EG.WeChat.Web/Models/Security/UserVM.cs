@@ -40,6 +40,12 @@ namespace EG.WeChat.Web.Models
             }
         }
 
+        public bool BMode
+        {
+            get;
+            set;
+
+        }
         public T_User TemData { get; set; }
 
     }

@@ -7,11 +7,24 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    @*<meta name="viewport" content="width=device-width" />*@
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui" />
     <title>英皇微信管理系统</title>
-    <link href="~/Content/authority/login_css.css" rel="stylesheet" />
+    <link media="screen and (min-width: 778px)" href="~/Content/authority/login_css.css" rel="stylesheet" />
+    <link media="screen and (max-width: 778px)" href="~/Content/ace/ace.min.css" rel="stylesheet" />
 </head>
-<body>
+<body onload="load()">
+
+    <script>
+        function load() {
+            if ("ontouchend" in document) {
+                var dd = document.getElementsByName("BMode");
+                for (var i = 0; i < dd.length; i++) {
+                    dd[i].checked = true;
+                }
+            }
+        }
+    </script>
     <div id="login_area">
         <div id="login_box">
 
@@ -19,16 +32,22 @@
             </div>
             <div id="login_form">
                 @using (Html.BeginForm())
-                {       
+                {
                     <h4 style="color: #575757">英皇微信管理系统</h4>
                     <ul>
-                        <li style="padding: 0 0 0 20px;">帳戶：
+                        <li style="padding: 0 0 0 20px;">
+                            帳戶：
                             @Html.TextBoxFor(z => z.UserID, new { @class = "username" })
                             @Html.ValidationMessageFor(z => z.UserID)
                         </li>
-                        <li style="padding: 0 0 0 20px;">密碼：
+                        <li style="padding: 0 0 0 20px;">
+                            密碼：
                             @Html.PasswordFor(z => z.Password, new { @class = "pwd" })
                             @Html.ValidationMessageFor(z => z.Password)
+                        </li>
+                        <li style="padding: 0 0 0 20px;">
+                            移动版：
+                            @Html.CheckBoxFor(z => z.BMode, new { @class = "mode" })
                         </li>
                         <li>
                             <label style="color: red;">&nbsp;@Html.ValidationMessage("ErrorMessage")</label>
@@ -38,7 +57,7 @@
 
                         <input type="Submit" value="登錄" class="login_btn" />
                     </div>
-                    
+
                 }
             </div>
         </div>
