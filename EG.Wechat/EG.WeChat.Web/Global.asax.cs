@@ -10,6 +10,7 @@ using Senparc.Weixin.MP.TenPayLib;
 using EG.WeChat.Service.WeiXin;
 using System.Collections;
 using EG.WeChat.Utility.WeiXin;
+using EG.WeChat.Platform.BL;
 
 namespace EG.WeChat.Web
 {
@@ -142,10 +143,11 @@ namespace EG.WeChat.Web
             WeiXinConfiguration.appID = EG.Business.Common.ConfigCache.GetAppConfig("WX_appID");
             WeiXinConfiguration.appsecret = EG.Business.Common.ConfigCache.GetAppConfig("WX_appsecret");
             WeiXinConfiguration.Token = EG.Business.Common.ConfigCache.GetAppConfig("WX_Token");
-            WeiXinConfiguration.EncodingAESKey  = EG.Business.Common.ConfigCache.GetAppConfig("WX_EncodingAESKey");
+            WeiXinConfiguration.EncodingAESKey = EG.Business.Common.ConfigCache.GetAppConfig("WX_EncodingAESKey");
             //微信企业账号信息设置
             //WeiXinConfiguration.cropId
             //WeiXinConfiguration.corpSecret
+            new WXCorpBaseService().SetCorpConfiguration();
         }
 
         #endregion

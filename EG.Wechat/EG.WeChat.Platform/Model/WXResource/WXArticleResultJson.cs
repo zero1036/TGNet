@@ -7,6 +7,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using System.Runtime.Serialization;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 /*****************************************************
 * 目的：EG定制微信图文资源ResultJson
 * 创建人：林子聪

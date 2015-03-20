@@ -1,0 +1,75 @@
+﻿<div class="container-fluid" ng-controller="QyappCtrl">
+    <div ng-if="qyconfigm==1">
+        <style>
+            /*.row > * {
+            display: inline-block;
+        }*/
+
+            .tg-div-tool > div {
+                display: inline-block;
+                margin-right: 1em;
+                position: relative;
+            }
+
+                .tg-div-tool > div:nth-child(1) {
+                    top: 0.5em;
+                }
+
+                .tg-div-tool > div > * {
+                    display: block;
+                }
+
+                .tg-div-tool > div > img {
+                    width: 82px;
+                    height: 82px;
+                }
+
+            .tg-div-tool > .div-qyapp-right {
+                float: right;
+            }
+        </style>
+        <!-- {{qyapp.name}}-->
+        <div class="tg-div-tool">
+            <div>
+                <img ng-src="{{qyapp.round_logo_url}}">
+            </div>
+            <div class="div-qyapp-info">
+                <span style="font-size: 1.7em">{{qyapp.name}}</span>
+                <span>應用ID：{{qyapp.agentid}}</span>
+                <span>{{qyapp.description}}</span>
+            </div>
+            <div class="div-qyapp-right">
+                <a href="javascript:void(0);">編輯</a>
+            </div>
+        </div>
+        <hr style="filter: alpha(opacity=100,finishopacity=0,style=1); width: 100%;" />
+        <div class="tg-div-tool">
+            <div style="width: 60%;">
+                <span><b>配置回调URL及密钥</b></span>
+                <span>URL:&nbsp;<i>http://testwechat.cloudapp.net/qy</i></span>
+                <span>TOKEN:&nbsp;iw9flvnfXvrUP</span>
+                <span>EncodingAESKey：CLJurfClMa26l7GlBYwnSA5vSlkvr2gfcS7ypUwx2GE</span>
+            </div>
+            <div class="div-qyapp-right">
+                <a href="javascript:void(0);" class="btn btn-primary">修改配置</a>
+            </div>
+        </div>
+        <hr style="filter: alpha(opacity=100,finishopacity=0,style=1); width: 100%;" />
+        <div class="tg-div-tool">
+            <div style="width: 60%;">
+                <span><b>自定义菜单</b></span>
+                <span>应用可以在会话界面底部设置自定义菜单，菜单项可按需设定，并可为其设置响应动作。
+用户可以通过点击菜单项，收到你设定的消息。</span>
+                <a href="javascript:void(0)" ng-click="navg()">修改</a>
+            </div>
+            <div class="div-qyapp-right">
+                <a href="javascript:void(0);" class="btn btn-primary">修改配置</a>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="qyconfigm==2">
+        <qyappmenu></qyappmenu>
+    </div>
+
+</div>

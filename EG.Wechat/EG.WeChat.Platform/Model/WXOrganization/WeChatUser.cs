@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 *****************************************************/
 namespace EG.WeChat.Platform.Model
 {
-    public class WeChatUser : Senparc.Weixin.MP.AdvancedAPIs.UserInfoJson
+    public class WeChatUser : Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson
     {
         /// <summary>
         /// 备注名称

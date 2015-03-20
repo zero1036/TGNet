@@ -36,7 +36,7 @@ namespace EG.WeChat.Platform.BL
         /// <returns></returns>
         public List<GroupsJson_Group> GetWCGroupList(string strAccessToken)
         {
-            GroupsJson pGroup = Senparc.Weixin.MP.AdvancedAPIs.Groups.Get(strAccessToken);
+            GroupsJson pGroup = Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Get(strAccessToken);
             if (pGroup == null || pGroup.groups == null)
                 return null;
             return pGroup.groups;
@@ -49,7 +49,7 @@ namespace EG.WeChat.Platform.BL
         /// <returns></returns>
         public CreateGroupResult CreateWXGroup(string strAccessToken, string strGroupName)
         {
-            CreateGroupResult pResult = Senparc.Weixin.MP.AdvancedAPIs.Groups.Create(strAccessToken, strGroupName);
+            CreateGroupResult pResult = Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Create(strAccessToken, strGroupName);
             return pResult;
         }
         /// <summary>
@@ -61,7 +61,7 @@ namespace EG.WeChat.Platform.BL
         /// <returns></returns>
         public WxJsonResult MemberUpdate(string strAccessToken, string openId, int toGroupId)
         {
-            WxJsonResult pResult = Senparc.Weixin.MP.AdvancedAPIs.Groups.MemberUpdate(strAccessToken, openId, toGroupId);
+            WxJsonResult pResult = Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.MemberUpdate(strAccessToken, openId, toGroupId);
             return pResult;
         }
     }

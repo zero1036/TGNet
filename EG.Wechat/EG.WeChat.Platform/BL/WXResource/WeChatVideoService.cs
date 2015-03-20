@@ -13,6 +13,7 @@ using System.Web;
 using EG.WeChat.Service;
 using EG.WeChat.Utility.Tools;
 using EG.WeChat.Platform.Model;
+using Senparc.Weixin.MP.AdvancedAPIs.Media;
 /*****************************************************
 * 目的：微信視頻资源管理服务
 * 创建人：林子聪

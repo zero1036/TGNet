@@ -65,7 +65,7 @@ namespace EG.WeChat.Utility.WeiXin
                 
                 //##获取当前在线的客服列表
                 var OnlineIdleAccountList = from finallyData in
-                                                (from custom in Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetCustomOnlineInfo(accessToken).kf_online_list
+                                                (from custom in Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetCustomOnlineInfo(accessToken).kf_online_list
                                                  where custom.status > 0                    //在线状态；这里不关注分PC或手机。
                                                     && custom.accepted_case <= 0            //空闲状态；正在接待会话数为0。
                                                  select new

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using EG.WeChat.Service.WeiXin;
 using EG.WeChat.Utility.WeiXin;
+using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 
 namespace System.Web.Mvc
 {
@@ -26,7 +27,7 @@ namespace System.Web.Mvc
         /// </summary>
         /// <param name="code">Code凭证</param>
         /// <returns>OpenId</returns>
-        public static string GetOpenId(this Controller controller,string code)
+        public static string GetOpenId(this Controller controller, string code)
         {
             //参数检查
             if (string.IsNullOrEmpty(code))
@@ -47,7 +48,7 @@ namespace System.Web.Mvc
             OAuthAccessTokenResult result = null;
             try
             {
-                result = Senparc.Weixin.MP.AdvancedAPIs.OAuth.GetAccessToken(WeiXinConfiguration.appID,
+                result = Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAccessToken(WeiXinConfiguration.appID,
                                                                              WeiXinConfiguration.appsecret,
                                                                              code);
             }

@@ -17,6 +17,7 @@ using System.Linq.Expressions;
 using System.Diagnostics;
 using EG.WeChat.Utility.Tools;
 using EG.WeChat.Platform.Model;
+using Senparc.Weixin.MP.AdvancedAPIs.User;
 /*****************************************************
 * 目的：微信组织（用户、分组）服务
 * 创建人：林子聪

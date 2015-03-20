@@ -23,6 +23,7 @@ using EG.WeChat.Service.WeiXin;
 using EG.WeChat.Utility.Tools;
 using EG.WeChat.Platform.Model;
 using EG.WeChat.Platform.DA;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 /*****************************************************
 * 目的：微信自动信息服务
 * 创建人：林子聪
@@ -389,7 +390,7 @@ namespace EG.WeChat.Platform.BL
                     continue;
                 strValue = jo[info.Name].ToString();
                 //info.SetValue(entity, propertyValue, null);
-                info.SetValue(entity, new Senparc.Weixin.MP.AdvancedAPIs.TemplateDataItem(strValue), null);
+                info.SetValue(entity, new Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateDataItem(strValue), null);
             }
             return entity;
         }

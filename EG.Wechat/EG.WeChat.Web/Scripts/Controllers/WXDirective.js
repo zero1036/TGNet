@@ -503,3 +503,102 @@ WXDirective.directive("pagesuc", function () {
         templateUrl: '/Scripts/Views/PagesUC.html'
     }
 });
+//QYConfig企业号配置
+WXDirective.directive("qyconfig", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/QYConfig.html'
+    }
+});
+//qyapp企业应用配置
+WXDirective.directive("qyappx", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/QYApp.html'
+    }
+});
+//QYAppMenu企业应用菜单配置
+WXDirective.directive("qyappmenu", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/QYAppMenu.html'
+    }
+});
+//可拖拽列表
+WXDirective.directive('nestable', function () {
+    return {
+        require: '?ngModel',
+        restrict: 'A',
+        link: function (scope, el, attrs, ngModel) {
+            var checkInfo = function (r) {
+                var err = "";
+                //console.log(r);
+                if (r.length > 3) {
+                    err = "最多只能創建3個一級菜單！";
+                }
+                else {
+                    for (var i = 0, pb; pb = r[i++];) {
+                        if (pb.children == undefined || pb.children.length < 1) {
+                            err = "一級菜單下必須具有二級菜單，否則请刪除一級菜單！";
+                            break;
+                        }
+                        for (var j = 0, cb; cb = pb.children[j++];) {
+                            if (cb.children != undefined && cb.children.length > 0) {
+                                err = "最多只能創建二級菜單，不允許創建三級菜單，請檢查！";
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (err == "") {
+                    $(".alert").removeClass("alert-danger");
+                    $(".alert").addClass("alert-info");
+                    $(".alert").text("允許保存");
+                    $("#btn-save").removeClass("disabled");
+                }
+                else {
+                    $(".alert").addClass("alert-danger");
+                    $(".alert").removeClass("alert-info");
+                    $(".alert").text(err);
+                    $("#btn-save").addClass("disabled");
+                }
+                //$(".alert").toggleClass("alert-danger");
+                return err;
+            }
+            el.nestable().on('change', function () {
+                var r = $('.dd').nestable('serialize');
+                var b = checkInfo(r);
+                if (b == "") {
+                    scope.$apply(function () {
+                        ngModel.$setViewValue(r);
+                    });
+                }
+            });
+            var iname = el.eq(0).attr('id');
+            //var $oi = $($('#' + iname + ' .dd-handle a').parent);
+            //$oi.on('mousedown', '#' + iname + ' .dd-handle a', function (e) {
+            //    e.stopPropagation();
+            //});
+
+            //$($('#' + iname + ' .dd-handle a').parent).on('mousedown', '#' + iname + ' .dd-handle a', function (e) {
+            //    e.stopPropagation();
+            //});
+
+            //var element = document.getElementsByClassName(".blue");
+            //element.addEventListener('mousedown', function (e) {
+            //    e.stopPropagation();
+            //}, false);
+
+            //$('[data-rel="tooltip"]').tooltip();
+
+            //$('#nestable').nestable().on('change', function () {
+            //    var r = $('.dd').nestable('serialize');
+            //    $("#xx").html(JSON.stringify(r));    //改变排序之后的数据
+            //});
+        }
+    };
+});

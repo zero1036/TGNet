@@ -7,6 +7,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.CommonAPIs;
 using System.Net;
 using System.Web;
@@ -135,7 +136,7 @@ namespace EG.WeChat.Platform.BL
             });
             return pResult;
         }
- 
+
         #region 私有方法
         /// <summary>
         /// 由于服务端有HTML输入标识限制，防止脚本注入，因此，将图文内容的HTML标签全部转换为<> &lt; &gt;,在此需要转换回来正常标签

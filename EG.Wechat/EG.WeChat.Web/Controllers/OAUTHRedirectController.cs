@@ -43,18 +43,18 @@ namespace EG.WeChat.Web.Controllers
 
         #region Session名称常量
 
-        const string SESSION_NAME_OPENID     = "WX_OAUTH_OpenId";
-        const string SESSION_NAME_DEVICEID   = "WX_OAUTH_DeviceId";
+        const string SESSION_NAME_OPENID = "WX_OAUTH_OpenId";
+        const string SESSION_NAME_DEVICEID = "WX_OAUTH_DeviceId";
 
         #endregion
 
         #region Get参数常量
 
-        const string GET_NAME_OPENID    = "OpenId";
-        const string GET_NAME_DEVICEID  = "DeviceId";
+        const string GET_NAME_OPENID = "OpenId";
+        const string GET_NAME_DEVICEID = "DeviceId";
 
         #endregion
-        
+
 
         //--------Control--------
 
@@ -65,7 +65,7 @@ namespace EG.WeChat.Web.Controllers
         public OAUTHRedirectController()
         {
         }
-                
+
         #endregion
 
 
@@ -82,7 +82,7 @@ namespace EG.WeChat.Web.Controllers
         [ActionName("Do")]
         public ActionResult Do(string code, string BSUrl, string usage, int agentId = 0)
         {
-            string userOpenId   = String.Empty;
+            string userOpenId = String.Empty;
             string userDeviceId = String.Empty;
 
             //忽略大小写
@@ -113,16 +113,16 @@ namespace EG.WeChat.Web.Controllers
                 case "normal":
                     {
                         var query = HttpUtility.ParseQueryString(new Uri(BSUrl).Query);
-                        query.Add(GET_NAME_OPENID,userOpenId);
-                        targetUrl = new UriBuilder(BSUrl){Query = query.ToString()}.Uri.ToString();
+                        query.Add(GET_NAME_OPENID, userOpenId);
+                        targetUrl = new UriBuilder(BSUrl) { Query = query.ToString() }.Uri.ToString();
                     }
                     break;
 
                 case "qy":
                     {
                         var query = HttpUtility.ParseQueryString(new Uri(BSUrl).Query);
-                        query.Add(GET_NAME_OPENID,     userOpenId);
-                        query.Add(GET_NAME_DEVICEID,   userDeviceId);
+                        query.Add(GET_NAME_OPENID, userOpenId);
+                        query.Add(GET_NAME_DEVICEID, userDeviceId);
                         targetUrl = new UriBuilder(BSUrl) { Query = query.ToString() }.Uri.ToString();
                     }
                     break;
@@ -156,10 +156,10 @@ namespace EG.WeChat.Web.Controllers
             }
 
             //目标：只获取OpenID
-            Senparc.Weixin.MP.AdvancedAPIs.OAuthAccessTokenResult result = null;
+            Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult result = null;
             try
             {
-                result = Senparc.Weixin.MP.AdvancedAPIs.OAuth.GetAccessToken(WeiXinConfiguration.appID,
+                result = Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAccessToken(WeiXinConfiguration.appID,
                                                                              WeiXinConfiguration.appsecret,
                                                                              code);
             }
@@ -177,7 +177,7 @@ namespace EG.WeChat.Web.Controllers
                 OpenId = result.openid;
             }
         }
-        
+
         #endregion
 
         #region 解析数据_企业号
@@ -185,7 +185,7 @@ namespace EG.WeChat.Web.Controllers
         /// <summary>
         /// 解析数据_企业号
         /// </summary>
-        private static void GetUserBaseInfo_QY(Controller controller, string code,int agentId, out string OpenId, out string DeviceId)
+        private static void GetUserBaseInfo_QY(Controller controller, string code, int agentId, out string OpenId, out string DeviceId)
         {
             //初始化结果
             OpenId = String.Empty;
@@ -203,10 +203,10 @@ namespace EG.WeChat.Web.Controllers
             }
 
             //目标：只获取OpenID
-            Senparc.Weixin.QY.AdvancedAPIs.GetUserIdResult result = null;
+            Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult result = null;
             try
             {
-                result = Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserId(Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.GetToken(WeiXinConfiguration.cropId),
+                result = Senparc.Weixin.QY.AdvancedAPIs.OAuth2.OAuth2Api.GetUserId(Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.GetToken(WeiXinConfiguration.cropId),
                                                                          code,
                                                                          agentId);
             }
@@ -218,15 +218,15 @@ namespace EG.WeChat.Web.Controllers
             if (result != null)
             {
                 //存储到Session
-                controller.Session[SESSION_NAME_OPENID]     = result.UserId;
-                controller.Session[SESSION_NAME_DEVICEID]   = "";    //最近的接口才出现DeviceId，准备通过升级SDK来支持。
+                controller.Session[SESSION_NAME_OPENID] = result.UserId;
+                controller.Session[SESSION_NAME_DEVICEID] = "";    //最近的接口才出现DeviceId，准备通过升级SDK来支持。
 
                 //返回结果
                 OpenId = result.UserId;
                 DeviceId = "";
             }
         }
-        
+
         #endregion
 
 
@@ -244,7 +244,7 @@ namespace EG.WeChat.Web.Controllers
 
         [HttpGet]
         [ActionName("Index")]
-        public ActionResult Index(string BSUrl, string usage,int agentId = 0)
+        public ActionResult Index(string BSUrl, string usage, int agentId = 0)
         {
             //忽略大小写
             if (usage != null)
@@ -261,11 +261,11 @@ namespace EG.WeChat.Web.Controllers
             {
                 default:
                 case "normal":
-                    targetUrl = Senparc.Weixin.MP.AdvancedAPIs.OAuth.GetAuthorizeUrl(WeiXinConfiguration.appID, targetUrl, "000", Senparc.Weixin.MP.AdvancedAPIs.OAuthScope.snsapi_base);
+                    targetUrl = Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAuthorizeUrl(WeiXinConfiguration.appID, targetUrl, "000", Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthScope.snsapi_base);
                     break;
 
                 case "qy":
-                    targetUrl = Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetCode(WeiXinConfiguration.cropId, targetUrl, "000");
+                    targetUrl = Senparc.Weixin.QY.AdvancedAPIs.OAuth2.OAuth2Api.GetCode(WeiXinConfiguration.cropId, targetUrl, "000");
                     break;
             }
 

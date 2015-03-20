@@ -1,0 +1,56 @@
+﻿@{
+    //ViewBag.Title = "QYConfig";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="WXApp">
+<head>
+    <meta charset="utf-8">
+    <!--IE兼容标签-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--响应式布局-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--默认使用webkit内核进行渲染-->
+    <meta name="renderer" content="webkit">
+    <!-- bootstrapcss 采用百度CDN -->
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ace styles -->
+    <link rel="stylesheet" href="~/Content/ace/ace.min.css" />
+    <!-- summernote 富文本编辑插件 采用bootcss CDN数据源-->
+    <link href="http://cdn.bootcss.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- 採用CDN數據源，JQuery Bootstrap 由于Jquery2.0版本以上不支持IE678，改用1.9.1-->
+    <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!--jquery.json-->
+    @Scripts.Render("~/Scripts/jquery.json-2.3.min.js")
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    @Scripts.Render("~/Bundles/angularjs")
+    @*@Scripts.Render("~/Scripts/Angular/angular.js")
+    @Scripts.Render("~/Scripts/Angular/angular-route.js")*@
+    <!-- jquery nestable scripts -->
+    <script src="~/Scripts/jquery.nestable.min.js"></script>
+    <!-- EGCommon -->
+    @Scripts.Render("~/Bundles/egcommonjs")
+    <!-- Controllers -->
+    @Scripts.Render("~/Scripts/Controllers/app.js")
+    @Scripts.Render("~/Scripts/Controllers/WXBaseController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXOrgController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXResController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXService.js")
+    @Scripts.Render("~/Scripts/Controllers/WXDirective.js")
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-controller="QyCfgCtrl">
+    <qyconfig></qyconfig>
+</body>
+</html>
+

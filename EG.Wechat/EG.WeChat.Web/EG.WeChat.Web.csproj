@@ -183,6 +183,12 @@
     </Compile>
     <Compile Include="Controllers\Client\MemberController.cs" />
     <Compile Include="Controllers\OAUTHRedirectController.cs" />
+    <Compile Include="Controllers\QY\QYConfigController.cs" />
+    <Compile Include="Controllers\QY\QYController.cs" />
+    <Compile Include="Controllers\QY\QYDepartController.cs" />
+    <Compile Include="Controllers\QY\QYMemberController.cs" />
+    <Compile Include="Controllers\QY\QYTagController.cs" />
+    <Compile Include="Controllers\QY\TestController.cs" />
     <Compile Include="Controllers\RedirectController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -216,6 +222,8 @@
     <Compile Include="Models\CommonVM.cs" />
     <Compile Include="Models\Market\CardApplyVM.cs" />
     <Compile Include="Models\Market\MemberVM.cs" />
+    <Compile Include="Models\QY\DepartMenuVM.cs" />
+    <Compile Include="Models\QY\MemberVM.cs" />
     <Compile Include="Models\Security\AccessRightVM.cs" />
     <Compile Include="Models\Security\GroupVM.cs" />
     <Compile Include="Models\Security\MenuVM.cs" />
@@ -583,6 +591,10 @@
     <Content Include="Images\login\btn.jpg" />
     <Content Include="Images\login\btn_hover.jpg" />
     <Content Include="Images\login\login.png" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\Angular\angular-mocks.js" />
     <Content Include="Scripts\Angular\angular-resource.js" />
     <Content Include="Scripts\Angular\angular-route.js" />
@@ -638,6 +650,7 @@
     <Content Include="Scripts\jquery.json-2.3.js" />
     <Content Include="Scripts\jquery.json-2.3.min.js" />
     <Content Include="Scripts\jquery.mobile.custom.min.js" />
+    <Content Include="Scripts\jquery.nestable.min.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery.sparkline.min.js" />
     <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
@@ -790,12 +803,16 @@
     <Content Include="Views\WXResource\WXVoicesConfig.cshtml" />
     <Content Include="Views\ResponseChainCustomHandler\AdvantanceConfig_CustomHandler_ArtificialService\Index.cshtml" />
     <Content Include="Views\Shared\_Layout4.cshtml" />
+    <Content Include="Views\QYConfig\QYConfig.cshtml" />
+    <Content Include="Views\QYDepart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Views\UserControl\" />
+    <Folder Include="Views\QYMember\" />
+    <Folder Include="Views\QYTag\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TG.Utility\EG.WeChat.Utility\EG.WeChat.Utility.csproj">

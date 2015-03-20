@@ -79,6 +79,14 @@
     <Compile Include="BL\Market\MemberBL.cs" />
     <Compile Include="BL\Market\MemberCardService.cs" />
     <Compile Include="BL\Message\WXCSMessageService.cs" />
+    <Compile Include="BL\QYMailList\DepartmentFactury.cs" />
+    <Compile Include="BL\QYMailList\QYConfig.cs" />
+    <Compile Include="BL\QYMailList\QYDepartmentBL.cs" />
+    <Compile Include="BL\QYMailList\QYMemberBL.cs" />
+    <Compile Include="BL\QYVote\VoteBL.cs" />
+    <Compile Include="BL\QYVote\VoteCollection.cs" />
+    <Compile Include="BL\QYVote\VoteMember.cs" />
+    <Compile Include="BL\QYVote\VoteOption.cs" />
     <Compile Include="BL\ResponseCustomHandler\CustomHandler_ArtificialService.cs" />
     <Compile Include="BL\ResponseCustomHandler\CustomHandler_QueryEGProductPrice.cs" />
     <Compile Include="BL\ResponseCustomHandler\CustomHandler_ShareMessage.cs" />
@@ -108,6 +116,9 @@
     <Compile Include="DA\OrganizationDA\WeChatOrgAOP.cs" />
     <Compile Include="DA\OrganizationDA\WeChatUserDA.cs" />
     <Compile Include="DA\OrganizationDA\WXResAOP.cs" />
+    <Compile Include="DA\QYMaiListDA\QYDepartmentDA.cs" />
+    <Compile Include="DA\QYMaiListDA\QYMemberDA.cs" />
+    <Compile Include="DA\QYVote\VoteDA.cs" />
     <Compile Include="DA\SecurityDA\AccessRightDA.cs" />
     <Compile Include="DA\SecurityDA\GroupDA.cs" />
     <Compile Include="DA\SecurityDA\MenuDA.cs" />

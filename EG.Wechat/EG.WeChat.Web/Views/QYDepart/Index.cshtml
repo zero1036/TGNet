@@ -1,0 +1,849 @@
+﻿@{
+    ViewBag.Title = "組織架構";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    @Scripts.Render("~/Scripts/jquery-1.7.1.js")
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    @Styles.Render("~/Content/authority/zTreeStyle.css")
+    @Scripts.Render("~/Scripts/zTree/jquery.ztree.core-3.2.js")
+    @Scripts.Render("~/Scripts/zTree/jquery.ztree.exedit-3.2.min.js")
+    @Scripts.Render("~/Scripts/zTree/jquery.ztree.excheck-3.2.min.js")
+
+    <script type="text/javascript">
+        var departTree;
+        var departSelTree;
+        var departID;
+        var wcOrder;
+        var depPKID;
+        var memberIDVal;
+
+        var settingDepart = {
+            view: {
+                dblClickExpand: false,
+                showLine: false,
+                //expandSpeed: ($.support.boxModel && parseInt($.support.leadingWhitespace) <= 6) ? "" : "fast"
+                expandSpeed: ($.browser.msie && parseInt($.browser.version) <= 6) ? "" : "fast",
+                addHoverDom: addHoverDom,
+                removeHoverDom: removeHoverDom
+            },
+            data: {
+                key: {
+                    name: "Name"
+                },
+                simpleData: {
+                    enable: true,
+                    idKey: "DepartmentID",
+                    pIdKey: "ParentDepartmentID",
+                    rootPId: ""
+                }
+            },
+            callback: {
+                // 				beforeExpand: beforeExpand,
+                // 				onExpand: onExpand,
+                onClick: departTreeOnClick
+            }
+        };
+
+
+        var settingSelDepart = {
+            check: {
+                enable: true,
+                chkboxType: { "Y": "", "N": "" }
+            },
+            view: {
+                dblClickExpand: false,
+                showLine: false,
+                //expandSpeed: ($.support.boxModel && parseInt($.support.leadingWhitespace) <= 6) ? "" : "fast"
+                expandSpeed: ($.browser.msie && parseInt($.browser.version) <= 6) ? "" : "fast",
+            },
+            data: {
+                key: {
+                    name: "Name"
+                },
+                simpleData: {
+                    enable: true,
+                    idKey: "DepartmentID",
+                    pIdKey: "ParentDepartmentID",
+                    rootPId: ""
+                }
+            },
+            callback: {
+                beforeClick: beforeClick,
+                onCheck: onCheck
+            }
+        };
+
+        function addHoverDom(treeId, treeNode) {
+            var aObj = $("#" + treeNode.tId + "_a");
+            if ($("#diyBtn1_" + treeNode.id).length > 0) return;
+            if ($("#diyBtn2_" + treeNode.id).length > 0) return;
+            if ($("#diyBtn3_" + treeNode.id).length > 0) return;
+            //var editStr = '<div class="dropdown" id=diyBtn_' + treeNode.id + '><button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">D<span class="caret"></span></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">dsa</ul></div>';
+
+
+
+            var editStr = "<span id='diyBtn_space_" + treeNode.id + "' > </span>"
+                + "<button type='button' class='diyBtn1' id='diyBtn1_" + treeNode.id
+                + "' title='" + treeNode.name + "' onfocus='this.blur();' data-toggle='modal' data-target='#addDepartModal'>添加子部門</button>"
+            + "<button type='button' class='diyBtn1' id='diyBtn2_" + treeNode.id
+                + "' title='" + treeNode.name + "' onfocus='this.blur();' data-toggle='modal' data-target='#reNameModal'>重命名</button>"
+               + "<button type='button' class='diyBtn1' id='diyBtn3_" + treeNode.id
+                + "' title='" + treeNode.name + "' onfocus='this.blur();' data-toggle='modal' data-target='#delDepartModal'>刪除</button>"
+            ;
+            aObj.append(editStr);
+            var btn1 = $("#diyBtn1_" + treeNode.id);
+            var btn2 = $("#diyBtn2_" + treeNode.id);
+            var btn3 = $("#diyBtn3_" + treeNode.id);
+
+            //var btn = $("#dLabel");
+            if (btn1) btn1.bind("click", function () { departID = treeNode.DepartmentID; wcOrder = treeNode.wcOrder; depPKID = treeNode.DepPKID; });
+            if (btn2) btn2.bind("click", function () { departID = treeNode.DepartmentID; wcOrder = treeNode.wcOrder; depPKID = treeNode.DepPKID; });
+            if (btn3) btn3.bind("click", function () { departID = treeNode.DepartmentID; wcOrder = treeNode.wcOrder; depPKID = treeNode.DepPKID; });
+        };
+        function removeHoverDom(treeId, treeNode) {
+            $("#diyBtn1_" + treeNode.id).unbind().remove();
+            $("#diyBtn2_" + treeNode.id).unbind().remove();
+            $("#diyBtn3_" + treeNode.id).unbind().remove();
+            $("#diyBtn_space_" + treeNode.id).unbind().remove();
+
+            //$("#dLabel").unbind().remove();
+            //$(".dropdown").unbind().remove();
+        };
+
+        function departTreeOnClick(event, treeId, treeNode) {
+            showMember(treeNode.DepPKID);
+        }
+
+
+
+        $(document).ready(function () {
+            $("#departQy").css("display", "none");
+            //$(document).ajaxStart(onStart).ajaxSuccess(onStop);
+            /** 默认异步加载"业务模块"目录  **/
+            loadMenu('YEWUMOKUAI', "departMenu");
+            selMenu('selDepartMenu');
+
+
+            // 默认展开所有节点
+            if (departTree) {
+                // 默认展开所有节点
+                departTree.expandAll(false);
+            }
+        });
+
+        function loadMenu(resourceType, treeObj) {
+            $.post("/QYDepart/GetDepartMenu", null, function (data) {
+                // 如果返回数据不为空，加载"业务模块"目录
+                if (data != null) {
+                    //alert(JSON.stringify(data));
+                    // 将返回的数据赋给departTree
+                    $.fn.zTree.init($("#" + treeObj), settingDepart, data);
+                    //              alert(treeObj);
+                    departTree = $.fn.zTree.getZTreeObj(treeObj);
+                    var rootNode = departTree.getNodesByFilter(function (node) { return node.level == 0 }, true);
+                    showMember(rootNode.DepPKID);
+                    if (departTree) {
+                        // 默认展开所有节点
+                        departTree.expandAll(false);
+                    }
+                }
+            }).error(function (data) { });
+        }
+
+        function selMenu(treeObj) {
+            $.post("/QYDepart/GetDepartMenu", null, function (data) {
+                // 如果返回数据不为空，加载"业务模块"目录
+                if (data != null) {
+                    //alert(JSON.stringify(data));
+                    // 将返回的数据赋给departTree
+                    $.fn.zTree.init($("#" + treeObj), settingSelDepart, data);
+                    //              alert(treeObj);
+                    departSelTree = $.fn.zTree.getZTreeObj(treeObj);
+                    if (departSelTree) {
+                        // 默认展开所有节点
+                        departSelTree.expandAll(false);
+                    }
+                }
+            });
+        }
+
+        function beforeClick(treeId, treeNode) {
+            departSelTree = $.fn.zTree.getZTreeObj("selDepartMenu");
+            departSelTree.checkNode(treeNode, !treeNode.checked, null, true);
+            return false;
+        }
+
+        function onCheck(e, treeId, treeNode) {
+            departSelTree = $.fn.zTree.getZTreeObj("selDepartMenu"),
+			nodes = departSelTree.getCheckedNodes(true),
+		    v = "", hPKID = "", hID = "";
+            for (var i = 0, l = nodes.length; i < l; i++) {
+                v += nodes[i].Name + ",";
+                hPKID += nodes[i].DepPKID + ",";
+                hID += nodes[i].hID + ",";
+            }
+
+            if (v.length > 0) v = v.substring(0, v.length - 1);
+            if (hPKID.length > 0) hPKID = hPKID.substring(0, hPKID.length - 1);
+            //if (hID.length > 0) hID = hID.substring(0, hID.length - 1);
+            var departObj = $("#departSel");
+            var pkIDObj = $("#DepartmentPKId");
+            //var wxID = $("#");
+            departObj.attr("value", v);
+            pkIDObj.attr("value", hPKID);
+            //wxID.attr("value",hID);
+        }
+
+        function showMenu() {
+            var departObj = $("#departSel");
+            var departOffset = $("#departSel").offset();
+            //$("#menuContent").css({ left: departObj.left + "px", top: departOffset.top + departObj.outerHeight() + "px" }).slideDown("fast");
+            $("#menuContent").slideDown("fast");
+            $("body").bind("mousedown", onBodyDown);
+        }
+        function hideMenu() {
+            $("#menuContent").fadeOut("fast");
+            $("body").unbind("mousedown", onBodyDown);
+        }
+        function onBodyDown(event) {
+            if (!(event.target.id == "departSel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
+                hideMenu();
+            }
+        }
+
+        function showMember(id) {
+            var dataSel = {};
+
+            if (id) {
+                dataSel.ID = id;
+            }
+            $.post("/QYMember/GetMemberByDepPKID", dataSel, function (data) {
+                var table = $("#memberTb");
+                debugger;
+                $("#memberTb tbody").remove();
+                //table.append($("<tr><th width='25'><input type='checkbox' group='ids' class='checkboxCtrl'></th><th>Open ID</th><th>微信昵稱</th><th>備註名</th><th>用戶組</th><th>國家</th><th>省份</th><th>城市</th><th>性別</th><th width='210'>操作</th></tr>"));
+                table.append("<tr><th width='25'><input type='checkbox' group='ids' class='checkboxCtrl'></th><th>姓名</th><th>賬號</th><th>職位</th><th>手機</th><th>郵箱</th><th>狀態</th><th>操作</th></tr>");
+
+                var MemberID = "";
+                var name = "";
+                var userid = "";
+                var weixinid = "";
+                var position = "";
+                var mobile = "";
+                var email = "";
+                var status = "";
+                var avatar = "";
+
+                //向表格中添加内容
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].MemberID != null)
+                        memberID = data[i].MemberID;
+                    if (data[i].Avatar != null)
+                        avatar = data[i].Avatar;
+                    if (data[i].Name != null)
+                        name = data[i].Name;
+                    if (data[i].UserId != null)
+                        userid = data[i].UserId;
+                    if (data[i].Position != null)
+                        position = data[i].Position;
+                    if (data[i].Mobile != null)
+                        mobile = data[i].Mobile;
+                    if (data[i].Email != null)
+                        Email = data[i].Email;
+                    if (data[i].Status != null) {
+                        switch (data[i].Status) {
+                            case "1":
+                                status = "已關注";
+                                break;
+                            case "2":
+                                status = "已凍結";
+                                break;
+                            case "4":
+                                status = "未關注";
+                                break;
+                            default:
+                                status = "無狀態";
+                        }
+                    }
+
+
+                    table.append(
+                        $("<tr><td><input name='memberIds' type='checkbox'></td>" +
+                        "<td><img style='width:30px;height:30px;' src='" + avatar
+                        + "' alt='頭像'/>" +
+                        name
+                        + "</td><td>" +
+                        userid
+                        + "</td><td>" +
+                        position
+                        + "</td><td>" +
+                        mobile
+                        + "</td><td>" +
+                        email
+                        + "</td><td>" +
+                        status
+                        + "</td><td>" +
+                        "<button class='btn btn-xs btn-primary' onclick='getmemberItem(this)' data-toggle='modal' data-target='#addMemberModal' value='" + memberID + "'><i class='glyphicon glyphicon-edit'></i> </button>"
+                        + "  <button class='btn btn-xs btn-default' data-toggle='modal' data-target='#delMemberModal' value='" + memberID + "' onclick='getDelMemberID(this)'><i class='glyphicon glyphicon-trash'></i></button>" +
+                        +"</td>")
+                        );
+
+
+
+
+                }
+            });
+        }
+
+        function addDepart() {
+            var departName = $("#addDepartName").val();
+
+            $.post("/QYDepart/AddChildrenDepart", { name: departName, depPKID: depPKID }, function (data) {
+                $('#addDepartModal').modal('hide');
+                if (data.IsSuccess) {
+                    alert('增加成功');
+
+                    loadMenu('YEWUMOKUAI', "departMenu");
+                    selMenu('selDepartMenu');
+                }
+                else {
+                    alert('添加失败：' + data.ErrorMeg);
+                }
+                $("#addDepartName").val('');
+            });
+        }
+
+        function updateDepart() {
+            var departName = $("#updateDepartName").val();
+            $.post("/QYDepart/UpdateDepart", { name: departName, depPKID: depPKID }, function (data) {
+                $('#reNameModal').modal('hide');
+                if (data.IsSuccess) {
+                    alert('更新成功');
+
+                    loadMenu('YEWUMOKUAI', "departMenu");
+                    selMenu('selDepartMenu');
+                }
+                else {
+                    alert('更新失败：' + data.ErrorMeg);
+                }
+                $("#updateDepartName").val('');
+
+            });
+        }
+
+        function deleteDepart() {
+            $.post("/QYDepart/DeleteDepart", { depPKID: depPKID }, function (data) {
+                $('#delDepartModal').modal('hide');
+                if (data.IsSuccess) {
+                    alert('删除成功');
+
+                    loadMenu('YEWUMOKUAI', "departMenu");
+                    selMenu('selDepartMenu');
+                }
+                else {
+                    alert('删除失败：' + data.ErrorMeg);
+                }
+
+            });
+        }
+
+        function saveMember(tag) {
+            if ($("#Name").val() == undefined || $("#Name").val() == '') {
+                alert("姓名必須要填寫");
+                return false;
+            }
+            if (($("#UserId").val() == undefined || $("#UserId").val() == '') && tag == 'add') {
+
+                alert("账号必須要填寫");
+                return false;
+            }
+            if (($("#Weixinid").val() == undefined || $("#Weixinid").val() == '') &&
+                ($("#Mobile").val() == undefined || $("#Mobile").val() == '') &&
+            ($("#Email").val() == undefined || $("#Email").val() == '')) {
+                alert("身份驗證信息（微信號，手機，郵箱三種信息不能同時為空）");
+                return false;
+            }
+            var regMobile = new RegExp('^[0-9]{1,15}$');
+            if (!regMobile.test($("#Mobile").val())) {
+                alert('手機號必須為數字');
+                return false;
+            }
+
+            if ($("#departSel").val() == undefined || $("#departSel").val() == '') {
+                alert("部門必須要填寫");
+                return false;
+            }
+
+            var memberObj = $("#memberForm").serialize();
+
+            switch (tag) {
+                case "add":
+                    addMember(memberObj);
+                    break;
+                case "update":
+                    debugger;
+                    updateMember(memberObj);
+                    break;
+            }
+        }
+
+        function addMember(memberObj) {
+
+            $.post("/QYMember/AddMember", memberObj, function (data) {
+                $('#addMemberModal').modal('hide');
+                if (data.IsSuccess) {
+
+                    var rootNode = departTree.getNodesByFilter(function (node) { return node.level == 0 }, true);
+                    showMember(rootNode.DepPKID);
+                    alert('添加成功');
+                }
+                else {
+                    alert('添加失败：' + data.ErrorMeg);
+                }
+                removeMemberVal();
+            });
+        }
+
+        function getmemberItem(item) {
+            $("#addTip").css("display", "none");
+            $("#updateTip").css("display", "");
+            $("#addBtn").css("display", "none");
+            $("#updateBtn").css("display", "");
+            $("#UserId").attr("readonly", "readonly");
+
+            //var checkList = $('input=[name="memberIds"]');
+            //for (var i = 0; i < checkList.length; i++) {
+            //    if (checkList[i].checked) {
+            //        memberID = $("#memberIds"+i).val();
+            //        break;
+            //    }
+            //}
+            memberIDVal = $(item).attr('value');
+
+            $.post("/QYMember/GetMemberItem", { memberID: memberIDVal }, function (data) {
+                $("#ID").val(data.MemberID);
+                $("#Name").val(data.Name);
+                $("#UserId").val(data.UserId);
+                $("#Mobile").val(data.Mobile);
+                $("#Email").val(data.Email);
+                $("#Weixinid").val(data.Weixinid);
+                $("#Position").val(data.Position);
+                $("#DepartmentPKId").val(data.DepartPKId);
+                var node = departSelTree.getNodeByParam("DepPKID", data.DepartPKId);
+                $("#departSel").val(node.Name);
+
+            });
+        }
+
+        function updateMember(memberObj) {
+            $.post("/QYMember/UpdateMember", memberObj, function (data) {
+                $('#addMemberModal').modal('hide');
+                if (data.IsSuccess) {
+                    alert('更新成功');
+
+                    var rootNode = departTree.getNodesByFilter(function (node) { return node.level == 0 }, true);
+                    showMember(rootNode.DepPKID);
+                }
+                else {
+                    alert('更新失败：' + data.ErrorMeg);
+                }
+                removeMemberVal();
+            });
+        }
+
+        function deleteMember() {
+            //var memberID;
+            //var checkList = $('input=[name="memberIds"]');
+            //for (var i = 0; i < checkList.length; i++) {
+            //    if (checkList[i].checked) {
+            //        memberID = $("#memberIds" + i).val();
+            //        break;
+            //    }
+
+            //}
+
+            $.post("/QYMember/deleteMember", { memberID: memberIDVal }, function (data) {
+                $('#delMemberModal').modal('hide');
+                if (data.IsSuccess) {
+                    alert('删除成功');
+
+                    var rootNode = departTree.getNodesByFilter(function (node) { return node.level == 0 }, true);
+                    showMember(rootNode.DepPKID);
+                }
+                else {
+                    alert('删除失败：' + data.ErrorMeg);
+                }
+
+            });
+        }
+
+        function getDelMemberID(item) {
+            memberIDVal = $(item).attr('value');
+        }
+
+
+        function removeMemberVal() {
+            $("#ID").val();
+            $("#Name").val('');
+            $("#UserId").val('');
+            $("#Mobile").val('');
+            $("#Email").val('');
+            $("#Weixinid").val('');
+            $("#Position").val('');
+            $("#DepartmentPKId").val('');
+            $("#departSel").val('');
+        }
+
+        function canWriteUserid() {
+            $("#updateTip").css("display", "none");
+            $("#addTip").css("display", "");
+            $("#addBtn").css("display", "");
+            $("#updateBtn").css("display", "none");
+            $("#UserId").removeAttr("readonly");
+        }
+
+        function changeSearch(item) {
+            switch (item.value) {
+                case "1":
+
+                    $("#departQy").css("display", "none");
+                    $("#memberQy").css("display", "");
+                    break;
+                case "2":
+                    $("#departQy").css("display", "");
+                    $("#memberQy").css("display", "none");
+                    break;
+            }
+        }
+
+        function Search() {
+            $("#backBtn").css("display", "");
+            $("#departL").css("display", "none");
+            $("#memberR").removeClass("col-md-9").addClass("col-md-12");
+        }
+
+        function showDepartL() {
+            $("#memberR").removeClass("col-md-12").addClass("col-md-9");
+            $("#departL").css("display", "");
+            $("#backBtn").css("display", "none");
+        }
+
+
+
+    </script>
+</head>
+<body>
+    <div class="00container">
+        <form id="pageForm" role="form">
+            <div class="row">
+                <div class="col-md-1 form-group">
+                    <button type="button" id="backBtn" style="display: none" class="btn btn-default btn-block" onclick="showDepartL()">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                    </button>
+                </div>
+                <div class="col-md-3 form-group">
+
+                    <div class="input-group">
+                        <div class="input-group-addon">類型</div>
+                        <select class="form-control" onchange="changeSearch(this)">
+                            <option value="1">成員</option>
+                            <option value="2">部門</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    @*<div id="" class="input-group">
+         <div class="input-group-addon">姓名</div>
+            <input type="text" class="form-control" placeholder=""/>
+                 </div>*@
+
+                    <div class="input-group">
+                        <div id="departQy" class="input-group-addon">部門名稱</div>
+                        <div id="memberQy" class="input-group-addon">姓名</div>
+                        <input type="text" class="form-control" placeholder="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="Search()">查詢</button>
+                        </span>
+                    </div>
+
+                </div>
+                @*        <div class="col-md-4 form-group">
+               <div class="input-group">
+         <div class="input-group-addon">賬號</div>
+            <input type="text" class="form-control" placeholder=""/>
+                 </div>
+        </div>
+    </div>
+    <div class="row">
+         <div class="col-md-4">
+                <div class="input-group">
+         <div class="input-group-addon">職位</div>
+            <input type="text" class="form-control" placeholder=""/>
+                 </div>
+         </div>
+        <div class="col-md-4">
+              <div class="input-group">
+         <div class="input-group-addon">狀態</div>
+            <input type="text" class="form-control" placeholder=""/>
+                 </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button">查询</button>
+                </span>
+            </div>
+
+
+        </div>*@
+            </div>
+        </form>
+        <div class="row" style="margin-top: 10px;">
+            <div id="departL" class="col-md-3">
+
+                <div class="dropdown">
+                    <button class="btn btn-lg btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        添加
+    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle='modal' data-target='#addMemberModal' onclick="canWriteUserid()">新建成員</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">其他操作</a></li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <ul id="departMenu" class="ztree"></ul>
+                </div>
+            </div>
+            <div id="memberR" class="col-md-9">
+                <table id="memberTb" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+                </table>
+            </div>
+        </div>
+    </div>
+    @*      <div>
+    <ul id="departMenu" class="ztree"></ul>
+        </div>*@
+
+    <div class="modal fade" id="addDepartModal" tabindex="-1" role="dialog" aria-labelledby="addLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addLabel">新建部門</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="input-group">
+                            <div class="input-group-addon">部門名稱</div>
+                            <input type="text" id="addDepartName" class="form-control" placeholder="部門名稱不得超過32個字" />
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="addDepart()">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="reNameModal" tabindex="-1" role="dialog" aria-labelledby="reNameLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="reNameLabel">重命名</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="input-group">
+                            <div class="input-group-addon">部門名稱</div>
+                            <input id="updateDepartName" type="text" class="form-control" placeholder="部門名稱不得超過32個字" />
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="updateDepart()">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delDepartModal" tabindex="-1" role="dialog" aria-labelledby="delDepartLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="delDepartLabel">刪除部門</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h3>確認刪除部門？</h3>
+                        <div>沒有子部門且沒有成員的部門才可以被刪除。</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="deleteDepart()">確定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delMemberModal" tabindex="-1" role="dialog" aria-labelledby="delMemberLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="delMemberLabel">刪除成員</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h3>確認刪除所選成員？</h3>
+                        <div>此操作不能撤銷！</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="deleteMember()">確定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="memberForm" role="form">
+        <div class="modal fade" id="addMemberModal" tabindex="-1" role="dialog" aria-labelledby="addMemberLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="addMemberLabel">新增成員</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span style="color: red;">*</span>請填寫姓名</div>
+                                        <input id="Name" name="Name" type="text" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div id="addTip" class="input-group-addon"><span style="color: red;">*</span>請填寫賬號</div>
+                                        <div id="updateTip" class="input-group-addon">賬號</div>
+                                        <input id="UserId" name="UserId" type="text" class="form-control" placeholder="成員唯一標識，不可更改，不支持中文" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                -------------------------------------------------------------------------------
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    身份驗證信息（以下三種信息不能同時為空）
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">微信號</div>
+                                        <input type="text" id="Weixinid" name="Weixinid" class="form-control" placeholder="若与员工扫描的微信匹配，则允许关注" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">手機</div>
+                                        <input type="text" id="Mobile" name="Mobile" class="form-control" placeholder="若该手机对应的微信与员工扫描的微信匹配，则允许关注" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">郵箱</div>
+                                        <input type="text" id="Email" name="Email" class="form-control" placeholder="若未匹配到员工的微信，则通过邮箱来验证身份" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                -------------------------------------------------------------------------------
+                            </div>
+
+                        </div>
+                        <div class="row selMenu">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span style="color: red;">*</span>所在部門</div>
+                                        <input id="departSel" name="departSel" type="text" class="form-control" placeholder="" onclick="showMenu()" readonly="readonly" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="menuContent" class="menuContent" style="display: none;">
+                                <ul id="selDepartMenu" class="ztree" style="margin-top: 0; height: 100px; overflow-y: auto"></ul>
+                            </div>
+                            @*<input type="hidden" id="DepartmentWXId" name="DepartmentWXId" />*@
+                            <input type="hidden" id="DepartmentPKId" name="DepartmentPKId" />
+                            <input type="hidden" id="ID" name="ID" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">職位</div>
+                                        <input type="text" id="Position" name="Position" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="addBtn" type="button" class="btn btn-primary" onclick="saveMember('add')">創建</button>
+                        <button id="updateBtn" type="button" class="btn btn-primary" onclick="saveMember('update')">保存</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</body>
+</html>
+
+

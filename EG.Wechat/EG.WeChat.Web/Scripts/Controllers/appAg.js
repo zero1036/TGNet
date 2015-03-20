@@ -20,12 +20,15 @@ appRoot.config(['$routeProvider', '$locationProvider', function ($routeProvider,
         .when('/responseChainConfig', { templateUrl: '/responseChainConfig', controller: 'BaseCtrl' })
         .when('/WXMenu/Index', { templateUrl: '/WXMenu/Index', controller: 'BaseCtrl' })
         .when('/WXResource/WXPictureConfig', { templateUrl: '/Scripts/Views/Page/WXPictureConfig.html', controller: 'PictureListCtrl' })
-        .when('/WXResource/WXArticlesConfig', { templateUrl: '/Scripts/Views/Page/WXArticlesConfig.html', controller: 'ArticleListCtrl' })        
+        .when('/WXResource/WXArticlesConfig', { templateUrl: '/Scripts/Views/Page/WXArticlesConfig.html', controller: 'ArticleListCtrl' })
         .when('/WXResource/WXVideosConfig', { templateUrl: '/Scripts/Views/Page/WXVideosConfig.html', controller: 'VideoListCtrl' })
         .when('/WXResource/WXVoicesConfig', { templateUrl: '/Scripts/Views/Page/WXVoicesConfig.html', controller: 'VoiceListCtrl' })
         .when('/TemplateMessage/MessageConfig', { templateUrl: '/TemplateMessage/MessageConfig', controller: 'BaseCtrl' })
         .when('/SimulateTool/Index', { templateUrl: '/SimulateTool/Index', controller: 'BaseCtrl' })
         .when('/WebConfig/Index', { templateUrl: '/WebConfig/Index', controller: 'BaseCtrl' })
         .when('/WXResource/WXArticleConfig/:IsCreated/', { templateUrl: '/Scripts/Views/Page/WXArticleEdit.html', controller: 'ArticleEditCtrl' })
+        .when('/QYConfig/Index', { templateUrl: '/Scripts/Views/Page/QYConfig.html', controller: 'QyCfgCtrl' })
+        .when('/QYConfig/App', { templateUrl: '/Scripts/Views/Page/QYApp.html', controller: 'QyappCtrl' })
+        .when('/QYConfig/AppMenu', { templateUrl: '/Scripts/Views/Page/QYAppMenu.html', controller: 'QyappmenuCtrl' })
         .otherwise({ redirectTo: '/' });
 }]);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 /*****************************************************
 * 目的：微信图文资源配置页面绑定Model——单个段落
 * 创建人：林子聪

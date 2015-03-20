@@ -330,31 +330,31 @@ namespace EG.WeChat.Web.Controllers
         {
             return Content(string.Format("{0}:{1}", content1, content2));
         }
-        [HttpGet]
-        public ActionResult TestView()
-        {
-            try
-            {
-                string strAccessToken = Senparc.Weixin.MP.CommonAPIs.WeiXinSDKExtension.GetCurrentAccessToken();
+        //[HttpGet]
+        //public ActionResult TestView()
+        //{
+        //    try
+        //    {
+        //        string strAccessToken = Senparc.Weixin.MP.CommonAPIs.WeiXinSDKExtension.GetCurrentAccessToken();
 
-                NewsModel pEn = new NewsModel();
-                pEn.author = "作者";
-                pEn.content = "<!DOCTYPE html><html><head></head><body><p style='margin-left: 40px; color: gray'>ok</p></body></html>";
-                pEn.content_source_url = "www.baidu.com";
-                pEn.digest = "描述";
-                pEn.thumb_media_id = "A_fR-XfVRtGd6qnw2_Vhwmajt3bkVKAl2WvkTLRtKbUVuCGr4TSKwTR2N9UhQH-7";
-                pEn.title = "标题";
-                List<NewsModel> plist = new List<NewsModel>();
-                plist.Add(pEn);
-                NewsModel[] pArray = plist.ToArray();
-                Senparc.Weixin.MP.Entities.UploadMediaFileResult pResulte = Senparc.Weixin.MP.AdvancedAPIs.Media.UploadNews(strAccessToken, pArray);
-                return Content(pResulte.media_id);
-            }
-            catch (Exception ex)
-            {
-                return Content(ex.ToString());
-            }
-        }
+        //        NewsModel pEn = new NewsModel();
+        //        pEn.author = "作者";
+        //        pEn.content = "<!DOCTYPE html><html><head></head><body><p style='margin-left: 40px; color: gray'>ok</p></body></html>";
+        //        pEn.content_source_url = "www.baidu.com";
+        //        pEn.digest = "描述";
+        //        pEn.thumb_media_id = "A_fR-XfVRtGd6qnw2_Vhwmajt3bkVKAl2WvkTLRtKbUVuCGr4TSKwTR2N9UhQH-7";
+        //        pEn.title = "标题";
+        //        List<NewsModel> plist = new List<NewsModel>();
+        //        plist.Add(pEn);
+        //        NewsModel[] pArray = plist.ToArray();
+        //        Senparc.Weixin.MP.Entities.UploadMediaFileResult pResulte = Senparc.Weixin.MP.AdvancedAPIs.Media.UploadNews(strAccessToken, pArray);
+        //        return Content(pResulte.media_id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(ex.ToString());
+        //    }
+        //}
         [HttpPost]
         public ActionResult TestView(string PageIndex)
         {

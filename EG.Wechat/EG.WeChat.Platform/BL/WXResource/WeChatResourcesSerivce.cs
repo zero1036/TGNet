@@ -30,6 +30,7 @@ using EG.WeChat.Platform.DA;
 using EG.WeChat.Utility.Tools;
 using EG.WeChat.Platform.Model;
 using System.Web.Caching;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 /*****************************************************
 * 目的：微信资源管理（图文、图片、音频、视频）服务
 * 创建人：林子聪
@@ -256,7 +257,7 @@ namespace EG.WeChat.Platform.BL
             m_CacheConfig = new WXResourceCacheConfig(strTargetType);
             //初始化数据访问DA
             m_DA = CastleAOPUtil.NewPxyByClass<WXResourceDA>(new DataWritingInterceptor(this.RemoveCache, this.m_CacheConfig));
-           
+
             int iRes = m_DA.DeleteResource(lcid);
             if (lcid == null)
                 EGExceptionOperator.ThrowX<Exception>("微信资源刪除错误", EGActionCode.未知错误);
@@ -501,10 +502,10 @@ namespace EG.WeChat.Platform.BL
             //获取AccessToken
             string strAccessToken = Senparc.Weixin.MP.CommonAPIs.WeiXinSDKExtension.GetCurrentAccessToken();
             if (pType == UploadMediaFileType.news)
-                return Senparc.Weixin.MP.AdvancedAPIs.Media.UploadNews(strAccessToken, (NewsModel[])objResouceValue);
+                return Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadNews(strAccessToken, 10000, (NewsModel[])objResouceValue);
             else
                 //将上传文件至微信服务器
-                return Senparc.Weixin.MP.AdvancedAPIs.Media.Upload(strAccessToken, pType, (string)objResouceValue);
+                return Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Upload(strAccessToken, pType, (string)objResouceValue);
         }
         /// <summary>
         /// 從微信服務器下載資源至本地
@@ -522,7 +523,7 @@ namespace EG.WeChat.Platform.BL
                 using (FileStream pStream = new FileStream(pPathA, FileMode.OpenOrCreate, FileAccess.Write))
                 {
 
-                    Senparc.Weixin.MP.AdvancedAPIs.Media.Get(strAccessToken, mediaId, pStream);
+                    Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Get(strAccessToken, mediaId, pStream);
                     pStream.Flush();
                     pStream.Close();
                 }

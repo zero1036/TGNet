@@ -14327,9 +14327,11 @@ th[aria-selected=true] {
     margin: 5px 0;
     padding: 8px 12px;
     min-height: 38px;
-    border: 1px solid #dae2ea;
-    background: #f8faff;
-    color: #7c9eb2;
+    border: 1px solid rgba(0,0,0,0.1);
+    /*background: #f8faff;*/
+    -webkit-box-shadow: rgba(0,0,0,0.1) 1px 1px 1px;
+    -moz-box-shadow: rgba(0,0,0,0.1) 1px 1px 1px;
+    box-shadow: rgba(0,0,0,0.05) 1px 1px 1px;
     text-decoration: none;
     font-weight: bold;
 }
@@ -14343,7 +14345,7 @@ th[aria-selected=true] {
     .dd-handle[class*="btn-"], .dd2-content[class*="btn-"] {
         padding: 9px 12px;
         border: 0;
-        color: #FFF;
+        /*color: #FFF;*/
     }
 
         .dd-handle[class*="btn-"]:hover, .dd2-content[class*="btn-"]:hover {

@@ -1,0 +1,236 @@
+﻿<div ng-controller="QyappmenuCtrl">
+    <style>
+        .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .panel {
+            border-radius: 0;
+        }
+
+        .panel-body {
+            padding: 6px;
+        }
+
+        .alert {
+            margin-bottom: 0;
+        }
+
+        .tg-div-tool > * {
+            display: inline-block;
+        }
+
+        .dd {
+            max-width: none;
+        }
+
+        .dd-blue {
+            background: #f8faff;
+        }
+
+        .dd-red-danger {
+            background: #ff8282;
+        }
+
+        .dd-handle input {
+            width: 20%;
+            color: gray;
+        }
+
+        #nestableX .dd-handle .div-editbtn {
+            display: none;
+        }
+
+            #nestableX .dd-handle .div-editbtn input {
+                height: 40px;
+                width: 80%;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                margin-right: 2px;
+            }
+
+        .sel_wrap {
+            height: 40px;
+            /*background: #fff url(img/icons.png) no-repeat right -24px;*/
+            color: #a1a1a1;
+            font-size: 16px;
+            border: 1px solid #E4E4E4;
+            cursor: pointer;
+            position: relative;
+            _filter: alpha(opacity=0);
+        }
+
+            .sel_wrap label {
+                padding-left: 10px;
+                font-size: 16px;
+                z-index: 2;
+                color: #a1a1a1;
+                line-height: 40px;
+                height: 40px;
+                display: block;
+            }
+
+            .sel_wrap .select {
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                z-index: 4;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                opacity: 0;
+                *margin-top: 12px;
+                filter: alpha(opacity=0);
+                cursor: pointer;
+                font-size: 16px;
+            }
+    </style>
+    <br />
+    <b>可创建最多 3 个一级菜单，每个一级菜单下可创建最多 5个二级菜单。编辑中的菜单不会马上被用户看到，请放心调试。</b>
+    <br />
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="alert alert-info">
+                    <strong>
+                        <i class="icon-remove"></i>
+                        注意!
+                    </strong>
+                    最多只能创建二级菜单				
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <button id="btn-save" type="button" class="btn btn-primary btn-block" ng-click="SaveM()"><i class="fa fa-save fa-2x"></i></button>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <button id="btn-Edit" type="button" class="btn btn-warning btn-block" ng-click="StartEdit()"><i class="fa fa-pencil fa-2x"></i></button>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <button id="btn-reset" type="button" class="btn btn-primary btn-block" ng-click="ResetM()"><i class="fa fa-mail-reply fa-2x"></i></button>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <button id="btn-hl" type="button" class="btn btn-info btn-block" ng-click="HighlightM()"><i class="fa fa-lightbulb-o fa-2x"></i></button>
+                </div>
+            </div>
+
+            <div nestable class="dd" id="nestableX" ng-model="menuModel">
+                <ol class="dd-list">
+                    <li class="dd-item" data-id="{{btn1.name}}" ng-repeat="btn1 in menus.menu.button">
+                        <div class="dd-handle">
+                            <span>{{btn1.name}}</span>
+                            <span ng-show="btn1.type!='view'" class="lighter grey">&nbsp;{{btn1.key}}</span>
+                            <span ng-show="btn1.type=='view'" class="lighter grey">&nbsp;{{btn1.url}}</span>
+                            <div class="pull-right action-buttons">
+                                <i class="ref fa fa-link fa-lg" ng-show="btn1.type!=undefined&&btn1.type!=null&&btn1.type=='view'&&btn1.type!=''"></i>
+                                <i class="ref fa fa-key fa-lg" ng-show="btn1.type!=undefined&&btn1.type!=null&&btn1.type!='view'&&btn1.type!=''"></i>
+                                <a class="blue invisible" href="javascript:void(0);" ng-click="EditBtn($event.target)">
+                                    <i class="fa fa-pencil fa-lg"></i>
+                                </a>
+                                <a class="red invisible" href="javascript:void(0);">
+                                    <i class="fa fa-trash-o fa-lg"></i>
+                                </a>
+                            </div>
+                            <div class="row div-editbtn">
+                                <div class="tg-div-tool">
+                                    <i class="fa fa-quote-left fa-lg"></i>
+                                    <input placeholder="菜單名稱：一級菜單不多於4個漢字或8個字母" type="text" ng-model="btn1.name" />
+                                    <i class="fa fa-quote-right fa-lg"></i>
+                                </div>
+                                <div class="tg-div-tool">
+                                    <i ng-show="btn1.type!=undefined&&btn1.type!=null&&btn1.type!=''" class="fa fa-quote-left fa-lg"></i>
+                                    <input placeholder="Key：" ng-show="btn1.type!=undefined&&btn1.type!=null&&btn1.type!='view'&&btn1.type!=''" type="text" ng-model="btn1.key" />
+                                    <input placeholder="地址：" ng-show="btn1.type!=undefined&&btn1.type!=null&&btn1.type=='view'&&btn1.type!=''" type="text" ng-model="btn1.url" />
+                                    <i ng-show="btn1.type!=undefined&&btn1.type!=null&&btn1.type!=''" class="fa fa-quote-right fa-lg"></i>
+                                </div>
+                                <div class="tg-div-tool">
+                                    <i class="fa fa-pencil fa-lg"></i>
+                                    <div class="sel_wrap">
+                                        <label>菜單類型：{{btn1.type}}</label>
+                                        <select class="select" ng-model="btn1.type">
+                                            <option value="click">点击跳转事件</option>
+                                            <option value="view">跳转URL</option>
+                                            <option value="scancode_push">扫码推事件</option>
+                                            <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
+                                            <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                            <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                            <option value="pic_weixin">弹出微信相册发图器</option>
+                                            <option value="location_select">弹出地理位置选择器</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ol class="dd-list">
+                            <li class="dd-item" data-id="{{btn2.name}}" ng-repeat="btn2 in btn1.sub_button">
+                                <div class="dd-handle">
+                                    <span class="orange">{{btn2.name}}</span>
+                                    <span ng-show="btn2.type!='view'" class="lighter grey">&nbsp;{{btn2.key}}</span>
+                                    <span ng-show="btn2.type=='view'" class="lighter grey">&nbsp;{{btn2.url}}</span>
+                                    <div class="pull-right action-buttons">
+                                        <i class="ref fa fa-link fa-lg" ng-show="btn2.type!=undefined&&btn2.type!=null&&btn2.type=='view'&&btn2.type!=''"></i>
+                                        <i class="ref fa fa-key fa-lg" ng-show="btn2.type!=undefined&&btn2.type!=null&&btn2.type!='view'&&btn2.type!=''"></i>
+                                        <a class="blue invisible" href="javascript:void(0);" ng-click="EditBtn($event.target)">
+                                            <i class="fa fa-pencil fa-lg"></i>
+                                        </a>
+                                        <a class="red invisible" href="#">
+                                            <i class="fa fa-trash-o fa-lg"></i>
+                                        </a>
+                                    </div>
+                                    <div class="row div-editbtn">
+                                        <div class="tg-div-tool">
+                                            <i class="fa fa-quote-left fa-lg"></i>
+                                            <input placeholder="菜單名稱：二級菜單不多於8個漢字或16個字母" type="text" ng-model="btn2.name" />
+                                            <i class="fa fa-quote-right fa-lg"></i>
+                                        </div>
+                                        <div class="tg-div-tool">
+                                            <i ng-show="btn2.type!=undefined&&btn2.type!=null&&btn2.type!=''" class="fa fa-quote-left fa-lg"></i>
+                                            <input placeholder="Key：" ng-show="btn2.type!=undefined&&btn2.type!=null&&btn2.type!='view'&&btn2.type!=''" type="text" ng-model="btn2.key" />
+                                            <input placeholder="地址：" ng-show="btn2.type!=undefined&&btn2.type!=null&&btn2.type=='view'&&btn2.type!=''" type="text" ng-model="btn2.url" />
+                                            <i ng-show="btn2.type!=undefined&&btn2.type!=null&&btn2.type!=''" class="fa fa-quote-right fa-lg"></i>
+
+                                        </div>
+                                        <div class="tg-div-tool">
+                                            <i class="fa fa-pencil fa-lg"></i>
+                                            <div class="sel_wrap">
+                                                <label>菜單類型：{{ConvertMType(btn2.type)}}</label>
+                                                <select class="select" ng-model="btn2.type">
+                                                    <option value="click">点击跳转事件</option>
+                                                    <option value="view">跳转URL</option>
+                                                    <option value="scancode_push">扫码推事件</option>
+                                                    <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
+                                                    <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                                    <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                                    <option value="pic_weixin">弹出微信相册发图器</option>
+                                                    <option value="location_select">弹出地理位置选择器</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </li>
+
+                </ol>
+            </div>
+            <button type="button" class="btn btn-default btn-block" ng-show="isedited==false;" ng-click="AddM()"><i class="fa fa-plus fa-2x"></i></button>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default" style="width: 336px;">
+                <div class="panel-heading">預 覽</div>
+                <div class="panel-body" style="background-color: #f8f8f8; height: 650px;">
+                    <!-- <div style="position: relative; color: #000; width: auto; height: 650px;">-->
+                    <div style="position: absolute; z-index: 1; background: url('/Images/common/custom_menu_bg.png'); width: 321px; height: 642px;">
+                    </div>
+                    <!-- </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

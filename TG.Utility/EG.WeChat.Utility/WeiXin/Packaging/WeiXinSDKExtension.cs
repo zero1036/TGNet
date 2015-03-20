@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
+using EG.WeChat.Utility.WeiXin;
 
 /* 这里保留这个命名空间，因为“扩展方法”对命名空间匹配。 */
 namespace Senparc.Weixin.MP.CommonAPIs
@@ -43,7 +44,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                                                         "GetCurrentAccessToken",
                                                                         null);
             string rawAccessToken = ret.ToString();
-                                                                         
+
 
             //##解密并返回数据
             EG.Utility.AppCommon.Security Securityer = new EG.Utility.AppCommon.Security();
@@ -52,7 +53,15 @@ namespace Senparc.Weixin.MP.CommonAPIs
             //正式发布模式下
             return AccessTokenContainer.GetToken(EG.WeChat.Service.WeiXin.WeiXinConfiguration.appID);
 #endif
-
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCurrentAccessTokenQY()
+        {
+            var accessToken = Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.TryGetToken(WeiXinConfiguration.cropId, WeiXinConfiguration.corpSecret, false);
+            return accessToken;
         }
 
         #endregion

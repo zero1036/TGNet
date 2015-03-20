@@ -7,6 +7,9 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
+using Senparc.Weixin.MP.AdvancedAPIs.Custom;
+using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 /*****************************************************
 * 目的：
 * 创建人：
@@ -45,7 +48,7 @@ namespace EG.WeChat.Service.WeiXin
                 return;
 
             var accessToken = GetAccessToken();
-            var result = Custom.SendText(accessToken, openId, text);
+            var result = CustomApi.SendText(accessToken, openId, text);
             LogErrorInfo(result, openId, "SendText");
         }
 
@@ -71,7 +74,7 @@ namespace EG.WeChat.Service.WeiXin
         public void SendArticle(string openId, List<Article> articles)
         {
             var accessToken = GetAccessToken();
-            var result = Custom.SendNews(accessToken, openId, articles);
+            var result = CustomApi.SendNews(accessToken, openId, articles);
             LogErrorInfo(result, openId, "SendArticle");
         }
 
@@ -87,7 +90,7 @@ namespace EG.WeChat.Service.WeiXin
         public static void SendImage(string openId, string mediaId)
         {
             var accessToken = GetAccessToken();
-            var result = Custom.SendImage(accessToken, openId, mediaId);
+            var result = CustomApi.SendImage(accessToken, openId, mediaId);
             LogErrorInfo(result, openId, "SendImage");
         }
 
@@ -104,7 +107,7 @@ namespace EG.WeChat.Service.WeiXin
         {
             var accessToken = GetAccessToken();
 
-            var result = Custom.SendVoice(accessToken, openId, mediaId);
+            var result = CustomApi.SendVoice(accessToken, openId, mediaId);
             LogErrorInfo(result, openId, "SendVoice");
         }
 
@@ -122,7 +125,7 @@ namespace EG.WeChat.Service.WeiXin
         {
             var accessToken = GetAccessToken();
 
-            var result = Custom.SendVideo(accessToken, openId, mediaId, title, description);
+            var result = CustomApi.SendVideo(accessToken, openId, mediaId, title, description);
             LogErrorInfo(result, openId, "SendVideo");
         }
         #endregion
@@ -166,7 +169,7 @@ namespace EG.WeChat.Service.WeiXin
                 var accessToken = GetAccessToken();
                 var strColor = WebColorConvertor.ConvertToString(topcolor);
 
-                var result = Template.SendTemplateMessage<TData>(accessToken, openId, templateId, strColor, url, data);
+                var result = TemplateApi.SendTemplateMessage<TData>(accessToken, openId, templateId, strColor, url, data);
                 LogErrorInfo(result, openId, "SendTemplateMessage");
             });
         }
@@ -226,7 +229,7 @@ namespace EG.WeChat.Service.WeiXin
         {
             //获取accessToken
             string accessToken = GetAccessToken();
-            return Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.DeleteSendMessage(accessToken, mediaId);
+            return GroupMessageApi.DeleteSendMessage(accessToken, mediaId);
         }
         #endregion
 

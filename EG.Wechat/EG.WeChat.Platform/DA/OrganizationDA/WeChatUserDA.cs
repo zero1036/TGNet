@@ -125,6 +125,46 @@ namespace EG.WeChat.Platform.DA
             }
 
         }
+
+        public   int ExecuteEX(string sql, String[] paramNames, Object[] paramValues)
+        {
+            //if (this.Transaction == null)
+            //{
+            //    TransactionContext tranContext = TransactionContext.get();
+            //    this.dbType = tranContext.dbType;
+            //    this.Transaction = tranContext.transaction;
+            //}
+
+            if (this.dbType == ADOTemplate.DB_TYPE_SQLSERVER)
+            {
+
+                SqlParameter[] parm = convert4Sqlserver(paramNames, paramValues);
+
+                SqlConnection con =   (SqlConnection)(DBUtil.GetConnection("EGWeChat"));
+                return SQLHelper.ExecuteNonQuery(con, CommandType.StoredProcedure, sql, parm);
+            }
+            else if (this.dbType == ADOTemplate.DB_TYPE_MYSQL)
+            {
+
+                IDbDataParameter[] parm = convert4MySqlserver(paramNames, paramValues);
+
+                return 1;/* MySQLHelper.ExecuteNonQuery(
+                     this.Transaction, CommandType.Text, sql, parm
+                     );*/
+            }
+            else
+            {
+                IDbDataParameter[] parm = convert4Oracle(paramNames, paramValues);
+
+                return 1; /*return OracleHelper.ExecuteNonQuery(
+                    this.Transaction, m_CommandType, sql, parm
+                    );*/
+
+            }
+
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -268,7 +308,12 @@ namespace EG.WeChat.Platform.DA
                     name = "@" + name;
                 }
 
-                result[i] = new SqlParameter(name, paramValues[i]);
+                Type t = paramValues[i].GetType();
+              
+                    result[i] = new SqlParameter(name, paramValues[i]);
+              
+
+                
             }
 
             return result;

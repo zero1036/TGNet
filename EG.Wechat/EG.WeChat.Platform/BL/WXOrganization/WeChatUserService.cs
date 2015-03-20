@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using EG.WeChat.Business.Interface;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.User;
 using EG.WeChat.Platform.DA;
 using System.Data;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -38,12 +39,12 @@ namespace EG.WeChat.Platform.BL
             //汇总结果结合
             List<string> pListAllResultOpenID = new List<string>();
             //调用SDK API
-            OpenIdResultJson result = Senparc.Weixin.MP.AdvancedAPIs.User.Get(strAccessToken, string.Empty);
+            OpenIdResultJson result = Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.Get(strAccessToken, string.Empty);
             pListAllResultOpenID.AddRange(result.data.openid);
 
             while (!String.IsNullOrEmpty(result.next_openid))
             {
-                result = Senparc.Weixin.MP.AdvancedAPIs.User.Get(strAccessToken, result.next_openid);
+                result = Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.Get(strAccessToken, result.next_openid);
                 if (result.data != null)
                     pListAllResultOpenID.AddRange(result.data.openid);
             }
@@ -71,7 +72,7 @@ namespace EG.WeChat.Platform.BL
             {
                 pWCUser = new TUser();
                 //调用SDK，通过OpenID获取用户信息
-                pWCUser = Senparc.Weixin.MP.AdvancedAPIs.User.Info(strAccessToken, strOpenID);
+                pWCUser = Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.Info(strAccessToken, strOpenID);
                 //pWCUser = (TUser)pWCUser;
                 pListUser.Add((TUser)pWCUser);
             }
