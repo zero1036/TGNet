@@ -57,27 +57,27 @@ namespace EG.WeChat.Web.Controllers
             {
                 try
                 {
-                    //LoginInfo rm = UserBL.Login(model.TemData);
+                    LoginInfo rm = UserBL.Login(model.TemData);
 
-                    //if (rm != null)
-                    //{
+                    if (rm != null)
+                    {
 
-                    //    UserID = rm.UserID;
-                    //    UserName = rm.UserName;
-                    //    AccessRightList = rm.AccessRight;
+                        UserID = rm.UserID;
+                        UserName = rm.UserName;
+                        AccessRightList = rm.AccessRight;
 
-                    //    if (!StaticLibrary.ActiveSession.ContainsKey(HttpSession.SessionID))
-                    //    {
-                    //        StaticLibrary.ActiveSession.Add(HttpSession.SessionID, HttpSession);
-                    //    }
-                    var pMode = model.BMode ? 4 : 2;
-                    return RedirectToAction("Index", "Home", new { id = pMode });
-                    //return RedirectToAction("Index");
-                    //}
-                    //else
-                    //{
-                    //    ModelState.AddModelError("ErrorMessage", "User or password is not correct!");
-                    //}
+                        if (!StaticLibrary.ActiveSession.ContainsKey(HttpSession.SessionID))
+                        {
+                            StaticLibrary.ActiveSession.Add(HttpSession.SessionID, HttpSession);
+                        }
+                        var pMode = model.BMode ? 4 : 2;
+                        return RedirectToAction("Index", "Home", new { id = pMode });
+                        //return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("ErrorMessage", "User or password is not correct!");
+                    }
                 }
                 catch (Exception e)
                 {

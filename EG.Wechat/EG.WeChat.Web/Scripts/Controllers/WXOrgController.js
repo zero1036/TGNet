@@ -383,8 +383,12 @@ WXOrgController.controller('QyappmenuCtrl', ['$scope', '$http', 'instance', func
                         for (var j = 0, cb; cb = pb.children[j++];) {
                             //var pchdbtn = getBtn(cb.id);
                             //console.log(cb.$scope.btn2);
-                            var pchdbtn = cb.$scope.btn2;
+                            var pchdbtn = cb.$scope.btn2 == undefined ? cb.$scope.btn1 : cb.$scope.btn2;
 
+                            if (pchdbtn == undefined) {
+                                showError("请务必填写二級菜單名称，並且名稱不能多於4個漢字或8個字母，請檢查！");
+                                return;
+                            }
                             if (pchdbtn.name == undefined || pchdbtn.name == null || pchdbtn.name == "" || pchdbtn.name.length > 8) {
                                 showError("请务必填写二級菜單名称，並且名稱不能多於4個漢字或8個字母，請檢查！");
                                 return;
