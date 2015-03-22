@@ -905,7 +905,97 @@ WXResController.controller('GroupSendReviewCtrl', ['$scope', '$http', 'instance'
         catch (ex) { }
     }
 }]);
-
+//关键字配置
+WXResController.controller('KwcfgCtrl', ['$scope', '$http', 'instance', function ($scope, $http, instance) {
+    $scope.kwconfigs = {
+        cfgs: [
+            {
+                id: 1,
+                key: "早晨早晨",
+                type: "key",
+                matchtype: 1,
+                val: "用户在关注与取消关注公众号时，微信会把这个事件推送到开发者填写的URL。方便开发者给用户下发欢迎消息或者做帐号的解绑。",
+                contenttype: "text",
+                content: ""
+            },
+            {
+                id: 2,
+                key: "you",
+                type: "action",
+                matchtype: 2,
+                val: "37",
+                contenttype: "",
+                content: ""
+            },
+            {
+                id: 3,
+                key: "tgor",
+                type: "key",
+                matchtype: 1,
+                val: "38",
+                contenttype: "image",
+                content: {
+                    lcId: "38",
+                    lcName: "卡1",
+                    lcClassify: "会员卡",
+                    media_id: "123KJSDI8huS",
+                    RPath: "/Images/common/phone.png"
+                }
+            },
+            {
+                id: 4,
+                key: "听海",
+                type: "key",
+                matchtype: 1,
+                val: "39",
+                contenttype: "voice",
+                content: {
+                    lcId: "39",
+                    lcName: "卡1",
+                    lcClassify: "会员卡",
+                    media_id: "123KJSDI8huS",
+                    RPath: "/Images/common/phone.png"
+                }
+            },
+            {
+                id: 6,
+                key: "蝙蝠侠",
+                type: "key",
+                matchtype: 1,
+                val: "40",
+                contenttype: "video",
+                content: {
+                    lcId: "40",
+                    lcName: "卡1",
+                    lcClassify: "会员卡",
+                    media_id: "123KJSDI8huS",
+                    RPath: "/Images/common/phone.png"
+                }
+            },
+            {
+                id: 7,
+                key: "文章",
+                type: "key",
+                matchtype: 1,
+                val: "41",
+                contenttype: "mpnews",
+                content: {
+                    lcId: "41",
+                    lcName: "卡1",
+                    lcClassify: "会员卡",
+                    media_id: "123KJSDI8huS",
+                    RPath: "/Images/common/phone.png"
+                }
+            }
+        ]
+    };
+    $scope.EditMode = false;
+    $scope.EditMatch = function (target) {
+        //console.log($(".div-editbtn", $(target).closest(".dd-handle")));
+        $(".div-editbtn", $(target).closest(".div-cvb")).toggle();
+        $scope.EditMode = true;
+    }
+}]);
 
 //过滤器——截取数组，用于table分页
 WXResController.filter('filterSubArray', function () {

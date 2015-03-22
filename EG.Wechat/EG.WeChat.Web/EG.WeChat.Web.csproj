@@ -674,7 +674,11 @@
     <Content Include="Scripts\Views\PagesUC.html" />
     <Content Include="Scripts\Views\Page\GroupSend.html" />
     <Content Include="Scripts\Views\Page\GroupSendReview.html" />
+    <Content Include="Scripts\Views\Page\KWConfig.html" />
     <Content Include="Scripts\Views\Page\Message.html" />
+    <Content Include="Scripts\Views\Page\QYApp.html" />
+    <Content Include="Scripts\Views\Page\QYAppMenu.html" />
+    <Content Include="Scripts\Views\Page\QYConfig.html" />
     <Content Include="Scripts\Views\Page\WXArticleEdit.html" />
     <Content Include="Scripts\Views\Page\WXArticlesConfig.html" />
     <Content Include="Scripts\Views\Page\WXPictureConfig.html" />

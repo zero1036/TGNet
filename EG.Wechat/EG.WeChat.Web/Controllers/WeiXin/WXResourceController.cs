@@ -321,6 +321,17 @@ namespace EG.WeChat.Web.Controllers
         }
         #endregion
 
+        #region 关键字
+        /// <summary>
+        /// 关键字配置
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult KWConfig()
+        {
+            return View();
+        }
+        #endregion
+
         #region 通用
         /// <summary>
         /// 刪除資源

@@ -1,0 +1,147 @@
+﻿<div class="container-fluid">
+    <style>
+        .tg-div-tool {
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+            .tg-div-tool i {
+                position: relative;
+                font-size: 1em;
+            }
+
+            .tg-div-tool > div {
+                display: inline-block;
+            }
+
+                .tg-div-tool > div > * {
+                    text-align: center;
+                    display: block;
+                }
+
+            .tg-div-tool > .div-lix-left {
+                width: 40%;
+                color: #428bca;
+            }
+
+                .tg-div-tool > .div-lix-left > div {
+                    position: relative;
+                    display: inline-block;
+                }
+
+                    .tg-div-tool > .div-lix-left > div:nth-child(1) > span {
+                        font-size: 3em;
+                    }
+
+                    .tg-div-tool > .div-lix-left > div:nth-child(2) > * {
+                        font-size: 0.8em;
+                    }
+
+                    .tg-div-tool > .div-lix-left > div:nth-child(1) > i {
+                        font-size: 1.3em;
+                        top: -1em;
+                    }
+
+            .tg-div-tool > .div-lix-right {
+                float: right;
+            }
+
+                .tg-div-tool > .div-lix-right > a > div > img {
+                    float: right;
+                }
+
+                .tg-div-tool > .div-lix-right > a > div > .alogo {
+                    float: right;
+                    font-size: 2em;
+                }
+
+        .div-cvb .div-editbtn {
+            display: none;
+        }
+
+        @media only screen and (max-width:780px) {
+            .tg-div-tool > .div-lix-left > div:nth-child(1) > i {
+                font-size: 1em;
+                top: -1em;
+            }
+
+            .tg-div-tool > .div-lix-left > div:nth-child(1) > span {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+    <div class="row">
+        <ul>
+            <li ng-repeat="kwcf in kwconfigs.cfgs">
+                <div class="tg-div-tool clearfix div-cvb">
+                    <div class="div-lix-left">
+                        <div>
+                            <i class="fa fa-quote-left fa-lg"></i>
+                            <span ng-show="EditMode==false">{{kwcf.key}}</span>
+                            <input ng-show="EditMode==true" type="text" ng-model="kwcf.key" />
+                            <i class="fa fa-quote-right fa-lg"></i>
+                        </div>
+                        <div>
+                            <div>
+                                <span ng-show="kwcf.matchtype==1" class="span_sym span_scount">完全符合</span>
+                                <span ng-show="kwcf.matchtype==2" class="span_sym span_scount">部分符合</span>
+                            </div>
+                            <div>
+                                <span>编号：{{kwcf.id}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="div-lix-right">
+                        <div ng-show="kwcf.type=='key'&&kwcf.contenttype!='text'">
+                            <span>{{kwcf.content.lcName}}</span>
+                        </div>
+                    </div>-->
+                    <div class="div-lix-right" style="width:50%">
+                        <a ng-show="kwcf.type=='key'&&kwcf.contenttype=='text'" href="javascript:void(0);" ng-click="EditMatch($event.target)">
+                            <div>
+                                <i class="fa fa-quote-left fa-lg"></i>
+                                <span>{{kwcf.val}}</span>
+                                <i class="fa fa-quote-right fa-lg"></i>
+                            </div>
+                        </a>
+                        <a ng-show="kwcf.type=='key'&&kwcf.contenttype=='image'" href="javascript:void(0);" ng-click="EditMatch($event.target)">
+                            <div>
+                                <img ng-src="{{kwcf.content.RPath}}" style="height: 100px; width: 100px">
+                            </div>
+                        </a>
+                        <a ng-show="kwcf.type=='key'&&kwcf.contenttype=='voice'" href="javascript:void(0);" ng-click="EditMatch($event.target)">
+                            <div>
+                                <i ng-if="kwcf.contenttype=='voice'" class="fa fa-volume-up fa-3x alogo"></i>
+                            </div>
+                        </a>
+                        <a ng-show="kwcf.type=='key'&&kwcf.contenttype=='video'" href="javascript:void(0);" ng-click="EditMatch($event.target)">
+                            <div>
+                                <i ng-if="kwcf.contenttype=='video'" class="fa fa-video-camera fa-3x alogo"></i>
+                            </div>
+                        </a>
+                        <a ng-show="kwcf.type=='key'&&kwcf.contenttype=='mpnews'" href="javascript:void(0);" ng-click="EditMatch($event.target)">
+                            <div>
+                                <i ng-if="kwcf.contenttype=='mpnews'" class="fa fa-newspaper-o fa-3x alogo"></i>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="row div-editbtn">
+                        <div ng-show="kwcf.type=='key'&&kwcf.contenttype=='voice'">
+                            <audio controls="controls" src="{{kwcf.content.RPath}}" style="width: 100%">
+                                您的浏览器不支持 audio 标签。
+                            </audio>
+                        </div>
+                        <div ng-show="kwcf.type=='key'&&kwcf.contenttype=='video'">
+                            <video style="background-color: black; width: 100%; height: 330px;" src="{{kwcf.content.RPath}}" controls autoplay>
+                                HTML5 Video is required for this example
+                            </video>
+                        </div>
+                        <div ng-show="kwcf.type=='key'&&kwcf.contenttype=='mpnews'">
+                            <wxarticledisplay></wxarticledisplay>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
