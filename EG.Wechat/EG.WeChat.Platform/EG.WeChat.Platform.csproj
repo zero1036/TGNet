@@ -85,6 +85,7 @@
     <Compile Include="BL\QYNotice\NoticeBL.cs" />
     <Compile Include="BL\QYNotice\NoticeCollection.cs" />
     <Compile Include="BL\QYStatistic\FuncStatistic.cs" />
+    <Compile Include="BL\QYVote\MemberVote.cs" />
     <Compile Include="BL\QYVote\VoteBL.cs" />
     <Compile Include="BL\QYVote\VoteCollection.cs" />
     <Compile Include="BL\QYVote\VoteMember.cs" />
