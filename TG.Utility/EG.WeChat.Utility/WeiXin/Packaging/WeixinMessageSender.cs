@@ -460,7 +460,7 @@ namespace EG.WeChat.Service.WeiXin
             }
             return null;
         }
-
         #endregion
     }
+
 }

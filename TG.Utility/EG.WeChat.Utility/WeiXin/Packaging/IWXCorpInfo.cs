@@ -18,8 +18,12 @@ namespace EG.WeChat.Utility.WeiXin
     {
         int aid { get; }
 
-        string token { get; }
+        string token { get; set; }
 
-        string aeskey { get; }
+        string aeskey { get; set; }
+
+        string aname { get; set; }
+
+        string round_logo_url { get; set; }
     }
 }

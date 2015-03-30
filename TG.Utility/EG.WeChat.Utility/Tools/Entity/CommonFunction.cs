@@ -10,7 +10,17 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Xml;
 using EG.WeChat.Service;
-
+using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
+/*****************************************************
+* 目的：CommonFunction
+* 创建人：林子聪
+* 创建时间：
+* 备注：
+* 依赖性：
+* 版权：
+* 使用本文件时，必须保留本内容的完整性！
+*****************************************************/
 namespace EG.WeChat.Utility.Tools
 {
     /// <summary>
@@ -217,6 +227,47 @@ namespace EG.WeChat.Utility.Tools
                 pListT.Add(pT);
             }
             return pListT;
+        }
+        /// <summary>
+        /// unicode解码
+        /// </summary>
+        /// <param name="match"></param>
+        /// <returns></returns>
+        public static string DecodeUnicode(Match match)
+        {
+            if (!match.Success)
+            {
+                return null;
+            }
+
+            char outStr = (char)int.Parse(match.Value.Remove(0, 2), System.Globalization.NumberStyles.HexNumber);
+            return new string(outStr, 1);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string Json_Serialize(object data)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            var jsonString = js.Serialize(data);
+
+            //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
+            MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
+            var json = Regex.Replace(jsonString, @"\\u[0123456789abcdef]{4}", evaluator);//或：[\\u007f-\\uffff]，\对应为\u000a，但一般情况下会保持\
+            return json;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static object Json_DeserializeObject(string data)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            var objjson = js.DeserializeObject(data);
+            return objjson;
         }
         #endregion
 

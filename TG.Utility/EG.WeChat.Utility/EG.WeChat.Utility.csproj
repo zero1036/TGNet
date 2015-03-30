@@ -61,6 +61,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -104,6 +105,7 @@
     <Compile Include="WeiXin\MessageHandler\EventService.cs" />
     <Compile Include="WeiXin\MessageHandler\LocationService.cs" />
     <Compile Include="WeiXin\Packaging\IWXCorpInfo.cs" />
+    <Compile Include="WeiXin\Packaging\WeixinMessageSenderQY.cs" />
     <Compile Include="WeiXin\ResponseChain\Attribute\DataTypeLimitAttribute.cs" />
     <Compile Include="WeiXin\ResponseChain\Attribute\DealingHandlerAdditionalBehaviorAttribute.cs" />
     <Compile Include="WeiXin\ResponseChain\Attribute\DescriptionAttribute.cs" />
@@ -142,6 +144,11 @@
     <Compile Include="WeiXin\Packaging\WeiXinConfiguration.cs" />
     <Compile Include="WeiXin\Packaging\WeixinMessageSender.cs" />
     <Compile Include="WeiXin\Packaging\WeiXinSDKExtension.cs" />
+    <Compile Include="WeiXin\SDKExtension\CommonJsonSendX.cs" />
+    <Compile Include="WeiXin\SDKExtension\MassApiX.cs" />
+    <Compile Include="WeiXin\SDKExtension\MediaApiX.cs" />
+    <Compile Include="WeiXin\SDKExtension\NewsModelX.cs" />
+    <Compile Include="WeiXin\SDKExtension\UploadResultJsonX.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="log4net.config">

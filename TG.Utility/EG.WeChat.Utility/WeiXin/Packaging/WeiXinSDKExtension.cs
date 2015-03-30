@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return Securityer.Decrypt(rawAccessToken, @"EGWECHAT");
 #else
             //正式发布模式下
-            return AccessTokenContainer.GetToken(EG.WeChat.Utility.WeiXin.WeiXinConfiguration.appID);
+            return AccessTokenContainer.GetToken(EG.WeChat.Service.WeiXin.WeiXinConfiguration.appID);
 #endif
         }
         /// <summary>
