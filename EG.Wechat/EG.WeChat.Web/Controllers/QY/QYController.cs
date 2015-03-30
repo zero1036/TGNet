@@ -52,8 +52,8 @@ namespace EG.WeChat.Web.Controllers
         /// <summary>
         /// 微信后台验证地址（使用Post），微信企业后台应用的“修改配置”的Url填写如：http://weixin.senparc.com/qy
         /// </summary>
-        [HttpPost]
-        [ActionName("Index")]
+        //[HttpPost]
+        [ActionName("Index1")]
         public ActionResult Post(PostModel postModel)
         {
             var maxRecordCount = 10;

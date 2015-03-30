@@ -55,7 +55,9 @@ WXResController.controller('PageCtrl', ['$scope', '$http', 'instance', '$routePa
     }
 }]);
 //图片资源列表Controller
-WXResController.controller('PictureListCtrl', ['$scope', '$http', 'instance', function ($scope, $http, instance) {
+WXResController.controller('PictureListCtrl', ['$scope', '$http', 'instance', '$routeParams', function ($scope, $http, instance, $routeParams) {
+    //var wxsx = $routeParams.wx;
+    //var urlLP = "/WXResource/LoadWXPictures?wt=" + wxsx;
     var urlLP = "/WXResource/LoadWXPictures";
     //$http.post(urlLP).success(function (response) {
     //    $scope.pictures = response.ListJson;
@@ -396,7 +398,7 @@ WXResController.controller('ArticleEditCtrl', ['$scope', '$http', 'instance', fu
             postData = postData.replace(/>/g, "&gt;");
             $.ajax({
                 url: '/WXResource/ArticleUpLoad',
-                data: { "id": $scope.article.lcId, "name": $scope.article.lcName, "cla": $scope.article.lcClassify, "ListNews": postData },
+                data: { "id": $scope.article.lcId, "name": $scope.article.lcName, "cla": $scope.article.lcClassify, "ListNews": postData, "bByLink": $scope.article.byLink },
                 type: "post",
                 dataType: "json",
                 success: function (data) {
@@ -446,11 +448,15 @@ WXResController.controller('ArticleEditCtrl', ['$scope', '$http', 'instance', fu
                 alert("第" + (i + 1) + "段落缺少標題，請填寫");
                 return false;
             }
+            if (pNews.content_source_url == "") {
+                alert("第" + (i + 1) + "段落鏈接地址，請填寫");
+                return false;
+            }
             else if (pNews.thumb_media_id == "") {
                 alert("第" + (i + 1) + "段落缺少配圖，請選擇");
                 return false;
             }
-            else if (pNews.content == "") {
+            else if (!$scope.article.byLink && pNews.content == "") {
                 alert("第" + (i + 1) + "段落缺少正文，請填寫");
                 return false;
             }
@@ -1156,4 +1162,3 @@ var PictureModel = {
     FileName: "",
     RPath: "",
 };
-

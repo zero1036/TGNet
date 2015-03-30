@@ -103,7 +103,7 @@
                     最多只能创建二级菜单				
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <button id="btn-save" type="button" class="btn btn-primary btn-block" ng-click="SaveM()"><i class="fa fa-save fa-2x"></i></button>
+                    <button id="btn-savemenu" type="button" class="btn btn-primary btn-block" ng-click="SaveM()" data-loading-text="創建中，請稍後……"><i class="fa fa-save fa-2x"></i></button>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <button id="btn-Edit" type="button" class="btn btn-warning btn-block" ng-click="StartEdit()"><i class="fa fa-pencil fa-2x"></i></button>
@@ -129,7 +129,7 @@
                                 <a class="blue invisible" href="javascript:void(0);" ng-click="EditBtn($event.target)">
                                     <i class="fa fa-pencil fa-lg"></i>
                                 </a>
-                                <a class="red invisible" href="javascript:void(0);">
+                                <a class="red invisible" href="javascript:void(0);" ng-click="DeleteBtn(btn1)">
                                     <i class="fa fa-trash-o fa-lg"></i>
                                 </a>
                             </div>
@@ -175,7 +175,7 @@
                                         <a class="blue invisible" href="javascript:void(0);" ng-click="EditBtn($event.target)">
                                             <i class="fa fa-pencil fa-lg"></i>
                                         </a>
-                                        <a class="red invisible" href="#">
+                                        <a class="red invisible" href="javascript:void(0);" ng-click="DeleteBtn(btn2)">
                                             <i class="fa fa-trash-o fa-lg"></i>
                                         </a>
                                     </div>

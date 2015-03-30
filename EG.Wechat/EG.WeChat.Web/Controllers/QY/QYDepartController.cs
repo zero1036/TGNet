@@ -11,28 +11,16 @@ namespace EG.WeChat.Web.Controllers.QY
     public class QYDepartController :AccessController
     {
         private string meg = string.Empty;
-        //private QYDepartmentBL _departBL;
-        //protected QYDepartmentBL DepartBL
-        //{
-        //    get
-        //    {
-        //        if (_departBL == null)
-        //        {
-        //            _departBL = TransactionProxy.New<QYDepartmentBL>();
-        //        }
-        //        return _departBL;
-        //    }
-        //}
-        
-        // GET: /QYDepart/
-
-
 
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// 获取部门下自身以及所有子部门
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult GetDepartMenu()
         {
@@ -41,6 +29,12 @@ namespace EG.WeChat.Web.Controllers.QY
             return Json(departMenuVM);                   
         }
 
+        /// <summary>
+        /// 增加子部门
+        /// </summary>
+        /// <param name="depPKID">部门主键id</param>
+        /// <param name="name">部门名</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult AddChildrenDepart(string depPKID,string name)
         {
@@ -50,11 +44,17 @@ namespace EG.WeChat.Web.Controllers.QY
             return Json(new
             {
                 IsSuccess = departBl.AddChildDepartment(departBl.Name, 
-                string.Empty, ref meg), ErrorMeg = meg });
+                UserID, ref meg), ErrorMeg = meg });
 
  
         }
 
+        /// <summary>
+        /// 更新部门
+        /// </summary>
+        /// <param name="depPKID">部门主键id</param>
+        /// <param name="name">部门名</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult UpdateDepart(string depPKID,string name)
         {
@@ -63,25 +63,45 @@ namespace EG.WeChat.Web.Controllers.QY
             return Json(new
             {
                 IsSuccess = departBl.UpdateDepartment(
-                    string.Empty, ref meg),
+                    UserID, ref meg),
                 ErrorMeg = meg
             });
         }
 
+        /// <summary>
+        /// 删除部门
+        /// </summary>
+        /// <param name="depPKID">部门主键id</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult DeleteDepart(string depPKID)
         {
 
             QYDepartmentBL departBl = QYDepartmentBL.GetByPKID(depPKID);
-
-            return Json(new
+            if (departBl.Departments.Count == 0 && departBl.Members.Count == 0)
             {
-                IsSuccess = departBl.DeleteDepartment(
-                    string.Empty, ref meg),
-                ErrorMeg = meg
-            });
+                return Json(new
+                {
+                    IsSuccess = departBl.DeleteDepartment(
+                        UserID, ref meg),
+                    ErrorMeg = meg
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    IsSuccess = false,
+                    ErrorMeg = "沒有子部門且沒有成員的部門才可以被刪除！"
+                });
+            }
         }
 
+        /// <summary>
+        /// 获取部门下自身以及所有子部门
+        /// </summary>
+        /// <param name="qyDepartBl">部门类</param>
+        /// <returns></returns>
         private IList<DepartMenuVM> GetDepartMenuList(QYDepartmentBL qyDepartBl)
         {
             List<DepartMenuVM> list = new List<DepartMenuVM>();

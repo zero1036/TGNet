@@ -1,0 +1,756 @@
+﻿
+@{
+    
+    ViewBag.Title = "投票管理";
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="~/Scripts/easyui/themes/default/easyui.css">
+ <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/themes/icon.css">
+ <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/demo.css">
+ <script type="text/javascript" src="~/Scripts/easyui/jquery.min.js"></script>
+ <script type="text/javascript" src="~/Scripts/easyui/jquery.easyui.min.js"></script>
+
+ <script type="text/javascript">
+     (function ($) {
+         function pagerFilter(data) {
+             if ($.isArray(data)) {	// is array
+                 data = {
+                     total: data.length,
+                     rows: data
+                 }
+             }
+             var dg = $(this);
+             var state = dg.data('datagrid');
+             var opts = dg.datagrid('options');
+             if (!state.allRows) {
+                 state.allRows = (data.rows);
+             }
+             var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
+             var end = start + parseInt(opts.pageSize);
+             data.rows = $.extend(true, [], state.allRows.slice(start, end));
+             return data;
+         }
+
+         var loadDataMethod = $.fn.datagrid.methods.loadData;
+         $.extend($.fn.datagrid.methods, {
+             clientPaging: function (jq) {
+                 return jq.each(function () {
+                     var dg = $(this);
+                     var state = dg.data('datagrid');
+                     var opts = state.options;
+                     opts.loadFilter = pagerFilter;
+                     var onBeforeLoad = opts.onBeforeLoad;
+                     opts.onBeforeLoad = function (param) {
+                         state.allRows = null;
+                         return onBeforeLoad.call(this, param);
+                     }
+                     dg.datagrid('getPager').pagination({
+                         onSelectPage: function (pageNum, pageSize) {
+                             opts.pageNumber = pageNum;
+                             opts.pageSize = pageSize;
+                             $(this).pagination('refresh', {
+                                 pageNumber: pageNum,
+                                 pageSize: pageSize
+                             });
+                             dg.datagrid('loadData', state.allRows);
+                         }
+                     });
+                     $(this).datagrid('loadData', state.data);
+                     if (opts.url) {
+                         $(this).datagrid('reload');
+                     }
+                 });
+             },
+             loadData: function (jq, data) {
+                 jq.each(function () {
+                     $(this).data('datagrid').allRows = null;
+                 });
+                 return loadDataMethod.call($.fn.datagrid.methods, jq, data);
+             },
+             getAllRows: function (jq) {
+                 return jq.data('datagrid').allRows;
+             }
+         })
+     })(jQuery);
+
+     $(function () {
+         $("#panel datagrid datalist").attr("padding-top","10px");
+
+     });
+
+     function clearw() {
+         $("#votename").val('');
+         $("#votecontext").val('');
+         $("#typesel").val('1');
+         $("#optcontext div").remove();
+     }
+
+     function getData() {
+         
+         $("#btnsave").show();
+         $("#btnupdate").hide();
+          var list = [];
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/GetVotes")",
+             cache: false,
+             async: false,
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 for (var i = 0; i < parseInt(data.total) ; i++) {
+                     //  alert(i);
+                     list.push({
+                         Title: data.rows[i].Title,
+                         CreateDate: data.rows[i].CreateDate,
+                         Num: data.rows[i].Num,
+                         buttonlist: data.rows[i].buttonlist,
+                         delbutton: data.rows[i].delbutton
+                     });
+
+                 }
+                
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+               //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+             //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+                     
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+         
+         //alert('123');
+          return list;
+         
+     }
+
+     $(function () {
+         $('#dg').datagrid({ data: getData() }).datagrid('clientPaging');
+     });
+     var currid;
+     function showvote(id) {
+         currid = id;
+         clearw();
+         $("#btnsave").hide();
+         $("#btnupdate").show();
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/GetVote")",
+             cache: false,
+             async: false,
+             data: "{'id':'" + id.toString() + "'}",
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                
+                 $("#votename").val(data.title);
+                 $("#votecontext").val(data.context);
+                 $("#typesel").val(data.vtype);
+                 $.each(data.options, function (i) {
+                         p = p + 1;
+                         var t = $("#optdiv").clone(true);
+                         t.attr("id", 'p' + p.toString());
+                         t.find("input").attr("vid", data.options[i].id);
+                         t.find("input").val(data.options[i].OptinContext);
+                         t.appendTo($("#optcontext"));
+                         t.append('<button id=' + p.toString() + ' onclick="deleteopt(id)">刪除</button>');
+                         t.show();
+
+                 });
+                
+                 $('#w').window('open');
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+               //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+           });
+     }
+
+     function showsum(id) {
+         $("#rescontextdiv div").remove();
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/GetVoteRes")",
+             cache: false,
+             async: false,
+             data: "{'id':'" + id.toString() + "'}",
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 if (data.vtype == "1") {
+                     $("#vtype").text("單選");
+                 } else {
+                     $("#vtype").text("多選");
+                 }
+                 $("#votenum").text(data.vnum);
+                 $.each(data.opts, function (i) {
+                    
+                     p = p + 1;
+                     var t = $("#resdiv").clone(true);
+                     t.attr("id", 'p' + p.toString());
+                     t.children("span").eq(0).text(data.opts[i].title);
+                     t.children("span").eq(2).text(data.opts[i].persent);
+                     t.children("span").eq(3).text(data.opts[i].num);
+                     t.find(".main").css('width', data.opts[i].persent * 3);
+                    // t.find(".main").css('width','300px');
+                     t.appendTo($("#rescontextdiv"));
+                     
+                     t.show();
+
+                 });
+
+                 $('#sumres').window('open');
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+             //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+         
+     }
+     function showdialog() {
+         clearw();
+         $('#w').window('open');
+     }
+     var p = 0;
+     function addopt() {
+         p = p + 1;
+         var t = $("#optdiv").clone(true);
+         t.attr("id", 'p'+p.toString());
+         t.appendTo($("#optcontext"));
+         t.append('<button id='+p.toString()+' onclick="deleteopt(id)">刪除</button>');
+         t.show();
+     }
+
+     function deleteopt(id) {
+         $("#p" + id).remove();
+     }
+
+     function chkAddVote() {
+         if ($("#votename").val().trim() == "") {
+             $.messager.alert('驗證結果', '請填寫 投票項名稱', 'error');
+             return false;
+         }  
+         var flag = true;
+         if ($("#optcontext div input").length == 0) {
+             $.messager.alert('驗證結果', '請填寫 投票選項', 'error');
+             return false;
+         }
+         $("#optcontext div input").each(function (i, element) {
+                 if ($(element).val().trim() == "") {
+                     $.messager.alert('驗證結果', '請填寫 投票選項', 'error');
+                     flag = false;
+                     return false;
+                 }
+             });
+         return flag;
+     }
+
+     function add() {
+
+         if (chkAddVote() == false) {
+             return;
+         }
+
+         var vote = [];
+         var opts = [];
+
+         $("#optcontext div input").each(function (i, element) {
+             opts.push({
+                 id: '0',
+                 OptinContext: $(element).val(),
+                 ActionType: '1',
+                 OptionTitle:(i+1).toString()
+
+             });
+         });
+
+         vote.push({
+             id: '0',
+             title: $("#votename").val(),
+             context: $("#votecontext").val(),
+             vtype: $("#typesel").val(),
+             options:opts
+         });
+
+      //  $("#err").text(JSON.stringify(vote));
+         var jsontxt=JSON.stringify(vote);
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/AddVote")",
+            
+             async: false,
+             data: jsontxt.substr(1,jsontxt.length-1).substr(0,jsontxt.length-2),
+             //data:'{"id":"","title":"231","context":"3123","vtype":"1","options":[{"id":"0","OptinContext":"3213","ActionType":"1","OptionTitle":"0"},{"id":"0","OptinContext":"444","ActionType":"1","OptionTitle":"1"},{"id":"0","OptinContext":"555","ActionType":"1","OptionTitle":"2"}]}',
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 if (data.rescode == 200) {
+                     //if ($.messager.alert('操作結果', '操作成功!') == "") {
+                     //};
+                      alert('操作成功!');
+                      location.reload();
+                      
+                   //  $("#dg").datagrid("reload");
+                     // alert('操作成功！');
+
+                 }
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+              //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+       
+     }
+
+     function edit() {
+         if (chkAddVote() == false) {
+             return;
+         }
+
+         var vote = [];
+         var opts = [];
+
+         $("#optcontext div input").each(function (i, element) {
+             opts.push({
+                 id: $(element).attr("vid"),
+                 OptinContext: $(element).val(),
+                 ActionType: null,
+                
+                 OptionTitle: (i+1).toString()
+
+             });
+             //alert(i.toString());
+         });
+
+         vote.push({
+             id: currid,
+             title: $("#votename").val(),
+             context: $("#votecontext").val(),
+             vtype: $("#typesel").val(),
+             options: opts
+         });
+         var jsontxt = JSON.stringify(vote);
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/UpdateVote")",
+
+             async: false,
+             data: jsontxt.substr(1, jsontxt.length - 1).substr(0, jsontxt.length - 2),
+             //data:'{"id":"","title":"231","context":"3123","vtype":"1","options":[{"id":"0","OptinContext":"3213","ActionType":"1","OptionTitle":"0"},{"id":"0","OptinContext":"444","ActionType":"1","OptionTitle":"1"},{"id":"0","OptinContext":"555","ActionType":"1","OptionTitle":"2"}]}',
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 if (data.rescode == 200) {
+
+                     alert('操作成功!');
+                     location.reload();
+
+
+                 } else {
+                     alert('操作失敗:'+data.msg);
+                 }
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+             //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+     }
+
+     function showmembers(id) {
+         var d;
+         var t;
+         currid = id;
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/GetVoteOptCombo")",
+             cache: false,
+             async: false,
+             data:"{'id':'" + id.toString() + "'}",
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 t = data;
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+             //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+
+
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/GetVoteMember")",
+             cache: false,
+             async: false,
+             data:"{'id':'" + id.toString() + "'}",
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 
+                 d = data.rows;
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+             //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+         $('#vtcombo').combobox({data:t});
+         $('#mtb').datagrid({ data: d });
+         $('#resmembers').window('open');
+     }
+
+     function delet(id) {
+         $.messager.confirm('刪除操作提示', '確定刪除該投票記錄?', function (r) {
+             if (r) {
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Content("~/VoteManage/DeleteVote")",
+                     cache: false,
+                     async: false,
+                     data: "{'id':'" + id.toString() + "'}",
+                     datatype: "json",
+                     contentType: 'application/json;charset=utf-8',
+                     success: function (data) {
+                         if (data.rescode == 200) {
+
+                             alert('操作成功!');
+                             location.reload();
+
+
+                         } else {
+                             alert('操作失敗:' + data.msg);
+                         }
+                     },
+
+                     complete: function (k, data) {
+                         // alert(k.getResponseHeader("Location"));
+                         //  return list;
+                     },
+
+                     error: function (msg) {
+                         alert(JSON.stringify(msg));
+                     },
+                     //   async: false ,
+
+                     statusCode: {
+                         201: function () {
+                             // alert("");
+
+                         },
+                         406: function () {
+                             alert("false");
+                         }
+
+                     }
+
+                 });
+             }
+         });
+     }
+    
+     function formatItem(row) {
+         var s = '<span style="font-weight:bold">' + row.text + '</span><br/>' +
+                 '<span style="color:#888">' + row.desc + '</span>';
+         return s;
+     }
+     function selecttype() {
+         var type = $("#vtcombo").combobox('getText');
+         var d;
+         $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/VoteManage/GetVoteMemberByType")",
+             cache: false,
+             async: false,
+             data: "{'vid':'" + currid+ "','vtype':'"+type+"'}",
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+
+                 d = data.rows;
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+             //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+         $('#mtb').datagrid({ data: d });
+     }
+	</script>
+<style type="text/css">
+    .formdiv {
+        padding-top:10px;
+    }
+    span{display:inline-block;*display:inline-block;zoom:1;} 
+
+.bg{width:300px;height:20px;border-radius:10px;background:#fccbcb;} 
+
+.main{height:20px;border-radius:10px;background-color:#4bdb3b;}
+</style>
+
+
+
+	
+    <table id="dg" title="<a href='#' onclick='showdialog()'>+</a>"    style="width:90%;height:auto"
+            data-options="
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				pagination:true,
+				pageSize:30">
+        <thead>
+            <tr>
+                <th data-options="field:'Title',width:300">標題</th>
+                <th data-options="field:'CreateDate',width:300">創建時間</th>
+                <th data-options="field:'Num',width:100,align:'right'">投票人數</th>
+                <th data-options="field:'buttonlist',width:300,align:'right'">結果查詢</th>
+                <th data-options="field:'delbutton',width:300,align:'right'">操作</th>
+            </tr>
+        </thead>
+    </table>
+<div id="w" class="easyui-window" title="新增投票" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:600px;height:600px;padding:10px;">
+	<div>
+         @*class="easyui-textbox"*@
+	 <div><span style="padding-right:7px">投票項名稱:</span>
+         <input type="text" id="votename" required="required" style="border-radius:5px;border:1px solid #95B8E7;" /></div>
+     <div class="formdiv">
+         <span style="float:left;padding-right:10px">投票項簡介:</span>
+         <textarea   id="votecontext" style="width:280px;height:80px;border-radius:5px;border:1px solid #95B8E7;"></textarea>
+
+     </div>
+     <div class="formdiv"><span style="padding-right:17px">投票類型:    </span>
+            <select id="typesel">
+                <option value="1">單選</option>
+                <option value="2">多選</option>
+            </select>
+     </div>
+
+     <div  class="formdiv">
+         <span style="padding-right:17px">投票選項:</span>
+         <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addopt()"></a>
+         <div id="optdiv" style="display:none">
+             <input   style="width:450px;height:32px;border-radius:5px;border:1px solid #95B8E7;">
+             
+
+         </div>
+          <div id="optcontext">
+
+          </div>
+
+     </div>
+         
+	</div>
+       
+        <div class="formdiv">
+            <button onclick="add()" id="btnsave">保存</button>
+            <button onclick="edit()" id="btnupdate">保存</button>
+        </div>   
+</div>
+
+<div id="sumres" class="easyui-window" title="投票結果" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:600px;height:600px;padding:10px;">
+	<div style="display:none;padding-bottom:10px" id="resdiv">
+       
+        <span style="font-size:20px;" >opt1</span><br />
+        
+        <span class="bg"> 
+
+           <span class="main"></span> 
+
+        </span> 
+
+       <span class="num" style="color:red;padding-left:8px">20</span>%
+        <span style="color:red"> 15</span>票
+	</div>
+
+    <div style="font-size:22px;padding-bottom:10px;padding-top:10px">
+            <span id="vtype" style="color:red;font-size:22px;padding-right:20px">單選 </span>共 <span id="votenum" style="color:red;font-size:22px"></span> 票
+
+    </div>
+    <div id="rescontextdiv">
+       
+    </div>
+</div>
+
+
+<div id="resmembers" class="easyui-window" title="投票人列表" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:615px;height:600px;padding:10px;">
+	 <div style="padding-bottom:5px">
+         <input class="easyui-combobox"  onselect="selecttype()" name="language" id="vtcombo" data-options="
+				method: 'post',
+				valueField: 'id',
+				textField: 'text',
+				panelWidth: 350,
+				panelHeight: 'auto',
+				formatter: formatItem
+			" style="padding-right:10px">  <button onclick="selecttype()" >查詢</button>
+
+	 </div>
+     <table id="mtb" class="easyui-datagrid" title="投票人列表" style="width:580px;height:500px"
+			data-options="singleSelect:true,collapsible:true,method:'get'" >
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:150">投票人</th>
+				<th data-options="field:'title',width:150">選項編號</th>
+				<th data-options="field:'context',width:200,align:'right'">選項內容</th>
+				
+			</tr>
+		</thead>
+	</table>
+</div>
+
+
+
+
+
+

@@ -63,6 +63,149 @@ WXDirective.directive('tree', function () {
         }
     };
 });
+
+//自定义标签--导航ztree控件（在选择发送对象的modal中的member使用）
+WXDirective.directive('treeDepart', ['$http', function ($http) {
+    return {
+        require: '?ngModel',
+        restrict: 'A',
+        link: function ($scope, element, attrs, ngModel) {
+            var departTree;
+            var setting = {
+                view: {
+                    dblClickExpand: false,
+                    showLine: false,
+                    expandSpeed: "fast"
+                    //($.browser.msie && parseInt($.browser.version) <= 6) ? "" : 
+                },
+                data: {
+                    key: {
+                        name: "Name"
+                    },
+                    simpleData: {
+                        enable: true,
+                        idKey: "DepartmentID",
+                        pIdKey: "ParentDepartmentID",
+                        rootPId: ""
+                    }
+                },
+                callback: {
+                    onClick: function (event, treeId, treeNode, clickFlag) {
+                        $scope.$apply(function () {
+                            $scope.getMemberList(treeNode.DepPKID);
+                        });
+                    }
+                }
+            };
+            var url = $scope.urlMenu;
+            $http.post(url, null).success(function (data) {
+                // 如果返回数据不为空，加载"业务模块"目录
+                if (data != null) {
+                    // 将返回的数据赋给zTree
+                    departTree = $.fn.zTree.init(element, setting, data);
+                    var rootNode = departTree.getNodesByFilter(function (node) { return node.level == 0 }, true);
+                    $scope.getMemberList(rootNode.DepPKID);
+                    //zTree = $.fn.zTree.getZTreeObj(uiId);
+                    //if (zTree) {
+                    //    // 默认展开所有节点
+                    //    zTree.expandAll(true);
+                    //}
+                }
+            }).error(function () {
+            });
+        }
+    }
+}]);
+
+//自定义标签--导航ztree控件（在选择发送对象的modal中的组织架构使用）
+WXDirective.directive('treeCheckdepart', ['$http', function ($http) {
+    return {
+        require: '?ngModel',
+        restrict: 'A',
+        link: function ($scope, element, attrs, ngModel) {
+            var departSelTree;
+            var node;
+            var setting = {
+                check: {
+                    enable: true,
+                    chkboxType: { "Y": "", "N": "" }
+                },
+                view: {
+                    dblClickExpand: false,
+                    showLine: false,
+                    expandSpeed: "fast"
+                    //($.browser.msie && parseInt($.browser.version) <= 6) ? "" : 
+                },
+                data: {
+                    key: {
+                        name: "Name"
+                    },
+                    simpleData: {
+                        enable: true,
+                        idKey: "DepartmentID",
+                        pIdKey: "ParentDepartmentID",
+                        rootPId: ""
+                    }
+                },
+                callback: {
+                    beforeClick: function beforeClick(treeId, treeNode) {
+                        departSelTree = $.fn.zTree.getZTreeObj(attrs.id);
+                        departSelTree.checkNode(treeNode, !treeNode.checked, null, true);
+                        return false;
+                    },
+                    onCheck: function onCheck(e, treeId, treeNode) {
+                        $scope.$apply(function () {
+                            departSelTree = $.fn.zTree.getZTreeObj(attrs.id);
+                            //nodes = departSelTree.getCheckedNodes(true);
+                            if (treeNode.checked) {
+                                $scope.sendTargetItem = {};
+                                $scope.sendTargetItem.type = '2';
+                                $scope.sendTargetItem.id = treeNode.DepartmentID;
+                                $scope.sendTargetItem.Name = treeNode.Name;
+                                $scope.sendTargetList.push($scope.sendTargetItem);
+
+                            }
+                            else {
+                                for (var i = 0; i < $scope.sendTargetList.length; i++) {
+                                    if ($scope.sendTargetList[i].type == '2' && $scope.sendTargetList[i].id == treeNode.DepartmentID) {
+                                        $scope.sendTargetList.splice(i, 1);
+                                        i--;
+                                        break;
+                                    }
+                                }
+                            }
+                            $scope.getSendTargetNames($scope.sendTargetList);
+                        });
+                    }
+                }
+            };
+            var url = $scope.urlMenu;
+            $http.post(url, null).success(function (data) {
+                // 如果返回数据不为空，加载"业务模块"目录
+                if (data != null) {
+                    // 将返回的数据赋给zTree
+                    departSelTree = $.fn.zTree.init(element, setting, data);
+                    $scope.test = departSelTree;
+                    for (var i = 0; i < $scope.sendTargetList.length; i++) {
+                        if ($scope.sendTargetList[i].type != '2')
+                            continue;
+                        node = departSelTree.getNodeByParam("DepartmentID", $scope.sendTargetList[i].id);
+                        if (node != null || node != undefined) {
+                            node.checked = true;
+                        }
+                    }
+                    //zTree = $.fn.zTree.getZTreeObj(uiId);
+                    //if (zTree) {
+                    //    // 默认展开所有节点
+                    //    zTree.expandAll(true);
+                    //}
+                }
+            }).error(function () {
+            });
+        }
+    }
+}]);
+
 //自定义标签——拖放上传圖片控件dropzone
 WXDirective.directive('dropzonex', function () {
     return {
@@ -108,8 +251,11 @@ WXDirective.directive('dropzonex', function () {
                                     //遍历数组并读出对象
                                     for (var i = 0; i < arrlength; ++i) {
                                         var pNews = res.ListJson[i];
-                                        if (pNews !== null && pNews !== undefined)
+                                        if (pNews !== null && pNews !== undefined) {
+                                            if (scope.pictures == null)
+                                                scope.pictures = new Array();
                                             scope.pictures.push(pNews);
+                                        }
                                     }
 
                                     scope.$apply();
@@ -397,6 +543,14 @@ WXDirective.directive("wxvoices", function () {
         templateUrl: '/Scripts/Views/WXVoices.html'
     }
 });
+//自定义标签——图片列表
+WXDirective.directive("wxpictureconfig", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/WXPictureConfig.html'
+    }
+});
 //自定义标签——wxarticlesconfig图文列表
 WXDirective.directive("wxarticlesconfig", function () {
     return {
@@ -558,13 +712,13 @@ WXDirective.directive('nestable', function () {
                     $(".alert").removeClass("alert-danger");
                     $(".alert").addClass("alert-info");
                     $(".alert").text("允許保存");
-                    $("#btn-save").removeClass("disabled");
+                    $("#btn-savemenu").removeClass("disabled");
                 }
                 else {
                     $(".alert").addClass("alert-danger");
                     $(".alert").removeClass("alert-info");
                     $(".alert").text(err);
-                    $("#btn-save").addClass("disabled");
+                    $("#btn-savemenu").addClass("disabled");
                 }
                 //$(".alert").toggleClass("alert-danger");
                 return err;
@@ -601,4 +755,55 @@ WXDirective.directive('nestable', function () {
             //});
         }
     };
+});
+//qymessagesend
+WXDirective.directive("qymessagesend", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/QYMessageSend.html'
+    }
+});
+
+//企业功能类别消息发送
+WXDirective.directive("qyfuncmessagesend", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/QYFuncMsgSend.html'
+    }
+});
+
+//企业消息审核
+WXDirective.directive("qymsreview", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/QYMsReview.html'
+    }
+});
+//
+WXDirective.directive("qyselconfig", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/QYSelConfig.html'
+    }
+});
+//qymscreate
+WXDirective.directive("qymscreate", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/QYMsCreate.html'
+    }
+});
+
+//企业功能类别消息发送
+WXDirective.directive("qyfuncmscreate", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/QYFuncCreate.html'
+    }
 });

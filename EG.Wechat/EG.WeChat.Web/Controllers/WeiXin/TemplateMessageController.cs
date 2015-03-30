@@ -42,7 +42,7 @@ namespace EG.WeChat.Web.Controllers
         /// <returns></returns>
         public ActionResult MessageConfig()
         {
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             List<TemplateMessageConfigM> pList = pService.GetTemplateMessageList<TemplateMessageConfigM>();
             EGExceptionResult pResult = pService.GetActionResult();
             if (pResult != null)
@@ -58,7 +58,7 @@ namespace EG.WeChat.Web.Controllers
         /// <returns></returns>
         public ActionResult TemplateEdit(string pIndex)
         {
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             TemplateMessageConfigM pEn = pService.GetTemplateMessageSingle<TemplateMessageConfigM>(Convert.ToInt32(pIndex));
             EGExceptionResult pResult = pService.GetActionResult();
             if (pResult != null)
@@ -82,7 +82,7 @@ namespace EG.WeChat.Web.Controllers
                 return Json(pResult);
             }
 
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             pService.UpdateTemplateMessageList<TemplateMessageConfigM>(pModel, pModel.ID);
             pResult = pService.GetActionResult();
             if (pResult != null)
@@ -143,7 +143,7 @@ namespace EG.WeChat.Web.Controllers
             if (!ModelState.IsValid)
                 return Content("填写错误，请重新输入！");
 
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             //发送模板消息
             pService.SendTemplateMessage(model.OpenID, model.TemplateID, model.URL, model.TemData);
             EGExceptionResult pResult = pService.GetActionResult();
@@ -223,8 +223,8 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult CreateGsMessage(string mediaid, int sendtype, string sendtarget, string textcontent, string msgtype)
         {
-            WeChatMessageService pService = new WeChatMessageService();
-            pService.CreateGsMessage(UserID, mediaid, sendtype, sendtarget, textcontent, msgtype);
+            WeChatMessageService pService = new WeChatMessageService("MP");
+            pService.CreateGsMessage(UserID, mediaid, sendtype, sendtarget, textcontent, msgtype, 1, 0, 0);
             EGExceptionResult pResult = pService.GetActionResult();
             //
             if (pResult != null)
@@ -241,7 +241,7 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult GetGsMessage()
         {
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             List<WXGsMessageVM> pList = pService.GetAllGsMessage<WXGsMessageVM>();
             EGExceptionResult pResult = pService.GetActionResult();
             //
@@ -258,7 +258,7 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult GetGsMessageByFilter(string filterString)
         {
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             List<WXGsMessageVM> pList = pService.GetGsMessage<WXGsMessageVM>(filterString);
             EGExceptionResult pResult = pService.GetActionResult();
             //
@@ -280,7 +280,7 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult GroupSendingByGroupID(string messageid, string mediaid, string textcontent, string msgtype, string groupid)
         {
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             pService.SendGroupMessageByGroupID(messageid, UserID, groupid, mediaid, textcontent, msgtype);
             EGExceptionResult pResult = pService.GetActionResult();
             //
@@ -303,7 +303,7 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult GroupSendingByOpenID(string messageid, string mediaid, string textcontent, string msgtype, string sex)
         {
-            WeChatMessageService pService = new WeChatMessageService();
+            WeChatMessageService pService = new WeChatMessageService("MP");
             pService.SendGroupMessageByOpenID(messageid, UserID, mediaid, textcontent, msgtype, sex);
             EGExceptionResult pResult = pService.GetActionResult();
             //

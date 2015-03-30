@@ -77,6 +77,7 @@
             }
         };
 
+        //停留在节点时会显示按钮组
         function addHoverDom(treeId, treeNode) {
             var aObj = $("#" + treeNode.tId + "_a");
             if ($("#diyBtn1_" + treeNode.id).length > 0) return;
@@ -84,16 +85,12 @@
             if ($("#diyBtn3_" + treeNode.id).length > 0) return;
             //var editStr = '<div class="dropdown" id=diyBtn_' + treeNode.id + '><button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">D<span class="caret"></span></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">dsa</ul></div>';
 
+            var editStr = '<div class="btn-group" role="group" aria-label="...">' +
+                '<button type="button" class="btn btn-primary" id="diyBtn1_' + treeNode.id+ '" onfocus="this.blur();" data-toggle="modal" data-target="#addDepartModal">添加子部門</button>' +
+                '<button type="button" class="btn btn-warning" id="diyBtn2_' + treeNode.id + '" onfocus="this.blur();" data-toggle="modal" data-target="#reNameModal">重命名</button>' +
+                '<button type="button" class="btn btn-default" id="diyBtn3_' + treeNode.id + '" onfocus="this.blur();" data-toggle="modal" data-target="#delDepartModal">刪除</button>' +
+                '</div>';
 
-
-            var editStr = "<span id='diyBtn_space_" + treeNode.id + "' > </span>"
-                + "<button type='button' class='diyBtn1' id='diyBtn1_" + treeNode.id
-                + "' title='" + treeNode.name + "' onfocus='this.blur();' data-toggle='modal' data-target='#addDepartModal'>添加子部門</button>"
-            + "<button type='button' class='diyBtn1' id='diyBtn2_" + treeNode.id
-                + "' title='" + treeNode.name + "' onfocus='this.blur();' data-toggle='modal' data-target='#reNameModal'>重命名</button>"
-               + "<button type='button' class='diyBtn1' id='diyBtn3_" + treeNode.id
-                + "' title='" + treeNode.name + "' onfocus='this.blur();' data-toggle='modal' data-target='#delDepartModal'>刪除</button>"
-            ;
             aObj.append(editStr);
             var btn1 = $("#diyBtn1_" + treeNode.id);
             var btn2 = $("#diyBtn2_" + treeNode.id);
@@ -104,27 +101,30 @@
             if (btn2) btn2.bind("click", function () { departID = treeNode.DepartmentID; wcOrder = treeNode.wcOrder; depPKID = treeNode.DepPKID; });
             if (btn3) btn3.bind("click", function () { departID = treeNode.DepartmentID; wcOrder = treeNode.wcOrder; depPKID = treeNode.DepPKID; });
         };
+
+        //移除按钮组
         function removeHoverDom(treeId, treeNode) {
             $("#diyBtn1_" + treeNode.id).unbind().remove();
             $("#diyBtn2_" + treeNode.id).unbind().remove();
             $("#diyBtn3_" + treeNode.id).unbind().remove();
-            $("#diyBtn_space_" + treeNode.id).unbind().remove();
-
-            //$("#dLabel").unbind().remove();
-            //$(".dropdown").unbind().remove();
         };
 
+        //显示对应部门下包括子部门的所有成员
         function departTreeOnClick(event, treeId, treeNode) {
             showMember(treeNode.DepPKID);
         }
 
 
-
+        
         $(document).ready(function () {
             $("#departQy").css("display", "none");
             //$(document).ajaxStart(onStart).ajaxSuccess(onStop);
             /** 默认异步加载"业务模块"目录  **/
+
+            //初始化tree
             loadMenu('YEWUMOKUAI', "departMenu");
+
+            //初始化增加或修改成员时选择部门的tree
             selMenu('selDepartMenu');
 
 
@@ -135,6 +135,7 @@
             }
         });
 
+        //初始化tree
         function loadMenu(resourceType, treeObj) {
             $.post("/QYDepart/GetDepartMenu", null, function (data) {
                 // 如果返回数据不为空，加载"业务模块"目录
@@ -154,6 +155,7 @@
             }).error(function (data) { });
         }
 
+        //初始化增加或修改成员时选择部门的tree
         function selMenu(treeObj) {
             $.post("/QYDepart/GetDepartMenu", null, function (data) {
                 // 如果返回数据不为空，加载"业务模块"目录
@@ -177,6 +179,7 @@
             return false;
         }
 
+
         function onCheck(e, treeId, treeNode) {
             departSelTree = $.fn.zTree.getZTreeObj("selDepartMenu"),
 			nodes = departSelTree.getCheckedNodes(true),
@@ -198,6 +201,7 @@
             //wxID.attr("value",hID);
         }
 
+        //初始化增加或修改成员时选择部门时的触发事件
         function showMenu() {
             var departObj = $("#departSel");
             var departOffset = $("#departSel").offset();
@@ -205,6 +209,8 @@
             $("#menuContent").slideDown("fast");
             $("body").bind("mousedown", onBodyDown);
         }
+
+        //初始化增加或修改成员时选择部门时的触发事件
         function hideMenu() {
             $("#menuContent").fadeOut("fast");
             $("body").unbind("mousedown", onBodyDown);
@@ -215,6 +221,7 @@
             }
         }
 
+        //动态生成成员table
         function showMember(id) {
             var dataSel = {};
 
@@ -228,7 +235,7 @@
                 //table.append($("<tr><th width='25'><input type='checkbox' group='ids' class='checkboxCtrl'></th><th>Open ID</th><th>微信昵稱</th><th>備註名</th><th>用戶組</th><th>國家</th><th>省份</th><th>城市</th><th>性別</th><th width='210'>操作</th></tr>"));
                 table.append("<tr><th width='25'><input type='checkbox' group='ids' class='checkboxCtrl'></th><th>姓名</th><th>賬號</th><th>職位</th><th>手機</th><th>郵箱</th><th>狀態</th><th>操作</th></tr>");
 
-                var MemberID = "";
+                var memberID = "";
                 var name = "";
                 var userid = "";
                 var weixinid = "";
@@ -240,21 +247,21 @@
 
                 //向表格中添加内容
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].MemberID != null)
+                    //if (data[i].MemberID != null)
                         memberID = data[i].MemberID;
-                    if (data[i].Avatar != null)
+                    //if (data[i].Avatar != null)
                         avatar = data[i].Avatar;
-                    if (data[i].Name != null)
+                    //if (data[i].Name != null)
                         name = data[i].Name;
-                    if (data[i].UserId != null)
+                    //if (data[i].UserId != null)
                         userid = data[i].UserId;
-                    if (data[i].Position != null)
-                        position = data[i].Position;
-                    if (data[i].Mobile != null)
-                        mobile = data[i].Mobile;
-                    if (data[i].Email != null)
-                        Email = data[i].Email;
-                    if (data[i].Status != null) {
+                    //if (data[i].Position != null)
+                        position = data[i].Position == null ? '' : data[i].Position;
+                    //if (data[i].Mobile != null)
+                        mobile = data[i].Mobile == null ? '' : data[i].Mobile;
+                    //if (data[i].Email != null)
+                        email = data[i].Email == null ? '' : data[i].Email;
+                    //if (data[i].Status != null) {
                         switch (data[i].Status) {
                             case "1":
                                 status = "已關注";
@@ -268,7 +275,7 @@
                             default:
                                 status = "無狀態";
                         }
-                    }
+                    //}
 
 
                     table.append(
@@ -299,6 +306,7 @@
             });
         }
 
+        //增加部门
         function addDepart() {
             var departName = $("#addDepartName").val();
 
@@ -317,6 +325,8 @@
             });
         }
 
+
+        //更新部门
         function updateDepart() {
             var departName = $("#updateDepartName").val();
             $.post("/QYDepart/UpdateDepart", { name: departName, depPKID: depPKID }, function (data) {
@@ -335,6 +345,7 @@
             });
         }
 
+        //删除部门
         function deleteDepart() {
             $.post("/QYDepart/DeleteDepart", { depPKID: depPKID }, function (data) {
                 $('#delDepartModal').modal('hide');
@@ -351,6 +362,7 @@
             });
         }
 
+        //保存部门
         function saveMember(tag) {
             if ($("#Name").val() == undefined || $("#Name").val() == '') {
                 alert("姓名必須要填寫");
@@ -391,8 +403,9 @@
             }
         }
 
+        //增加成员
         function addMember(memberObj) {
-
+            removeMemberVal();
             $.post("/QYMember/AddMember", memberObj, function (data) {
                 $('#addMemberModal').modal('hide');
                 if (data.IsSuccess) {
@@ -404,10 +417,11 @@
                 else {
                     alert('添加失败：' + data.ErrorMeg);
                 }
-                removeMemberVal();
+                
             });
         }
 
+        //获取成员信息
         function getmemberItem(item) {
             $("#addTip").css("display", "none");
             $("#updateTip").css("display", "");
@@ -415,13 +429,6 @@
             $("#updateBtn").css("display", "");
             $("#UserId").attr("readonly", "readonly");
 
-            //var checkList = $('input=[name="memberIds"]');
-            //for (var i = 0; i < checkList.length; i++) {
-            //    if (checkList[i].checked) {
-            //        memberID = $("#memberIds"+i).val();
-            //        break;
-            //    }
-            //}
             memberIDVal = $(item).attr('value');
 
             $.post("/QYMember/GetMemberItem", { memberID: memberIDVal }, function (data) {
@@ -439,6 +446,7 @@
             });
         }
 
+        //更新成员信息
         function updateMember(memberObj) {
             $.post("/QYMember/UpdateMember", memberObj, function (data) {
                 $('#addMemberModal').modal('hide');
@@ -449,23 +457,14 @@
                     showMember(rootNode.DepPKID);
                 }
                 else {
-                    alert('更新失败：' + data.ErrorMeg);
+                    alert('刪除失敗：' + data.ErrorMeg);
                 }
                 removeMemberVal();
             });
         }
 
+        //删除成员
         function deleteMember() {
-            //var memberID;
-            //var checkList = $('input=[name="memberIds"]');
-            //for (var i = 0; i < checkList.length; i++) {
-            //    if (checkList[i].checked) {
-            //        memberID = $("#memberIds" + i).val();
-            //        break;
-            //    }
-
-            //}
-
             $.post("/QYMember/deleteMember", { memberID: memberIDVal }, function (data) {
                 $('#delMemberModal').modal('hide');
                 if (data.IsSuccess) {
@@ -475,18 +474,25 @@
                     showMember(rootNode.DepPKID);
                 }
                 else {
-                    alert('删除失败：' + data.ErrorMeg);
+                    alert('刪除失敗：' + data.ErrorMeg);
                 }
 
             });
         }
 
+        //获取删除成员id
         function getDelMemberID(item) {
             memberIDVal = $(item).attr('value');
         }
 
-
+        //清空输入值
         function removeMemberVal() {
+            var nodes = departSelTree.getCheckedNodes(true);
+            for (var i = 0; i < nodes.length; i++)
+            {
+                nodes[i].checked = false;
+            }
+            departSelTree.refresh();
             $("#ID").val();
             $("#Name").val('');
             $("#UserId").val('');
@@ -498,7 +504,10 @@
             $("#departSel").val('');
         }
 
+        //增加成员时的样式调整；
         function canWriteUserid() {
+            removeMemberVal();
+
             $("#updateTip").css("display", "none");
             $("#addTip").css("display", "");
             $("#addBtn").css("display", "");
@@ -506,6 +515,7 @@
             $("#UserId").removeAttr("readonly");
         }
 
+        //选择查询类型（未完成）
         function changeSearch(item) {
             switch (item.value) {
                 case "1":

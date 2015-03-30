@@ -1,0 +1,348 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>通知管理</title>
+    <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/demo.css">
+    <script type="text/javascript" src="~/Scripts/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/ajaxfileupload.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            function pagerFilter(data) {
+                if ($.isArray(data)) {	// is array
+                    data = {
+                        total: data.length,
+                        rows: data
+                    }
+                }
+                var dg = $(this);
+                var state = dg.data('datagrid');
+                var opts = dg.datagrid('options');
+                if (!state.allRows) {
+                    state.allRows = (data.rows);
+                }
+                var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
+                var end = start + parseInt(opts.pageSize);
+                data.rows = $.extend(true, [], state.allRows.slice(start, end));
+                return data;
+            }
+
+            var loadDataMethod = $.fn.datagrid.methods.loadData;
+            $.extend($.fn.datagrid.methods, {
+                clientPaging: function (jq) {
+                    return jq.each(function () {
+                        var dg = $(this);
+                        var state = dg.data('datagrid');
+                        var opts = state.options;
+                        opts.loadFilter = pagerFilter;
+                        var onBeforeLoad = opts.onBeforeLoad;
+                        opts.onBeforeLoad = function (param) {
+                            state.allRows = null;
+                            return onBeforeLoad.call(this, param);
+                        }
+                        dg.datagrid('getPager').pagination({
+                            onSelectPage: function (pageNum, pageSize) {
+                                opts.pageNumber = pageNum;
+                                opts.pageSize = pageSize;
+                                $(this).pagination('refresh', {
+                                    pageNumber: pageNum,
+                                    pageSize: pageSize
+                                });
+                                dg.datagrid('loadData', state.allRows);
+                            }
+                        });
+                        $(this).datagrid('loadData', state.data);
+                        if (opts.url) {
+                            $(this).datagrid('reload');
+                        }
+                    });
+                },
+                loadData: function (jq, data) {
+                    jq.each(function () {
+                        $(this).data('datagrid').allRows = null;
+                    });
+                    return loadDataMethod.call($.fn.datagrid.methods, jq, data);
+                },
+                getAllRows: function (jq) {
+                    return jq.data('datagrid').allRows;
+                }
+            })
+        })(jQuery);
+
+        $(function () {
+            $("#panel datagrid datalist").attr("padding-top", "10px");
+
+        });
+
+        function getData() {
+
+           
+            var list ;
+            $.ajax({
+             type: "POST",
+             url: "@Url.Content("~/Notice/GetNotices")",
+             cache: false,
+             async: false,
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 list = data;
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+             //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+         });
+
+         //alert('123');
+         return list;
+
+     }
+
+     $(function () {
+         $('#dg').datagrid({ data: getData() }).datagrid('clientPaging');
+     });
+     function clearw() {
+         $("#noticename").val('');
+         
+     }
+     function showdialog() {
+         clearw();
+         $('#w').window('open');
+     }
+
+    
+        function submitadd() {
+            
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/Notice/AddNotice")",
+             cache: false,
+             async: false,
+             data: "{'title':'" + $("#noticename").val() + "','context':'" + $("#noticecontext").val() + "'}",
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+
+                 alert("新增成功");
+                 location.reload();
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+             },
+                //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+            });
+        }
+        function reflashwin() {
+            alert("新增完成");
+            location.reload();
+        }
+        function showpdf(id) {
+           
+            window.open("@Url.Content("~/Notice/ShowNotice")/"+id);
+        }
+
+        function deleten(id) {
+            $.messager.confirm('刪除操作提示', '確定刪除該記錄?', function (r) {
+                if (r) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Content("~/Notice/DeleteNotice")",
+                        cache: false,
+                        async: false,
+                        data: "{'id':'" + id + "'}",
+                        datatype: "json",
+                        contentType: 'application/json;charset=utf-8',
+                        success: function (data) {
+
+                            alert("刪除成功");
+                            location.reload();
+                        },
+
+                        complete: function (k, data) {
+                            // alert(k.getResponseHeader("Location"));
+                            //  return list;
+                        },
+
+                        error: function (msg) {
+                            alert(JSON.stringify(msg));
+                        },
+                        //   async: false ,
+
+                        statusCode: {
+                            201: function () {
+                                // alert("");
+
+                            },
+                            406: function () {
+                                alert("false");
+                            }
+
+                        }
+
+                    });
+                }
+            });
+        }
+
+        function showread(id) {
+            var d;
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Content("~/Notice/GetNoticeMember")",
+                cache: false,
+                async: false,
+                data: "{'id':'" + id + "'}",
+                datatype: "json",
+                contentType: 'application/json;charset=utf-8',
+                success: function (data) {
+                    d = data.rows;
+                   
+                },
+
+                complete: function (k, data) {
+                    // alert(k.getResponseHeader("Location"));
+                    //  return list;
+                },
+
+                error: function (msg) {
+                    alert(JSON.stringify(msg));
+                },
+                //   async: false ,
+
+                statusCode: {
+                    201: function () {
+                        // alert("");
+
+                    },
+                    406: function () {
+                        alert("false");
+                    }
+
+                }
+
+            });
+            $('#rtb').datagrid({ data: d });
+
+            $('#readmen').window('open');
+
+        }
+
+    </script>
+    <style type="text/css">
+      .formdiv {
+        padding-top:10px;
+    }
+    </style>
+</head>
+<body>
+    <div>
+         <table id="dg" title="<a href='#' onclick='showdialog()'>+</a>"    style="width:90%;height:auto"
+            data-options="
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				pagination:true,
+				pageSize:30">
+        <thead>
+            <tr>
+                <th data-options="field:'Title',width:300">標題</th>
+                <th data-options="field:'CreateDate',width:300">創建時間</th>
+                <th data-options="field:'CreateUserName',width:100,align:'right'">創建人</th>
+                <th data-options="field:'Status',width:300,align:'right'">查閱情況</th>
+                <th data-options="field:'showbtn',width:300,align:'right'">預覽</th>
+                <th data-options="field:'delbtn',width:300,align:'right'">刪除</th>
+            </tr>
+        </thead>
+    </table>
+
+<div id="w" class="easyui-window" title="新增通知" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:600px;height:600px;padding:10px;">
+	<div>
+    
+         @*class="easyui-textbox"*@
+	 <div><span style="padding-right:7px">通知名稱:</span>
+         <input type="text" id="noticename" name="noticename" required="required" style="border-radius:5px;border:1px solid #95B8E7;" /></div>
+     <div class="formdiv">
+         <span style="padding-right:7px">通知內容:</span>
+        <textarea   id="noticecontext" style="width:280px;height:80px;border-radius:5px;border:1px solid #95B8E7;"></textarea>
+        
+     </div>
+     
+         
+	
+       
+        <div class="formdiv">
+           <button onclick="submitadd()">提交</button>
+           
+        </div>  
+    
+	</div>
+</div>
+<div id="readmen" class="easyui-window" title="人員列表" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:700px;height:600px;padding:10px;">
+	<center>
+    <div>
+          <table id="rtb" class="easyui-datagrid" title="投票人列表" style="width:580px;height:auto"
+			data-options="singleSelect:true,collapsible:true,method:'get'" >
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:120">人員</th>
+				<th data-options="field:'createdate',width:170">發送時間</th>
+				<th data-options="field:'alreadyread',width:150">是否閱讀</th>
+				
+			</tr>
+		</thead>
+	</table>
+        
+
+    
+	</div></center>
+</div>
+    </div>
+     
+</body>
+</html>

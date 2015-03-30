@@ -27,6 +27,15 @@
             .tg-div-tool > .div-qyapp-right {
                 float: right;
             }
+
+            #div-editappconfig {
+                display: none;
+                padding: 1em;
+                background-color: #f1f1f1;
+            }
+
+            /*#div-editappconfig {
+            }*/
         </style>
         <!-- {{qyapp.name}}-->
         <div class="tg-div-tool">
@@ -46,12 +55,18 @@
         <div class="tg-div-tool">
             <div style="width: 60%;">
                 <span><b>配置回调URL及密钥</b></span>
-                <span>URL:&nbsp;<i>http://testwechat.cloudapp.net/qy</i></span>
-                <span>TOKEN:&nbsp;iw9flvnfXvrUP</span>
-                <span>EncodingAESKey：CLJurfClMa26l7GlBYwnSA5vSlkvr2gfcS7ypUwx2GE</span>
+                <span>URL:&nbsp;<i>{{urlModel}}</i></span>
+                <span>TOKEN:&nbsp;{{qyappconfig.token}}</span>
+                <span>EncodingAESKey：{{qyappconfig.aeskey}}</span>
             </div>
             <div class="div-qyapp-right">
-                <a href="javascript:void(0);" class="btn btn-primary">修改配置</a>
+                <a href="javascript:void(0);" ng-click="setConfig()" class="btn btn-primary">修改配置</a>
+            </div>
+            <div id="div-editappconfig">
+                Url:<input class="form-control" id="ip-url" placeholder="Url" type="text" ng-model="urlModel" readonly />
+                Token:<input class="form-control" placeholder="Token" type="text" ng-model="qyappconfig.token" />
+                EncodingAESKey:<input class="form-control" placeholder="EncodingAESKey" type="text" ng-model="qyappconfig.aeskey" />
+                <button type="button" ng-click="SaveQYApp()" class="btn btn-primary btn-lg btn-block">保  存  配  置</button>
             </div>
         </div>
         <hr style="filter: alpha(opacity=100,finishopacity=0,style=1); width: 100%;" />

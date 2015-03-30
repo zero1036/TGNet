@@ -60,12 +60,18 @@
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span>&nbsp;名 稱 及 分 類</span>
                     <input ng-model="article.lcName" type="text" class="form-control" placeholder="資源名稱    示例：會員卡A" />
                     <input ng-model="article.lcClassify" type="text" class="form-control" placeholder="資源分類    示例：會員卡、金融" />
+
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="article.byLink">
+                        優先顯示連接內容
+                    </label>
                 </div>
                 <!--      <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;微 信 端 編 號</span>
                     <input ng-model="media_id" type="text" class="form-control" />
                 </div>-->
-                <br />
                 <wxarticledisplay></wxarticledisplay>
                 <button type="button" class="btn btn-default btn-md btn-block" ng-click="AddNewsModel()"><span class="glyphicon glyphicon-plus">. 添 加 段 落</span></button>
                 <button ng-click="EndEdit()" type="button" class="btn btn-default btn-md btn-block"><span class="glyphicon glyphicon-chevron-left">. 返 回 列 表</span></button>
@@ -118,13 +124,13 @@
                             <img src="{{curNewsModel.RPath}}" data-medit="0x" style="height: 100px; width: 200px;" />
                         </div>
                         <br />
-                        <p>正文</p>
+                        <p ng-show="article.byLink==false">正文</p>
                     </div>
-                    <div class="row">
+                    <div class="row" ng-show="article.byLink==false">
                         <textarea ng-model="curNewsModel.content" class="input-block-level" style="height: 400px" id="summernote" name="content" rows="18"></textarea>
 
                     </div>
-                    <div class="row">
+                    <div class="row" ng-show="article.byLink==false">
                         <button type="button" class="btn btn-default btn-sm btn-block" ng-click="ContentAsHTML()">查看HTML</button>
                     </div>
                 </div>

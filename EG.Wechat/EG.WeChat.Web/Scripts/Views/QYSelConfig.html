@@ -1,0 +1,63 @@
+﻿<div>
+    <style>
+        .tg-wrappanelitem {
+            width: auto;
+            height: auto;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+            .tg-wrappanelitem > p {
+                text-align: center;
+            }
+
+                .tg-wrappanelitem > p > * {
+                    text-align: center;
+                    display: inline-block;
+                }
+
+                .tg-wrappanelitem > p > a > img {
+                    width: 80px;
+                    height: 80px;
+                }
+
+        #div-wl1add {
+            width: 80px;
+            height: 80px;
+            background: url(https://res.wx.qq.com/mmocbiz/zh_CN/tmt/pc/dist/img/dev/icon_appstore_4f97141e.png) 0 0 no-repeat;
+        }
+
+            #div-wl1add:hover {
+                opacity: 0.5;
+            }
+    </style>
+    <p>
+        我的应用       
+    </p>
+    <br />
+    <div class="row">
+        <div ng-repeat="qyapp in qyconfigs">
+            <div class="tg-wrappanelitem">
+                <!--<div class="tg-wrappanelitem tg-mask">
+                    <a href="javascript:void(0);" ng-click="SetSelection(picture,picture.media_id)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </div>-->
+                <p>
+                    <a href="javascript:void(0)" ng-click="SelCurQyapp(qyapp)">
+                        <img ng-src="{{qyapp.round_logo_url}}">
+                    </a>
+                    <br />
+                    <span>{{qyapp.name}}</span>
+                </p>
+            </div>
+        </div>
+        <div ng-if="editAdded==true">
+            <a href="javascript:void(0);">
+                <div class="tg-wrappanelitem" id="div-wl1add">
+                </div>
+            </a>
+        </div>
+    </div>
+    <hr style="filter: alpha(opacity=100,finishopacity=0,style=1); width: 100%;" />
+</div>

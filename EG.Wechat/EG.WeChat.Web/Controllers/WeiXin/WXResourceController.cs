@@ -45,7 +45,7 @@ namespace EG.WeChat.Web.Controllers
         {
             int iRecCount = -1;
             //加载图片资源集合
-            WeChatPictureService pService = new WeChatPictureService();
+            WeChatPictureService pService = new WeChatPictureService("QY");
             List<WXPictureResultJson> plist = pService.LoadResources(PageIndex, RowCountInPage, filterString, out iRecCount);
             EGExceptionResult pResult = pService.GetActionResult();
             if (pResult != null)
@@ -124,7 +124,7 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult ImageUpLoad()
         {
-            WeChatPictureService pService = new WeChatPictureService();
+            WeChatPictureService pService = new WeChatPictureService("QY");
             //首先上传图片资源到微信服务器，并写入本地服务器配置文件
             List<WXPictureResultJson> plist = pService.UpdateResources(Request, "flUpload");
             EGExceptionResult pResult = pService.GetActionResult();
@@ -163,7 +163,7 @@ namespace EG.WeChat.Web.Controllers
         {
             int iRecCount = -1;
             //加载图片资源集合
-            WeChatArticleService pService = new WeChatArticleService();
+            WeChatArticleService pService = new WeChatArticleService("QY");
             List<WXArticleResultJson> plist = pService.LoadResources(PageIndex, RowCountInPage, filterString, out iRecCount);
             EGExceptionResult pResult = pService.GetActionResult();
             if (pResult != null)
@@ -184,10 +184,11 @@ namespace EG.WeChat.Web.Controllers
         /// <param name="ListNews"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ArticleUpLoad(int? id, string name, string cla, string ListNews)
+        public ActionResult ArticleUpLoad(int? id, string name, string cla, string ListNews, bool bByLink)
         {
-            WeChatArticleService pService = new WeChatArticleService();
-            pService.UpdateResources(id, name, cla, ListNews);
+            var nw = bByLink ? "news" : "mpnews";
+            WeChatArticleService pService = new WeChatArticleService("QY", nw);
+            pService.UpdateResources(id, name, cla, ListNews, bByLink);
             EGExceptionResult pResult = pService.GetActionResult();
             if (pResult != null)
             {
@@ -214,7 +215,7 @@ namespace EG.WeChat.Web.Controllers
         public ActionResult LoadWXVideos(int PageIndex = 1, int RowCountInPage = 8, string filterString = "")
         {
             int iRecCount = -1;
-            WeChatVideoService pService = new WeChatVideoService();
+            WeChatVideoService pService = new WeChatVideoService("QY");
             List<WXVideoResultJson> plist = pService.LoadResources(PageIndex, RowCountInPage, filterString, out iRecCount);
             EGExceptionResult pResult = pService.GetActionResult();
             if (pResult != null)
@@ -239,7 +240,7 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult VideoUpLoad(string lcname, string lcclassify)
         {
-            WeChatVideoService pService = new WeChatVideoService();
+            WeChatVideoService pService = new WeChatVideoService("QY");
             //首先上传視頻资源到微信服务器，并写入本地服务器配置文件
             List<WXVideoResultJson> plist = pService.UpdateResources(Request, lcname, lcclassify);
             EGExceptionResult pResult = pService.GetActionResult();
@@ -277,7 +278,7 @@ namespace EG.WeChat.Web.Controllers
         public ActionResult LoadWXVoices(int PageIndex = 1, int RowCountInPage = 8, string filterString = "")
         {
             int iRecCount = -1;
-            WeChatVoiceService pService = new WeChatVoiceService();
+            WeChatVoiceService pService = new WeChatVoiceService("QY");
             List<WXVoiceResultJson> plist = pService.LoadResources(PageIndex, RowCountInPage, filterString, out iRecCount);
             EGExceptionResult pResult = pService.GetActionResult();
             if (pResult != null)
@@ -302,7 +303,7 @@ namespace EG.WeChat.Web.Controllers
         [HttpPost]
         public ActionResult VoiceUpLoad(string lcname, string lcclassify)
         {
-            WeChatVoiceService pService = new WeChatVoiceService();
+            WeChatVoiceService pService = new WeChatVoiceService("QY");
             //首先上传资源到微信服务器，并写入本地服务器配置文件
             List<WXVoiceResultJson> plist = pService.UpdateResources(Request, lcname, lcclassify);
             EGExceptionResult pResult = pService.GetActionResult();

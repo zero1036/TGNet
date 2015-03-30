@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using EG.WeChat.Platform.BL;
 using EG.WeChat.Utility.Tools;
+using EG.WeChat.Utility.WeiXin;
 /*****************************************************
 * 目的：企业号基础设置Controller
 * 创建人：林子聪
@@ -16,7 +17,7 @@ using EG.WeChat.Utility.Tools;
 *****************************************************/
 namespace EG.WeChat.Web.Controllers
 {
-    public class QYConfigController : Controller
+    public class QYConfigController : AccessController
     {
         /// <summary>
         /// 
@@ -38,6 +39,35 @@ namespace EG.WeChat.Web.Controllers
             if (pResult != null)
                 return Json(pResult);
             return Json(pList);
+        }
+        /// <summary>
+        /// 获取企业应用配置
+        /// </summary>
+        /// <param name="aid"></param>
+        /// <returns></returns>
+        public ActionResult GetQYAppConfig(int aid)
+        {
+            var ps = WeiXinConfiguration.corpInfos;
+            if (ps == null || ps.Count == 0)
+                return Json(new EGExceptionResult(false, "缺少企業應用配置信息", EGActionCode.缺少目标数据.ToString()));
+            var pcorp = WeiXinConfiguration.corpInfos.Single((p) => { return p.aid == aid; });
+            return Json(pcorp);
+        }
+        /// <summary>
+        /// 更新企业应用配置
+        /// </summary>
+        /// <param name="aid"></param>
+        /// <param name="token"></param>
+        /// <param name="aeskey"></param>
+        /// <returns></returns>
+        public ActionResult SetQYAppConfig(int aid, string token, string aeskey)
+        {
+            WXCorpBaseService pService = new WXCorpBaseService();
+            pService.UpdateCorpConfiguration(aid, token, aeskey);
+            EGExceptionResult pResult = pService.GetActionResult();
+            if (pResult != null)
+                return Json(pResult);
+            return Json(new EGExceptionResult(true, "", ""));
         }
         /// <summary>
         /// 获取企业应用菜单

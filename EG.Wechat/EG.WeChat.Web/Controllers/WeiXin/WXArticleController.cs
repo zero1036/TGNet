@@ -38,7 +38,7 @@ namespace EG.WeChat.Web
         /// <returns></returns>
         public ActionResult LoadModel(string mid, int idx)
         {
-            WeChatArticleService pService = new WeChatArticleService();
+            WeChatArticleService pService = new WeChatArticleService("QY");
             WXArticleResultJson pArticle = pService.LoadResourcesSingle(mid);
             var pResult = pService.GetActionResult();
             if (pResult != null || pArticle == null || pArticle.ListNews == null || pArticle.ListNews.Count <= idx)

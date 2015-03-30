@@ -1,0 +1,378 @@
+﻿<div>
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <!-- 本页定制CSS -->
+            <style>
+                /*.row {
+                font-family:   "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+            }*/
+
+                .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                .panel-body {
+                    padding-left: 0;
+                    padding-right: 0;
+                    padding-top: 0;
+                }
+
+                hr {
+                    margin-bottom: 1px;
+                }
+
+                .panel {
+                    border-radius: 0;
+                }
+
+                span.span_sym {
+                    color: gray;
+                }
+
+                span.span_scount::after {
+                    content: attr(name);
+                    /*position: relative;*/
+                    color: #f85c5c;
+                    font-style: oblique;
+                    font-weight: bold;
+                    text-shadow: 1px 0 2px #feffc6;
+                }
+
+                .tab_navs, .tab_navs li {
+                    list-style: none; /* 将默认的列表符号去掉 */
+                    padding: 0; /* 将默认的内边距去掉 */
+                    margin: 0; /* 将默认的外边距去掉 */
+                    margin-left: 10px;
+                    margin-right: 30px;
+                    margin-top: 4px;
+                }
+
+                    .tab_navs li {
+                        float: left;
+                    }
+
+                #div-gsvul {
+                    display: none;
+                }
+
+                #div-gsvtable {
+                    display: block;
+                }
+
+                @media only screen and (min-width:780px) and (max-width:1030px) {
+                    #div-gsvul {
+                        display: none;
+                    }
+
+                    #div-gsvtable {
+                        display: block;
+                    }
+
+                    .table-responsive {
+                        width: 100%;
+                        margin-bottom: 15px;
+                        overflow-x: scroll;
+                        overflow-y: hidden;
+                        border: 1px solid #dddddd;
+                        -ms-overflow-style: -ms-autohiding-scrollbar;
+                        -webkit-overflow-scrolling: touch;
+                    }
+
+                        .table-responsive > .table {
+                            margin-bottom: 0;
+                        }
+
+                            .table-responsive > .table > thead > tr > th,
+                            .table-responsive > .table > tbody > tr > th,
+                            .table-responsive > .table > tfoot > tr > th,
+                            .table-responsive > .table > thead > tr > td,
+                            .table-responsive > .table > tbody > tr > td,
+                            .table-responsive > .table > tfoot > tr > td {
+                                white-space: nowrap;
+                            }
+                }
+
+                @media only screen and (max-width:780px) {
+                    #div-gsvul {
+                        display: block;
+                    }
+
+                    #div-gsvtable {
+                        display: none;
+                    }
+
+                    .tg-div-tool > div {
+                        display: inline-block;
+                    }
+
+                        .tg-div-tool > div > * {
+                            text-align: center;
+                            display: block;
+                        }
+
+                    .tg-div-tool > .div-lix-left {
+                        width: 4em;
+                        color: #428bca;
+                    }
+
+                    .tg-div-tool > .div-lix-right {
+                        float: right;
+                    }
+
+                        .tg-div-tool > .div-lix-right > * {
+                            font-size: 2em;
+                        }
+
+                    .tg-div-tool > .div-lix-info > *:nth-child(1) {
+                        font-size: 2em;
+                    }
+
+                    .tg-div-tool > .div-lix-info > *:nth-child(2) {
+                        font-size: 0.8em;
+                    }
+
+                    /*.tg-div-tool > .div-lix-info > *:nth-child(3) {
+                            font-size: 0.8em;
+                        }*/
+
+                    .tg-ul-table > li > a {
+                        text-decoration: none;
+                    }
+
+                        .tg-ul-table > li > a > div {
+                            border-bottom: 1px solid #f2f2f2;
+                        }
+
+                        .tg-ul-table > li > a :hover {
+                            background-color: #f2f2f2;
+                        }
+
+                    .tg-ul-table > li b .b-imp {
+                        font-size: 2em;
+                    }
+                }
+
+                @media only screen and (max-width:360px) {
+                    .tg-div-tool > .div-lix-left {
+                        width: 2em;
+                    }
+
+                    .tg-div-tool > .div-lix-right > * {
+                        font-size: 1.7em;
+                    }
+
+                    .tg-div-tool > .div-lix-info > *:nth-child(1) {
+                        font-size: 1.7em;
+                    }
+
+                    .tg-ul-table > li b .b-imp {
+                        font-size: 1em;
+                    }
+                }
+
+                .tg-div-tool > * {
+                    display: inline-block;
+                }
+
+                .fa-lock {
+                    color: #f85c5c;
+                }
+
+                .fa-unlock {
+                    color: #00B6AD;
+                }
+            </style>
+            <div class="row">
+                <div class="col-lg-5 tg-div-tool" style="padding: 0;">
+                    類型：
+                        <div class="btn-group" role="group1" aria-label="...">
+                            <button type="button" class="btn btn-default" ng-click="ChangeContentType('text')"><i class="fa fa-pencil fa-lg"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ChangeContentType('image')"><i class="fa fa-photo fa-lg"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ChangeContentType('voice')"><i class="fa fa-volume-up fa-lg"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ChangeContentType('video')"><i class="fa fa-video-camera fa-lg"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ChangeContentType('mpnews')"><i class="fa fa-newspaper-o fa-lg"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ChangeContentType('news')"><i class="fa fa-newspaper-o fa-lg"></i></button>
+
+                            <button type="button" class="btn btn-default" ng-click="ChangeContentType(null)">所有類型</button>
+                        </div>
+                </div>
+                <div class="col-lg-5 tg-div-tool" style="padding: 0;">
+                    状态：
+                        <div class="btn-group" role="group2" aria-label="...">
+                            <button type="button" class="btn btn-primary" ng-click="ChangeSState(1)">待審核</button>
+                            <button type="button" class="btn btn-warning" ng-click="ChangeSState(3)">已發送</button>
+                            <button type="button" class="btn btn-default" ng-click="ChangeSState(null)">所有狀態</button>
+                        </div>
+                    <a href="javascript:void(0);" ng-click="Query()" class="btn btn-default">查 詢</a>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+
+                        <div id="div-gsvul">
+                            <ul class="tg-ul-table">
+                                <li ng-repeat="GSMessage in GSMessages|filterSubArray:curPageIndex">
+                                    <a href="javascript:void(0);" ng-click="ChangeCur(GSMessage)">
+                                        <div class="tg-div-tool">
+                                            <div class="div-lix-left">
+                                                <i ng-if="GSMessage.ContentType=='text'" class="fa fa-pencil fa-3x"></i>
+                                                <i ng-if="GSMessage.ContentType=='image'" class="fa fa-photo fa-3x"></i>
+                                                <i ng-if="GSMessage.ContentType=='voice'" class="fa fa-volume-up fa-3x"></i>
+                                                <i ng-if="GSMessage.ContentType=='video'" class="fa fa-video-camera fa-3x"></i>
+                                                <i ng-if="GSMessage.ContentType=='mpnews'" class="fa fa-newspaper-o fa-3x"></i>
+                                                <i ng-if="GSMessage.ContentType=='news'" class="fa fa-newspaper-o fa-3x"></i>
+                                                <b class="b-imp">{{GSMessage.ID}}</b>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                        <div class="div-lix-info">
+                                            <div>
+                                                <span ng-if="GSMessage.SType==1" class="span_sym span_scount">全部用戶</span>
+                                                <span ng-if="GSMessage.SType!=1" class="span_sym span_scount" name="{{GSMessage.STargetCount}}">{{GSMessage.STargetName}}</span>
+                                            </div>
+                                            <div>
+                                                <span>{{GSMessage.UserID}}</span>
+                                                <span>{{GSMessage.MTimeX}}</span>
+                                            </div>
+                                        </div>
+                                            <div class="div-lix-right">
+                                                <div>
+                                                    <span ng-if="GSMessage.SState!=1" class="label label-md label-warning">{{GSMessage.SStateX}}</span>
+                                                    <span ng-if="GSMessage.SState==1" class="label label-md label-default">{{GSMessage.SStateX}}</span>
+                                                </div>
+                                            </div>
+
+                                            <!--<hr style="filter: alpha(opacity=100,finishopacity=0,style=1); width: 100%;" />-->
+                                        </div>
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="div-gsvtable" class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover no-margin-bottom">
+                                <thead>
+                                    <tr>
+                                        <th>消息編號</th>
+                                        <th>修改人員</th>
+                                        <th>修改時間</th>
+                                        <th>應用</th>
+                                        <th>類型</th>
+                                        <th>保密</th>
+                                        <th>發送群體</th>
+                                        <th>發送狀態</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="GSMessage in GSMessages|filterSubArray:curPageIndex">
+                                        <td>{{GSMessage.ID}}</td>
+                                        <td>{{GSMessage.UserID}}</td>
+                                        <td>{{GSMessage.MTimeX}}</td>
+                                        <th>
+                                            <p>
+                                                <a href="javascript:void(0)">
+                                                    <img ng-src="{{GSMessage.SQYApp.round_logo_url}}" style="width: 20px; height: 20px">
+                                                </a>
+                                                <span>{{GSMessage.SQYApp.aid}}</span>
+                                                <span>{{GSMessage.SQYApp.name}}</span>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <img ng-if="GSMessage.ContentType=='text'" src="/Images/common/文本g.png">
+                                            <img ng-if="GSMessage.ContentType=='image'" src="/Images/common/图片g.png">
+                                            <img ng-if="GSMessage.ContentType=='voice'" src="/Images/common/音频g.png">
+                                            <img ng-if="GSMessage.ContentType=='video'" src="/Images/common/视频g.png">
+                                            <img ng-if="GSMessage.ContentType=='mpnews'" src="/Images/common/图文g.png">
+                                            <img ng-if="GSMessage.ContentType=='news'" src="/Images/common/图文g.png">
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-lock fa-lg" ng-if="GSMessage.safe==1"></i>
+                                            <i class="fa fa-unlock fa-lg" ng-if="GSMessage.safe!=1"></i>
+                                        </td>
+                                        <td>
+                                            <!-- <span ng-if="GSMessage.SType==1" class="span_sym span_scount">全部用戶</span>
+                                        <span ng-if="GSMessage.SType!=1" class="span_sym span_scount" name="{{GSMessage.STargetCount}}">{{GSMessage.STargetName}}</span>-->
+                                            <div>
+                                                <p ng-show="GSMessage.STargetQY.touser!='@all'&&GSMessage.STargetQY.touser!=''">人员：<span>{{GSMessage.STargetQY.touser}}</span></p>
+                                                <p ng-show="GSMessage.STargetQY.toparty!='@all'&&GSMessage.STargetQY.toparty!=''">部门：<span>{{GSMessage.STargetQY.toparty}}</span></p>
+                                                <p ng-show="GSMessage.STargetQY.totag!='@all'&&GSMessage.STargetQY.totag!=''">标签：<span>{{GSMessage.STargetQY.totag}}</span></p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span ng-if="GSMessage.SState!=1" class="label label-sm label-warning">{{GSMessage.SStateX}}</span>
+                                            <span ng-if="GSMessage.SState==1" class="label label-sm label-primary">{{GSMessage.SStateX}}</span>
+                                        </td>
+                                        <td>
+                                            <a ng-click="ChangeCur(GSMessage)" href="javascript:void(0);">
+                                                <span ng-if="GSMessage.SState==1">預覽審核</span>
+                                                <span ng-if="GSMessage.SState!=1">查   看</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row" style="margin-left: 1px;">
+                            <ul class="pagination" style="margin-top: 0px; margin-bottom: 0px;">
+                                <li><a href="javascript:void(0);" ng-click="ChangeTbPage(1)">&laquo;</a></li>
+                                <li ng-repeat="i in pageCount"><a href="javascript:void(0);" ng-click="ChangeTbPage(i)">{{i}}</a></li>
+                                <!--<li><a href="#">&raquo;</a></li>-->
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="panel panel-default" style="width: 345px">
+                            <div class="panel-body" style="padding-top: 0;">
+                                <div class="row" id="fra">
+                                    <div style="position: relative; color: #000; width: auto; height: 610px">
+                                        <div style="position: absolute; z-index: 1; left: 10px; background: url('/Images/common/phone.png'); width: 320px; height: 628px;">
+                                        </div>
+                                        <div style="position: absolute; z-index: 2; left: 17px; top: 148px; overflow: auto; background: #ffffff; width: 300px; height: 350px;">
+
+                                            <div ng-show="CurCType=='text'" class="row well" style="width: 250px; margin-top: 5px; margin-left: 10px">
+                                                <img src="/Images/common/user.jpg" style="width: 30px; height: 30px" />
+                                                <textarea ng-model="text" style="margin-left: 5px; margin-top: 5px; width: 96%" class="form-control" rows="7" disabled></textarea>
+                                            </div>
+                                            <div ng-controller="PictureListCtrl" ng-show="CurCType=='image'" class="row well" style="width: 285px; margin-top: 5px; margin-left: 10px">
+                                                <wxpicturedisplay></wxpicturedisplay>
+                                            </div>
+                                            <div ng-controller="VoiceListCtrl" ng-show="CurCType=='voice'" class="row" style="width: 285px; margin-top: 5px; margin-left: 10px;">
+                                                <wxvoiceplay></wxvoiceplay>
+                                            </div>
+                                            <div ng-controller="VideoListCtrl" ng-show="CurCType=='video'" class="row" style="width: 285px; margin-top: 5px; margin-left: 10px;">
+                                                <wxvideoplay></wxvideoplay>
+                                            </div>
+                                            <div ng-controller="ArticleListCtrl" ng-show="CurCType=='mpnews'||CurCType=='news'" class="row" style="width: 285px; margin-top: 5px; margin-left: 10px">
+                                                <wxarticledisplay></wxarticledisplay>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <button ng-click="displayBtn=1" style="width: 200px; margin-left: 10px" class="btn btn-primary btn-sm">
+                                    <i ng-if="CurCType=='text'" class="fa fa-pencil fa-lg"></i>
+                                    <i ng-if="CurCType=='image'" class="fa fa-photo fa-lg"></i>
+                                    <i ng-if="CurCType=='voice'" class="fa fa-volume-up fa-lg"></i>
+                                    <i ng-if="CurCType=='video'" class="fa fa-video-camera fa-lg"></i>
+                                    <i ng-if="CurCType=='mpnews'" class="fa fa-newspaper-o fa-lg"></i>
+                                    <i ng-if="CurCType=='news'" class="fa fa-newspaper-o fa-lg"></i>
+                                    審核通過并群發消息
+                                </button>
+                                <button ng-if="displayBtn==1" id="ui_btnLoading" data-loading-text="發送中，請稍後……" type="button" class="btn btn-success btn-sm" ng-click="SendGroupMessage()">確認</button>
+                                <button ng-if="displayBtn==1" ng-click="CancelSend()" class="btn btn-danger btn-sm">取消</button>
+                                <!-- <input style="width: 200px; float: right; margin-right: 20px" type="text" class="form-control" value="您本月還能群發0條信息">-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

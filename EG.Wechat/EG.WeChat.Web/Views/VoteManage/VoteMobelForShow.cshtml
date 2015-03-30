@@ -1,0 +1,123 @@
+﻿@model EG.WeChat.Platform.BL.QYVote.VoteBL
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/themes/default/easyui.css">
+ <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/themes/icon.css">
+ <link rel="stylesheet" type="text/css" href="~/Scripts/easyui/demo.css">
+ <script type="text/javascript" src="~/Scripts/easyui/jquery.min.js"></script>
+ <script type="text/javascript" src="~/Scripts/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript">
+        var mid = '@ViewBag.userid';
+        var vid = '@ViewBag.vid';
+
+        function vsubmit() {
+            var optids = "";
+            $("input[name=opt]:checked").each(function () {
+
+
+                optids += ($(this).val() + "|");
+
+            });
+
+            if (optids == "") {
+                $.messager.alert('驗證結果', '請至少選擇一個選項', 'error');
+                return;
+            }
+
+            $("#sumbtn").hide();
+
+
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/VoteManage/AddMemberVote")",
+             cache: false,
+             async: false,
+             data: "{'MemberID':'" + mid + "','VoteID':'" + vid + "','optids':'" + optids + "'}",
+             datatype: "json",
+             contentType: 'application/json;charset=utf-8',
+             success: function (data) {
+                 if (data.rescode == 200) {
+                     alert('投票成功!');
+
+
+                 } else {
+                     $.messager.alert('操作結果', '投票操作失敗', 'error');
+                     $("#sumbtn").show();
+                 }
+
+             },
+
+             complete: function (k, data) {
+                 // alert(k.getResponseHeader("Location"));
+                 //  return list;
+             },
+
+             error: function (msg) {
+                 alert(JSON.stringify(msg));
+                 $("#sumbtn").show();
+             },
+                //   async: false ,
+
+             statusCode: {
+                 201: function () {
+                     // alert("");
+
+                 },
+                 406: function () {
+                     alert("false");
+                 }
+
+             }
+
+            });
+     }
+
+    </script>
+    <title>@Model.Title</title>
+</head>
+<body>
+    <div>
+        <div style="text-align:center;font-size:20px;padding-bottom:8px" >@Model.Title</div>
+        <div style="font-size:15px;padding-bottom:5px">@Model.Context</div>
+        <div style="padding-top:15px">
+            @{ 
+                if(Model.vtype=="1")
+                {
+                    for(int i=0;i<Model.Options.Count;i++)
+                    {
+                        <div style="padding-bottom:20px;font-size:16px">
+                            <input type="radio" name="opt" value="@Model.Options[i].ID"  @(((EG.WeChat.Platform.BL.QYVote.MemberVote)ViewBag.mv).opts.Exists(p=>p.ID==Model.Options[i].ID)?"checked='checked'":"") />@Model.Options[i].OptinContext 
+                        </div>
+                    }  
+              
+                }
+                else
+                {
+                    for(int i=0;i<Model.Options.Count;i++)
+                    {
+                        <div style="padding-bottom:20px;font-size:16px">
+                             <input type="checkbox" name="opt" value="@Model.Options[i].ID" @(((EG.WeChat.Platform.BL.QYVote.MemberVote)ViewBag.mv).opts.Exists(p=>p.ID==Model.Options[i].ID)?"checked='checked'":"") />@Model.Options[i].OptinContext  
+                        </div>
+                    }  
+                }
+              }
+        </div>
+        <div style="padding-top:5px;text-align:center">
+            <div >
+               <button onclick="vsubmit()" id="sumbtn" disabled="disabled">提交</button>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -42,6 +42,7 @@
     @Scripts.Render("~/Scripts/jquery.json-2.3.min.js")
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     @Scripts.Render("~/Bundles/angularjs")
+    @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap-tpls.js")
     <!-- Dropzone -->
     @Scripts.Render("~/Bundles/dropzonejs")
     <!-- Controllers -->
@@ -54,57 +55,7 @@
     <!-- EGCommon -->
     @Scripts.Render("~/Bundles/egcommonjs")
 
-    <style>
-        #dropZone {
-            background: gray;
-            border: black dashed 3px;
-            width: 200px;
-            padding: 50px;
-            text-align: center;
-            color: white;
-        }
-    </style>
-    <div class="container-fluid">
-        <div class="row" style="margin-left: 10px; margin-right: 10px">
-            <div class="col-md-7">
-                <wxpictures></wxpictures>
-            </div>
-            <div class="col-md-5">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <p>选择上传图片资源</p>
-                        <div class="btn-group btn-group-sm btn-group-block" data-toggle="buttons">
-                            <label class="btn btn-default active">
-                                <input type="checkbox" autocomplete="off" checked>
-                                微信資源
-                            </label>
-                            <label class="btn btn-default">
-                                <input type="checkbox" autocomplete="off">
-                                本地資源
-                            </label>
-                        </div>
-
-                        <div class="jumbotron_M">
-                            <form dropzonex action="/WXResource/ImageUpLoad" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
-                                <div class="fallback">
-                                    <input name="file" type="file" multiple />
-                                    <input type="submit" value="Upload" />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit" id="submit-all" disabled="disabled" class="btn btn-primary btn-lg btn-block">上  传</button>
-                    </div>
-                    <div class="panel-footer">圖片資源上傳</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
+    <wxpictureconfig></wxpictureconfig>
 </body>
 </html>
 

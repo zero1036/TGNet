@@ -19,6 +19,11 @@ namespace EG.WeChat.Web.Controllers.QY
             return View();
         }
 
+        /// <summary>
+        /// 根据部门主键id获取该部门下（包括子部门的所有成员）
+        /// </summary>
+        /// <param name="ID">部门主键id</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult GetMemberByDepPKID(string ID)
         {
@@ -42,13 +47,28 @@ namespace EG.WeChat.Web.Controllers.QY
             return Json(memberVMList);
         }
 
+        /// <summary>
+        /// 增加部门
+        /// </summary>
+        /// <param name="memberBl">部门类</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult AddMember(QYMemberBL memberBl)
         {
+            if (memberBl.UserId == QYMemberBL.GetMemberByWXID(memberBl.UserId).UserId)
+            {
+                return Json(new { IsSuccess = false, ErrorMeg = "賬號" + memberBl.UserId + "已存在！" });
+            }
+            memberBl.Status = "4";
             QYDepartmentBL departBl = QYDepartmentBL.GetByPKID(memberBl.DepartmentPKId.ToString());
             return Json(new { IsSuccess =memberBl.AddMember(string.Empty,ref meg,departBl.DepartmentID), ErrorMeg = meg });
         }
 
+        /// <summary>
+        /// 获取单一成员信息
+        /// </summary>
+        /// <param name="memberID">成员主键id</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult GetMemberItem(string memberID)
         {
@@ -67,6 +87,11 @@ namespace EG.WeChat.Web.Controllers.QY
             return Json(member);
         }
 
+        /// <summary>
+        /// 更新部门
+        /// </summary>
+        /// <param name="memberBl"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult UpdateMember(QYMemberBL memberBl)
         {
@@ -76,6 +101,12 @@ namespace EG.WeChat.Web.Controllers.QY
             return Json(new { IsSuccess = memberBl.UpdateMember(string.Empty,ref meg), ErrorMeg = meg });
         }
 
+        /// <summary>
+        /// 删除成员
+        /// </summary>
+        /// <param name="memberID">成员主键id</param>
+        /// <returns></returns>
+        [HttpPost]
         public ActionResult DeleteMember(string memberID)
         {
             QYMemberBL memberBl =QYMemberBL.GetMemberByPKID(memberID);

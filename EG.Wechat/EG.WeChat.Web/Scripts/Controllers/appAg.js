@@ -31,5 +31,9 @@ appRoot.config(['$routeProvider', '$locationProvider', function ($routeProvider,
         .when('/QYConfig/App', { templateUrl: '/Scripts/Views/Page/QYApp.html', controller: 'QyappCtrl' })
         .when('/QYConfig/AppMenu', { templateUrl: '/Scripts/Views/Page/QYAppMenu.html', controller: 'QyappmenuCtrl' })
         .when('/WXResource/KWConfig', { templateUrl: '/Scripts/Views/Page/KWConfig.html', controller: 'KwcfgCtrl' })
+        .when('/QYMessage/Index', { templateUrl: '/Scripts/Views/Page/QYMessageSend.html', controller: 'QYMessageSendCtrl' })
+        .when('/QYMessage/QYMsReview', { templateUrl: '/Scripts/Views/Page/QYMsReview.html', controller: 'QYMsReviewCtrl' })
+        .when('/QYDepart/Index', { templateUrl: '/QYDepart/Index', controller: 'BaseCtrl' })
+        .when('/VoteManage/Index', { templateUrl: '/VoteManage/Index', controller: 'BaseCtrl' })
         .otherwise({ redirectTo: '/' });
-}]);
+}]); 

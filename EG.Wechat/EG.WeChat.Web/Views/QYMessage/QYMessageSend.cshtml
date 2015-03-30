@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "QYMessageSend";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html ng-app="WXApp">
+<head>
+    <meta charset="utf-8">
+    <!--IE兼容标签-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--响应式布局-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--默认使用webkit内核进行渲染-->
+    <meta name="renderer" content="webkit">
+    <!-- bootstrapcss 采用百度CDN -->
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ace styles -->
+    <link rel="stylesheet" href="~/Content/ace/ace.min.css" />
+    <!-- 本页定制CSS -->
+    <style>
+        .tab_navs, .tab_navs li {
+            list-style: none; /* 将默认的列表符号去掉 */
+            padding: 0; /* 将默认的内边距去掉 */
+            margin: 0; /* 将默认的外边距去掉 */
+            margin-left: 7px;
+            margin-right: 30px;
+            margin-top: 4px;
+        }
+
+            .tab_navs li {
+                float: left;
+            }
+    </style>
+</head>
+
+<body ng-controller="QYMessageSendCtrl">
+
+    <!-- 採用CDN數據源，JQuery Bootstrap 由于Jquery2.0版本以上不支持IE678，改用1.9.1-->
+    <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>  
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+     @*<link href="~/Scripts/Bootstrap/css/bootstrap.css" rel="stylesheet" />*@  
+    <!--jquery.json-->
+    @Scripts.Render("~/Scripts/jquery.json-2.3.min.js")
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    @Scripts.Render("~/Bundles/angularjs")
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    @*<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>*@
+    <!-- Controllers -->
+    @Scripts.Render("~/Scripts/Controllers/app.js")
+    @Scripts.Render("~/Scripts/Controllers/WXBaseController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXOrgController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXResController.js")
+    @Scripts.Render("~/Scripts/Controllers/WXService.js")
+    @Scripts.Render("~/Scripts/Controllers/WXDirective.js")
+    <!-- EGCommon -->
+    @Scripts.Render("~/Bundles/egcommonjs")
+
+      <link href="/Content/authority/zTreeStyle.css" rel="stylesheet" />
+    <script src="/Scripts/zTree/jquery.ztree.core-3.2.js"></script>
+    <script src="/Scripts/zTree/jquery.ztree.exedit-3.2.js"></script>
+    <script src="/Scripts/zTree/jquery.ztree.excheck-3.2.js"></script>
+
+    <qymessagesend></qymessagesend>
+
+</body>
+</html>
+
+

@@ -24,3 +24,19 @@ WXService.factory('ResourceService', ['$http', function ($http) {
     }
     return factory;
 }]);
+
+//获取部门下成员
+WXService.factory('memberService', ['$http', function ($http) {
+    var service = {};
+    var param = {};
+    var result = {};
+    var url;
+
+    //獲取成員列表
+    service.getMemberList = function (depPKID) {
+        param.ID = depPKID;
+        url = '/QYMember/GetMemberByDepPKID';
+        return $http.post(url, param);
+    };
+    return service;
+}]);
