@@ -22,6 +22,7 @@ namespace EG.WeChat.Platform.DA
     {
         #region 数据库结构
         public static readonly string TABLE_NAME = "WC_CONFIG";
+        public static readonly string PRO_UPDATE_NAME = "PRO_WC_CONFIG_UPDATE";
         public static readonly string FIELD_NAME_ID = "id";
         public static readonly string FIELD_NAME_ACTYPE = "actype";
         public static readonly string FIELD_NAME_ACID = "acid";
@@ -45,7 +46,18 @@ namespace EG.WeChat.Platform.DA
             string strSql = string.Format("select * from {0}", TABLE_NAME);
             return template.Query(strSql, null, null, null);
         }
-       
+        /// <summary>
+        /// 更新配置
+        /// </summary>
+        /// <param name="dt"></param>
+        public bool SetWXConfig(DataTable dt)
+        {
+            DataSet ds = template.ExecuteX(PRO_UPDATE_NAME, new string[] { "@tb" }, new object[] { dt }, null, CommandType.StoredProcedure);
+            if (ds != null && ds.Tables.Count != 0 && ds.Tables[0].Rows.Count != 0)
+                return true;
+            return false;
+        }
+
         #endregion
 
     }

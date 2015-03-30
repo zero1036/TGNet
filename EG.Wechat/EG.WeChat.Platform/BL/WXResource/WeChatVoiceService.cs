@@ -14,6 +14,7 @@ using System.Net;
 using System.Web;
 using EG.WeChat.Service;
 using EG.WeChat.Utility.Tools;
+using EG.WeChat.Utility.WeiXin;
 using EG.WeChat.Platform.Model;
 /*****************************************************
 * 目的：微信音頻资源管理服务
@@ -28,11 +29,17 @@ namespace EG.WeChat.Platform.BL
 {
     public class WeChatVoiceService : WeChatResourcesService
     {
-        protected string m_strTargetType = "Voice";
+        protected string m_strTargetType = "voice";
         protected string m_strFormat = "amr";
-        protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.voice;
+        //protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.voice;
         private string m_ServerPath = "/Images/WXResources/Voice";
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sdkType"></param>
+        public WeChatVoiceService(string sdkType)
+            : base(sdkType)
+        { }
         /// <summary>
         /// 上传音頻资源到微信服务器，并写入本地服务器配置文件
         /// </summary>
@@ -53,7 +60,7 @@ namespace EG.WeChat.Platform.BL
                     pResult.lcName = lcName;
                     pResult.lcClassify = lcClassify;
                     //更新资源（上传至微信端，并写入本地配置）
-                    base.UpdateResources<UploadResultJsonX, UploadResultJson, WXVoiceResultJson>(pResult, m_UploadMediaFileType, m_strTargetType, pResult.APath);
+                    base.UpdateResources<WXVoiceResultJson>(pResult, m_strTargetType, pResult.APath);
                 }
             });
             return pResultList;
@@ -106,6 +113,5 @@ namespace EG.WeChat.Platform.BL
             });
             return pResult;
         }
-
     }
 }

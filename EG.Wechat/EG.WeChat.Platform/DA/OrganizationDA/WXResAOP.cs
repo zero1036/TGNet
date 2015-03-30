@@ -30,7 +30,7 @@ namespace EG.WeChat.Platform.DA
         /// <param name="iCreateTime"></param>
         /// <param name="iSourceType"></param>
         /// <returns></returns>
-        public virtual int? SaveResource(int? lcid, string lcname, string lcclassify, string media_Id, string media_Type, string content, DateTime iCreateTime, int iSourceType)
+        public virtual int? SaveResource(int? lcid, string lcname, string lcclassify, string media_Id, string media_Type, string content, DateTime iCreateTime, int iSourceType, int iWxType)
         {
             return null;
         }

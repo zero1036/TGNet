@@ -82,6 +82,9 @@
     <Compile Include="BL\QYMailList\QYConfig.cs" />
     <Compile Include="BL\QYMailList\QYDepartmentBL.cs" />
     <Compile Include="BL\QYMailList\QYMemberBL.cs" />
+    <Compile Include="BL\QYNotice\NoticeBL.cs" />
+    <Compile Include="BL\QYNotice\NoticeCollection.cs" />
+    <Compile Include="BL\QYStatistic\FuncStatistic.cs" />
     <Compile Include="BL\QYVote\VoteBL.cs" />
     <Compile Include="BL\QYVote\VoteCollection.cs" />
     <Compile Include="BL\QYVote\VoteMember.cs" />
@@ -90,6 +93,10 @@
     <Compile Include="BL\ResponseCustomHandler\CustomHandler_QueryEGProductPrice.cs" />
     <Compile Include="BL\ResponseCustomHandler\CustomHandler_ShareMessage.cs" />
     <Compile Include="BL\ResponseCustomHandler\CustomHandler_UpdateAccountNickname.cs" />
+    <Compile Include="BL\SdkETS\ISdkETS.cs" />
+    <Compile Include="BL\SdkETS\MPSdkETS.cs" />
+    <Compile Include="BL\SdkETS\QYSdkETS.cs" />
+    <Compile Include="BL\SdkETS\SDKETSFactory.cs" />
     <Compile Include="BL\Security\AccessRightBL.cs" />
     <Compile Include="BL\Security\GroupBL.cs" />
     <Compile Include="BL\Security\MenuBL.cs" />
@@ -117,6 +124,8 @@
     <Compile Include="DA\OrganizationDA\WXResAOP.cs" />
     <Compile Include="DA\QYMaiListDA\QYDepartmentDA.cs" />
     <Compile Include="DA\QYMaiListDA\QYMemberDA.cs" />
+    <Compile Include="DA\QYNoticeDA\NoticeDA.cs" />
+    <Compile Include="DA\QYStatisticDA\QYStatisticDA.cs" />
     <Compile Include="DA\QYVote\VoteDA.cs" />
     <Compile Include="DA\SecurityDA\AccessRightDA.cs" />
     <Compile Include="DA\SecurityDA\GroupDA.cs" />
@@ -130,6 +139,7 @@
     <Compile Include="Model\MarketM\CardContent.cs" />
     <Compile Include="Model\MarketM\CardType.cs" />
     <Compile Include="Model\MarketM\MemberM.cs" />
+    <Compile Include="Model\QY\SendTarget.cs" />
     <Compile Include="Model\UserMessage\MediaM.cs" />
     <Compile Include="Model\UserMessage\TextM.cs" />
     <Compile Include="Model\WXConfig\WXConfigM.cs" />

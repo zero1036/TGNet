@@ -82,7 +82,7 @@ namespace EG.WeChat.Platform.BL
                 case UploadMediaFileType.thumb:
                 case UploadMediaFileType.image:
                     {
-                        WeChatPictureService service    = new WeChatPictureService();
+                        WeChatPictureService service    = new WeChatPictureService("QY");
                         localId                         = service.DownLoadResources(MediaId);
                         EGExceptionResult pResult       = service.GetActionResult();
                         if ( pResult != null  )
@@ -97,7 +97,7 @@ namespace EG.WeChat.Platform.BL
 
                 case UploadMediaFileType.voice:
                     {
-                        WeChatVoiceService service  = new WeChatVoiceService();
+                        WeChatVoiceService service = new WeChatVoiceService("QY");
                         localId                     = service.DownLoadResources(MediaId);
                         EGExceptionResult pResult   = service.GetActionResult();
                         if (pResult != null)

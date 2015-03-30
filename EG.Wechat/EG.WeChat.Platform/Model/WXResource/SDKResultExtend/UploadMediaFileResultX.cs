@@ -14,7 +14,7 @@ using Senparc.Weixin.MP.Entities;
 *****************************************************/
 namespace EG.WeChat.Platform.Model
 {
-    public class UploadMediaFileResultX : WXResultJson, IWXResultJon2<UploadMediaFileResult>
+    public class UploadMediaFileResultX : WXResultJson, IWXResultJon2
     {
         private UploadMediaFileResult _UploadResultJson;
         /// <summary>
@@ -31,6 +31,17 @@ namespace EG.WeChat.Platform.Model
                 _UploadResultJson = value;
                 this.media_id = value.media_id;
                 this.created_at = value.created_at;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        public void SetUploadResultJson(object obj)
+        {
+            if (obj is UploadMediaFileResult)
+            {
+                this.UploadResultJson = (UploadMediaFileResult)obj;
             }
         }
     }

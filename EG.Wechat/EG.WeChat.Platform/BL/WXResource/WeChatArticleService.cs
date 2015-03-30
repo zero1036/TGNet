@@ -13,6 +13,7 @@ using System.Net;
 using System.Web;
 using EG.WeChat.Service;
 using EG.WeChat.Utility.Tools;
+using EG.WeChat.Utility.WeiXin;
 using EG.WeChat.Platform.Model;
 using System.Web.Caching;
 /*****************************************************
@@ -31,13 +32,27 @@ namespace EG.WeChat.Platform.BL
     /// </summary>
     public class WeChatArticleService : WeChatResourcesService
     {
-        protected string m_strTargetType = "News";
+        protected string m_strTargetType = "news";
         protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.news;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sdkType"></param>
+        public WeChatArticleService(string sdkType)
+            : base(sdkType)
+        { }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sdkType"></param>
+        public WeChatArticleService(string sdkType, string targetType)
+            : base(sdkType)
+        { m_strTargetType = targetType; }
         /// <summary>
         /// 传图文资源到微信服务器，并写入本地服务器配置文件
         /// </summary>
         /// <param name="ListNews"></param>
-        public void UpdateResources(int? lcid, string lcname, string lcclassify, string ListNews)
+        public void UpdateResources(int? lcid, string lcname, string lcclassify, string ListNews, bool byLink)
         {
             this.ExecuteTryCatch(() =>
             {
@@ -48,6 +63,7 @@ namespace EG.WeChat.Platform.BL
                 pResult.lcId = lcid;
                 pResult.lcName = lcname;
                 pResult.lcClassify = lcclassify;
+                pResult.byLink = byLink;
 
                 //将前端生成json串转为段落实体集合:save用于保存本地数据库，段落增加Rpath字段，用于显示图片；out用于上传数据库
                 List<NewsModelX> pListNewsSave = CommonFunction.FromJsonTo<List<NewsModelX>>(ListNews);
@@ -60,7 +76,7 @@ namespace EG.WeChat.Platform.BL
                 //再将段落实体集合转换为数组
                 NewsModel[] pArray = pListNewsOut.ToArray();
                 //更新资源（上传至微信端，并写入本地配置）
-                base.UpdateResources<UploadMediaFileResultX, UploadMediaFileResult, WXArticleResultJson>(pResult, m_UploadMediaFileType, m_strTargetType, pArray);
+                base.UpdateResources<WXArticleResultJson>(pResult, m_strTargetType, pArray);
             });
         }
         /// <summary>
@@ -73,14 +89,20 @@ namespace EG.WeChat.Platform.BL
         /// <returns></returns>
         public List<WXArticleResultJson> LoadResources(int iPageIndex, int iRowCountInPage, string filterString, out int iRecordCount)
         {
-            List<WXArticleResultJson> pList = null;
-            int piRecordCount = 0;
+            var pList = new List<WXArticleResultJson>();
+            int piRecordCount1 = 0;
+            int piRecordCount2 = 0;
             this.ExecuteTryCatch(() =>
             {
                 //获取配置，并匹配实体集合
-                pList = base.LoadResourcesXForPages<WXArticleResultJson>(m_strTargetType, iPageIndex, iRowCountInPage, filterString, out piRecordCount);
+                var pListnews = base.LoadResourcesXForPages<WXArticleResultJson>("news", iPageIndex, iRowCountInPage, filterString, out piRecordCount1);
+                //获取配置，并匹配实体集合
+                var pListmpnews = base.LoadResourcesXForPages<WXArticleResultJson>("mpnews", iPageIndex, iRowCountInPage, filterString, out piRecordCount2);
+
+                if (pListnews != null && pListnews.Count != 0) pList.AddRange(pListnews);
+                if (pListmpnews != null && pListmpnews.Count != 0) pList.AddRange(pListmpnews);
             });
-            iRecordCount = piRecordCount;
+            iRecordCount = piRecordCount1 + piRecordCount2;
             return pList;
         }
         /// <summary>
@@ -95,8 +117,23 @@ namespace EG.WeChat.Platform.BL
             {
                 //获取配置，并匹配实体集合
                 List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>(m_strTargetType);
-
                 pResult = pList.Single(p => p.media_id == media_id);
+            });
+            return pResult;
+        }
+        /// <summary>
+        /// 读取单个图文资源本地配置
+        /// </summary>
+        /// <param name="media_id"></param>
+        /// <returns></returns>
+        public WXArticleResultJson LoadResourcesSingleBylcID(int lcid)
+        {
+            WXArticleResultJson pResult = null;
+            this.ExecuteTryCatch(() =>
+            {
+                //获取配置，并匹配实体集合
+                List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>(m_strTargetType);
+                pResult = pList.Single(p => p.lcId == lcid);
             });
             return pResult;
         }
@@ -112,7 +149,7 @@ namespace EG.WeChat.Platform.BL
             this.ExecuteTryCatch(() =>
             {
                 //获取配置，并匹配实体集合
-                List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>(m_strTargetType);
+                List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>("news");
                 WXArticleResultJson pEn = pList.Single(p => p.lcId == lcId);
                 if (pEn == null || pEn.ListNews == null || pEn.ListNews.Count == 0)
                 {
@@ -135,7 +172,73 @@ namespace EG.WeChat.Platform.BL
                 }
             });
             return pResult;
+
         }
+        /// <summary>
+        /// 读取本地单个图文资源本地配置
+        /// </summary>
+        /// <param name="lcId"></param>
+        /// <returns></returns>
+        public List<object> LoadResources2News(object objlcId, string targetType = "")
+        {
+            var pResult = new List<object>();
+            this.ExecuteTryCatch(() =>
+            {
+                if (!(objlcId is Int32)) return;
+                var lcId = Convert.ToInt32(objlcId);
+
+                targetType = targetType == "" ? m_strTargetType : targetType;
+
+                //获取配置，并匹配实体集合
+                List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>(targetType);
+                if (pList == null || pList.Count == 0)
+                    EGExceptionOperator.ThrowX<Exception>("没有编号对应图文消息", EGActionCode.缺少目标数据);
+                WXArticleResultJson pEn = pList.Single(p => p.lcId == lcId);
+                if (pEn == null || pEn.ListNews == null || pEn.ListNews.Count == 0)
+                    EGExceptionOperator.ThrowX<Exception>("没有编号对应图文消息", EGActionCode.缺少目标数据);
+                if (this.ArticleConvertFunc == null)
+                    EGExceptionOperator.ThrowX<Exception>("请设置图文消息转换方法", EGActionCode.未知错误);
+                //var pSelectFunc = m_sdk.GetNewsConvertFunc(targetType);
+                pResult = pEn.ListNews.Select(this.ArticleConvertFunc).ToList<object>();
+            });
+            return pResult;
+        }
+        ///// <summary>
+        ///// 读取本地单个图文资源本地配置
+        ///// </summary>
+        ///// <param name="lcId"></param>
+        ///// <returns></returns>
+        //public List<T> LoadResources2News<T>(object objlcId, string targetType = "")
+        //{
+        //    var pResult = new List<object>();
+        //    this.ExecuteTryCatch(() =>
+        //    {
+        //        if (!(objlcId is Int32)) return;
+        //        var lcId = Convert.ToInt32(objlcId);
+
+        //        targetType = targetType == "" ? m_strTargetType : targetType;
+
+        //        //获取配置，并匹配实体集合
+        //        List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>(targetType);
+        //        if (pList == null || pList.Count == 0)
+        //            EGExceptionOperator.ThrowX<Exception>("没有编号对应图文消息", EGActionCode.缺少目标数据);
+        //        WXArticleResultJson pEn = pList.Single(p => p.lcId == lcId);
+        //        if (pEn == null || pEn.ListNews == null || pEn.ListNews.Count == 0)
+        //            EGExceptionOperator.ThrowX<Exception>("没有编号对应图文消息", EGActionCode.缺少目标数据);
+        //        if (this.ArticleConvertFunc == null)
+        //            EGExceptionOperator.ThrowX<Exception>("请设置图文消息转换方法", EGActionCode.未知错误);
+        //        //var pSelectFunc = m_sdk.GetNewsConvertFunc(targetType);
+
+        //        if(this.ArticleConvertFunc as Func<
+
+        //        pResult = pEn.ListNews.Select(this.ArticleConvertFunc).ToList<T>();
+        //    });
+        //    return pResult;
+        //}
+        /// <summary>
+        /// 图文转换执行方法
+        /// </summary>
+        public Func<NewsModelX, object> ArticleConvertFunc { get; set; }
 
         #region 私有方法
         /// <summary>

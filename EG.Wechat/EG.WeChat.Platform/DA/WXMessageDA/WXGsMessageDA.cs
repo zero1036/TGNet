@@ -18,7 +18,8 @@ namespace EG.WeChat.Platform.DA
     public class WXGsMessageDA
     {
         #region 数据库结构
-        public static readonly string TABLE_NAME = "V_WC_GSMESSAGE";
+        public static readonly string TABLE_NAME_MP = "V_WC_GSMESSAGE";
+        public static readonly string TABLE_NAME_QY = "V_WC_QYMESSAGE";
         public static readonly string FIELD_NAME_ID = "id";
         public static readonly string FIELD_NAME_USERID = "userid";
         public static readonly string FIELD_NAME_MTIME = "mtime";
@@ -119,6 +120,30 @@ namespace EG.WeChat.Platform.DA
             set;
         }
         /// <summary>
+        /// 微信类型：1公众  2企业
+        /// </summary>
+        public int wx_type
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 应用ID
+        /// </summary>
+        public int agentid
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 保密消息
+        /// </summary>
+        public int safe
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 发送目标群組名稱
         /// </summary>
         public string STargetName
@@ -145,14 +170,15 @@ namespace EG.WeChat.Platform.DA
         /// 获取所有群发消息
         /// </summary>
         /// <returns></returns>
-        public DataTable GetGsMessage(string pFilter)
+        public DataTable GetGsMessage(string pFilter, int wxType)
         {
             string strSql = string.Empty;
+            var tableN = wxType == 1 ? TABLE_NAME_MP : TABLE_NAME_QY;
 
             if (string.IsNullOrEmpty(pFilter))
-                strSql = string.Format("select * from {0} order by {1} desc", TABLE_NAME, FIELD_NAME_MTIME);
+                strSql = string.Format("select * from {0} order by {1} desc", tableN, FIELD_NAME_MTIME);
             else
-                strSql = string.Format("select * from {0} {1} order by {2} desc", TABLE_NAME, pFilter, FIELD_NAME_MTIME);
+                strSql = string.Format("select * from {0} {1} order by {2} desc", tableN, pFilter, FIELD_NAME_MTIME);
             return template.Query(strSql, null, null, null);
         }
         /// <summary>
@@ -160,12 +186,13 @@ namespace EG.WeChat.Platform.DA
         /// </summary>
         /// <param name="pDic"></param>
         /// <returns></returns>
-        public DataTable GetGsMessage(IDictionary<string, object> pDic)
+        public DataTable GetGsMessage(IDictionary<string, object> pDic, int wxType)
         {
             if (pDic == null || pDic.Count == 0)
             {
-                return GetGsMessage(string.Empty);
+                return GetGsMessage(string.Empty, wxType);
             }
+            var tableN = wxType == 1 ? TABLE_NAME_MP : TABLE_NAME_QY;
             //生成where条件字句
             Dictionary2Where pOper = new Dictionary2Where();
             pOper.parse(pDic);
@@ -173,7 +200,7 @@ namespace EG.WeChat.Platform.DA
             string[] pPara = pOper.ParameterNames.Select(p => "@" + p).ToArray();
             object[] pValue = pOper.ParameterValues.ToArray();
             //查询SQL
-            string strSql = string.Format("select * from {0} {1} order by {2} desc", TABLE_NAME, strFilter, FIELD_NAME_MTIME);
+            string strSql = string.Format("select * from {0} {1} order by {2} desc", tableN, strFilter, FIELD_NAME_MTIME);
             return template.Query(strSql, pPara, pValue, null);
         }
         /// <summary>
@@ -186,9 +213,10 @@ namespace EG.WeChat.Platform.DA
         /// <param name="pState">状态</param>
         /// <param name="pLog">异常信息</param>
         /// <returns></returns>
-        public bool InsertGsMessage(string pUserID, DateTime pCreateTime, int pSendType, string pSendTarget, string pContentType, object pContent, int pState)
+        public bool InsertGsMessage(string pUserID, DateTime pCreateTime, int pSendType, string pSendTarget, string pContentType, object pContent, int pState, int wx_type, int agendId, int safe)
         {
-            int result = template.Execute(PRO_NAME_UPDATE, new string[] { "@Pid", "@Puserid", "@Pmtime", "@Pstime", "@Pstype", "@Pstarget", "@Pcontenttype", "@Pscontent", "@Psstate", "@Pslog" }, new object[] { null, pUserID, pCreateTime, null, pSendType, pSendTarget, pContentType, pContent, pState, null }, null, CommandType.StoredProcedure);
+            int result = template.Execute(PRO_NAME_UPDATE, new string[] { "@Pid", "@Puserid", "@Pmtime", "@Pstime", "@Pstype", "@Pstarget", "@Pcontenttype", "@Pscontent", "@Psstate", "@Pslog", "@Pwx_type", "@Pagentid", "@Psafe" },
+                new object[] { null, pUserID, pCreateTime, null, pSendType, pSendTarget, pContentType, pContent, pState, null, wx_type, agendId, safe }, null, CommandType.StoredProcedure);
             return result > 0;
         }
         /// <summary>
@@ -204,7 +232,7 @@ namespace EG.WeChat.Platform.DA
         /// <returns></returns>
         public bool UpdateGsMessage(int pId, string pUserID, DateTime pSendTime, int pSendType, string pSendTarget, int pState, string pLog)
         {
-            int result = template.Execute(PRO_NAME_UPDATE, new string[] { "@Pid", "@Puserid", "@Pmtime", "@Pstime", "@Pstype", "@Pstarget", "@Pcontenttype", "@Pscontent", "@Psstate", "@Pslog" }, new object[] { pId, pUserID, null, pSendTime, pSendType, pSendTarget, null, null, pState, pLog }, null, CommandType.StoredProcedure);
+            int result = template.Execute(PRO_NAME_UPDATE, new string[] { "@Pid", "@Puserid", "@Pmtime", "@Pstime", "@Pstype", "@Pstarget", "@Pcontenttype", "@Pscontent", "@Psstate", "@Pslog", "@Pwx_type", "@Pagentid", "@Psafe" }, new object[] { pId, pUserID, null, pSendTime, pSendType, pSendTarget, null, null, pState, pLog, null, null, null }, null, CommandType.StoredProcedure);
             return result > 0;
         }
         #endregion

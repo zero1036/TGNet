@@ -27,10 +27,17 @@ namespace EG.WeChat.Platform.BL
 {
     public class WeChatVideoService : WeChatResourcesService
     {
-        protected string m_strTargetType = "Video";
+        protected string m_strTargetType = "video";
         protected string m_strFormat = "mp4";
-        protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.video;
+        //protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.video;
         private string m_ServerPath = "/Images/WXResources/Video";
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sdkType"></param>
+        public WeChatVideoService(string sdkType)
+            : base(sdkType)
+        { }
         /// <summary>
         /// 上传視頻资源到微信服务器，并写入本地服务器配置文件
         /// 由於視頻需要轉換，需要等待，會引起幷發，需要加入等待處理隊列
@@ -81,7 +88,7 @@ namespace EG.WeChat.Platform.BL
                 pResult.lcName = lcName;
                 pResult.lcClassify = lcClassify;
                 //更新资源（上传至微信端，并写入本地配置）
-                base.UpdateResources<UploadResultJsonX, UploadResultJson, WXVideoResultJson>(pResult, m_UploadMediaFileType, m_strTargetType, pResult.APath);
+                base.UpdateResources<WXVideoResultJson>(pResult, m_strTargetType, pResult.APath);
             }
 
             return pResultList;
@@ -134,6 +141,6 @@ namespace EG.WeChat.Platform.BL
             });
             return pResult;
         }
-
+        
     }
 }

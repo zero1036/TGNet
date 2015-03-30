@@ -27,7 +27,7 @@ namespace EG.WeChat.Platform.BL.QYVote
                 if (_VoteMember == null)
                 {
                      VoteDA vda = new VoteDA();
-                    _VoteMember = vda.TableToEntity<VoteMember>(vda.GetVoteMemberByVote(ID.ToString()));
+                    _VoteMember = vda.TableToEntity<VoteMember>(vda.GetVoteMemberByVoteOption(ID.ToString()));
                 }
 
                 return _VoteMember;

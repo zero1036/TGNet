@@ -93,7 +93,7 @@ namespace EG.WeChat.Platform.BL.QYMailList
             }
         }
         /// <summary>
-        /// 新增Member
+        /// 更新Member
         /// </summary>
         /// <param name="CreateUserid">操作者ID</param>
         /// <param name="errMsg">返回错误信息</param>
@@ -104,7 +104,7 @@ namespace EG.WeChat.Platform.BL.QYMailList
             {
                 QYConfig.RegistWX();
                 var accessToken = AccessTokenContainer.GetToken(QYConfig.CorpId);
-                var result = MailListApi.UpdateMember(accessToken, UserId, Name, new int[] { int.Parse(DepartmentWXId) }, Position, Mobile, null, Email, Weixinid, 0);
+                var result = MailListApi.UpdateMember(accessToken, UserId, Name, new int[] { int.Parse(DepartmentWXId) }, Position, Mobile, null, Email, Weixinid);
                 if (result.errcode.ToString() == "请求成功")
                 {
                     if (MembertDA.UpdateMember(ID.ToString(),UserId, Name, Position, Mobile, Email, Weixinid, Avatar, Status, CreateBy,  DepartmentPKId.ToString()))
@@ -223,9 +223,10 @@ namespace EG.WeChat.Platform.BL.QYMailList
                     item = mlist.Find(p => p.userid == members[i].UserId);
                     if (item != null)
                     {
-                        if (item.status.ToString() != members[i].Status)
+                        if (item.status.ToString() != members[i].Status || item.avatar != members[i].Avatar)
                         {
                             members[i].Status = item.status.ToString();
+                            members[i].Avatar = item.avatar;
                             string errMsg = "";
                             members[i].UpdateMember("1", ref errMsg);
                         }
@@ -287,5 +288,33 @@ namespace EG.WeChat.Platform.BL.QYMailList
              return member;
         }
 
+        public static QYMemberBL GetMemberByWXID(string ID)
+        {
+            QYMemberDA MembertDA = new QYMemberDA();
+            QYMemberBL member=new QYMemberBL();
+            List <QYMemberBL> qyMemberList= MembertDA.TableToEntity<QYMemberBL>(MembertDA.GetMemberByWXID(ID));
+            if (qyMemberList.Count > 0)
+            {
+                member = qyMemberList.First();
+                var accessToken = AccessTokenContainer.GetToken(QYConfig.CorpId);
+                var m = MailListApi.GetMember(accessToken, member.UserId);
+                if (m != null)
+                {
+                    if (m.status.ToString() != member.Status)
+                    {
+                        member.Status = m.status.ToString();
+                        string errMsg = "";
+                        member.UpdateMember("1", ref errMsg);
+                    }
+                }
+            }
+
+             return member;
+        }
+
+        public bool ReadNotice(string nid)
+        {
+            return MembertDA.ReadNotice(ID.ToString(), nid);
+        }
     }
 }

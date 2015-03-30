@@ -103,7 +103,7 @@ namespace EG.WeChat.Platform.DA.QYVote
                         left join (select VoteHeadId,count(distinct QYMemberID) VoteMemberCount 
 	                     from  T_QY_VoteResult where DeleteDate is null group by VoteHeadId) t
                             on h.ID=t.VoteHeadId and h.DeleteDate is null 
-                            where h.id=@id
+                            where h.id=@id and h.deletedate is null
                        order by h.CreateDate desc";
                 return template.Query(sql, new string[] { "@id" },
                                     new object[] { id }, null);
@@ -114,6 +114,7 @@ namespace EG.WeChat.Platform.DA.QYVote
                         left join (select VoteHeadId,count(distinct QYMemberID) VoteMemberCount 
 	                     from  T_QY_VoteResult where DeleteDate is null group by VoteHeadId) t
                             on h.ID=t.VoteHeadId and h.DeleteDate is null 
+                        where h.deletedate is null
                        order by h.CreateDate desc";
                 return template.Query(sql, new string[] {  },
                                     new object[] {  }, null);
@@ -140,7 +141,7 @@ namespace EG.WeChat.Platform.DA.QYVote
         public DataTable GetVoteMemberByVote(string VoteID)
         {
             string sql;
-            sql = @" select distinct m.*,t.CreateDate VoteDate,p.OptionTitle ,t.VoteOptionID,t.VoteHeadId
+            sql = @" select distinct m.*,t.CreateDate VoteDate,p.OptionTitle ,p.OptinContext,t.VoteOptionID,t.VoteHeadId
 	from T_QY_Member m inner join  T_QY_VoteResult t
 	on m.ID=t.QYMemberID and m.DeleteDate is null and t.DeleteDate is null
 	inner join T_QY_VoteOption p on p.ID=t.VoteOptionID and t.DeleteDate is null and p.DeleteDate is null
@@ -157,7 +158,7 @@ namespace EG.WeChat.Platform.DA.QYVote
         public DataTable GetVoteMemberByVoteOption(string optionid)
         {
             string sql;
-            sql = @"  select distinct m.*,t.CreateDate VoteDate,p.OptionTitle ,t.VoteOptionID,t.VoteHeadId
+            sql = @"  select distinct m.*,t.CreateDate VoteDate,p.OptionTitle ,p.OptinContext,t.VoteOptionID,t.VoteHeadId
 	from T_QY_Member m inner join  T_QY_VoteResult t
 	on m.ID=t.QYMemberID and m.DeleteDate is null and t.DeleteDate is null
 	inner join T_QY_VoteOption p on p.ID=t.VoteOptionID and t.DeleteDate is null and p.DeleteDate is null
@@ -167,9 +168,43 @@ namespace EG.WeChat.Platform.DA.QYVote
         }
 
 
+        /// <summary>
+        /// 成員開始投票
+        /// </summary>
+        /// <param name="vid"></param>
+        /// <param name="mid"></param>
+        /// <param name="userid"></param>
+        /// <param name="optids"></param>
+        /// <returns></returns>
+        public bool AddMemberVote(string vid, string mid,string userid,string optids)
+        {
+            try
+            {
 
-        
+                string sql = @"PRO_WC_QY_AddMemberVote";
+                template.dbType = ADOTemplateX.DB_TYPE_SQLSERVER;
 
+                template.ExecuteX(sql, new string[] { "@vid", "@mid", "@userid", "@Optionid" },
+                                     new object[] { vid, mid, userid, optids }, null, CommandType.StoredProcedure);
+                return true;
+            }
+            catch (Exception e)
+            {
+                
+                Logger.Log4Net.Error("QY Update T_QY_Department error:", e);
+                throw e;
+            }
+            return false;
+        }
+
+        public DataTable GetMemberVote(string mid,string vid)
+        {
+            string sql;
+            sql = @"select p.* from T_QY_VoteResult t inner join T_QY_VoteOption p on t.VoteOptionID=p.ID
+	 where qymemberid=@mid and VoteHeadId=@vid";
+            return template.Query(sql, new string[] { "@mid","@vid" },
+                                new string[] { mid,vid }, null);
+        }
 
     }
 }

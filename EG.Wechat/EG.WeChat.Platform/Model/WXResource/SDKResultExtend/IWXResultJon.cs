@@ -37,15 +37,20 @@ namespace EG.WeChat.Platform.Model
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IWXResultJon2<T>
+    public interface IWXResultJon2
     {
+        ///// <summary>
+        ///// Senparc SDK接口要求ResultJson
+        ///// </summary>
+        //T UploadResultJson
+        //{
+        //    get;
+        //    set;
+        //}
         /// <summary>
-        /// Senparc SDK接口要求ResultJson
+        /// 
         /// </summary>
-        T UploadResultJson
-        {
-            get;
-            set;
-        }
+        /// <param name="obj"></param>
+        void SetUploadResultJson(object obj);
     }
 }

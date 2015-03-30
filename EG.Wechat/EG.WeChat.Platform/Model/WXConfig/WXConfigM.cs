@@ -70,39 +70,53 @@ namespace EG.WeChat.Platform.Model
                 return _aid.Value;
             }
         }
-
+        private bool _hasToken = false;
         private string _token = string.Empty;
         public string token
         {
             get
             {
-                if (string.IsNullOrEmpty(_token))
+                if (!_hasToken)
                 {
                     try
                     {
                         _token = Emperor.UtilityLib.CyberUtils.Decrypt("Aes", 256, base.TOKEN, WXConfigDA.FIELD_NAME_TOKEN);
+                        _hasToken = true;
                     }
                     catch { }
                 }
                 return _token;
             }
+            set { _token = value; }
         }
-
+        private bool _hasAesKey = false;
         private string _aeskey = string.Empty;
         public string aeskey
         {
             get
             {
-                if (string.IsNullOrEmpty(_aeskey))
+                if (!_hasAesKey)
                 {
                     try
                     {
                         _aeskey = Emperor.UtilityLib.CyberUtils.Decrypt("Aes", 256, base.AESKEY, WXConfigDA.FIELD_NAME_AESKEY);
+                        _hasAesKey = true;
                     }
                     catch { }
                 }
                 return _aeskey;
             }
+            set { _aeskey = value; }
+        }
+        public string aname
+        {
+            get;
+            set;
+        }
+        public string round_logo_url
+        {
+            get;
+            set;
         }
     }
 }

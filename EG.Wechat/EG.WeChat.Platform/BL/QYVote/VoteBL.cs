@@ -7,6 +7,7 @@ using Senparc.Weixin.QY.AdvancedAPIs;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using System.Data;
+using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
 namespace EG.WeChat.Platform.BL.QYVote
 {
     public class VoteBL
@@ -161,6 +162,13 @@ namespace EG.WeChat.Platform.BL.QYVote
             return null;
         }
 
+        public string Link {
+            get
+            {
+                return OAuth2Api.GetCode(QYMailList.QYConfig.CorpId, QYMailList.QYConfig.VoteLink + ID.ToString(), "");
+                 
+            }
+        }
       
     }
 }

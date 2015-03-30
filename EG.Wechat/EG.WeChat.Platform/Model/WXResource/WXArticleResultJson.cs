@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
 using System.Runtime.Serialization;
-using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
+using EG.WeChat.Utility.WeiXin;
 /*****************************************************
 * 目的：EG定制微信图文资源ResultJson
 * 创建人：林子聪
@@ -25,23 +22,17 @@ namespace EG.WeChat.Platform.Model
     public class WXArticleResultJson : LCResultJon
     {
         /// <summary>
-        /// 段落集合
+        /// 
         /// </summary>
-        public List<NewsModelX> ListNews
+        public bool byLink
         {
             get;
             set;
         }
-    }
-    /// <summary>
-    /// 段落擴展，添加縮略圖相對路徑
-    /// </summary>
-    public class NewsModelX : NewsModel
-    {
         /// <summary>
-        /// 
+        /// 段落集合
         /// </summary>
-        public string RPath
+        public List<NewsModelX> ListNews
         {
             get;
             set;

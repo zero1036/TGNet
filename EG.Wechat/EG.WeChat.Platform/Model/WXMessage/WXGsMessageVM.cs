@@ -66,6 +66,10 @@ namespace EG.WeChat.Platform.Model
                 {
                     return "圖文";
                 }
+                else if (strBase == "news")
+                {
+                    return "链接圖文";
+                }
                 return string.Empty;
             }
         }
@@ -99,6 +103,46 @@ namespace EG.WeChat.Platform.Model
         /// <summary>
         /// 
         /// </summary>
+        public object SQYApp
+        {
+            get
+            {
+                int agentid = base.agentid;
+                if (agentid < 1)
+                    return null;
+                EG.WeChat.Utility.WeiXin.IWXCorpInfo pc = EG.WeChat.Utility.WeiXin.WeiXinConfiguration.corpInfos.Single(p => p.aid == agentid);
+                return new
+                {
+                    round_logo_url = pc.round_logo_url,
+                    name = pc.aname,
+                    aid = pc.aid
+                };
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public object STargetQY
+        {
+            get
+            {
+                string qyuser = base.STarget;
+                object oj = EG.WeChat.Utility.Tools.CommonFunction.Json_DeserializeObject(qyuser);
+                if (oj is Dictionary<string, object>)
+                {
+                    var dic = (Dictionary<string, object>)(oj);
+                    var op = new { touser = dic["touser"], toparty = dic["toparty"], totag = dic["totag"] };
+                    return op;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public object ResultJson
         {
             get
@@ -111,23 +155,30 @@ namespace EG.WeChat.Platform.Model
                 }
                 else if (base.ContentType == "image")
                 {
-                    WeChatPictureService pSer = new WeChatPictureService();
+                    WeChatPictureService pSer = new WeChatPictureService("QY");
                     _ResultJson = pSer.LoadResourcesSingle(base.SContent);
                 }
                 else if (base.ContentType == "voice")
                 {
-                    WeChatVoiceService pSer = new WeChatVoiceService();
+                    WeChatVoiceService pSer = new WeChatVoiceService("QY");
                     _ResultJson = pSer.LoadResourcesSingle(base.SContent);
                 }
                 else if (base.ContentType == "video")
                 {
-                    WeChatVideoService pSer = new WeChatVideoService();
+                    WeChatVideoService pSer = new WeChatVideoService("QY");
                     _ResultJson = pSer.LoadResourcesSingle(base.SContent);
+                }
+                else if (base.ContentType == "news")
+                {
+                    WeChatArticleService pSer = new WeChatArticleService("QY", "news");
+                    var lcid = Convert.ToInt32(base.SContent);
+                    _ResultJson = pSer.LoadResourcesSingleBylcID(lcid);
                 }
                 else if (base.ContentType == "mpnews")
                 {
-                    WeChatArticleService pSer = new WeChatArticleService();
-                    _ResultJson = pSer.LoadResourcesSingle(base.SContent);
+                    WeChatArticleService pSer = new WeChatArticleService("QY", "mpnews");
+                    var lcid = Convert.ToInt32(base.SContent);
+                    _ResultJson = pSer.LoadResourcesSingleBylcID(lcid);
                 }
                 return _ResultJson;
             }

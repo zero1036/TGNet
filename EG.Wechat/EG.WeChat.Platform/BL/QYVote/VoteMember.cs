@@ -18,7 +18,7 @@ namespace EG.WeChat.Platform.BL.QYVote
         public string OptionTitle { get; set; }
 
         public int VoteOptionID { get; set; }
-
+        public string OptinContext { get; set; }
         public int VoteHeadId { get; set; }
 
     }

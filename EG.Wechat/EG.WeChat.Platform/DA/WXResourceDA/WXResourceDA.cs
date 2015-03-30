@@ -33,6 +33,7 @@ namespace EG.WeChat.Platform.DA
         public static readonly string FIELD_NAME_CTIME = "ctime";
         public static readonly string FIELD_NAME_LOSE = "lose";
         public static readonly string FIELD_NAME_SOURCE_TYPE = "source_type";
+        public static readonly string FIELD_NAME_WX_TYPE = "wx_type";
 
         private static readonly string m_tableName_WC_RESOURCE = "WC_RESOURCEX";
         private static readonly string m_proceName_GetRESOURCE = "select * from WC_RESOURCEX";
@@ -77,6 +78,10 @@ namespace EG.WeChat.Platform.DA
         /// 1:本地數據；2：微信接收數據
         /// </summary>
         public int? Source_Type { get; set; }
+        /// <summary>
+        /// null:所有类型适用；1:公众号适用；2：企业号适用
+        /// </summary>
+        public int? WX_Type { get; set; }
         #endregion
 
         #region 公有
@@ -84,12 +89,15 @@ namespace EG.WeChat.Platform.DA
         /// 通过资源类型获取所拥有资源
         /// </summary>
         /// <param name="media_Type"></param>
+        /// <param name="wxType"></param>
         /// <returns></returns>
-        public DataTable GetWXResources(string media_Type)
+        public DataTable GetWXResources(string media_Type, int wxType)
         {
-            string strsql = string.Format("select * from {0} where {1}=@PMediaType  order by {2} desc", m_tableName_WC_RESOURCE, FIELD_NAME_MEDIA_TYPE, FIELD_NAME_CTIME);
+            //var sqFilter = wxType == 0 ? string.Format("{0}=0", FIELD_NAME_WX_TYPE) : string.Format("({0}=0 or {0}=@PWxType)", FIELD_NAME_WX_TYPE);
+            var sqFilter = string.Format("{0}=@PWxType", FIELD_NAME_WX_TYPE);
+            string strsql = string.Format("select * from {0} where {1}=@PMediaType and {2}  order by {3} desc", m_tableName_WC_RESOURCE, FIELD_NAME_MEDIA_TYPE, sqFilter, FIELD_NAME_CTIME);
             //
-            return template.Query(strsql, new string[] { "@PMediaType" }, new object[] { media_Type }, null);
+            return template.Query(strsql, new string[] { "@PMediaType", "@PWxType" }, new object[] { media_Type, wxType }, null);
         }
         /// <summary>
         /// 保存单个资源
@@ -103,9 +111,9 @@ namespace EG.WeChat.Platform.DA
         /// <param name="iCreateTime"></param>
         /// <param name="iSourceType"></param>
         /// <returns></returns>
-        public override int? SaveResource(int? lcid, string lcname, string lcclassify, string media_Id, string media_Type, string content, DateTime iCreateTime, int iSourceType)
+        public override int? SaveResource(int? lcid, string lcname, string lcclassify, string media_Id, string media_Type, string content, DateTime iCreateTime, int iSourceType, int iWxType)
         {
-            DataSet result = template.ExecuteX(m_proceName_UpdateRESOURCE, new string[] { "@Plcid", "@Plcname", "@Plcclassify", "@Pmediaid", "@Pmediatype", "@Pcontent", "@Pctime", "@Psourcetype" }, new object[] { lcid, lcname, lcclassify, media_Id, media_Type, content, iCreateTime, iSourceType }, null, CommandType.StoredProcedure);
+            DataSet result = template.ExecuteX(m_proceName_UpdateRESOURCE, new string[] { "@Plcid", "@Plcname", "@Plcclassify", "@Pmediaid", "@Pmediatype", "@Pcontent", "@Pctime", "@Psourcetype", "@Pwxtype" }, new object[] { lcid, lcname, lcclassify, media_Id, media_Type, content, iCreateTime, iSourceType, iWxType }, null, CommandType.StoredProcedure);
             object obj = result.Tables[0].Rows[0][0];
             if (obj != null)
                 return Convert.ToInt32(obj);

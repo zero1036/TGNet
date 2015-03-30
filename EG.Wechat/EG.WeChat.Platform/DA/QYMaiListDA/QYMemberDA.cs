@@ -96,6 +96,28 @@ namespace EG.WeChat.Platform.DA.QYMaiListDA
                 new string[] { ID }, null);
         }
 
+        public DataTable GetMemberByWXID(string ID)
+        {
+            return template.Query("select * from T_QY_Member where userid=@ID and DeleteDate is null",
+                new string[] { "@ID" },
+                new string[] { ID }, null);
+        }
+
+        public bool ReadNotice(string mid, string nid)
+        {
+            try
+            {
+                template.Execute(@"update T_QY_Statistic set IsChecked=1 where FuncType=2 and MemberID=@mid and FuncID=@nid",
+                   new string[] { "@mid", "@nid" },
+                   new string[] { mid, nid }, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Log4Net.Error("DeleteMember database error:", e);
+                return false;
+            }
+        }
 
     }
 }

@@ -308,7 +308,7 @@ namespace EG.WeChat.Platform.DA
                     name = "@" + name;
                 }
 
-                Type t = paramValues[i].GetType();
+              
               
                     result[i] = new SqlParameter(name, paramValues[i]);
               

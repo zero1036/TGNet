@@ -32,4 +32,35 @@ namespace EG.WeChat.Platform.Model
             set;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class WXResultJsonWithCvn : WXResultJson, IWXResultJon2
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        public void SetUploadResultJson(object obj)
+        {
+            if (obj is Senparc.Weixin.QY.AdvancedAPIs.Media.UploadResultJson)
+            {
+                var rj = (Senparc.Weixin.QY.AdvancedAPIs.Media.UploadResultJson)obj;
+                this.media_id = rj.media_id;
+                this.created_at = rj.created_at;
+            }
+            else if (obj is Senparc.Weixin.MP.AdvancedAPIs.Media.UploadResultJson)
+            {
+                var rj = (Senparc.Weixin.MP.AdvancedAPIs.Media.UploadResultJson)obj;
+                this.media_id = rj.media_id;
+                this.created_at = rj.created_at;
+            }
+            else if (obj is Senparc.Weixin.MP.Entities.UploadMediaFileResult)
+            {
+                var rj = (Senparc.Weixin.MP.Entities.UploadMediaFileResult)obj;
+                this.media_id = rj.media_id;
+                this.created_at = rj.created_at;
+            }
+        }
+    }
 }

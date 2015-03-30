@@ -31,6 +31,7 @@ using EG.WeChat.Utility.Tools;
 using EG.WeChat.Platform.Model;
 using System.Web.Caching;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
+using Senparc.Weixin.QY.AdvancedAPIs.Media;
 /*****************************************************
 * 目的：微信资源管理（图文、图片、音频、视频）服务
 * 创建人：林子聪
@@ -47,6 +48,21 @@ namespace EG.WeChat.Platform.BL
     /// </summary>
     public class WeChatResourcesService : IServiceX, IServiceXCache
     {
+        #region 构造函数
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ISdkETS m_sdk = null;
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="sdkType"></param>
+        public WeChatResourcesService(string sdkType = "")
+        {
+            m_sdk = SDKETSFactory.GetSDK(sdkType);
+        }
+        #endregion
+
         #region 成员
         /// <summary>
         /// 微信分组缓存项
@@ -70,20 +86,23 @@ namespace EG.WeChat.Platform.BL
         /// <param name="pType"></param>
         /// <param name="strTargetType"></param>
         /// <param name="objResouceValue"></param>
-        protected void UpdateResources<SDKResultX, SDKResult, EGResult>(EGResult pWCResultJson, UploadMediaFileType pType, string strTargetType, object objResouceValue)
+        protected void UpdateResources<EGResult>(EGResult pWCResultJson, string strTargetType, object objResouceValue)
             where EGResult : IWXResultJon1, ILCResultJon, new()
-            where SDKResultX : IWXResultJon1, IWXResultJon2<SDKResult>, new()
+        //where SDKResultX : IWXResultJon1, IWXResultJon2, new()
         {
             try
             {
                 //将上传文件至微信服务器
-                object ova = UploadToWX(pType, objResouceValue);
-                //上传结果写入本地结果中
-                var pResult = new SDKResultX();
-                pResult.UploadResultJson = (SDKResult)ova;
-                //SDKResult pResult = (SDKResult)ova;
-                pWCResultJson.created_at = pResult.created_at;
-                pWCResultJson.media_id = pResult.media_id;
+                object ova = UploadToWX(strTargetType, objResouceValue, m_sdk.GetAToken, m_sdk.MediaUpload);
+                if (ova != null)
+                {
+                    //上传结果写入本地结果中
+                    var pResult = new WXResultJsonWithCvn();
+                    pResult.SetUploadResultJson(ova);
+                    //SDKResult pResult = (SDKResult)ova;
+                    pWCResultJson.created_at = pResult.created_at;
+                    pWCResultJson.media_id = pResult.media_id;
+                }
             }
             catch (Exception ex)
             {
@@ -231,7 +250,8 @@ namespace EG.WeChat.Platform.BL
 
             if (pList == null || pList.Count == 0)
             {
-                EGExceptionOperator.ThrowX<Exception>("沒有找到資源哦，點擊‘新建’按鈕添加！", EGActionCode.缺少目标数据);
+                iRecordCount = 0;
+                return null;
             }
             //查询目标总记录数
             iRecordCount = pList.Count;
@@ -497,15 +517,23 @@ namespace EG.WeChat.Platform.BL
         /// <param name="pType"></param>
         /// <param name="objResouceValue"></param>
         /// <returns></returns>
-        private object UploadToWX(UploadMediaFileType pType, object objResouceValue)
+        private object UploadToWX(string pType, object objResouceValue, Func<string> GetATokenFunc, Func<string, string, string, int, object> MediaUpload)
         {
-            //获取AccessToken
-            string strAccessToken = Senparc.Weixin.MP.CommonAPIs.WeiXinSDKExtension.GetCurrentAccessToken();
-            if (pType == UploadMediaFileType.news)
+            //获取AccessToken         
+            string strAccessToken = GetATokenFunc.Invoke();
+            if (m_sdk.WXType == 1 && (pType.ToUpper() == "NEWS" || pType.ToUpper() == "MPNEWS"))
+            {
                 return Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadNews(strAccessToken, 10000, (NewsModel[])objResouceValue);
+            }
+            else if (m_sdk.WXType == 2 && (pType.ToUpper() == "NEWS" || pType.ToUpper() == "MPNEWS"))
+            {
+                return null;
+            }
             else
+            {
                 //将上传文件至微信服务器
-                return Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Upload(strAccessToken, pType, (string)objResouceValue);
+                return MediaUpload(strAccessToken, pType, (string)objResouceValue, 10000);
+            }
         }
         /// <summary>
         /// 從微信服務器下載資源至本地
@@ -569,13 +597,14 @@ namespace EG.WeChat.Platform.BL
         /// <returns></returns>
         private DataTable GetWXResourcesFromCache(string strTargetType)
         {
+            var pt = m_sdk == null ? 0 : m_sdk.WXType;
             m_CacheConfig = new WXResourceCacheConfig(strTargetType);
             object obj = this.GetCache(m_CacheConfig);
             if (obj == null)
             {
                 //初始化数据访问DA
                 m_DA = new WXResourceDA();
-                DataTable dt = m_DA.GetWXResources(strTargetType);
+                DataTable dt = m_DA.GetWXResources(strTargetType, pt);
                 m_CacheConfig.CacheContent = dt;
                 this.InsertCache(m_CacheConfig, this.CacheRemovedCallback);
 
@@ -583,7 +612,20 @@ namespace EG.WeChat.Platform.BL
             }
             else
             {
-                return obj as DataTable;
+                if (obj is DataTable && (obj as DataTable).Rows.Count == 0)
+                {
+                    //初始化数据访问DA
+                    m_DA = new WXResourceDA();
+                    DataTable dt = m_DA.GetWXResources(strTargetType, pt);
+                    m_CacheConfig.CacheContent = dt;
+                    this.InsertCache(m_CacheConfig, this.CacheRemovedCallback);
+
+                    return dt;
+                }
+                else
+                {
+                    return obj as DataTable;
+                }
             }
         }
         /// <summary>
@@ -601,7 +643,7 @@ namespace EG.WeChat.Platform.BL
                 lcid = null;
 
             //保存资源——暂时不能分类及命名
-            lcid = m_DA.SaveResource(lcid, lcName, lcClassify, media_ID, strTargetType, strValue, DateTime.Now, iSourceType);
+            lcid = m_DA.SaveResource(lcid, lcName, lcClassify, media_ID, strTargetType, strValue, DateTime.Now, iSourceType, m_sdk == null ? 0 : m_sdk.WXType);
             if (lcid == null)
                 EGExceptionOperator.ThrowX<Exception>("微信资源DataBase保存错误", EGActionCode.未知错误);
             return lcid.Value;

@@ -30,10 +30,17 @@ namespace EG.WeChat.Platform.BL
     /// </summary>
     public class WeChatPictureService : WeChatResourcesService
     {
-        protected string m_strTargetType = "Picture";
+        protected string m_strTargetType = "image";
         protected string m_strFormat = "jpg";
-        protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.image;
-        private string m_ServerPath = "/Images/WXResources/Image";
+        //protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.image;
+        private string m_ServerPath = "/Images/WXResources/image";
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sdkType"></param>
+        public WeChatPictureService(string sdkType)
+            : base(sdkType)
+        { }
         /// <summary>
         /// 上传图片资源到微信服务器，并写入本地服务器配置文件
         /// </summary>
@@ -52,7 +59,7 @@ namespace EG.WeChat.Platform.BL
                 foreach (WXPictureResultJson pResult in pResultList)
                 {
                     //更新资源（上传至微信端，并写入本地配置）
-                    base.UpdateResources<UploadResultJsonX, UploadResultJson, WXPictureResultJson>(pResult, m_UploadMediaFileType, m_strTargetType, pResult.APath);
+                    base.UpdateResources<WXPictureResultJson>(pResult, m_strTargetType, pResult.APath);
                 }
             });
             return pResultList;

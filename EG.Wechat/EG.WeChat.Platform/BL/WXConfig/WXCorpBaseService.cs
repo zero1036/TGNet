@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using EG.WeChat.Platform.Model;
 using EG.WeChat.Utility.WeiXin;
 using EG.WeChat.Utility.Tools;
+using EG.WeChat.Platform.DA;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Entities.Menu;
@@ -26,13 +27,12 @@ namespace EG.WeChat.Platform.BL
 {
     public class WXCorpBaseService : IServiceX
     {
-        #region
+        #region public
         /// <summary>
         /// 设置企业号基础配置
         /// </summary>
         public void SetCorpConfiguration()
         {
-
             string corpId = string.Empty;
             string corpSecret = string.Empty;
             var pList = GetCorpConfigs<WXCorpInfo>(out corpId, out corpSecret);
@@ -48,7 +48,6 @@ namespace EG.WeChat.Platform.BL
                 WeiXinConfiguration.corpSecret = corpSecret;
                 WeiXinConfiguration.corpInfos = pList;
             }
-
         }
         /// <summary>
         /// 微信企业号后台验证地址
@@ -90,9 +89,44 @@ namespace EG.WeChat.Platform.BL
         /// <summary>
         /// 更新企业号基础配置
         /// </summary>
-        public void UpdateCorpConfiguration()
+        public void UpdateCorpConfiguration(int aid, string token, string aeskey)
         {
+            this.ExecuteTryCatch(() =>
+            {
+                EG.WeChat.Platform.DA.WXConfigDA pDA = new Platform.DA.WXConfigDA();
+                DataTable dt = pDA.GetWXConfig();
+                if (dt == null || dt.Rows.Count == 0)
+                    EGExceptionOperator.ThrowX<Exception>("缺少企業應用配置信息", EGActionCode.数据库表保存错误);
+                var plist = CommonFunction.GetEntitiesFromDataTable<WXConfigM>(dt);
+                if (plist.Count == 0)
+                    EGExceptionOperator.ThrowX<Exception>("缺少企業應用配置信息", EGActionCode.数据库表保存错误);
+                var pmodel = plist.Single(p => p.AID == aid && p.ACTYPE == 2);
+                if (pmodel == null)
+                {
+                    //Emperor.UtilityLib.CyberUtils.Decrypt("Aes", 256, base.TOKEN, WXConfigDA.FIELD_NAME_TOKEN);
+                }
+                else
+                {
+                    pmodel.TOKEN = Emperor.UtilityLib.CyberUtils.Encrypt("Aes", 256, token, WXConfigDA.FIELD_NAME_TOKEN);
+                    pmodel.AESKEY = Emperor.UtilityLib.CyberUtils.Encrypt("Aes", 256, aeskey, WXConfigDA.FIELD_NAME_AESKEY);
+                }
+                var ps = new List<WXConfigM>();
+                ps.Add(pmodel);
+                DataTable dto = CommonFunction.GetDataTableFromEntities<WXConfigM>(ps);
+                if (pDA.SetWXConfig(dto))
+                {
+                    WeiXinConfiguration.corpInfos.ForEach((p) =>
+                    {
+                        if (p.aid == aid)
+                        {
+                            p.token = token;
+                            p.aeskey = aeskey;
+                        }
+                    });
+                }
+                else { EGExceptionOperator.ThrowX<Exception>("缺少企業應用配置信息", EGActionCode.数据库表保存错误); }
 
+            });
         }
         /// <summary>
         /// 获取企业号应用集合
@@ -106,7 +140,10 @@ namespace EG.WeChat.Platform.BL
                 string strAccessToken = Senparc.Weixin.MP.CommonAPIs.WeiXinSDKExtension.GetCurrentAccessTokenQY();
                 WeiXinConfiguration.corpInfos.ForEach((pCorp) =>
                 {
-                    pList.Add(AppApi.GetAppInfo(strAccessToken, pCorp.aid));
+                    var papps = AppApi.GetAppInfo(strAccessToken, pCorp.aid);
+                    pList.Add(papps);
+                    pCorp.aname = papps.name;
+                    pCorp.round_logo_url = papps.round_logo_url;
                 });
             });
             return pList;
@@ -162,6 +199,7 @@ namespace EG.WeChat.Platform.BL
         }
         #endregion
 
+        #region private
         /// <summary>
         /// 获取配置实体并解密
         /// </summary>
@@ -188,129 +226,7 @@ namespace EG.WeChat.Platform.BL
             if (pListOut.Count == 0) return null;
             return pListOut;
         }
+        #endregion
     }
 
-    public class AgentResultJsonX : Senparc.Weixin.Entities.WxJsonResult
-    {
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string agentid
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string name
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string square_logo_url
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string round_logo_url
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string description
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<userX> allow_userinfos
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<int> allow_partys
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<object> allow_tags
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int close
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string redirect_domain
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int report_location_flag
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int isreportuser
-        { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int isreportenter
-        { get; set; }
-    }
-    public class userX
-    {
-        public string userid { get; set; }
-        public string status { get; set; }
-    }
-
-
-
-    public static class CommonJsonSendX
-    {
-        /// <summary>
-        /// 向需要AccessToken的API发送消息的公共方法
-        /// </summary>
-        /// <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
-        /// <param name="urlFormat"></param>
-        /// <param name="data">如果是Get方式，可以为null</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static WxJsonResult Send(string accessToken, string urlFormat, string data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = 10000)
-        {
-            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut);
-        }
-
-        /// <summary>
-        /// 向需要AccessToken的API发送消息的公共方法
-        /// </summary>
-        /// <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
-        /// <param name="urlFormat"></param>
-        /// <param name="data">如果是Get方式，可以为null</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static T Send<T>(string accessToken, string urlFormat, string jsonString, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = 10000)
-        {
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
-            switch (sendType)
-            {
-                case CommonJsonSendType.GET:
-                    return Senparc.Weixin.HttpUtility.Get.GetJson<T>(url);
-                case CommonJsonSendType.POST:
-                    //Senparc.Weixin.Helpers.SerializerHelper serializerHelper = new Senparc.Weixin.Helpers.SerializerHelper();
-                    //var jsonString = serializerHelper.GetJsonString(data);
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        var bytes = Encoding.UTF8.GetBytes(jsonString);
-                        ms.Write(bytes, 0, bytes.Length);
-                        ms.Seek(0, SeekOrigin.Begin);
-
-                        return Senparc.Weixin.HttpUtility.Post.PostGetJson<T>(url, null, ms, timeOut: timeOut);
-                    }
-                default:
-                    throw new ArgumentOutOfRangeException("sendType");
-            }
-        }
-    }
 }

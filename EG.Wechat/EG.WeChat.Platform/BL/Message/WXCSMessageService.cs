@@ -108,7 +108,7 @@ namespace EG.WeChat.Platform.BL
             if (lcId == null)
                 return;
 
-            WeChatArticleService pService = new WeChatArticleService();
+            WeChatArticleService pService = new WeChatArticleService("MP");
             List<Article> pArticles = pService.LoadResources2LocalArticles(pHost, lcId.Value);
             var pResult = pService.GetActionResult();
             if (pResult != null || pArticles == null || pArticles.Count == 0)

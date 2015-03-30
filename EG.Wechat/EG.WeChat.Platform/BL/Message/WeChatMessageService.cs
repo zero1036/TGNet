@@ -37,6 +37,14 @@ namespace EG.WeChat.Platform.BL
 {
     public class WeChatMessageService : WeChatResourcesService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sdkType"></param>
+        public WeChatMessageService(string sdkType)
+            : base(sdkType)
+        { }
+
         #region 私有成员
         private string m_strPath = "/App_Data/config/WechatConfig.xml";
         private string m_strTargetType = "TemplateMessage";
@@ -45,6 +53,7 @@ namespace EG.WeChat.Platform.BL
 
         #region 外接方法
 
+        #region 公众号
         #region 消息起稿
         /// <summary>
         /// 创建群发消息，并加入到待审核队列
@@ -55,16 +64,18 @@ namespace EG.WeChat.Platform.BL
         /// <param name="sendTarget">發送目標對象</param>
         /// <param name="content">內容</param>
         /// <param name="messageType">內容類型</param>
-        public void CreateGsMessage(string pUserID, string mediaId, int sendType, string sendTarget, string content, string messageType)
+        public void CreateGsMessage(string pUserID, string mediaId, int sendType, string sendTarget, string content, string messageType, int wx_type, int agendid, int safe)
         {
             this.ExecuteTryCatch(() =>
             {
                 bool iResult = false;
                 WXGsMessageDA pDa = new WXGsMessageDA();
                 if (messageType == "text")
-                    iResult = pDa.InsertGsMessage(pUserID, DateTime.Now, sendType, sendTarget, messageType, content, 1);
+                    iResult = pDa.InsertGsMessage(pUserID, DateTime.Now, sendType, sendTarget, messageType, content, 1, wx_type, agendid, safe);
                 else
-                    iResult = pDa.InsertGsMessage(pUserID, DateTime.Now, sendType, sendTarget, messageType, mediaId, 1);
+                {
+                    iResult = pDa.InsertGsMessage(pUserID, DateTime.Now, sendType, sendTarget, messageType, mediaId, 1, wx_type, agendid, safe);
+                }
 
                 if (!iResult)
                     EGExceptionOperator.ThrowX<Exception>("群发消息加入队伍错误", EGActionCode.数据库表保存错误);
@@ -84,7 +95,7 @@ namespace EG.WeChat.Platform.BL
                 WXGsMessageDA pDa = new WXGsMessageDA();
                 //获取从服务器当天时间算起，的两个月时间内的群发消息，例如：当天为10月，即是获得9、10月的消息记录
                 string strDateFilter = GetTargetDateFilter(WXGsMessageDA.FIELD_NAME_MTIME, 1);
-                DataTable dt = pDa.GetGsMessage(strDateFilter);
+                DataTable dt = pDa.GetGsMessage(strDateFilter, m_sdk.WXType);
                 if (dt == null || dt.Rows.Count == 0)
                     EGExceptionOperator.ThrowX<Exception>("缺少群发消息数据", EGActionCode.缺少目标数据);
 
@@ -106,7 +117,7 @@ namespace EG.WeChat.Platform.BL
                 //转换查询字典
                 IDictionary<string, object> pDic = WXGsMessageDA.CreateDicItems(pQueryItems);
                 //查询获取dATATABLE
-                DataTable dt = pDa.GetGsMessage(pDic);
+                DataTable dt = pDa.GetGsMessage(pDic, m_sdk.WXType);
                 if (dt == null || dt.Rows.Count == 0)
                     EGExceptionOperator.ThrowX<Exception>("缺少群发消息数据", EGActionCode.缺少目标数据);
 
@@ -300,12 +311,68 @@ namespace EG.WeChat.Platform.BL
             });
         }
         #endregion
+        #endregion
 
+        #region 企业号消息
+        /// <summary>
+        /// 发送企业消息
+        /// </summary>
+        /// <param name="lcId"></param>
+        /// <param name="messageType"></param>
+        /// <param name="toUser"></param>
+        /// <param name="toParty"></param>
+        /// <param name="toTag"></param>
+        /// <param name="agentId"></param>
+        public void SendQYMessage(string messageid, string userId, string keyW, string messageType, string toUser, string toParty, string toTag, string agentId, int safe = 0)
+        {
+            this.ExecuteTryCatch(() =>
+            {
+                #region
+                //messageid = "11";
+                //userId = "22";
+                //keyW = "1dI_2UQ-kLaMBJ4boKzGopBnisZW2-yP4Z9UG3O00nYBrN9J_zyBX1pxMj9OLqtIo";
+                //messageType = "video";
+                //toUser = "@all";
+                //toParty = "@all";
+                //toTag = "@all";
+                //agentId = "47";
+                #endregion
+
+                int lcId;
+                object objKeyW = null;
+                if (messageType == "news" || messageType == "mpnews")
+                {
+                    if (int.TryParse(keyW, out lcId)) objKeyW = lcId;
+                }
+                else
+                    objKeyW = keyW;
+                if (objKeyW == null) EGExceptionOperator.ThrowX<Exception>("素材已失效", EGActionCode.未知错误);
+
+                ISdkETS_QY pSdk = QYSdkETS.Singleon;
+                //获取素材数据方法并转换
+                var resConvertFunc = pSdk.GetResConvert(messageType);
+                var content = resConvertFunc(objKeyW, messageType);
+                //
+                var sendMsFunc = pSdk.GetMediaSendFunc(messageType);
+                //获取AToken
+                var atoken = pSdk.GetAToken();
+                //发送消息
+                var pQYMessageApi = new WeixinMessageSenderQY();
+                var pResult = pQYMessageApi.SendQYMS(content, sendMsFunc, messageType, atoken, toUser, toParty, toTag, agentId, safe);
+                if (!string.IsNullOrEmpty(pResult.errmsg) && pResult.errmsg != "send job submission success" && pResult.errmsg != "ok")
+                {
+                    EGExceptionOperator.ThrowX<Exception>(pResult.errmsg, pResult.errcode.ToString());
+                }
+                //发送完成后更新
+                UpdateGsMessageAfterSend(messageid, userId, 1, string.Empty, pResult.errmsg);
+            });
+        }
+        #endregion
         #endregion
 
         #region 私有方法
         /// <summary>
-        /// 群发消息发送完成后，更新数据库
+        /// 群发消息发送完成后，更新数据库D:\EG_Project_Simgle\QYWechat\trunk\Standard\trunk\EG.WeChat.Standard\EG.WeChat.Web\Controllers\QY\QYConfigController.cs
         /// </summary>
         /// <param name="messageid"></param>
         /// <param name="userId"></param>
@@ -411,7 +478,6 @@ namespace EG.WeChat.Platform.BL
         #endregion
 
     }
-
 
 
 }
