@@ -1,35 +1,32 @@
-﻿angular.module('QYSendModalController', ['WXService', 'WXDirective', 'ui.bootstrap']).controller('sendModalCtrl', ['$scope', '$http', 'instance', 'memberService', '$modalInstance', 'sendTargetList', 'sendTargetText', function ($scope, $http, instance, memberService, $modalInstance, sendTargetList, sendTargetText) {
+﻿angular.module('QYSendModalController', ['WXService', 'WXDirective']).controller('sendModalCtrl', ['$scope', '$http', 'instance', 'memberService', function ($scope, $http, instance, memberService) {
     $scope.urlMenu = '/QYDepart/GetDepartMenu';
 
-    $scope.sendTargetList =[];
+    $scope.sendTargetList = [];
     $scope.sendTargetItem = {};
     $scope.sendTargetText = '';
 
-    if (sendTargetList != undefined && sendTargetText != undefined)
-    {
+    if (sendTargetList != undefined && sendTargetText != undefined) {
         $scope.sendTargetList = sendTargetList;
         $scope.sendTargetText = sendTargetText;
     }
 
     //獲取成員列表
     $scope.getMemberList = function (depPKID) {
-       memberService.getMemberList(depPKID).success(function(data){
-           $scope.memberList = data;
+        memberService.getMemberList(depPKID).success(function (data) {
+            $scope.memberList = data;
 
-           for (var i = 0; i < $scope.sendTargetList.length; i++)
-           {
-               if($scope.sendTargetList[i].type!='1')
-                   continue;
-               for (var j = 0; j < $scope.memberList.length; j++)
-               {
-                   if ($scope.memberList[j].Name == $scope.sendTargetList[i].Name && $scope.memberList[j].UserId == $scope.sendTargetList[i].id) {
-                       $scope.memberList[j].IsChecked = true;
-                       break;
-                   }
-               }
-           }
+            for (var i = 0; i < $scope.sendTargetList.length; i++) {
+                if ($scope.sendTargetList[i].type != '1')
+                    continue;
+                for (var j = 0; j < $scope.memberList.length; j++) {
+                    if ($scope.memberList[j].Name == $scope.sendTargetList[i].Name && $scope.memberList[j].UserId == $scope.sendTargetList[i].id) {
+                        $scope.memberList[j].IsChecked = true;
+                        break;
+                    }
+                }
+            }
 
-        }).error(function(){
+        }).error(function () {
             alert('獲取成員失敗');
         });
     }
@@ -44,13 +41,12 @@
             $scope.sendTargetItem.id = item.UserId;
             $scope.sendTargetItem.Name = item.Name;
             $scope.sendTargetList.push($scope.sendTargetItem);
-            
+
         }
         else {
             item.IsChecked = false;
-            for (var i = 0; i < $scope.sendTargetList.length; i++)
-            {
-                if ($scope.sendTargetList[i].type == '1' && $scope.sendTargetList[i].id==item.UserId) {
+            for (var i = 0; i < $scope.sendTargetList.length; i++) {
+                if ($scope.sendTargetList[i].type == '1' && $scope.sendTargetList[i].id == item.UserId) {
                     $scope.sendTargetList.splice(i, 1);
                     i--;
                     break;
@@ -65,11 +61,10 @@
     //显示发送对象名字
     $scope.getSendTargetNames = function (sendTargetList) {
         $scope.sendTargetText = '';
-        for (var i = 0; i < sendTargetList.length; i++)
-        {
+        for (var i = 0; i < sendTargetList.length; i++) {
             $scope.sendTargetText += sendTargetList[i].Name + '|';
         }
-        $scope.sendTargetText = $scope.sendTargetText.substring(0, $scope.sendTargetText.length-1);
+        $scope.sendTargetText = $scope.sendTargetText.substring(0, $scope.sendTargetText.length - 1);
     }
 
     //将发送对象传回父作用域

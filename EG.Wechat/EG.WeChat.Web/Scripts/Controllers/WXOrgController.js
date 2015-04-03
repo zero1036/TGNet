@@ -1,5 +1,5 @@
 ﻿//控制器——微信组织机构控制器
-var WXOrgController = angular.module('WXOrgController', ['WXService', 'WXDirective', 'ui.bootstrap']);
+var WXOrgController = angular.module('WXOrgController', ['WXService', 'WXDirective']);
 //微信用户分组管理页
 WXOrgController.controller('OrgCtrl', ['$scope', '$http', 'instance', function ($scope, $http, instance) {
     var _intRowCountInPage = 10;
@@ -584,7 +584,7 @@ WXOrgController.controller('QYMessageSendCtrl', ['$scope', '$http', 'instance', 
     }
 }]);
 //企业应用创建发送消息
-WXOrgController.controller('QYMsCreateCtrl', ['$scope', '$http', 'instance', '$modal', function ($scope, $http, instance, $modal) {
+WXOrgController.controller('QYMsCreateCtrl', ['$scope', '$http', 'instance', function ($scope, $http, instance) {
     var urlGroup = "/WXOrganization/GetWXGroups";
     //GroupSendCtrl控制器标识，用于子控制器获取父级控制表起
     $scope.parentSym = "XC";
@@ -644,6 +644,14 @@ WXOrgController.controller('QYMsCreateCtrl', ['$scope', '$http', 'instance', '$m
     $scope.$on('SetSelectionForPicture', function (e, SelectModel) {
         $scope.picture = SelectModel;
         $scope.curMediaID = SelectModel.media_id;
+    });
+    $scope.$on('SetSelectionMember', function (e, SelectModel) {
+        $scope.sendTargetList = SelectModel;
+
+        if ($scope.sendTargetList != undefined && $scope.sendTargetList.length > 0)
+            $scope.getSendTargetNames($scope.sendTargetList);
+        else
+            $scope.sendTargetText = '';
     });
     //创建群发消息，加入待审核队伍
     $scope.CreateGroupMessage = function () {
@@ -733,28 +741,32 @@ WXOrgController.controller('QYMsCreateCtrl', ['$scope', '$http', 'instance', '$m
     //打开选择发送对象modal
     //调用了 bootstrap ui angular
     $scope.openSendTargetModal = function (size) {
-        var modalInstance = $modal.open({
-            templateUrl: '/Scripts/Views/Page/QYSendTargetModal.html',
-            controller: 'sendModalCtrl',
-            size: size,
-            resolve: {
-                sendTargetList: function () {
-                    return $scope.sendTargetList;
-                },
-
-            }
+        $('#SelectCompanyModal').modal({
+            backdrop: false
         });
 
-        modalInstance.result.then(function (sendTargetList) {
-            $scope.sendTargetList = sendTargetList;
+        //var modalInstance = $modal.open({
+        //    templateUrl: '/Scripts/Views/Page/QYSendTargetModal.html',
+        //    controller: 'sendModalCtrl',
+        //    size: size,
+        //    resolve: {
+        //        sendTargetList: function () {
+        //            return $scope.sendTargetList;
+        //        },
 
-            if ($scope.sendTargetList != undefined && $scope.sendTargetList.length > 0)
-                $scope.getSendTargetNames($scope.sendTargetList);
-            else
-                $scope.sendTargetText = '';
-        }, function () {
-            //$log.info('Modal dismissed at: ' + new Date());
-        });
+        //    }
+        //});
+
+        //modalInstance.result.then(function (sendTargetList) {
+        //    $scope.sendTargetList = sendTargetList;
+
+        //    if ($scope.sendTargetList != undefined && $scope.sendTargetList.length > 0)
+        //        $scope.getSendTargetNames($scope.sendTargetList);
+        //    else
+        //        $scope.sendTargetText = '';
+        //}, function () {
+        //    //$log.info('Modal dismissed at: ' + new Date());
+        //});
     }
 
     //显示发送对象名字
@@ -796,10 +808,8 @@ WXOrgController.controller('QYMsCreateCtrl', ['$scope', '$http', 'instance', '$m
 
     }
 }]);
-
-
 //企业应用创建功能发送消息
-WXOrgController.controller('QYFuncMsCreateCtrl', ['$scope', '$http', 'instance', '$modal', function ($scope, $http, instance, $modal) {
+WXOrgController.controller('QYFuncMsCreateCtrl', ['$scope', '$http', 'instance', function ($scope, $http, instance) {
     var urlGroup = "/WXOrganization/GetWXGroups";
     //GroupSendCtrl控制器标识，用于子控制器获取父级控制表起
     $scope.parentSym = "XC";
@@ -883,7 +893,7 @@ WXOrgController.controller('QYFuncMsCreateCtrl', ['$scope', '$http', 'instance',
         //            return;
         //        }
         //    }
-            //textContext = $("#RichTxtForGroup").val();
+        //textContext = $("#RichTxtForGroup").val();
         //}
         //else {
         //    if ($scope.curMediaID == undefined || $scope.curMediaID == null || $scope.curMediaID == "") {
@@ -899,7 +909,7 @@ WXOrgController.controller('QYFuncMsCreateCtrl', ['$scope', '$http', 'instance',
 
         $scope.msgItem.MediaId = $scope.voteID;
         $scope.msgItem.MsgType = $scope.msgType;
-        $scope.msgItem.Content ="vote";
+        $scope.msgItem.Content = "vote";
         $scope.msgItem.AgentId = instance.qyapp.agentid;
         //$scope.msgItem.safe = $scope.isSecrect ? 1 : 0;
         if ($scope.sendTargetText != '' && $scope.sendTargetText != undefined)
@@ -944,30 +954,36 @@ WXOrgController.controller('QYFuncMsCreateCtrl', ['$scope', '$http', 'instance',
     //}
 
 
+
     //打开选择发送对象modal
+    //调用了 bootstrap ui angular
     $scope.openSendTargetModal = function (size) {
-        var modalInstance = $modal.open({
-            templateUrl: '/Scripts/Views/Page/QYSendTargetModal.html',
-            controller: 'sendModalCtrl',
-            size: size,
-            resolve: {
-                sendTargetList: function () {
-                    return $scope.sendTargetList;
-                },
-
-            }
+        $('#SelectCompanyModal').modal({
+            backdrop: false
         });
 
-        modalInstance.result.then(function (sendTargetList) {
-            $scope.sendTargetList = sendTargetList;
+        //var modalInstance = $modal.open({
+        //    templateUrl: '/Scripts/Views/Page/QYSendTargetModal.html',
+        //    controller: 'sendModalCtrl',
+        //    size: size,
+        //    resolve: {
+        //        sendTargetList: function () {
+        //            return $scope.sendTargetList;
+        //        },
 
-            if ($scope.sendTargetList != undefined && $scope.sendTargetList.length > 0)
-                $scope.getSendTargetNames($scope.sendTargetList);
-            else
-                $scope.sendTargetText = '';
-        }, function () {
-            //$log.info('Modal dismissed at: ' + new Date());
-        });
+        //    }
+        //});
+
+        //modalInstance.result.then(function (sendTargetList) {
+        //    $scope.sendTargetList = sendTargetList;
+
+        //    if ($scope.sendTargetList != undefined && $scope.sendTargetList.length > 0)
+        //        $scope.getSendTargetNames($scope.sendTargetList);
+        //    else
+        //        $scope.sendTargetText = '';
+        //}, function () {
+        //    //$log.info('Modal dismissed at: ' + new Date());
+        //});
     }
 
     //显示发送对象名字
@@ -1009,8 +1025,6 @@ WXOrgController.controller('QYFuncMsCreateCtrl', ['$scope', '$http', 'instance',
 
     //}
 }]);
-
-
 //企业消息审核
 WXOrgController.controller('QYMsReviewCtrl', ['$scope', '$http', 'instance', function ($scope, $http, instance) {
     //微信分组集合
@@ -1260,15 +1274,20 @@ WXOrgController.controller('QYMsReviewCtrl', ['$scope', '$http', 'instance', fun
         catch (ex) { }
     }
 }]);
-
 //选择发送对象modal的页面ctrl
-WXOrgController.controller('sendModalCtrl', ['$scope', '$http', 'instance', 'memberService', '$modalInstance', 'sendTargetList', function ($scope, $http, instance, memberService, $modalInstance, sendTargetList) {
+WXOrgController.controller('sendModalCtrl', ['$scope', '$http', 'instance', 'memberService', function ($scope, $http, instance, memberService) {
     $scope.urlMenu = '/QYDepart/GetDepartMenu';
-
+    $scope.dispDepart = 1;
     $scope.sendTargetList = [];
     $scope.sendTargetItem = {};
     $scope.sendTargetText = '';
-
+    $scope.changeTab = function (tabInd) {
+        if ($scope.dispDepart != tabInd) {
+            $scope.dispDepart = tabInd;
+            $("#li1").toggleClass("active");
+            $("#li2").toggleClass("active");
+        }
+    }
     //清除所有对象选择
     $scope.removeAllTarget = function () {
         $scope.sendTargetText = '';
@@ -1280,130 +1299,6 @@ WXOrgController.controller('sendModalCtrl', ['$scope', '$http', 'instance', 'mem
         }
     }
 
-    //var departTree;
-    //var setting = {
-    //    view: {
-    //        dblClickExpand: false,
-    //        showLine: false,
-    //        expandSpeed: "fast"
-    //        //($.browser.msie && parseInt($.browser.version) <= 6) ? "" : 
-    //    },
-    //    data: {
-    //        key: {
-    //            name: "Name"
-    //        },
-    //        simpleData: {
-    //            enable: true,
-    //            idKey: "DepartmentID",
-    //            pIdKey: "ParentDepartmentID",
-    //            rootPId: ""
-    //        }
-    //    },
-    //    callback: {
-    //        onClick: function (event, treeId, treeNode, clickFlag) {
-    //            $scope.$apply(function () {
-    //                $scope.getMemberList(treeNode.DepPKID);
-    //            });
-    //        }
-    //    }
-    //};
-    //var url = $scope.urlMenu;
-    //$http.post(url, null).success(function (data) {
-    //    // 如果返回数据不为空，加载"业务模块"目录
-    //    if (data != null) {
-    //        // 将返回的数据赋给zTree
-    //        departTree = $.fn.zTree.init($("#treedepart"), setting, data);
-    //        var rootNode = departTree.getNodesByFilter(function (node) { return node.level == 0 }, true);
-    //        $scope.getMemberList(rootNode.DepPKID);
-    //        //zTree = $.fn.zTree.getZTreeObj(uiId);
-    //        //if (zTree) {
-    //        //    // 默认展开所有节点
-    //        //    zTree.expandAll(true);
-    //        //}
-    //    }
-    //}).error(function () {
-    //});
-
-
-    //var departSelTree;
-    //var node;
-    //var setting2 = {
-    //    check: {
-    //        enable: true,
-    //        chkboxType: { "Y": "", "N": "" }
-    //    },
-    //    view: {
-    //        dblClickExpand: false,
-    //        showLine: false,
-    //        expandSpeed: "fast"
-    //        //($.browser.msie && parseInt($.browser.version) <= 6) ? "" : 
-    //    },
-    //    data: {
-    //        key: {
-    //            name: "Name"
-    //        },
-    //        simpleData: {
-    //            enable: true,
-    //            idKey: "DepartmentID",
-    //            pIdKey: "ParentDepartmentID",
-    //            rootPId: ""
-    //        }
-    //    },
-    //    callback: {
-    //        beforeClick: function beforeClick(treeId, treeNode) {
-    //            departSelTree = $.fn.zTree.getZTreeObj("selDepartMenu");
-    //            departSelTree.checkNode(treeNode, !treeNode.checked, null, true);
-    //            return false;
-    //        },
-    //        onCheck: function onCheck(e, treeId, treeNode) {
-    //            $scope.$apply(function () {
-    //                //departSelTree = $.fn.zTree.getZTreeObj(attrs.id);
-    //                //nodes = departSelTree.getCheckedNodes(true);
-    //                if (treeNode.checked) {
-    //                    $scope.sendTargetItem = {};
-    //                    $scope.sendTargetItem.type = '2';
-    //                    $scope.sendTargetItem.id = treeNode.DepartmentID;
-    //                    $scope.sendTargetItem.Name = treeNode.Name;
-    //                    $scope.sendTargetList.push($scope.sendTargetItem);
-
-    //                }
-    //                else {
-    //                    for (var i = 0; i < $scope.sendTargetList.length; i++) {
-    //                        if ($scope.sendTargetList[i].type == '2' && $scope.sendTargetList[i].id == treeNode.DepartmentID) {
-    //                            $scope.sendTargetList.splice(i, 1);
-    //                            i--;
-    //                            break;
-    //                        }
-    //                    }
-    //                }
-    //                $scope.getSendTargetNames($scope.sendTargetList);
-    //            });
-    //        }
-    //    }
-    //};
-    //var url = $scope.urlMenu;
-    //$http.post(url, null).success(function (data) {
-    //    // 如果返回数据不为空，加载"业务模块"目录
-    //    if (data != null) {
-    //        // 将返回的数据赋给zTree
-    //        departSelTree = $.fn.zTree.init($("#selDepartMenu"), setting2, data);
-
-    //        for (var i = 0; i < $scope.sendTargetList.length; i++) {
-    //            if ($scope.sendTargetList[i].type != '2')
-    //                continue;
-    //            node = departSelTree.getNodeByParam("DepartmentID", $scope.sendTargetList[i].id);
-    //            if (node != null || node != undefined) {
-    //                node.checked = true;
-    //            }
-    //        }
-    //        //zTree = $.fn.zTree.getZTreeObj(uiId);
-    //        //if (zTree) {
-    //        //    // 默认展开所有节点
-    //        //    zTree.expandAll(true);
-    //        //}
-    //    }
-    //}).error(function () {
-    //});
 
     //獲取成員列表
     $scope.getMemberList = function (depPKID) {
@@ -1463,19 +1358,21 @@ WXOrgController.controller('sendModalCtrl', ['$scope', '$http', 'instance', 'mem
 
     //将发送对象传回父作用域
     $scope.sendTargetOK = function () {
-        $modalInstance.close($scope.sendTargetList);
+        //$modalInstance.close($scope.sendTargetList);
+        //执行父级
+        $scope.$emit('SetSelectionMember', $scope.sendTargetList);
     }
 
-    //关闭modal框
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    }
+    ////关闭modal框
+    //$scope.cancel = function () {
+    //    $modalInstance.dismiss('cancel');
+    //}
 
-    //获取从父ctrl传来的对象
-    if (sendTargetList != undefined && sendTargetList != null) {
-        $scope.sendTargetList = sendTargetList;
-        $scope.getSendTargetNames($scope.sendTargetList);
-    }
+    ////获取从父ctrl传来的对象
+    //if (sendTargetList != undefined && sendTargetList != null) {
+    //    $scope.sendTargetList = sendTargetList;
+    //    $scope.getSendTargetNames($scope.sendTargetList);
+    //}
 }
 ]);
 

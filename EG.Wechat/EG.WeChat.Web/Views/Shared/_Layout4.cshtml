@@ -31,6 +31,11 @@
     <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
     <!-- authority CSS-->
     <link rel="stylesheet" href="~/Content/authority/main_css.css" />
+    <!-- Dropzone CSS -->
+    <!--<link rel="stylesheet" href="~/Scripts/Dropzone/css/basic.css" />-->
+    <!--<link rel="stylesheet" href="~/Scripts/Dropzone/css/dropzone.css" />-->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/dropzone/3.12.0/css/basic.css" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/dropzone/3.12.0/css/dropzone.css" />
     <!-- ace styles -->
     <link rel="stylesheet" href="~/Content/ace/ace.min.css" />
     <link rel="stylesheet" href="~/Content/ace/ace-rtl.min.css" />
@@ -43,14 +48,9 @@
         <script src="~/assets/js/html5shiv.js"></script>
         <script src="!/assets/js/respond.min.js"></script>
     <![endif]-->
-    <!-- Dropzone CSS -->
-    <!--<link rel="stylesheet" href="~/Scripts/Dropzone/css/basic.css" />-->
-    <!--<link rel="stylesheet" href="~/Scripts/Dropzone/css/dropzone.css" />-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/dropzone/3.12.0/css/basic.css" />
-    <link rel="stylesheet" href="http://cdn.bootcss.com/dropzone/3.12.0/css/dropzone.css" />
 
     <!-- zTree CSS-->
-    @*<link rel="stylesheet" href="~/Content/authority/zTreeStyle.css" />*@
+    <link rel="stylesheet" href="~/Content/authority/zTreeStyle.css" />
 
     <!-- summernote CSS-->
     <link href="http://cdn.bootcss.com/summernote/0.6.0/summernote.min.css" rel="stylesheet" />
@@ -79,8 +79,9 @@
         if ("ontouchend" in document) document.write("<script src='/Scripts/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
 
+    <!-- jquery-migrate scripts -->
+    <script src="http://cdn.bootcss.com/jquery-migrate/1.1.1/jquery-migrate.min.js"></script>
     <!-- bootstrap scripts -->
-    <script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="~/Scripts/Bootstrap/js/typeahead-bs2.min.js"></script>
 
@@ -89,7 +90,6 @@
         <script src="~/Scripts/Angular/angular-route.js"></script>*@
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular-route.min.js"></script>
-    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
 
     <!-- dropzone scripts -->
     @*<script src="~/Scripts/Dropzone/dropzone.js"></script>*@
@@ -126,7 +126,9 @@
     <script src="~/Scripts/ace/ace-extra.min.js"></script>
 
     <!-- ztree -->
-    <!--<script src="~/Scripts/zTree/jquery.ztree.core-3.2.js"-->
+    <script src="~/Scripts/zTree/jquery.ztree.core-3.2.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.exedit-3.2.min.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree.excheck-3.2.min.js"></script>
     <!--<script src="~/Scripts/authority/commonAll.js"></script> -->
     <script src="~/Scripts/jquery.json-2.3.min.js"></script>
 

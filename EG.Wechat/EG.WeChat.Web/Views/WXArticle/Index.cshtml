@@ -19,12 +19,12 @@
 <body>
     <script>
         $(document).ready(function () {
-            var mid = GetQueryString('mid');
+            var lcid = GetQueryString('lcid');
             var idx = GetQueryString('idx');
 
             $.ajax({
                 url: '/WXArticle/LoadModel',
-                data: { "mid": mid, "idx": idx },
+                data: { "lcid": lcid, "idx": idx },
                 type: "post",
                 dataType: "json",
                 success: function (data) {

@@ -807,3 +807,11 @@ WXDirective.directive("qyfuncmscreate", function () {
         templateUrl: '/Scripts/Views/QYFuncCreate.html'
     }
 });
+//选择企业组织机构人员
+WXDirective.directive("qysendtargetmodal", function () {
+    return {
+        restrict: "E",
+        replace: true,
+        templateUrl: '/Scripts/Views/Page/QYSendTargetModal.html'
+    }
+});

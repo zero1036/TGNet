@@ -1,76 +1,61 @@
-﻿
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>     
-   <!-- <script src="/Scripts/jquery-1.9.1.js"></script>
-     <script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>  
-    <script src="/Scripts/Angular/angular.js"></script>
-    <script src="http://cdn.bootcss.com/angular.js/1.2.19/angular-route.min.js"></script>-->
-    <!--<script src="/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>-->
-        
-    <!--<script src="/Scripts/Controllers/app.js"></script>
-    <script src="/Scripts/Controllers/WXBaseController.js"></script>
-    <script src="/Scripts/Controllers/WXOrgController.js"></script>
-    <script src="/Scripts/Controllers/WXResController.js"></script>-->
-<!--    <script src="~/Scripts/Controllers/QYSendModalController.js"></script>-->
-  
-   <!-- <script src="/Scripts/Controllers/WXService.js"></script>
-    <script src="/Scripts/Controllers/WXDirective.js"></script>-->
-<!--    <script src="~/Scripts/services/memberService.js"></script>-->
-    
-
-   
-</head>
-<body ng-app="WXApp"  ng-controller="sendModalCtrl">
-    <div>
-        <div class="modal-header">
-            <h3 class="modal-title">選擇範圍</h3>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="input-group">
-                        <input type="text" class="form-control" ng-Model="sendTargetText" readonly="readonly"/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="removeAllTarget()">清空</button>
-                        </span>
-                    </div>
+﻿<div ng-controller="sendModalCtrl">
+    <!--   <div class="modal-header">
+        <h3 class="modal-title">選擇範圍</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="sendTargetText" readonly="readonly" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" ng-click="removeAllTarget()">清空</button>
+                    </span>
                 </div>
             </div>
-            <div class="row" style="margin-top:10px;">
-                <tabset>
-                    <tab heading="成員">
-                        <div class="col-md-5">
-                            <ul class="ztree" id="treedepart" tree-Depart ng-model="selectNode"></ul>
-                            
-                        </div>
-                        <div class="col-md-7">
-                            <table  class="table">
-                                <tbody>
-                                    <tr ng-repeat="item in memberList">                                                   
-                                        <td style=" width:80%;"><img alt="頭像" src="{{item.Avart}}" style=" width:30px; height:30px;"/>{{item.Name}}</td>
-                                        <td><input type="checkbox" ng-click="memberToggleChecked(item)" ng-checked="item.IsChecked"/></td>
-                                        
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </tab>
-                    <tab heading="組織架構">
-                        <div class="col-md-12">
-                            <ul id="selDepartMenu" tree-Checkdepart class="ztree" ng-model="selectNode2"></ul>
-                        </div>
-                    </tab>
-                </tabset>
+        </div>-->
+    <div class="row" style="margin-top: 10px;">
+        <ul class="nav nav-tabs" id="myTab">
+            <li id="li1" class="active">
+                <a data-toggle="tab" href="javascript:void(0);" ng-click="changeTab(1)">
+                    <i class="fa fa-user fa-lg"></i>
+                    成員
+                </a>
+            </li>
+            <li id="li2">
+                <a data-toggle="tab" href="javascript:void(0);" ng-click="changeTab(0)">
+                    <i class="fa fa-group fa-lg"></i>
+                    部門
+                </a>
+            </li>
+        </ul>
+        <div ng-show="dispDepart==1">
+            <div class="col-md-5">
+                <ul class="ztree" id="treedepart" tree-depart ng-model="selectNode"></ul>
+            </div>
+            <div class="col-md-7">
+                <table class="table table-striped table-bordered table-hover no-margin-bottom">
+                    <tbody>
+                        <tr ng-repeat="item in memberList">
+                            <td style="width: 80%;">
+                                <img alt="頭像" ng-src="{{item.Avatar}}" style="width: 30px; height: 30px;" />{{item.Name}}</td>
+                            <td>
+                                <input type="checkbox" ng-click="memberToggleChecked(item)" ng-checked="item.IsChecked" /></td>
+
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="sendTargetOK()">確定</button>
-            <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <div ng-show="dispDepart!=1">
+            <div class="col-md-12">
+                <ul id="selDepartMenu" tree-checkdepart class="ztree" ng-model="selectNode2"></ul>
+            </div>
         </div>
     </div>
+    <!--</div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="sendTargetOK()">確定</button>
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+    </div>-->
+</div>
 
-
-
-</body>
-</html>

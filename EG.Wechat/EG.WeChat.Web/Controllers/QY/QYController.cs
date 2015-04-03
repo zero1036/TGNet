@@ -21,7 +21,9 @@ namespace EG.WeChat.Web.Controllers
         public static readonly string EncodingAESKey = "l3i2LVpFwDBjWmAeAZXKFLnntDlme5lbj6czM1tSLA9";//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string CorpId = "wx4b192556da80dfcc";//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
 
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         public QYController()
         {
 
@@ -52,22 +54,34 @@ namespace EG.WeChat.Web.Controllers
         /// <summary>
         /// 微信后台验证地址（使用Post），微信企业后台应用的“修改配置”的Url填写如：http://weixin.senparc.com/qy
         /// </summary>
-        //[HttpPost]
-        [ActionName("Index1")]
+        [HttpPost]
+        [ActionName("Index")]
         public ActionResult Post(PostModel postModel)
         {
             var maxRecordCount = 10;
 
-            postModel.Token = Token;
-            postModel.EncodingAESKey = EncodingAESKey;
-            postModel.CorpId = CorpId;
+            //postModel.Token = Token;
+            //postModel.EncodingAESKey = EncodingAESKey;
+            //postModel.CorpId = CorpId;
 
-            //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            ////自定义MessageHandler，对微信请求的详细判断操作都在这里面。
+            //var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+
+            //Logger.Log4Net.Info("lcid:" + ilcId.ToString());
+
+            //EG.WeChat.Platform.BL.ISdkETS_QY pSdk = EG.WeChat.Platform.BL.QYSdkETS.Singleon;
+            //var pfunc = pSdk.GetResConvertForResponse("news");
+            //var pRes = pfunc(1069, "news");
+            ////return pRes;
+
+            if (string.IsNullOrEmpty(EG.WeChat.Platform.BL.QYSdkETS.Singleon.RHost))
+                EG.WeChat.Platform.BL.QYSdkETS.Singleon.RHost = this.Request.Url.Host;
+            var messageHandler = VerifyRequest(postModel, maxRecordCount);
 
             if (messageHandler.RequestMessage == null)
             {
                 //验证不通过或接受信息有错误
+                return Content("驗證錯誤");
             }
 
             try
@@ -124,5 +138,28 @@ namespace EG.WeChat.Web.Controllers
             //自动返回加密后结果
             return new FixWeixinBugWeixinResult(messageHandler);
         }
+
+        /// <summary>
+        /// 验证请求，并获取消息处理方法
+        /// </summary>
+        /// <param name="postModel"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <returns></returns>
+        private QyCustomMessageHandler VerifyRequest(PostModel postModel, int maxRecordCount)
+        {
+            QyCustomMessageHandler pqy = null;
+            foreach (var corp in EG.WeChat.Utility.WeiXin.WeiXinConfiguration.corpInfos)
+            {
+                postModel.Token = corp.token;
+                postModel.EncodingAESKey = corp.aeskey;
+                postModel.CorpId = EG.WeChat.Utility.WeiXin.WeiXinConfiguration.cropId;
+
+                pqy = new QyCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+                if (pqy.RequestMessage != null)
+                    break;
+            }
+            return pqy;
+        }
+
     }
 }

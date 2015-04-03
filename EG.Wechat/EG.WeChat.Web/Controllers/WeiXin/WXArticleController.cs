@@ -36,10 +36,10 @@ namespace EG.WeChat.Web
         /// <param name="mid"></param>
         /// <param name="idx"></param>
         /// <returns></returns>
-        public ActionResult LoadModel(string mid, int idx)
+        public ActionResult LoadModel(int lcid, int idx)
         {
-            WeChatArticleService pService = new WeChatArticleService("QY");
-            WXArticleResultJson pArticle = pService.LoadResourcesSingle(mid);
+            WeChatArticleService pService = new WeChatArticleService("QY", "mpnews");
+            WXArticleResultJson pArticle = pService.LoadResourcesSingleBylcID(lcid);
             var pResult = pService.GetActionResult();
             if (pResult != null || pArticle == null || pArticle.ListNews == null || pArticle.ListNews.Count <= idx)
                 return Content("没有找到对应图文段落！");

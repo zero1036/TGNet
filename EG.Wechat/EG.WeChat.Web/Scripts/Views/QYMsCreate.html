@@ -126,9 +126,40 @@
         </div>
         <!-- /.modal -->
     </div>
+    <!-- 模态框（Modal） 选择组织机构-->
+    <div class="modal fade bs-example-modal-lg" id="SelectCompanyModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="H4">選擇發送人員
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <qysendtargetmodal></qysendtargetmodal>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                        關  閉
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                        確定選中
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
 
     <style>
-                .tab_navs, .tab_navs li {
+        .tab_navs, .tab_navs li {
             list-style: none; /* 将默认的列表符号去掉 */
             padding: 0; /* 将默认的内边距去掉 */
             margin: 0; /* 将默认的外边距去掉 */
@@ -147,12 +178,16 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="input-group">
-                 <div id="" class="input-group-addon">發送給：</div>
-                <input type="text" class="form-control" ng-click="openSendTargetModal()" ng-Model="sendTargetText" placeholder="點擊添加部門、成員"/>
-                    </div>
+                    <div id="" class="input-group-addon">發送給：</div>
+                    <input type="text" class="form-control" ng-click="openSendTargetModal()" ng-model="sendTargetText" placeholder="點擊添加部門、成員" />
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary btn-block" ng-click="openSendTargetModal()">選 定</button>
             </div>
         </div>
-        <div class="row" style=" margin-top:10px;">
+        <div class="row" style="margin-top: 10px;">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="tg-div-tool">
@@ -195,6 +230,10 @@
                         </style>
                         <div ng-show="msgType=='text'">
                             <textarea ng-model="text" style="margin-left: 1em; margin-right: 0.7em; width: 92%" class="form-control" placeholder="請輸入群發消息文本內容" rows="7"></textarea>
+                            <div>
+                                <input style="position:relative;margin-left: 1em; top: 4px" type="checkbox" ng-checked="isSecrect" ng-click="getSecrectFlag()" /><span class="label label-primary">保密消息</span>
+                                <!--<input type="checkbox" ng-checked="isForever"/><span class="label label-default">永久保存</span>-->
+                            </div>
                         </div>
                         <div ng-show="msgType=='image'" id="divimagex" class="row" style="max-width: 260px;">
                             <wxpicturedisplay></wxpicturedisplay>
@@ -243,11 +282,8 @@
                                     點擊<span class="label label-sm label-primary">創&nbsp;建</span>群發消息，加入待審核發送隊伍             
                                 </p>
                             </div>
-                           
-                            <div>
-                                 <input type="checkbox" ng-checked="isSecrect" ng-click="getSecrectFlag()"/><span class="label label-primary">保密消息</span>
-                                <!--<input type="checkbox" ng-checked="isForever"/><span class="label label-default">永久保存</span>-->
-                            </div>
+
+
                         </div>
 
                         <button id="ui_btnLoading_Cre1" data-loading-text="創建中，請稍後……" style="width: 200px; margin-left: 20px" type="button" class="btn btn-primary btn-sm" ng-click="CreateGroupMessage()">創&nbsp;&nbsp;建</button>
