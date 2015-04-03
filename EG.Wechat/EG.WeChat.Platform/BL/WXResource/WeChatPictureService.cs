@@ -109,6 +109,22 @@ namespace EG.WeChat.Platform.BL
             });
             return pResult;
         }
+        /// <summary>
+        /// 读取单个图片资源本地配置
+        /// </summary>
+        /// <param name="lcid"></param>
+        /// <returns></returns>
+        public WXPictureResultJson LoadResourcesSingleBylcId(int lcid)
+        {
+            WXPictureResultJson pResult = null;
+            this.ExecuteTryCatch(() =>
+            {
+                //获取配置，并匹配实体集合
+                List<WXPictureResultJson> pList = base.LoadResourcesX<WXPictureResultJson>(m_strTargetType);
+                pResult = pList.Single(p => p.lcId == lcid);
+            });
+            return pResult;
+        }
 
     }
 }

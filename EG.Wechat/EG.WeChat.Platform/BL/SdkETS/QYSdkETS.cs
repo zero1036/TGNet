@@ -42,6 +42,10 @@ namespace EG.WeChat.Platform.BL
         /// </summary>
         public int WXType { get { return 2; } }
         /// <summary>
+        /// RHost
+        /// </summary>
+        public string RHost { get; set; }
+        /// <summary>
         /// 微信账号类型：1：公众号；2：企业号
         /// </summary>
         public Func<string> GetAToken
@@ -88,14 +92,14 @@ namespace EG.WeChat.Platform.BL
                     Title = z.title,
                     Description = z.digest,
                     Url = z.content_source_url,
-                    PicUrl = z.RPath
+                    PicUrl = string.Format("http://{0}{1}", RHost, z.RPath)
                 });
                 _DicNewsConvertToArticleFunc.Add("mpnews", (z) => new Senparc.Weixin.QY.Entities.Article
                 {
                     Title = z.title,
                     Description = z.digest,
                     Url = z.content_source_url,
-                    PicUrl = z.RPath
+                    PicUrl = string.Format("http://{0}{1}", RHost, z.RPath)
                 });
             }
             return _DicNewsConvertToArticleFunc[type];
@@ -129,45 +133,56 @@ namespace EG.WeChat.Platform.BL
                 _DicRCForResponse = new Dictionary<string, Func<int, string, Senparc.Weixin.QY.Entities.IResponseMessageBase>>();
 
 
-                //    _DicRCForResponse.Add("text", (int lcId, string mType) =>
-                //    {
-                //Senparc.Weixin.QY.Entities.ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(
-                //        return new TObject
-                //        {
-                //            MsgType = Senparc.Weixin.QY.ResponseMsgType.Text,
-                //            Content = content
-                //        };
-                //    });
-                //_DicRCForResponse.Add("image", (int lcId, string mType) =>
-                //{
-                //    return new
-                //    {
-                //        MsgType = Senparc.Weixin.QY.ResponseMsgType.Image,
-                //        Image = media_id
-                //    };
-                //});
-                //_DicRCForResponse.Add("voice", (object media_id, string mType) =>
-                //{
-                //    return new
-                //    {
-                //        MsgType = Senparc.Weixin.QY.ResponseMsgType.Voice,
-                //        Voice = media_id
-                //    };
-                //});
-                //_DicRCForResponse.Add("video", (object media_id, string mType) =>
-                //{
-                //    return new
-                //    {
-                //        MsgType = Senparc.Weixin.QY.ResponseMsgType.Video,
-                //        Video = new
-                //        {
-                //            MediaId = media_id,
-                //            Title = "",
-                //            Description = ""
-                //        }
-                //    };
-                //});
+                _DicRCForResponse.Add("text", (int lcId, string mType) =>
+                {
+                    var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageText();
+                    responseMessage.Content = "测试";
+                    return responseMessage;
+                });
+                _DicRCForResponse.Add("image", (int lcId, string mType) =>
+                {
+                    var pAr = new WeChatPictureService("QY");
+                    var pImg = pAr.LoadResourcesSingleBylcId(lcId);
+
+                    var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageImage();
+                    if (pImg != null) responseMessage.Image.MediaId = pImg.media_id;
+                    return responseMessage;
+                });
+                _DicRCForResponse.Add("voice", (int lcId, string mType) =>
+                {
+                    var pAr = new WeChatVoiceService("QY");
+                    var pVoice = pAr.LoadResourcesSingleBylcId(lcId);
+
+                    var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageVoice();
+                    if (pVoice != null) responseMessage.Voice.MediaId = pVoice.media_id;
+                    return responseMessage;
+                });
+                _DicRCForResponse.Add("video", (int lcId, string mType) =>
+                {
+                    var pAr = new WeChatVideoService("QY");
+                    var pVideo = pAr.LoadResourcesSingleBylcId(lcId);
+
+                    var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageVideo();
+                    if (pVideo != null)
+                    {
+                        responseMessage.Video.Title = pVideo.lcName;
+                        responseMessage.Video.MediaId = pVideo.media_id;
+                    }
+                    return responseMessage;
+                });
                 _DicRCForResponse.Add("news", (int lcId, string mType) =>
+                {
+                    var pAr = new WeChatArticleService("QY");
+                    pAr.ArticleConvertFunc = this.CNews2RspArticle(msgType);
+                    List<object> pos = pAr.LoadResources2News(lcId, mType);
+                    if (pos == null || pos.Count == 0)
+                        return null;
+
+                    var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageNews();
+                    responseMessage.Articles = pos.Select(p => (p as Senparc.Weixin.QY.Entities.Article)).ToList();
+                    return responseMessage;
+                });
+                _DicRCForResponse.Add("mpnews", (int lcId, string mType) =>
                 {
                     var pAr = new WeChatArticleService("QY");
                     pAr.ArticleConvertFunc = this.CNews2RspArticle(msgType);
@@ -175,9 +190,14 @@ namespace EG.WeChat.Platform.BL
 
                     var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageNews();
                     responseMessage.Articles = pos.Select(p => (p as Senparc.Weixin.QY.Entities.Article)).ToList();
+                    int idx = 0;
+                    foreach (var a in responseMessage.Articles)
+                    {
+                        a.Url = string.Format("http://{0}/WXArticle/Index?lcid={1}&idx={2}", RHost, lcId, idx);
+                        idx += 1;
+                    }
                     return responseMessage;
                 });
-                //_DicRCForResponse.Add("mpnews", new WeChatArticleService("QY").LoadResources2News);
             }
 
             if (!_DicRCForResponse.ContainsKey(msgType))

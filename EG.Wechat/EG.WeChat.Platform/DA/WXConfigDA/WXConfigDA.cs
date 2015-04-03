@@ -43,15 +43,8 @@ namespace EG.WeChat.Platform.DA
         /// <returns></returns>
         public DataTable GetWXConfig()
         {
-            try
-            {
-                string strSql = string.Format("select * from {0}", TABLE_NAME);
-                return template.Query(strSql, null, null, null);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            string strSql = string.Format("select * from {0}", TABLE_NAME);
+            return template.Query(strSql, null, null, null);
         }
         /// <summary>
         /// 更新配置

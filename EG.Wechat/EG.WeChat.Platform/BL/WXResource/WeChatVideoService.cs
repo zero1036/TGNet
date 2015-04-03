@@ -141,6 +141,23 @@ namespace EG.WeChat.Platform.BL
             });
             return pResult;
         }
-        
+
+        /// <summary>
+        /// 读取单个視頻资源本地配置
+        /// </summary>
+        /// <param name="lcid"></param>
+        /// <returns></returns>
+        public WXVideoResultJson LoadResourcesSingleBylcId(int lcid)
+        {
+            WXVideoResultJson pResult = null;
+            this.ExecuteTryCatch(() =>
+            {
+                //获取配置，并匹配实体集合
+                List<WXVideoResultJson> pList = base.LoadResourcesX<WXVideoResultJson>(m_strTargetType);
+                pResult = pList.Single(p => p.lcId == lcid);
+            });
+            return pResult;
+        }
+
     }
 }

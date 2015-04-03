@@ -105,22 +105,22 @@ namespace EG.WeChat.Platform.BL
             iRecordCount = piRecordCount1 + piRecordCount2;
             return pList;
         }
-        /// <summary>
-        /// 读取单个图文资源本地配置
-        /// </summary>
-        /// <param name="media_id"></param>
-        /// <returns></returns>
-        public WXArticleResultJson LoadResourcesSingle(string media_id)
-        {
-            WXArticleResultJson pResult = null;
-            this.ExecuteTryCatch(() =>
-            {
-                //获取配置，并匹配实体集合
-                List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>(m_strTargetType);
-                pResult = pList.Single(p => p.media_id == media_id);
-            });
-            return pResult;
-        }
+        ///// <summary>
+        ///// 读取单个图文资源本地配置
+        ///// </summary>
+        ///// <param name="media_id"></param>
+        ///// <returns></returns>
+        //public WXArticleResultJson LoadResourcesSingle(string media_id)
+        //{
+        //    WXArticleResultJson pResult = null;
+        //    this.ExecuteTryCatch(() =>
+        //    {
+        //        //获取配置，并匹配实体集合
+        //        List<WXArticleResultJson> pList = base.LoadResourcesX<WXArticleResultJson>(m_strTargetType);
+        //        pResult = pList.Single(p => p.media_id == media_id);
+        //    });
+        //    return pResult;
+        //}
         /// <summary>
         /// 读取单个图文资源本地配置
         /// </summary>

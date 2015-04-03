@@ -33,7 +33,17 @@ namespace EG.WeChat.Platform.BL
     public interface ISdkETS
     {
         #region Base
+        /// <summary>
+        /// WXType
+        /// </summary>
         int WXType { get; }
+        /// <summary>
+        /// Host
+        /// </summary>
+        string RHost { get; set; }
+        /// <summary>
+        /// GetAToken
+        /// </summary>
         Func<string> GetAToken { get; }
         #endregion
 

@@ -113,5 +113,21 @@ namespace EG.WeChat.Platform.BL
             });
             return pResult;
         }
+        /// <summary>
+        /// 读取单个音頻资源本地配置
+        /// </summary>
+        /// <param name="media_id"></param>
+        /// <returns></returns>
+        public WXVoiceResultJson LoadResourcesSingleBylcId(int lcid)
+        {
+            WXVoiceResultJson pResult = null;
+            this.ExecuteTryCatch(() =>
+            {
+                //获取配置，并匹配实体集合
+                List<WXVoiceResultJson> pList = base.LoadResourcesX<WXVoiceResultJson>(m_strTargetType);
+                pResult = pList.Single(p => p.lcId == lcid);
+            });
+            return pResult;
+        }
     }
 }

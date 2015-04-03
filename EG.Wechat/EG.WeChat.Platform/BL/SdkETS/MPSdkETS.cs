@@ -34,6 +34,10 @@ namespace EG.WeChat.Platform.BL
         /// </summary>
         public int WXType { get { return 1; } }
         /// <summary>
+        /// RHost
+        /// </summary>
+        public string RHost { get; set; }
+        /// <summary>
         /// 获取AccessToken
         /// </summary>
         public Func<string> GetAToken
