@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Examination\ExaminationClass.cs" />
     <Compile Include="Index\Class1.cs" />
+    <Compile Include="MysqlTest\MysqlTest.cs" />
     <Compile Include="Parallel\TaskExampleClass.cs" />
     <Compile Include="PLinq\PLinqExampleClass.cs" />
     <Compile Include="PLinq\PLinqExampleClass2.cs" />
@@ -83,6 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Thread\Entity\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TG.Utility\EG.Common\EGCommon\EGCommon_Net4.0.csproj">
+      <Project>{61f7723f-f2ff-41b5-8ff9-332e55d404ea}</Project>
+      <Name>EGCommon_Net4.0</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

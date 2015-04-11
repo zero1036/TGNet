@@ -375,7 +375,7 @@ namespace EG.Utility.DBCommon.dao
 
                 IDbDataParameter[] parm = convert4MySqlserver(paramNames, paramValues);
 
-                return null;// MySQLHelper.ExecuteDataset(this.Connection, CommandType.Text, sql, parm).Tables[0];
+                return MySQLHelper.ExecuteDataset(this.Connection, CommandType.Text, sql, parm).Tables[0];
             }
             else
             {
@@ -488,9 +488,9 @@ namespace EG.Utility.DBCommon.dao
 
                 IDbDataParameter[] parm = convert4MySqlserver(paramNames, paramValues);
 
-                return 1;/* MySQLHelper.ExecuteNonQuery(
+                return MySQLHelper.ExecuteNonQuery(
                      this.Transaction, CommandType.Text, sql, parm
-                     );*/
+                     );
             }
             else
             {

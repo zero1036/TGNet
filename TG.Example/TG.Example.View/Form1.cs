@@ -20,12 +20,14 @@ namespace TG.Example.View
 {
     public partial class Form1 : Form
     {
+        private MysqlTest _MysqlTest;
         /// <summary>
         /// 
         /// </summary>
         public Form1()
         {
             InitializeComponent();
+            _MysqlTest = new MysqlTest();
         }
         /// <summary>
         /// Task Example
@@ -54,6 +56,21 @@ namespace TG.Example.View
         {
             PLinqMapreduceEC pc = new PLinqMapreduceEC();
             pc.Main();
+        }
+
+        private void btnMysqlQuery_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(_MysqlTest.QueryFunc2());
+        }
+
+        private void btnMysqlQuery1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(_MysqlTest.QueryFunc());
+        }
+
+        private void btnMysqlInsert_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(_MysqlTest.InsertFunc());
         }
     }
 }

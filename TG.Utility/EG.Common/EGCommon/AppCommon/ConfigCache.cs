@@ -404,7 +404,11 @@ namespace EG.Business.Common
         {
             DBName += (string.IsNullOrEmpty(DBName)) ? "" : "_";
 
-            return short.Parse(dtAppconfig.Rows.Find(DBName + "DB_TYPE")["value"] as string);
+            var drType = dtAppconfig.Rows.Find(DBName + "DB_TYPE");
+            if (drType != null)
+                return short.Parse(drType["value"] as string);
+            else
+                return short.Parse(dtAppconfig.Rows.Find("DB_TYPE")["value"] as string);
         }
 
         /// <summary>
