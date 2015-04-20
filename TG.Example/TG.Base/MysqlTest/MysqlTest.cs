@@ -70,8 +70,22 @@ namespace TG.Example
         {
             try
             {
-                var sqlx = "insert into tb2(id,name) values(3,'apple')";
-                var ires = _ado.Execute(sqlx, null, null, string.Empty);
+                int ires = 0;
+                Random pRam;
+                //string psql = string.Empty;
+                StringBuilder psql = new StringBuilder();
+                for (int i = 0; i <= 600000; i++)
+                {
+                    pRam = new Random();
+                    int iv = pRam.Next(1, 100);
+                    //psql = string.Format("('1','',{0},'{1}'),{2}", iv, iv, psql);
+                    psql = psql.AppendFormat(",('1','',{0},'{1}')", iv, iv);
+                    //var sqlx = string.Format("insert into tb3(name,nickname,age,remark) values('1','',{0},'{1}')", iv, iv);
+
+                }
+                string sqlbbb = psql.ToString().Substring(1, psql.Length - 1);
+                var sqlx = string.Format("insert into tb3(name,nickname,age,remark) values{0}", sqlbbb);
+                ires = _ado.Execute(sqlx, null, null, string.Empty);
                 return "insert结果" + ires;
             }
             catch (Exception ex)
