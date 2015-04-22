@@ -72,5 +72,13 @@ namespace TG.Example.View
         {
             Console.WriteLine(_MysqlTest.InsertFunc());
         }
+
+        private void btnProcedure_Click(object sender, EventArgs e)
+        {
+            _MysqlTest.ProcedureFunc();
+        }
+
+
+
     }
 }

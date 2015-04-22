@@ -465,7 +465,7 @@ namespace EG.Utility.DBCommon.dao
             return Execute(sql, model);
         }
 
-        public int Execute(string sql, String[] paramNames, Object[] paramValues)
+        public int Execute(string sql, String[] paramNames, Object[] paramValues, CommandType pCmdType = CommandType.Text)
         {
             if (this.Transaction == null)
             {
@@ -480,16 +480,16 @@ namespace EG.Utility.DBCommon.dao
                 SqlParameter[] parm = convert4Sqlserver(paramNames, paramValues);
 
                 return SQLHelper.ExecuteNonQuery(
-                    this.Transaction as SqlTransaction, CommandType.Text, sql, parm
+                    this.Transaction as SqlTransaction, pCmdType, sql, parm
                     );
             }
             else if (this.dbType == ADOTemplate.DB_TYPE_MYSQL)
             {
 
-                IDbDataParameter[] parm = convert4MySqlserver(paramNames, paramValues);
-
+                //IDbDataParameter[] parm = convert4MySqlserver(paramNames, paramValues, false);
+                MySql.Data.MySqlClient.MySqlParameter[] parm = convert4MySql(paramNames, paramValues);
                 return MySQLHelper.ExecuteNonQuery(
-                     this.Transaction, CommandType.Text, sql, parm
+                     this.Transaction, pCmdType, sql, parm
                      );
             }
             else
@@ -497,7 +497,7 @@ namespace EG.Utility.DBCommon.dao
                 IDbDataParameter[] parm = convert4Oracle(paramNames, paramValues);
 
                 return OracleHelper.ExecuteNonQuery(
-                    this.Transaction, CommandType.Text, sql, parm
+                    this.Transaction, pCmdType, sql, parm
                     );
 
             }
@@ -512,7 +512,7 @@ namespace EG.Utility.DBCommon.dao
             return Execute(parser.AsSql(), parser.GetSqlParameterNames(), parser.GetSqlParameterValues());
         }
 
-        public int Execute(string sql, String[] paramNames, Object[] paramValues, string dbName)
+        public int Execute(string sql, String[] paramNames, Object[] paramValues, string dbName, CommandType pCmdType = CommandType.Text)
         {
             using (Connection = DBUtil.GetConnection(dbName))
             {
@@ -521,7 +521,7 @@ namespace EG.Utility.DBCommon.dao
                     Connection.Open();
                     this.dbType = ConfigCache.GetDBType(dbName);
                     this.Transaction = this.Connection.BeginTransaction();
-                    int result = Execute(sql, paramNames, paramValues);
+                    int result = Execute(sql, paramNames, paramValues, pCmdType);
                     this.Transaction.Commit();
 
                     return result;
@@ -584,6 +584,25 @@ namespace EG.Utility.DBCommon.dao
                 }
 
                 result[i] = MysqlParameterFactory.Get(name, paramValues[i]);
+            }
+
+            return result;
+        }
+
+        private MySql.Data.MySqlClient.MySqlParameter[] convert4MySql(String[] paramNames, Object[] paramValues)
+        {
+            if (paramNames == null) return null;
+
+            var size = paramNames.Length;
+
+            if (size == 0) return null;
+
+            MySql.Data.MySqlClient.MySqlParameter[] result = new MySql.Data.MySqlClient.MySqlParameter[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                string name = paramNames[i];
+                result[i] = new MySql.Data.MySqlClient.MySqlParameter(name, paramValues[i]);
             }
 
             return result;

@@ -35,6 +35,7 @@
             this.btnMysqlQuery = new System.Windows.Forms.Button();
             this.btnMysqlQuery1 = new System.Windows.Forms.Button();
             this.btnMysqlInsert = new System.Windows.Forms.Button();
+            this.btnProcedure = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -107,11 +108,22 @@
             this.btnMysqlInsert.UseVisualStyleBackColor = true;
             this.btnMysqlInsert.Click += new System.EventHandler(this.btnMysqlInsert_Click);
             // 
+            // btnProcedure
+            // 
+            this.btnProcedure.Location = new System.Drawing.Point(12, 126);
+            this.btnProcedure.Name = "btnProcedure";
+            this.btnProcedure.Size = new System.Drawing.Size(161, 32);
+            this.btnProcedure.TabIndex = 7;
+            this.btnProcedure.Text = "Mysql存储过程";
+            this.btnProcedure.UseVisualStyleBackColor = true;
+            this.btnProcedure.Click += new System.EventHandler(this.btnProcedure_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 311);
+            this.Controls.Add(this.btnProcedure);
             this.Controls.Add(this.btnMysqlInsert);
             this.Controls.Add(this.btnMysqlQuery1);
             this.Controls.Add(this.btnMysqlQuery);
@@ -134,6 +146,7 @@
         private System.Windows.Forms.Button btnMysqlQuery;
         private System.Windows.Forms.Button btnMysqlQuery1;
         private System.Windows.Forms.Button btnMysqlInsert;
+        private System.Windows.Forms.Button btnProcedure;
     }
 }
 
