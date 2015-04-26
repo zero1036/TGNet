@@ -1,0 +1,80 @@
+﻿<h1>{{"dictionaryList.title" | translate}}</h1>
+<div>
+    <div>
+        <a href="javascript:;" ng-click="getProvDicList()"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+    </div>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>{{"dictionaryList.listHead.code" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.enName" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.chsName" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.chtName" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.parentCode" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.remark" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.index" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.isDisable" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.extend1" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.extend2" | translate}}</td>
+                    <td>{{"dictionaryList.listHead.controls" | translate}}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in dicList" ng-if="dicList.length > 0">
+                    <td>
+                        <a ng-hide="isAdding || item.dicCode == null" href="javascript:;" ng-click="setCurrentDic(item)">{{item.dicCode}}</a>
+                        <input ng-show="isAdding" type="text" ng-model="item.dicCode" class="form-control" />
+                    </td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.eN_Name}}</span>
+                        <input ng-show="isAdding || isUpdating" type="text" ng-model="item.eN_Name" class="form-control" />
+                    </td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.chS_Name}}</span>
+                        <input ng-show="isAdding || isUpdating" type="text" ng-model="item.chS_Name" class="form-control" />
+                    </td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.chT_Name}}</span>
+                        <input ng-show="isAdding || isUpdating" type="text" ng-model="item.chT_Name" class="form-control" />
+                    </td>
+                    <td><span ng-hide="!isAdding && item.dicCode == null">{{item.parentCode}}</span></td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.remark}}</span>
+                        <input ng-show="isAdding || isUpdating" type="text" ng-model="item.remark" class="form-control" />
+                    </td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.index}}</span>
+                        <input ng-show="isAdding || isUpdating" type="text" ng-model="item.index" class="form-control" />
+                    </td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.isDisable}}</span>
+                        <select ng-show="isAdding || isUpdating" ng-model="item.isDisable" class="form-control">
+                            <option value="">-Select-</option>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.extend1}}</span>
+                        <input ng-show="isAdding || isUpdating" type="text" ng-model="item.extend1" class="form-control" />
+                    </td>
+                    <td>
+                        <span ng-hide="isAdding || isUpdating">{{item.extend2}}</span>
+                        <input ng-show="isAdding || isUpdating" type="text" ng-model="item.extend2" class="form-control" />
+                    </td>
+                    <td>
+                        <a href="javascript:;" ng-click="isUpdating = true" ng-hide="isAdding || isUpdating || item.dicCode == null"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="javascript:;" open-alert-dialog ng-click="insert('panel-warning','btn-warning', '是否確定刪除Code 【{0}】？', [item.dicCode], {'fun': 'delDic', 'dicCode': item.dicCode})" ng-hide="isAdding || isUpdating || item.dicCode == null"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="javascript:;" ng-show="isAdding || isUpdating" ng-click="sumit(item, isAdding, isUpdating)"><span class="glyphicon glyphicon-ok-circle"></span></a>
+                        <a href="javascript:;" ng-show="isAdding || isUpdating" ng-click="isAdding ? item.dicCode = null : ''; isAdding = false; isUpdating = false;"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                        <a ng-show="!isAdding && item.dicCode == null" href="javascript:;" ng-click="isAdding = true;item.dicCode = nextDicCode;"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    </td>
+                </tr>
+                <tr ng-if="items.length <= 0">
+                    <td>No Data</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

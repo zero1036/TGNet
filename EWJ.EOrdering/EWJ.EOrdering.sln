@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EWJ.EOrdering.WebUI", "EWJ.EOrdering.WebUI\EWJ.EOrdering.WebUI.csproj", "{CE41D314-67EB-4DB0-B967-D4806A3D8EAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EWJ.EOrdering.BL", "EWJ.EOrdering.BL\EWJ.EOrdering.BL.csproj", "{1C98D0DD-C1B2-4BE1-9A68-E403629E7EA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EWJ.EOrdering.DA", "EWJ.EOrdering.DA\EWJ.EOrdering.DA.csproj", "{353F1E05-17F7-4D3A-A3EC-58F33E33F463}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EWJ.EOrdering.Common", "EWJ.EOrdering.Common\EWJ.EOrdering.Common.csproj", "{5F4AE2B3-9EE8-4DA0-8781-73197B225E24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EWJ.EOrdering.ViewModel", "EWJ.EOrdering.ViewModel\EWJ.EOrdering.ViewModel.csproj", "{1E147E05-19A1-472E-98DC-6EAB6BFE3039}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EWJ.EOrdering.WebAPI", "EWJ.EOrdering.WebAPI\EWJ.EOrdering.WebAPI.csproj", "{1A06BF66-4E42-4721-A6BF-63E68E0C3948}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE41D314-67EB-4DB0-B967-D4806A3D8EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE41D314-67EB-4DB0-B967-D4806A3D8EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE41D314-67EB-4DB0-B967-D4806A3D8EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE41D314-67EB-4DB0-B967-D4806A3D8EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C98D0DD-C1B2-4BE1-9A68-E403629E7EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C98D0DD-C1B2-4BE1-9A68-E403629E7EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C98D0DD-C1B2-4BE1-9A68-E403629E7EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C98D0DD-C1B2-4BE1-9A68-E403629E7EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353F1E05-17F7-4D3A-A3EC-58F33E33F463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353F1E05-17F7-4D3A-A3EC-58F33E33F463}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353F1E05-17F7-4D3A-A3EC-58F33E33F463}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353F1E05-17F7-4D3A-A3EC-58F33E33F463}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F4AE2B3-9EE8-4DA0-8781-73197B225E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F4AE2B3-9EE8-4DA0-8781-73197B225E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F4AE2B3-9EE8-4DA0-8781-73197B225E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F4AE2B3-9EE8-4DA0-8781-73197B225E24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E147E05-19A1-472E-98DC-6EAB6BFE3039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E147E05-19A1-472E-98DC-6EAB6BFE3039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E147E05-19A1-472E-98DC-6EAB6BFE3039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E147E05-19A1-472E-98DC-6EAB6BFE3039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A06BF66-4E42-4721-A6BF-63E68E0C3948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A06BF66-4E42-4721-A6BF-63E68E0C3948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A06BF66-4E42-4721-A6BF-63E68E0C3948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A06BF66-4E42-4721-A6BF-63E68E0C3948}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

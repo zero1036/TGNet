@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CE41D314-67EB-4DB0-B967-D4806A3D8EAA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EWJ.EOrdering.WebUI</RootNamespace>
+    <AssemblyName>EWJ.EOrdering.WebUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\i18n\cn\diamondUpload.xml" />
+    <Content Include="app\i18n\cn\diamondAssign.xml" />
+    <Content Include="app\i18n\cn\diamondList.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="app\i18n\cn\dictionaryList.xml" />
+    <Content Include="app\i18n\cn\menu.xml" />
+    <Content Include="app\i18n\cn\userlist.xml" />
+    <Content Include="app\i18n\en\diamondAssign.xml" />
+    <Content Include="app\i18n\en\diamondList.xml" />
+    <Content Include="app\i18n\en\diamondUpload.xml" />
+    <Content Include="app\i18n\en\dictionaryList.xml" />
+    <Content Include="app\i18n\en\menu.xml" />
+    <Content Include="app\i18n\en\userlist.xml" />
+    <Content Include="app\index.html" />
+    <Content Include="app\login.html" />
+    <Content Include="app\scripts\app.js" />
+    <Content Include="app\scripts\controllers\controllers.js" />
+    <Content Include="app\scripts\controllers\diamondAssignCtrl.js" />
+    <Content Include="app\scripts\controllers\diamondQueryCtrl.js" />
+    <Content Include="app\scripts\controllers\diamondUploadCtrl.js" />
+    <Content Include="app\scripts\controllers\dictionaryCtrl.js" />
+    <Content Include="app\scripts\controllers\loginCtrl.js" />
+    <Content Include="app\scripts\controllers\mainCtrl.js" />
+    <Content Include="app\scripts\controllers\modelCtrl.js" />
+    <Content Include="app\scripts\controllers\orderCycleCtrl.js" />
+    <Content Include="app\scripts\controllers\orderCycleEditCtrl.js" />
+    <Content Include="app\scripts\controllers\userCtrl.js" />
+    <Content Include="app\scripts\directives\directives.js" />
+    <Content Include="app\scripts\filters\filters.js" />
+    <Content Include="app\scripts\loginApp.js" />
+    <Content Include="app\scripts\loginMain.js" />
+    <Content Include="app\scripts\main.js" />
+    <Content Include="app\scripts\services\baseService.js" />
+    <Content Include="app\scripts\services\commonService.js" />
+    <Content Include="app\scripts\services\diamondService.js" />
+    <Content Include="app\scripts\services\dictionaryService.js" />
+    <Content Include="app\scripts\services\modelService.js" />
+    <Content Include="app\scripts\services\orderService.js" />
+    <Content Include="app\scripts\services\permissionService.js" />
+    <Content Include="app\scripts\services\configService.js" />
+    <Content Include="app\scripts\services\services.js" />
+    <Content Include="app\scripts\services\loginService.js" />
+    <Content Include="app\scripts\services\testService.js" />
+    <Content Include="app\scripts\services\userService.js" />
+    <Content Include="app\scripts\vendor\angular\angular-animate.js" />
+    <Content Include="app\scripts\vendor\angular\angular-animate.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-aria.js" />
+    <Content Include="app\scripts\vendor\angular\angular-aria.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-cookies.js" />
+    <Content Include="app\scripts\vendor\angular\angular-cookies.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-csp.css" />
+    <Content Include="app\scripts\vendor\angular\angular-loader.js" />
+    <Content Include="app\scripts\vendor\angular\angular-loader.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-messages.js" />
+    <Content Include="app\scripts\vendor\angular\angular-messages.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-mocks.js" />
+    <Content Include="app\scripts\vendor\angular\angular-resource.js" />
+    <Content Include="app\scripts\vendor\angular\angular-resource.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-route.js" />
+    <Content Include="app\scripts\vendor\angular\angular-route.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-sanitize.js" />
+    <Content Include="app\scripts\vendor\angular\angular-sanitize.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-scenario.js" />
+    <Content Include="app\scripts\vendor\angular\angular-touch.js" />
+    <Content Include="app\scripts\vendor\angular\angular-touch.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-translate-loader-partial\angular-translate-loader-partial.js" />
+    <Content Include="app\scripts\vendor\angular\angular-translate-loader-partial\angular-translate-loader-partial.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular-translate\angular-translate.js" />
+    <Content Include="app\scripts\vendor\angular\angular-translate\angular-translate.min.js" />
+    <Content Include="app\scripts\vendor\angular\angular.js" />
+    <Content Include="app\scripts\vendor\angular\angular.min.js" />
+    <Content Include="app\scripts\vendor\angular\bootstrap\js\bootstrap-dropdown.min.js" />
+    <Content Include="app\scripts\vendor\angular\bootstrap\js\bootstrap-tab.min.js" />
+    <Content Include="app\scripts\vendor\angular\bootstrap\js\bootstrap.js" />
+    <Content Include="app\scripts\vendor\angular\bootstrap\js\bootstrap.min.js" />
+    <Content Include="app\scripts\vendor\angular\bootstrap\js\npm.js" />
+    <Content Include="app\scripts\vendor\angular\version.txt" />
+    <Content Include="app\scripts\vendor\bootstrap\js\bootstrap-dropdown.min.js" />
+    <Content Include="app\scripts\vendor\bootstrap\js\bootstrap-tab.min.js" />
+    <Content Include="app\scripts\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="app\scripts\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="app\scripts\vendor\bootstrap\js\npm.js" />
+    <Content Include="app\scripts\vendor\domReady.js" />
+    <Content Include="app\scripts\vendor\jquery.js" />
+    <Content Include="app\scripts\vendor\require.js" />
+    <Content Include="app\scripts\vendor\x2js\.hg_archival.txt" />
+    <Content Include="app\scripts\vendor\x2js\xml2json.js" />
+    <Content Include="app\scripts\vendor\x2js\xml2json.min.js" />
+    <Content Include="app\styles\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="app\styles\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="app\styles\bootstrap\css\bootstrap.css" />
+    <Content Include="app\styles\bootstrap\css\bootstrap.min.css" />
+    <Content Include="app\styles\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="app\styles\bootstrap\js\bootstrap-dropdown.min.js" />
+    <Content Include="app\styles\bootstrap\js\bootstrap-tab.min.js" />
+    <Content Include="app\styles\bootstrap\js\bootstrap.js" />
+    <Content Include="app\styles\bootstrap\js\bootstrap.min.js" />
+    <Content Include="app\styles\bootstrap\js\npm.js" />
+    <Content Include="app\styles\common.css" />
+    <Content Include="app\styles\login.css" />
+    <Content Include="app\views\diamond\diamondUpload.html" />
+    <Content Include="app\views\diamond\diamondAssign.html" />
+    <Content Include="app\views\diamond\diamondQuery.html" />
+    <Content Include="app\views\home.html" />
+    <Content Include="app\views\Model\scModel.html" />
+    <Content Include="app\views\Order\orderCycleEdit.html" />
+    <Content Include="app\views\Order\orderCycleList.html" />
+    <Content Include="app\views\Sys\dictionaryList.html" />
+    <Content Include="app\views\Sys\userList.html" />
+    <Content Include="config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="index.html" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\scripts\vendor\angular\angular-animate.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-aria.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-cookies.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-loader.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-messages.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-resource.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-route.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-sanitize.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-touch.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\angular-translate-loader-partial\bower.json" />
+    <Content Include="app\scripts\vendor\angular\angular-translate-loader-partial\README.md" />
+    <Content Include="app\scripts\vendor\angular\angular-translate\bower.json" />
+    <Content Include="app\scripts\vendor\angular\angular-translate\README.md" />
+    <Content Include="app\scripts\vendor\angular\angular.min.js.map" />
+    <Content Include="app\scripts\vendor\angular\errors.json" />
+    <Content Include="app\scripts\vendor\angular\version.json" />
+    <Content Include="app\scripts\vendor\x2js\.hgtags" />
+    <Content Include="app\scripts\vendor\x2js\.project" />
+    <Content Include="app\scripts\vendor\x2js\bower.json" />
+    <Content Include="app\styles\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="app\styles\bootstrap\css\bootstrap.css.map" />
+    <Content Include="app\styles\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="app\styles\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="app\styles\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app\styles\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\images\" />
+    <Folder Include="app\scripts\vendor\angular\angular-translate-storage-cookie\" />
+    <Folder Include="data\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57612</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49184/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

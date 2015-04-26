@@ -1,0 +1,38 @@
+﻿<div>
+    <style>
+        #oc-div-nav > * {
+            display: inline-block;
+            margin-right: 2em;
+        }
+    </style>
+    <div id="oc-div-nav">
+        <h2>發鑲珠寶 - 請購週期維護</h2>
+        <a href="javascript:void(0);" ng-click="addCycle()">增加</a>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>請購週期</th>
+                    <th>開始日期</th>
+                    <th>截止日期</th>
+                    <th>狀態</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="oCycle in orderCycles">
+                    <td>{{oCycle.cycleNo}}</td>
+                    <td>{{oCycle.startDateX}}</td>
+                    <td>{{oCycle.endDateX}}</td>
+                    <td>{{oCycle.status}}</td>
+                    <td>
+                        <a ng-show="oCycle.statusX=='017001'" href="javascript:void(0);" ng-click="modifyCycle(oCycle)">修改</a>
+                         <!--<input id="meeting" type="date" ng-model="oCycle.endDate"/>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

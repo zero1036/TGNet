@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body ng-controller="loginCtrl">
+    <div class="header clearfix header-fix-top">
+        <div class="navbar-header">
+            <a href="javascript:;" class="navbar-brand">EWJ訂貨系統</a>
+        </div>
+    </div>
+    <div class="body">
+        <div id="login">
+
+            <form action="">
+                <div class="form-group">
+                    <input id="txtAccount" type="text" class="form-control" placeholder="賬戶" ng-model="user.account">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密碼" ng-model="user.password">
+                </div>
+                <a class="pull-right" href="javascript:;" ng-click="signin()">
+                    <h4>登入</h4>
+                </a>
+            </form>
+        </div>
+    </div>
+    <script data-main="scripts/loginMain" src="scripts/vendor/require.js"></script>
+</body>
+</html>
