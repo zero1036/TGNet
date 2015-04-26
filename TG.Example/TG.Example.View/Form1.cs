@@ -78,6 +78,16 @@ namespace TG.Example.View
             _MysqlTest.ProcedureFunc();
         }
 
+        private void btnInsert2_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(_MysqlTest.InsertFunc2());
+        }
+
+        private void btnInsert3_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(_MysqlTest.InsertFunc3());
+        }
+
 
 
     }

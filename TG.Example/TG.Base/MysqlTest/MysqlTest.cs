@@ -95,6 +95,83 @@ namespace TG.Example
             }
         }
         /// <summary>
+        /// 插入测试
+        /// </summary>
+        /// <returns></returns>
+        public string InsertFunc2()
+        {
+            try
+            {
+                int ires = 0;
+                Random pRam = new Random(); ;
+                StringBuilder psql = new StringBuilder();
+                int itagid = 0;
+                string tagname = string.Empty;
+                int itid = 0;
+                int isysdepartmentid = 0;
+                int isysuserid = 0;
+                for (int i = 0; i <= 200000; i++)
+                {
+                    //pRam. 
+                    itagid = pRam.Next(1, 100);
+                    tagname = itagid.ToString();
+                    itid = pRam.Next(0, 10);
+                    isysdepartmentid = pRam.Next(0, 100);
+                    if (isysdepartmentid > 50)
+                    {
+                        isysdepartmentid = 0;
+                        isysuserid = pRam.Next(0, 1000);
+                    }
+                    else
+                    {
+                        isysuserid = 0;
+                    }
+
+                    psql = psql.AppendFormat(",({0},'{1}',{2},{3},{4})", itagid, tagname, itid, isysdepartmentid, isysuserid);
+                }
+                string sqlbbb = psql.ToString().Substring(1, psql.Length - 1);
+                var sqlx = string.Format("insert into sys_tag(tagid,tagname,tid,sysdepartmentid,sysuserid) values{0}", sqlbbb);
+                ires = _ado.Execute(sqlx, null, null, string.Empty);
+                return "insert结果" + ires;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        /// <summary>
+        /// 插入测试
+        /// </summary>
+        /// <returns></returns>
+        public string InsertFunc3()
+        {
+            try
+            {
+                int ires = 0;
+                Random pRam = new Random(); ;
+                StringBuilder psql = new StringBuilder();
+
+                int itid = 0;
+                int roleid = 0;
+                for (int i = 1; i <= 200000; i++)
+                {
+                    itid = pRam.Next(0, 10);
+                    roleid = pRam.Next(1, 4);
+
+
+                    psql = psql.AppendFormat(",('{0}',{1},{2})", i, itid, roleid);
+                }
+                string sqlbbb = psql.ToString().Substring(1, psql.Length - 1);
+                var sqlx = string.Format("insert into sys_User(userid,tid,roleid) values{0}", sqlbbb);
+                ires = _ado.Execute(sqlx, null, null, string.Empty);
+                return "insert结果" + ires;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        /// <summary>
         /// 模拟测试
         /// </summary>
         /// <returns></returns>
@@ -107,13 +184,13 @@ namespace TG.Example
                 long ltotaltime = 0;
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
-                for (int i = 1; i <= 1; i++)
+                for (int i = 1; i <= 1000; i++)
                 {
                     //ires = _ado.Execute("pr_User_SingleAdd2", new string[] { "ptid", "puserid", "pname", "pposition", "pmobile", "pemail", "pweixinid", "pavatar", "pstatus", "ppassword", "plitmitcount" }, new object[] { 1, "Mark2", "M2", "PG", "602424", "799", "zero1036", "touxiang", 1, "504", 1000000 }, string.Empty, CommandType.StoredProcedure);
 
-                    //ires = _ado.Execute("pr_User_SingleAdd3", new string[] { "ptid", "puserid", "pname", "pposition", "pmobile", "pemail", "pweixinid", "pavatar", "pstatus", "ppassword", "plitmitcount", "pcurtrid", "ptbname" }, new object[] { 1, "Mark2", "M2", "PG", "602424", "799", "zero1036", "touxiang", 1, "504", 1000000, 1, "t_User_1" }, string.Empty, CommandType.StoredProcedure);
+                    ires = _ado.Execute("pr_User_SingleAdd3", new string[] { "ptid", "puserid", "pname", "pposition", "pmobile", "pemail", "pweixinid", "pavatar", "pstatus", "ppassword", "plitmitcount", "pcurtrid", "ptbname" }, new object[] { 1, "Mark2", "M2", "PG", "602424", "799", "zero1036", "touxiang", 1, "504", 1000000, 1, "t_User_1" }, string.Empty, CommandType.StoredProcedure);
 
-                    ires = _ado.Execute("pr_User_SingleAdd4", new string[] { "ptid", "pcurtrid", "ptbname" }, new object[] { 1, 1, "t_User_1" }, string.Empty, CommandType.StoredProcedure);
+                    //ires = _ado.Execute("pr_User_SingleAdd4", new string[] { "ptid", "pcurtrid", "ptbname" }, new object[] { 1, 1, "t_User_1" }, string.Empty, CommandType.StoredProcedure);
 
                     //ires = _ado.Execute("p16", null, null, string.Empty, CommandType.StoredProcedure);
                     //ires = _ado.Execute("p17", null, null, string.Empty, CommandType.StoredProcedure);

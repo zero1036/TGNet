@@ -36,6 +36,8 @@
             this.btnMysqlQuery1 = new System.Windows.Forms.Button();
             this.btnMysqlInsert = new System.Windows.Forms.Button();
             this.btnProcedure = new System.Windows.Forms.Button();
+            this.btnInsert2 = new System.Windows.Forms.Button();
+            this.btnInsert3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -118,11 +120,33 @@
             this.btnProcedure.UseVisualStyleBackColor = true;
             this.btnProcedure.Click += new System.EventHandler(this.btnProcedure_Click);
             // 
+            // btnInsert2
+            // 
+            this.btnInsert2.Location = new System.Drawing.Point(346, 126);
+            this.btnInsert2.Name = "btnInsert2";
+            this.btnInsert2.Size = new System.Drawing.Size(161, 32);
+            this.btnInsert2.TabIndex = 8;
+            this.btnInsert2.Text = "Mysql插入2";
+            this.btnInsert2.UseVisualStyleBackColor = true;
+            this.btnInsert2.Click += new System.EventHandler(this.btnInsert2_Click);
+            // 
+            // btnInsert3
+            // 
+            this.btnInsert3.Location = new System.Drawing.Point(346, 164);
+            this.btnInsert3.Name = "btnInsert3";
+            this.btnInsert3.Size = new System.Drawing.Size(161, 32);
+            this.btnInsert3.TabIndex = 9;
+            this.btnInsert3.Text = "Mysql插入3";
+            this.btnInsert3.UseVisualStyleBackColor = true;
+            this.btnInsert3.Click += new System.EventHandler(this.btnInsert3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 311);
+            this.Controls.Add(this.btnInsert3);
+            this.Controls.Add(this.btnInsert2);
             this.Controls.Add(this.btnProcedure);
             this.Controls.Add(this.btnMysqlInsert);
             this.Controls.Add(this.btnMysqlQuery1);
@@ -147,6 +171,8 @@
         private System.Windows.Forms.Button btnMysqlQuery1;
         private System.Windows.Forms.Button btnMysqlInsert;
         private System.Windows.Forms.Button btnProcedure;
+        private System.Windows.Forms.Button btnInsert2;
+        private System.Windows.Forms.Button btnInsert3;
     }
 }
 
