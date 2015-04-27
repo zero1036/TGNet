@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TW.Platform.DA;
+using TW.Platform.Sys;
 /*****************************************************
 * 目的：微信基础配置表模型
 * 创建人：林子聪
@@ -15,6 +16,9 @@ using TW.Platform.DA;
 *****************************************************/
 namespace TW.Platform.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WXConfigM
     {
         #region 属性
@@ -55,7 +59,9 @@ namespace TW.Platform.Model
         { get; set; }
         #endregion
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class WXCorpInfo : WXConfigM, EG.WeChat.Utility.WeiXin.IWXCorpInfo, TW.Platform.BL.IServiceX
     {
         private int? _aid = null;

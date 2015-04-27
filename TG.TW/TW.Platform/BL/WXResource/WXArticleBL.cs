@@ -16,6 +16,7 @@ using EG.WeChat.Utility.Tools;
 using EG.WeChat.Utility.WeiXin;
 using TW.Platform.Model;
 using System.Web.Caching;
+using TW.Platform.Sys;
 /*****************************************************
 * 目的：微信图文资源管理服务
 * 创建人：林子聪

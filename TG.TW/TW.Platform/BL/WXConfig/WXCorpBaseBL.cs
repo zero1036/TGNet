@@ -14,6 +14,7 @@ using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Entities.Menu;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.AdvancedAPIs.App;
+using TW.Platform.Sys;
 /*****************************************************
 * 目的：企业号基础设置
 * 创建人：林子聪

@@ -24,6 +24,7 @@ using EG.WeChat.Utility.Tools;
 using TW.Platform.Model;
 using TW.Platform.DA;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
+using TW.Platform.Sys;
 /*****************************************************
 * 目的：微信自动信息服务
 * 创建人：林子聪
@@ -76,7 +77,7 @@ namespace TW.Platform.BL
                 //toTag = "@all";
                 //agentId = "47";
                 #endregion
-
+                
                 int lcId;
                 object objKeyW = null;
                 if (messageType == "news" || messageType == "mpnews")

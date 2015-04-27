@@ -69,6 +69,7 @@
     <Compile Include="BL\SdkETS\SDKETSFactory.cs" />
     <Compile Include="BL\WXConfig\WXCorpBaseBL.cs" />
     <Compile Include="BL\WXOrganization\IWeChatUserService.cs" />
+    <Compile Include="BL\WXOrganization\UserBL.cs" />
     <Compile Include="BL\WXResource\MediaConverterQueue.cs" />
     <Compile Include="BL\WXResource\WXArticleBL.cs" />
     <Compile Include="BL\WXResource\WXPictureBL.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Model\WXResource\WXVoiceResultJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sys\ADOTemplateX.cs" />
+    <Compile Include="Sys\ConstHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TG.Utility\EG.Common\EGCommon\EGCommon_Net4.0.csproj">
