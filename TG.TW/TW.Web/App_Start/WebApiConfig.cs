@@ -31,7 +31,7 @@ namespace TW.Web
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "{controller}/{action}/{param}",
+                routeTemplate: "api/{controller}/{action}/{param}",
                 defaults: new { param = RouteParameter.Optional }
             );
         }

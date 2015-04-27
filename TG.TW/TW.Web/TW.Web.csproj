@@ -40,6 +40,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Senparc.Weixin, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP, Version=11.0.1.903, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP.MvcExtension, Version=3.0.0.27733, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.QY, Version=2.2.0.25838, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.QY.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -104,6 +120,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Base\ApiControllerBase.cs" />
     <Compile Include="Controllers\Base\ControllerBase.cs" />
@@ -114,6 +133,8 @@
     <Compile Include="Controllers\Extension\Security\RequireAuthorizeAttribute.cs" />
     <Compile Include="Controllers\Extension\Security\WXOAuthAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QY\abController.cs" />
+    <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\Sys\LoginController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -241,7 +262,6 @@
     <Content Include="app\views\Sys\dictionaryList.html" />
     <Content Include="app\views\Sys\userList.html" />
     <Content Include="config.xml" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="app\scripts\vendor\angular\angular-animate.min.js.map" />
     <Content Include="app\scripts\vendor\angular\angular-aria.min.js.map" />
