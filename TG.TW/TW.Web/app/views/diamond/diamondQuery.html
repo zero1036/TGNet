@@ -1,0 +1,49 @@
+﻿<div class="row">
+    <div class="col-md-1"> <input type="text" ng-Model="articleNo" placeholder="货品"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="diamondNo" placeholder="钻石编号"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="shape" placeholder="形状"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="caratMin" placeholder="卡数小"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="caratMax" placeholder="卡数大"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="color" placeholder="成色"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="clarity" placeholder="净度"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="store" placeholder="店铺"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="uploadDate" placeholder="上传日期"/></div>
+    <div class="col-md-1"> <input type="text" ng-Model="statusCode" placeholder="状态"/></div>
+     <div class="col-md-1"><button ng-click="resetQueryItem()">重置</button></div>
+     <div class="col-md-1"> <button ng-click="diamondsQueryFunc()">查询</button></div>
+</div>
+<div class="row">
+    <div class="col-md-1"><button>确定</button></div>
+    <div class="col-md-1"><button>取消</button></div>
+    <div class="col-md-1"><button>列印</button></div>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>货品编号</th>
+            <th>钻石批号</th>
+            <th>形状</th>
+            <th>克拉重量</th>
+            <th>颜色等级</th>
+            <th>净度</th>
+            <th>店铺</th>
+            <th>上传日期</th>
+            <th>状态</th>
+        </tr>
+            </thead>
+        <tbody>
+        <tr ng-repeat="item in diamondList">
+            <td>{{item.articleNo}}</td>
+            <td>{{item.diamondNo}}</td>
+            <td>{{item.shapeName}}</td>
+            <td>{{item.carat}}</td>
+            <td>{{item.colorName}}</td>
+            <td>{{item.clarityName}}</td>
+            <td>{{item.storeName}}</td>
+            <td>{{item.uploadDate|date:'dd-MM-yyyy'}}</td>
+            <td>{{item.statusName}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

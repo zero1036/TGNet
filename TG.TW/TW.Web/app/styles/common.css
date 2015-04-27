@@ -1,0 +1,58 @@
+body{
+	background: #F5F5F5;
+	padding-top: 50px;
+}
+.header-fix-top {
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+/*padding*/
+.p0{
+	padding: 0;
+}
+.pl0{
+	padding-left: 0;
+}
+.pr0{
+	padding-right: 0;
+}
+.p15{
+	padding-right: 15px;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+ }
+.header{
+	border-bottom: 2px solid #A5BEDD;
+}
+.header .navbar-brand{
+	font-size: 24px;
+	color: #000000;
+}
+.header > .container > nav > ul:nth-child(1) > li > a{
+	color: #000000;
+}
+.header > .container > nav > ul:last-child > li > a{
+	color: #666666;
+}
+.navbar-nav>li>a{
+	padding-top: 20px;
+	padding-bottom:10px;
+}
+/*width*/
+.w45{
+	width: 45px !important;
+}
+.w50{
+	width: 50px !important
+}
+.w75{
+	width: 75px !important;
+}
+.w90{
+	width: 90px !important;
+}
+.w100{
+	width: 100px !important;
+}

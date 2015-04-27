@@ -1,0 +1,36 @@
+.form-control{
+	border-radius:0
+}
+#diamondQuerySelection .form-control{
+	height: 25px;
+	padding: 6px 7px;
+	margin-right: 10px;
+}
+#diamondQuerySelection .col-md-2{
+	height: 25px;
+}
+#diamondQuerySelection .col-md-2 > .btn{
+	padding: 3px 12px;
+}
+.table{
+	background: #EBEBEB;
+	border-color: #719AD2;
+}
+.table>thead:first-child>tr:first-child>th{
+	border-top: 1px solid #719AD2;
+}
+.table>thead>tr>th,.table>tbody>tr>td{
+	border-bottom: 1px solid #719AD2;
+}
+#diamondAssignResult .form-control{
+	height: 25px;
+	padding: 6px 7px; 
+}
+#diamondUploadSelection > div.col-md-10{
+	height: 25px;
+}
+#diamondUploadSelection .form-control{
+	height: 25px;
+	padding: 6px 7px;
+	margin-right: 10px;
+}

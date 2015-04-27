@@ -1,0 +1,29 @@
+﻿<h1>{{"root.title" | translate}}</h1>
+
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{"root.staffCode" | translate}}</th>
+                <th>Account</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in userList" ng-if="userList.length > 0">
+                <td>
+                    <span>{{user.staffCode}}</span>
+                </td>
+                <td>
+                    <span>{{user.account}}</span>
+                </td>
+                <td>
+                    <span>{{user.chName}}</span>
+                </td>
+            </tr>
+            <tr class="warning" ng-if="userList == null || userList.length <= 0">
+                <td colspan="4">当前沒有查詢到任何數據</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <title>数据字典</title>
+  <listHead>
+    <code>编号</code>
+    <enName>英文名</enName>
+    <chsName>简体中文</chsName>
+    <chtName>繁体中文</chtName>
+    <parentCode>父级编号</parentCode>
+    <remark>描述</remark>
+    <index>序号</index>
+    <isDisable>是否关闭</isDisable>
+    <extend1>扩展1</extend1>
+    <extend2>扩展2</extend2>
+    <extend3>扩展3</extend3>
+    <extend4>扩展4</extend4>
+    <controls>操作</controls>
+  </listHead>
+</root>
