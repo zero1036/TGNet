@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D093D981-6255-48E0-A89B-8F9B5CFB9BED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TW.Platform</RootNamespace>
+    <AssemblyName>TW.Platform</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.QY">
+      <HintPath>..\..\Lib\Senparc.Weixin.SDK\Senparc.Weixin.QY.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UtilityLib">
+      <HintPath>..\..\Lib\UtilityLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BL\Message\WeChatMessageService.cs" />
+    <Compile Include="BL\Message\WXCSMessageService.cs" />
+    <Compile Include="BL\SdkETS\ISdkETS.cs" />
+    <Compile Include="BL\SdkETS\MPSdkETS.cs" />
+    <Compile Include="BL\SdkETS\QYSdkETS.cs" />
+    <Compile Include="BL\SdkETS\SDKETSFactory.cs" />
+    <Compile Include="BL\WXConfig\WXCorpBaseService.cs" />
+    <Compile Include="BL\WXOrganization\IWeChatUserService.cs" />
+    <Compile Include="BL\WXOrganization\WeChatGroupService.cs" />
+    <Compile Include="BL\WXOrganization\WeChatOrgService.cs" />
+    <Compile Include="BL\WXOrganization\WeChatUserService.cs" />
+    <Compile Include="BL\WXResource\MediaConverterQueue.cs" />
+    <Compile Include="BL\WXResource\WeChatArticleService.cs" />
+    <Compile Include="BL\WXResource\WeChatPictureService.cs" />
+    <Compile Include="BL\WXResource\WeChatResourcesSerivce.cs" />
+    <Compile Include="BL\WXResource\WeChatVideoService.cs" />
+    <Compile Include="BL\WXResource\WeChatVoiceService.cs" />
+    <Compile Include="DA\OrganizationDA\WeChatGroupDA.cs" />
+    <Compile Include="DA\OrganizationDA\WeChatOrgAOP.cs" />
+    <Compile Include="DA\OrganizationDA\WeChatUserDA.cs" />
+    <Compile Include="DA\OrganizationDA\WXResAOP.cs" />
+    <Compile Include="DA\WXConfigDA\WXConfigDA.cs" />
+    <Compile Include="DA\WXMessageDA\WXGsMessageDA.cs" />
+    <Compile Include="DA\WXResourceDA\WXResourceDA.cs" />
+    <Compile Include="Model\WXConfig\WXConfigM.cs" />
+    <Compile Include="Model\WXMessage\WCTemplateAction.cs" />
+    <Compile Include="Model\WXMessage\WCTemplateMessage.cs" />
+    <Compile Include="Model\WXMessage\WXGsMessageVM.cs" />
+    <Compile Include="Model\WXOrganization\WeChatUser.cs" />
+    <Compile Include="Model\WXOrganization\WXUsersVM.cs" />
+    <Compile Include="Model\WXResource\EnumWXSourceType.cs" />
+    <Compile Include="Model\WXResource\LocalResultExtend\IFileUploadResult.cs" />
+    <Compile Include="Model\WXResource\LocalResultExtend\ILCResultJon.cs" />
+    <Compile Include="Model\WXResource\LocalResultExtend\LCResultJon.cs" />
+    <Compile Include="Model\WXResource\SDKResultExtend\IWXResultJon.cs" />
+    <Compile Include="Model\WXResource\SDKResultExtend\UploadMediaFileResultX.cs" />
+    <Compile Include="Model\WXResource\SDKResultExtend\UploadResultJsonX.cs" />
+    <Compile Include="Model\WXResource\SDKResultExtend\WXResultJson.cs" />
+    <Compile Include="Model\WXResource\WXArticleResultJson.cs" />
+    <Compile Include="Model\WXResource\WXPictureResultJson.cs" />
+    <Compile Include="Model\WXResource\WXVideoResultJson.cs" />
+    <Compile Include="Model\WXResource\WXVoiceResultJson.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TG.Utility\EG.Common\EGCommon\EGCommon_Net4.0.csproj">
+      <Project>{61f7723f-f2ff-41b5-8ff9-332e55d404ea}</Project>
+      <Name>EGCommon_Net4.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TG.Utility\EG.WeChat.Utility\EG.WeChat.Utility.csproj">
+      <Project>{39a42f72-3ad0-4f56-a577-41074ce37fe1}</Project>
+      <Name>EG.WeChat.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

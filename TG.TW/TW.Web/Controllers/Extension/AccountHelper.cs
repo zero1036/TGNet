@@ -15,7 +15,7 @@ namespace TW.Web.Controllers
         /// 创建登录用户的票据信息
         /// </summary>
         /// <param name="strUserName"></param>
-        internal void CreateLoginUserTicket(string strUserName, string strPassword)
+        internal string CreateLoginUserTicket(string strUserName, string strPassword)
         {
             //构造Form验证的票据信息
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, strUserName, DateTime.Now, DateTime.Now.AddMinutes(240),
@@ -35,6 +35,8 @@ namespace TW.Web.Controllers
             IIdentity identity = new FormsIdentity(ticket);
             IPrincipal principal = new GenericPrincipal(identity, roles);
             HttpContext.Current.User = principal;
+
+            return ticString;
         }
 
         /// <summary>

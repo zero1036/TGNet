@@ -84,12 +84,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TG.Base\TG.Example.csproj">
       <Project>{0e304481-b41e-49ff-b724-6fba4916269b}</Project>
-      <Name>TG.Example</Name>
+      <Name>TG.Example %28TG.Example\BL\TG.Example%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -28,10 +28,11 @@ namespace TW.Web.Controllers
         {
             //检验用户ticket信息，用户ticket信息来自调用发起方
             var authorization = actionContext.Request.Headers.Authorization;
-            if ((authorization != null) && (authorization.Parameter != null))
+            //if ((authorization != null) && (authorization.Parameter != null))
+            if (authorization != null)
             {
                 //解密用户ticket,并校验用户名密码是否匹配
-                var encryptTicket = authorization.Parameter;
+                var encryptTicket = authorization.ToString();
                 if (ValidateUserTicket(encryptTicket))
                     base.OnActionExecuting(actionContext);
                 else

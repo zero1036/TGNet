@@ -24,11 +24,11 @@ namespace TW.Web.Controllers
                 if (accountModel.ValidateUserLogin(strUserName, strPassword))
                 {
                     //创建用户ticket信息
-                    accountModel.CreateLoginUserTicket(strUserName, strPassword);
+                    var token = accountModel.CreateLoginUserTicket(strUserName, strPassword);
 
                     //读取用户权限数据
                     accountModel.GetUserAuthorities(strUserName);
-                    response = Request.CreateResponse(HttpStatusCode.OK);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { id = strUserName, token = token });
                 }
                 else
                 {

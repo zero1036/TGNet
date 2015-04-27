@@ -54,7 +54,7 @@ require.config({
             deps: ['jquery']
         },
         uploader: {
-            deps:['angular']
+            deps: ['angular']
         }
     }
 });
@@ -75,8 +75,13 @@ require([
 ],
 function (angular, app, domReady) {
     'use strict';
-    app.config(['$routeProvider', '$httpProvider',
-        function ($routeProvider, $httpProvider) {
+    app.constant('ACCESS_LEVELS', {
+        pub: 1,
+        user: 2
+    });
+
+    app.config(['$routeProvider', '$httpProvider', 'ACCESS_LEVELS',
+        function ($routeProvider, $httpProvider, ACCESS_LEVELS) {
             $routeProvider
             .when('/home', {
                 templateUrl: 'views/home.html',
@@ -102,7 +107,8 @@ function (angular, app, domReady) {
             // 订购周期维护
             .when('/orderCycleList', {
                 templateUrl: 'views/Order/orderCycleList.html',
-                controller: 'orderCycleCtrl'
+                controller: 'orderCycleCtrl',
+                access_level: ACCESS_LEVELS.pub
             })
             .when('/orderCycleEdit', {
                 templateUrl: 'views/Order/orderCycleEdit.html',
@@ -130,16 +136,45 @@ function (angular, app, domReady) {
 
             $httpProvider.interceptors.push(function ($q, $location, $rootScope) {
                 return {
+                    'response': function (resp) {
+                        if (resp.config.url == '/Login/Login') {
+                            // 假设API服务器返回的数据格式如下:
+                            // { token: "AUTH_TOKEN" }
+                            Auth.setToken(resp.data.token);
+                        }
+                        return resp;
+                    },
                     'responseError': function (rejection) {
-                        if (rejection.status == 401) {      //会话过期
-                            //$rootScope.isReLogin = true;
-                            //return $location.path("login");
-                            window.location.href = 'login.html';
-                        } else if (rejection.status == 500) {       //后台出错
-                            //return $location.path("login");
+                        // 错误处理
+                        switch (rejection.status) {
+                            case 401:
+                                if (rejection.config.url !== 'api/login')
+                                    // 如果当前不是在登录页面
+                                    $rootScope.$broadcast('auth:loginRequired');
+                                break;
+                            case 403:
+                                $rootScope.$broadcast('auth:forbidden');
+                                break;
+                            case 404:
+                                $rootScope.$broadcast('page:notFound');
+                                break;
+                            case 500:
+                                $rootScope.$broadcast('server:error');
+                                break;
                         }
                         return $q.reject(rejection);
                     }
+
+                    //'responseError': function (rejection) {
+                    //    if (rejection.status == 401) {      //会话过期
+                    //        //$rootScope.isReLogin = true;
+                    //        //return $location.path("login");
+                    //        window.location.href = 'login.html';
+                    //    } else if (rejection.status == 500) {       //后台出错
+                    //        //return $location.path("login");
+                    //    }
+                    //    return $q.reject(rejection);
+                    //}
                 };
             });
         }
@@ -155,6 +190,96 @@ function (angular, app, domReady) {
         // $translateProvider.useCookieStorage();
 
     });
+
+    //app.config('authCfg'
+    //    , ['$httpProvider'
+    //    , function ($httpProvider) {
+    //        // 在这里构造拦截器
+    //        var interceptor = function ($q, $rootScope, Auth) {
+    //            return {
+    //                'response': function (resp) {
+    //                    if (resp.config.url == '/Login/Login') {
+    //                        // 假设API服务器返回的数据格式如下:
+    //                        // { token: "AUTH_TOKEN" }
+    //                        Auth.setToken(resp.data.token);
+    //                    }
+    //                    return resp;
+    //                },
+    //                'responseError': function (rejection) {
+    //                    // 错误处理
+    //                    switch (rejection.status) {
+    //                        case 401:
+    //                            if (rejection.config.url !== 'api/login')
+    //                                // 如果当前不是在登录页面
+    //                                $rootScope.$broadcast('auth:loginRequired');
+    //                            break;
+    //                        case 403:
+    //                            $rootScope.$broadcast('auth:forbidden');
+    //                            break;
+    //                        case 404:
+    //                            $rootScope.$broadcast('page:notFound');
+    //                            break;
+    //                        case 500:
+    //                            $rootScope.$broadcast('server:error');
+    //                            break;
+    //                    }
+    //                    return $q.reject(rejection);
+    //                }
+    //            };
+    //        };
+    //        // 将拦截器和$http的request/response链整合在一起
+    //        $httpProvider.interceptors.push(interceptor);
+
+    //    }]);
+
+    app.factory('Auth', function ($cookieStore, ACCESS_LEVELS) {
+        var _user = $cookieStore.get('user');
+        var setUser = function (user) {
+            if (!user.role || user.role < 0) {
+                user.role = ACCESS_LEVELS.pub;
+            }
+            _user = user;
+            $cookieStore.put('user', _user);
+        };
+        return {
+            isAuthorized: function (lvl) {
+                return _user.role >= lvl;
+            },
+            setUser: setUser,
+            isLoggedIn: function () {
+                return _user ? true : false;
+            },
+            getUser: function () {
+                return _user;
+            },
+            getId: function () {
+                return _user ? _user._id : null;
+            },
+            getToken: function () {
+                return _user ? _user.token : '';
+            },
+            logout: function () {
+                $cookieStore.remove('user');
+                _user = null;
+            }
+        }
+    });
+
+    app.run(function ($rootScope, $location, Auth) {
+        // 给$routeChangeStart设置监听
+        $rootScope.$on('$routeChangeStart', function (evt, next, curr) {
+            if (!Auth.isAuthorized(next.$$route.access_level)) {
+                if (Auth.isLoggedIn()) {
+                    // 用户登录了，但没有访问当前视图的权限
+                    $location.path('/');
+                } else {
+                    $location.path('/login');
+                }
+            }
+        });
+    });
+
+
 
     domReady(function () {
         angular.bootstrap(document, ['eOrderingApp']);

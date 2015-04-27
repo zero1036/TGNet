@@ -1,8 +1,8 @@
-define(['controllers/controllers', 'services/commonService', 'services/configService', 'services/baseService', 'services/loginService', 'services/permissionService', 'services/userService'], function (controllers) {
+define(['controllers/controllers', 'services/commonService', 'services/configService', 'services/baseService', 'services/loginService', 'services/permissionService', 'services/userService', 'services/authService'], function (controllers) {
     controllers.controller('loginCtrl'
         , ['$rootScope', '$scope'
-            , 'commonService', 'configService', 'baseService', 'loginService', 'permissionService', 'userService'
-        , function ($rootScope, $scope, commonService, configService, baseService, loginService, permissionService, userService) {
+            , 'commonService', 'configService', 'baseService', 'loginService', 'permissionService', 'userService', 'Auth'
+        , function ($rootScope, $scope, commonService, configService, baseService, loginService, permissionService, userService, Auth) {
 
             $scope.homePageUrl = 'index.html';
             $scope.User = {};
@@ -34,40 +34,44 @@ define(['controllers/controllers', 'services/commonService', 'services/configSer
                 //登录
                 loginService.signin($scope.user.account, $scope.user.password)
                     .success(function (result, status, headers, config) {
-                        //获取当前用户
-                        userService.getCurrentUser()
-                            .success(function (result, status, headers, config) {
-                                if (result == null) {
-                                    return $location.path("login");
-                                }
-                                commonService.setSession(commonService.SESSION_KEY_CURRENT_USER, result);
+                        Auth.setUser(result);
+                        //成功后跳转到首页
+                        //return $location.path($scope.homePageUrl);
+                        window.location.href = $scope.homePageUrl;
+                        ////获取当前用户
+                        //userService.getCurrentUser()
+                        //    .success(function (result, status, headers, config) {
+                        //        if (result == null) {
+                        //            return $location.path("login");
+                        //        }
+                        //        commonService.setSession(commonService.SESSION_KEY_CURRENT_USER, result);
 
-                                //获取用户菜单
-                                permissionService.getMenu()
-                                    .success(function (result, status, headers, config) {
-                                        commonService.setSession(commonService.SESSION_KEY_CURRENT_USER_MENU, result);
+                        //        //获取用户菜单
+                        //        permissionService.getMenu()
+                        //            .success(function (result, status, headers, config) {
+                        //                commonService.setSession(commonService.SESSION_KEY_CURRENT_USER_MENU, result);
 
-                                        //获取用户权限
-                                        permissionService.getPermission()
-                                            .success(function (result, status, headers, config) {
-                                                commonService.setSession(commonService.SESSION_KEY_CURRENT_USER_PERMISSION, result);
+                        //                //获取用户权限
+                        //                permissionService.getPermission()
+                        //                    .success(function (result, status, headers, config) {
+                        //                        commonService.setSession(commonService.SESSION_KEY_CURRENT_USER_PERMISSION, result);
 
 
-                                                //成功后跳转到首页
-                                                //return $location.path($scope.homePageUrl);
-                                                window.location.href = $scope.homePageUrl;
-                                            })
-                                            .error(function () {
-                                                alert("获取用户权限失败");
-                                            });
-                                    })
-                                    .error(function () {
-                                        alert("获取当前用户菜单失败");
-                                    });
-                            })
-                            .error(function () {
-                                alert("获取当前用户失败");
-                            });
+                        //                        //成功后跳转到首页
+                        //                        //return $location.path($scope.homePageUrl);
+                        //                        window.location.href = $scope.homePageUrl;
+                        //                    })
+                        //                    .error(function () {
+                        //                        alert("获取用户权限失败");
+                        //                    });
+                        //            })
+                        //            .error(function () {
+                        //                alert("获取当前用户菜单失败");
+                        //            });
+                        //    })
+                        //    .error(function () {
+                        //        alert("获取当前用户失败");
+                        //    });
                     })
                     .error(function () {
                         alert("登录失败");
