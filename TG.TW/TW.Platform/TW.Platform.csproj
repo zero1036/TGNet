@@ -62,33 +62,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BL\Message\WeChatMessageService.cs" />
-    <Compile Include="BL\Message\WXCSMessageService.cs" />
+    <Compile Include="BL\Message\WXMessageBL.cs" />
     <Compile Include="BL\SdkETS\ISdkETS.cs" />
     <Compile Include="BL\SdkETS\MPSdkETS.cs" />
     <Compile Include="BL\SdkETS\QYSdkETS.cs" />
     <Compile Include="BL\SdkETS\SDKETSFactory.cs" />
-    <Compile Include="BL\WXConfig\WXCorpBaseService.cs" />
+    <Compile Include="BL\WXConfig\WXCorpBaseBL.cs" />
     <Compile Include="BL\WXOrganization\IWeChatUserService.cs" />
-    <Compile Include="BL\WXOrganization\WeChatGroupService.cs" />
-    <Compile Include="BL\WXOrganization\WeChatOrgService.cs" />
-    <Compile Include="BL\WXOrganization\WeChatUserService.cs" />
     <Compile Include="BL\WXResource\MediaConverterQueue.cs" />
-    <Compile Include="BL\WXResource\WeChatArticleService.cs" />
-    <Compile Include="BL\WXResource\WeChatPictureService.cs" />
-    <Compile Include="BL\WXResource\WeChatResourcesSerivce.cs" />
-    <Compile Include="BL\WXResource\WeChatVideoService.cs" />
-    <Compile Include="BL\WXResource\WeChatVoiceService.cs" />
-    <Compile Include="DA\OrganizationDA\WeChatGroupDA.cs" />
-    <Compile Include="DA\OrganizationDA\WeChatOrgAOP.cs" />
-    <Compile Include="DA\OrganizationDA\WeChatUserDA.cs" />
-    <Compile Include="DA\OrganizationDA\WXResAOP.cs" />
+    <Compile Include="BL\WXResource\WXArticleBL.cs" />
+    <Compile Include="BL\WXResource\WXPictureBL.cs" />
+    <Compile Include="BL\WXResource\WXResourcesBL.cs" />
+    <Compile Include="BL\WXResource\WXVideoBL.cs" />
+    <Compile Include="BL\WXResource\WXVoiceBL.cs" />
     <Compile Include="DA\WXConfigDA\WXConfigDA.cs" />
     <Compile Include="DA\WXMessageDA\WXGsMessageDA.cs" />
     <Compile Include="DA\WXResourceDA\WXResourceDA.cs" />
     <Compile Include="Model\WXConfig\WXConfigM.cs" />
-    <Compile Include="Model\WXMessage\WCTemplateAction.cs" />
-    <Compile Include="Model\WXMessage\WCTemplateMessage.cs" />
     <Compile Include="Model\WXMessage\WXGsMessageVM.cs" />
     <Compile Include="Model\WXOrganization\WeChatUser.cs" />
     <Compile Include="Model\WXOrganization\WXUsersVM.cs" />
@@ -105,6 +95,7 @@
     <Compile Include="Model\WXResource\WXVideoResultJson.cs" />
     <Compile Include="Model\WXResource\WXVoiceResultJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sys\ADOTemplateX.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TG.Utility\EG.Common\EGCommon\EGCommon_Net4.0.csproj">
@@ -116,6 +107,7 @@
       <Name>EG.WeChat.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

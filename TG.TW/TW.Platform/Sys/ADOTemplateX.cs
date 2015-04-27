@@ -8,72 +8,16 @@ using EG.Utility.DBCommon.dao;
 using System.Data;
 using System.Data.SqlClient;
 /*****************************************************
-* 目的：组织DA——微信用户
+* 目的：ADO
 * 创建人：林子聪
-* 创建时间：20141107
+* 创建时间：20141229
 * 备注：
 * 依赖性：
 * 版权：
 * 使用本文件时，必须保留本内容的完整性！
 *****************************************************/
-namespace TW.Platform.DA
+namespace TW.Platform.Sys
 {
-    public class WeChatUserDA : WeChatOrgAOP
-    {
-        #region 私有成员
-        /// <summary>
-        /// 数据访问接口
-        /// </summary>
-        private ADOTemplateX template = new ADOTemplateX();
-
-        #region 保存微信用户
-        private string m_tableName_WCUSer = "WC_USER";
-        private string m_proceName_SaveUser_ByTable = "PRO_WC_USER_UPDATE";
-        private string m_paraName_SaveUser_ByTable = "@tb";
-        private string m_proceName_GetUser = "select * from WC_USER";
-        private string m_paraName_GetUser = string.Empty;
-        #endregion
-        #endregion
-
-        #region 公有成员
-        /// <summary>
-        /// 保存微信用户至数据库
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        public override bool SaveUser(DataTable dt)
-        {
-            int result = template.Execute(m_proceName_SaveUser_ByTable, new string[] { m_paraName_SaveUser_ByTable }, new object[] { dt }, null, CommandType.StoredProcedure);
-            return result > 0;
-        }
-        /// <summary>
-        /// 从数据库中获取微信用户
-        /// </summary>
-        /// <param name="openID">指定openid，或设为空查询全部</param>
-        /// <returns></returns>
-        public DataTable GetUser(string openID = "")
-        {
-            //return template.Query(m_proceName_GetUser, new string[] { m_paraName_GetUser }, new object[] { openID },null);
-
-            return template.Query(m_proceName_GetUser, null, null, null);
-        }
-        /// <summary>
-        /// 通过OpenID更新GroupID
-        /// </summary>
-        /// <param name="GroupID"></param>
-        /// <param name="OpenID"></param>
-        /// <returns></returns>
-        public override int UpdateGroupIDByOpenID(int GroupID, string OpenID)
-        {
-            string sql = string.Format(@"UPDATE [dbo].[{0}] SET [groupid]=@GroupID  WHERE [openid]=@OpenID ", m_tableName_WCUSer);
-
-            int result = template.Execute(sql, new string[] { "@GroupID", "@OpenID" }, new object[] { GroupID, OpenID }, null, CommandType.Text);
-
-            return result;
-        }
-        #endregion
-
-    }
     public class ADOTemplateX : ADOTemplate
     {
         /// <summary>
@@ -126,7 +70,7 @@ namespace TW.Platform.DA
 
         }
 
-        public   int ExecuteEX(string sql, String[] paramNames, Object[] paramValues)
+        public int ExecuteEX(string sql, String[] paramNames, Object[] paramValues)
         {
             //if (this.Transaction == null)
             //{
@@ -140,7 +84,7 @@ namespace TW.Platform.DA
 
                 SqlParameter[] parm = convert4Sqlserver(paramNames, paramValues);
 
-                SqlConnection con =   (SqlConnection)(DBUtil.GetConnection("EGWeChat"));
+                SqlConnection con = (SqlConnection)(DBUtil.GetConnection("EGWeChat"));
                 return SQLHelper.ExecuteNonQuery(con, CommandType.StoredProcedure, sql, parm);
             }
             else if (this.dbType == ADOTemplate.DB_TYPE_MYSQL)
@@ -308,12 +252,12 @@ namespace TW.Platform.DA
                     name = "@" + name;
                 }
 
-              
-              
-                    result[i] = new SqlParameter(name, paramValues[i]);
-              
 
-                
+
+                result[i] = new SqlParameter(name, paramValues[i]);
+
+
+
             }
 
             return result;

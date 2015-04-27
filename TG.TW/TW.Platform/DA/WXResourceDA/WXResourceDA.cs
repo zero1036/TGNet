@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using TW.Platform.DA;
+using TW.Platform.Sys;
 /*****************************************************
 * 目的：微信资源表DA
 * 创建人：林子聪
@@ -16,6 +17,9 @@ using TW.Platform.DA;
 *****************************************************/
 namespace TW.Platform.DA
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WXResourceDA : WXResAOP
     {
         #region 私有成员
@@ -130,5 +134,33 @@ namespace TW.Platform.DA
         }
         #endregion
 
+    }
+    /// <summary>
+    /// 对应数据变更接口
+    /// </summary>
+    public class WXResAOP
+    {
+        /// <summary>
+        /// 保存单个资源
+        /// </summary>
+        /// <param name="lcid"></param>
+        /// <param name="lcname"></param>
+        /// <param name="lcclassify"></param>
+        /// <param name="media_Id"></param>
+        /// <param name="media_Type"></param>
+        /// <param name="content"></param>
+        /// <param name="iCreateTime"></param>
+        /// <param name="iSourceType"></param>
+        /// <returns></returns>
+        public virtual int? SaveResource(int? lcid, string lcname, string lcclassify, string media_Id, string media_Type, string content, DateTime iCreateTime, int iSourceType, int iWxType)
+        {
+            return null;
+        }
+        /// <summary>
+        /// 刪除資源
+        /// </summary>
+        /// <param name="lcid"></param>
+        /// <returns></returns>
+        public virtual int DeleteResource(int lcid) { return -1; }
     }
 }

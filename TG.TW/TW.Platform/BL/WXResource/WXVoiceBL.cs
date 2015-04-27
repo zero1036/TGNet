@@ -27,7 +27,7 @@ using TW.Platform.Model;
 *****************************************************/
 namespace TW.Platform.BL
 {
-    public class WeChatVoiceService : WeChatResourcesService
+    public class WXVoiceBL : WXResourcesBL
     {
         protected string m_strTargetType = "voice";
         protected string m_strFormat = "amr";
@@ -37,7 +37,7 @@ namespace TW.Platform.BL
         /// 
         /// </summary>
         /// <param name="sdkType"></param>
-        public WeChatVoiceService(string sdkType)
+        public WXVoiceBL(string sdkType)
             : base(sdkType)
         { }
         /// <summary>

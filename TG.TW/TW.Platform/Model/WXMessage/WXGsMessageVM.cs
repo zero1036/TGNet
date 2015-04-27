@@ -155,28 +155,28 @@ namespace TW.Platform.Model
                 }
                 else if (base.ContentType == "image")
                 {
-                    WeChatPictureService pSer = new WeChatPictureService("QY");
+                    WXPictureBL pSer = new WXPictureBL("QY");
                     _ResultJson = pSer.LoadResourcesSingle(base.SContent);
                 }
                 else if (base.ContentType == "voice")
                 {
-                    WeChatVoiceService pSer = new WeChatVoiceService("QY");
+                    WXVoiceBL pSer = new WXVoiceBL("QY");
                     _ResultJson = pSer.LoadResourcesSingle(base.SContent);
                 }
                 else if (base.ContentType == "video")
                 {
-                    WeChatVideoService pSer = new WeChatVideoService("QY");
+                    WXVideoBL pSer = new WXVideoBL("QY");
                     _ResultJson = pSer.LoadResourcesSingle(base.SContent);
                 }
                 else if (base.ContentType == "news")
                 {
-                    WeChatArticleService pSer = new WeChatArticleService("QY", "news");
+                    WXArticleBL pSer = new WXArticleBL("QY", "news");
                     var lcid = Convert.ToInt32(base.SContent);
                     _ResultJson = pSer.LoadResourcesSingleBylcID(lcid);
                 }
                 else if (base.ContentType == "mpnews")
                 {
-                    WeChatArticleService pSer = new WeChatArticleService("QY", "mpnews");
+                    WXArticleBL pSer = new WXArticleBL("QY", "mpnews");
                     var lcid = Convert.ToInt32(base.SContent);
                     _ResultJson = pSer.LoadResourcesSingleBylcID(lcid);
                 }

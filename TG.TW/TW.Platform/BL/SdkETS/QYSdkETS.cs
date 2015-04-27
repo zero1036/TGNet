@@ -141,7 +141,7 @@ namespace TW.Platform.BL
                 });
                 _DicRCForResponse.Add("image", (int lcId, string mType) =>
                 {
-                    var pAr = new WeChatPictureService("QY");
+                    var pAr = new WXPictureBL("QY");
                     var pImg = pAr.LoadResourcesSingleBylcId(lcId);
 
                     var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageImage();
@@ -150,7 +150,7 @@ namespace TW.Platform.BL
                 });
                 _DicRCForResponse.Add("voice", (int lcId, string mType) =>
                 {
-                    var pAr = new WeChatVoiceService("QY");
+                    var pAr = new WXVoiceBL("QY");
                     var pVoice = pAr.LoadResourcesSingleBylcId(lcId);
 
                     var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageVoice();
@@ -159,7 +159,7 @@ namespace TW.Platform.BL
                 });
                 _DicRCForResponse.Add("video", (int lcId, string mType) =>
                 {
-                    var pAr = new WeChatVideoService("QY");
+                    var pAr = new WXVideoBL("QY");
                     var pVideo = pAr.LoadResourcesSingleBylcId(lcId);
 
                     var responseMessage = new Senparc.Weixin.QY.Entities.ResponseMessageVideo();
@@ -172,7 +172,7 @@ namespace TW.Platform.BL
                 });
                 _DicRCForResponse.Add("news", (int lcId, string mType) =>
                 {
-                    var pAr = new WeChatArticleService("QY");
+                    var pAr = new WXArticleBL("QY");
                     pAr.ArticleConvertFunc = this.CNews2RspArticle(msgType);
                     List<object> pos = pAr.LoadResources2News(lcId, mType);
                     if (pos == null || pos.Count == 0)
@@ -184,7 +184,7 @@ namespace TW.Platform.BL
                 });
                 _DicRCForResponse.Add("mpnews", (int lcId, string mType) =>
                 {
-                    var pAr = new WeChatArticleService("QY");
+                    var pAr = new WXArticleBL("QY");
                     pAr.ArticleConvertFunc = this.CNews2RspArticle(msgType);
                     List<object> pos = pAr.LoadResources2News(lcId, mType);
 

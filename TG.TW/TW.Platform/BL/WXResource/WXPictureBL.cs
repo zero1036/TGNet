@@ -28,7 +28,7 @@ namespace TW.Platform.BL
     /// <summary>
     /// 微信图片资源服务
     /// </summary>
-    public class WeChatPictureService : WeChatResourcesService
+    public class WXPictureBL : WXResourcesBL
     {
         protected string m_strTargetType = "image";
         protected string m_strFormat = "jpg";
@@ -38,7 +38,7 @@ namespace TW.Platform.BL
         /// 
         /// </summary>
         /// <param name="sdkType"></param>
-        public WeChatPictureService(string sdkType)
+        public WXPictureBL(string sdkType)
             : base(sdkType)
         { }
         /// <summary>

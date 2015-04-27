@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TW.Platform.Model;
 using EG.Utility.DBCommon.dao;
 using EG.WeChat.Utility.Tools;
+using TW.Platform.Sys;
 /*****************************************************
 * 目的：微信基础配置表DA
 * 创建人：林子聪

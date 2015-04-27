@@ -25,7 +25,7 @@ using Senparc.Weixin.QY.AdvancedAPIs.App;
 *****************************************************/
 namespace TW.Platform.BL
 {
-    public class WXCorpBaseService : IServiceX
+    public class WXCorpBaseBL : IServiceX
     {
         #region public
         /// <summary>

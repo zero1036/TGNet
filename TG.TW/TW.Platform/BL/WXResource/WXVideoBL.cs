@@ -25,7 +25,7 @@ using Senparc.Weixin.MP.AdvancedAPIs.Media;
 *****************************************************/
 namespace TW.Platform.BL
 {
-    public class WeChatVideoService : WeChatResourcesService
+    public class WXVideoBL : WXResourcesBL
     {
         protected string m_strTargetType = "video";
         protected string m_strFormat = "mp4";
@@ -35,7 +35,7 @@ namespace TW.Platform.BL
         /// 
         /// </summary>
         /// <param name="sdkType"></param>
-        public WeChatVideoService(string sdkType)
+        public WXVideoBL(string sdkType)
             : base(sdkType)
         { }
         /// <summary>

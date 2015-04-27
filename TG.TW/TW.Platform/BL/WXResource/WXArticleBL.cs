@@ -30,7 +30,7 @@ namespace TW.Platform.BL
     /// <summary>
     /// 微信图文资源服务
     /// </summary>
-    public class WeChatArticleService : WeChatResourcesService
+    public class WXArticleBL : WXResourcesBL
     {
         protected string m_strTargetType = "news";
         protected UploadMediaFileType m_UploadMediaFileType = UploadMediaFileType.news;
@@ -38,14 +38,14 @@ namespace TW.Platform.BL
         /// 
         /// </summary>
         /// <param name="sdkType"></param>
-        public WeChatArticleService(string sdkType)
+        public WXArticleBL(string sdkType)
             : base(sdkType)
         { }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sdkType"></param>
-        public WeChatArticleService(string sdkType, string targetType)
+        public WXArticleBL(string sdkType, string targetType)
             : base(sdkType)
         { m_strTargetType = targetType; }
         /// <summary>

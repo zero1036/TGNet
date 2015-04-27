@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using EG.Utility.DBCommon.dao;
+using TW.Platform.Sys;
 /*****************************************************
 * 目的：微信群发消息表DA
 * 创建人：林子聪

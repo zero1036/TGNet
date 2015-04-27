@@ -46,7 +46,7 @@ namespace TW.Platform.BL
     /// <summary>
     /// 微信资源基础服务
     /// </summary>
-    public class WeChatResourcesService : IServiceX, IServiceXCache
+    public class WXResourcesBL : IServiceX, IServiceXCache
     {
         #region 构造函数
         /// <summary>
@@ -57,7 +57,7 @@ namespace TW.Platform.BL
         /// 构造函数
         /// </summary>
         /// <param name="sdkType"></param>
-        public WeChatResourcesService(string sdkType = "")
+        public WXResourcesBL(string sdkType = "")
         {
             m_sdk = SDKETSFactory.GetSDK(sdkType);
         }

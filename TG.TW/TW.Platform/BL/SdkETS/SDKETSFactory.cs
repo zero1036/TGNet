@@ -91,7 +91,7 @@ namespace TW.Platform.BL
             {
                 var ps = wxtype == 1 ? "MP" : "QY";
 
-                var pArticleSer = new WeChatArticleService(ps);
+                var pArticleSer = new WXArticleBL(ps);
                 pArticleSer.ArticleConvertFunc = pFunc;
 
                 _DicResourceConvert = new Dictionary<string, Func<object, string, object>>();
