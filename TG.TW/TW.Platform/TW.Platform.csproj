@@ -33,6 +33,10 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="EGCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\EGCommon.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\Lib\log4net.dll</HintPath>
     </Reference>
@@ -62,6 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\Message\QyCustomMessageContext.cs" />
+    <Compile Include="BL\Message\QyCustomMessageHandler.cs" />
     <Compile Include="BL\Message\WXMessageBL.cs" />
     <Compile Include="BL\SdkETS\ISdkETS.cs" />
     <Compile Include="BL\SdkETS\MPSdkETS.cs" />
@@ -100,10 +106,6 @@
     <Compile Include="Sys\ConstHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TG.Utility\EG.Common\EGCommon\EGCommon_Net4.0.csproj">
-      <Project>{61f7723f-f2ff-41b5-8ff9-332e55d404ea}</Project>
-      <Name>EGCommon_Net4.0</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\TG.Utility\EG.WeChat.Utility\EG.WeChat.Utility.csproj">
       <Project>{39a42f72-3ad0-4f56-a577-41074ce37fe1}</Project>
       <Name>EG.WeChat.Utility</Name>
