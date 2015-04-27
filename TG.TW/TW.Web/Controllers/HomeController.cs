@@ -29,7 +29,6 @@ namespace TW.Web.Controllers
         [HttpGet]
         public HttpResponseMessage db()
         {
-
             return Request.CreateResponse(HttpStatusCode.OK, new { Name = HttpRuntime.Cache.Get("name") });
         }
     }
