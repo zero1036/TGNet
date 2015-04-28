@@ -373,8 +373,8 @@ namespace EG.Utility.DBCommon.dao
             else if (this.dbType == ADOTemplate.DB_TYPE_MYSQL)
             {
 
-                IDbDataParameter[] parm = convert4MySqlserver(paramNames, paramValues);
-
+                //IDbDataParameter[] parm = convert4MySqlserver(paramNames, paramValues);
+                MySql.Data.MySqlClient.MySqlParameter[] parm = convert4MySql(paramNames, paramValues);
                 return MySQLHelper.ExecuteDataset(this.Connection, CommandType.Text, sql, parm).Tables[0];
             }
             else
