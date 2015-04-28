@@ -53,6 +53,23 @@ namespace EG.WeChat.Utility.Tools
             throw new EGException(strMessage, new Tx(), pResult);
         }
         /// <summary>
+        /// 抛异常
+        /// </summary>
+        /// <typeparam name="Tx"></typeparam>
+        /// <param name="strMessage"></param>
+        /// <param name="pCode"></param>
+        public static void ThrowX<Tx>(string strMessage, string pCode, int stCode)
+            where Tx : Exception, new()
+        {
+            EGExceptionResult pResult = new EGExceptionResult();
+            pResult.IsSuccess = false;
+            pResult.Message = strMessage;
+            pResult.ExCode = pCode;
+            pResult.StCode = stCode;
+
+            throw new EGException(strMessage, new Tx(), pResult);
+        }
+        /// <summary>
         /// 转换异常为输出json实体
         /// </summary>
         /// <param name="ex"></param>
@@ -118,6 +135,15 @@ namespace EG.WeChat.Utility.Tools
         }
     }
     /// <summary>
+    /// 
+    /// </summary>
+    public class CActionResult
+    {
+        public object data { get; set; }
+        public string message { get; set; }
+        public bool ok { get; set; }
+    }
+    /// <summary>
     /// 异常结果输出Json实体
     /// </summary>
     public class EGExceptionResult
@@ -160,6 +186,22 @@ namespace EG.WeChat.Utility.Tools
         /// 错误代码
         /// </summary>
         public string ExCode
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// HTTP状态值
+        /// </summary>
+        public int? StCode
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否写入日志
+        /// </summary>
+        public bool IsLog
         {
             get;
             set;
