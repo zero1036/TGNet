@@ -136,7 +136,6 @@
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Base\ApiControllerBase.cs" />
-    <Compile Include="Controllers\Base\ControllerBase.cs" />
     <Compile Include="Controllers\Extension\AccountHelper.cs" />
     <Compile Include="Controllers\Extension\CustomerAuthorizeAttribute.cs" />
     <Compile Include="Controllers\Extension\Security\AuthorizedUser.cs" />
