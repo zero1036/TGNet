@@ -183,11 +183,11 @@ namespace EG.Utility.DBCommon.dao
 
     class TransactionContext
     {
-#if NET35
-        private static LocalDataStoreSlot local = Thread.AllocateDataSlot();
-#endif
+
 #if NET40
         private static ThreadLocal<TransactionContext> local = new ThreadLocal<TransactionContext>();
+#else
+        private static LocalDataStoreSlot local = Thread.AllocateDataSlot();
 #endif
 
 
@@ -196,22 +196,20 @@ namespace EG.Utility.DBCommon.dao
             this.connection = connection;
             this.transaction = transaction;
             this.dbType = dbType;
-
-#if NET35
-            Thread.SetData(local, this);
-#endif
 #if NET40
             local.Value = this;
+#else
+            Thread.SetData(local, this);
 #endif
+
         }
         public static TransactionContext get()
         {
 
-#if NET35
-            return Thread.GetData(local ) as TransactionContext;
-#endif
 #if NET40
-            return local.Value;
+             return local.Value;
+#else
+            return Thread.GetData(local) as TransactionContext;
 #endif
         }
 

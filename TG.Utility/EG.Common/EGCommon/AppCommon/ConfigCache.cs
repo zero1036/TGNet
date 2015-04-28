@@ -422,8 +422,7 @@ namespace EG.Business.Common
             string DecryptedClientKey;
 #if NET40
             DecryptedClientKey = new Security().Decrypt(encryptedClientKey, programKey);
-#endif
-#if NET35
+#else
             if (dtAppconfig.Rows.Contains("EncryptType") &&
                 dtAppconfig.Rows.Find("EncryptType")["value"].ToString().Equals("35"))
             {
