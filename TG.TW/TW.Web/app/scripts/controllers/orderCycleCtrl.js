@@ -2,8 +2,10 @@
 define(['controllers/controllers', 'services/orderService', 'services/commonService', 'services/configService']
         , function (controllers) {
             controllers.controller('orderCycleCtrl'
-                , ['$scope', '$location', 'orderService', '$translatePartialLoader', '$translate', 'configService', 'commonService', 'Auth', '$http'
-                    , function ($scope, $location, orderService, $translatePartialLoader, $translate, configService, commonService, Auth, $http) {
+                , ['$scope', '$location', '$routeParams', 'orderService', '$translatePartialLoader', '$translate', 'configService', 'commonService', 'Auth', '$http'
+                    , function ($scope, $location, $routeParams, orderService, $translatePartialLoader, $translate, configService, commonService, Auth, $http) {
+                        //console.log($routeParams.code);
+
                         //$scope.orderCycles = [];
                         //$scope.getOrdreCycles = function () {
                         //    orderService.getOrderCycleList().success(function (result) {
@@ -47,9 +49,13 @@ define(['controllers/controllers', 'services/orderService', 'services/commonServ
                         //        console.log(data);
                         //    })
 
+                        var param = { 'code': $routeParams.code, 'agentid': $routeParams.agentid };
+
+                        var pc = $.param(param);
+                        console.log(pc);
                         $http({
                             method: 'GET',
-                            url: '/api/ab/db'
+                            url: '/api/ab/db?' + pc
                         })
                           .success(function (data) {
                               console.log(data);

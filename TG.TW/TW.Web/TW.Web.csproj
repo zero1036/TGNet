@@ -73,7 +73,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -243,6 +246,8 @@
     <Content Include="app\scripts\vendor\x2js\.hg_archival.txt" />
     <Content Include="app\scripts\vendor\x2js\xml2json.js" />
     <Content Include="app\scripts\vendor\x2js\xml2json.min.js" />
+    <Content Include="app\scripts\waApp.js" />
+    <Content Include="app\scripts\waMain.js" />
     <Content Include="app\styles\bootstrap\css\bootstrap-theme.css" />
     <Content Include="app\styles\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="app\styles\bootstrap\css\bootstrap.css" />
@@ -269,6 +274,7 @@
     <Content Include="app\views\Sys\dictionaryList.html" />
     <Content Include="app\views\Sys\userList.html" />
     <Content Include="app\views\Test\testAuth.html" />
+    <Content Include="app\waIndex.html" />
     <Content Include="config.xml" />
     <Content Include="Global.asax" />
     <Content Include="app\scripts\vendor\angular\angular-animate.min.js.map" />

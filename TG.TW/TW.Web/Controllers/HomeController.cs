@@ -25,9 +25,10 @@ namespace TW.Web.Controllers
 
     public class dbController : ApiController
     {
+         //[AllowAnonymous]
         [WXOAuth]
         [HttpGet]
-        public HttpResponseMessage db()
+        public HttpResponseMessage db(string code ,string agentid)
         {
             return Request.CreateResponse(HttpStatusCode.OK, new { Name = HttpRuntime.Cache.Get("name") });
         }

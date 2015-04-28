@@ -47,8 +47,8 @@ namespace TW.Web.Controllers
                         var code = req.QueryString["code"] != null ? req.QueryString["code"].ToString() : string.Empty;
                         var agentid = req.QueryString["agentid"] != null ? req.QueryString["agentid"].ToString() : string.Empty;
 
-                        Logger.Log4Net.Info("获取code" + code);
-                        Logger.Log4Net.Info("获取agentid" + agentid);
+                        Logger.Log4Net.Info("获取code:" + code);
+                        Logger.Log4Net.Info("获取agentid:" + agentid);
                         int iagentid = 0;
                         if (int.TryParse(agentid, out iagentid))
                         {
