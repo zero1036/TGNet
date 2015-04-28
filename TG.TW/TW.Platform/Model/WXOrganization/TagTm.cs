@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 /*****************************************************
-* 目的：常量设置
+* 目的：标签模型
 * 创建人：林子聪
 * 创建时间：20150427
 * 备注：
@@ -11,16 +11,16 @@ using System.Text;
 * 版权：
 * 使用本文件时，必须保留本内容的完整性！
 *****************************************************/
-namespace TW.Platform.Sys
+namespace TW.Platform.Model
 {
-    public class ConstStr
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TagTM
     {
-        #region Session const
-        public const string SESSION_CURRENT_USER = "CURRENT_USER";
-        public const string SESSION_CURRENT_USERID = "CURRENT_USERID";
-        public const string SESSION_CURRENT_TID = "CURRENT_TID";
-        #endregion
-
-
+        public int SysTagId { get; set; }
+        public int Tid { get; set; }
+        public int TagId { get; set; }
+        public int TagName { get; set; }
     }
 }
