@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.SessionState;
+using EG.WeChat.Utility.WeiXin;
 
 namespace TW.Web
 {
@@ -21,6 +22,9 @@ namespace TW.Web
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            WeiXinConfiguration.cropId = "wxe619b76b4aeb0e85";
+            WeiXinConfiguration.corpSecret = "nrJRcZzunsLRiEzXsMRPfOCFPXq7I_dq7WPd_-bq7sm-I-vXqdPrJhE6wq8svcIu";
         }
 
         public override void Init()

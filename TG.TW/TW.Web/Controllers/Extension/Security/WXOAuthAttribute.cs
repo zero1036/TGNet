@@ -39,20 +39,26 @@ namespace TW.Web.Controllers
                     var userBL = new UserBL();
                     //先通过session，查出用户ID
                     string pUserID = userBL.GetQYUserIDBySession();
+                    Logger.Log4Net.Info("从Session中获取userid：" + pUserID);
                     if (string.IsNullOrEmpty(pUserID))
                     {
                         //获取请求及code与agentid参数
                         var req = GetHttpRequestBase(actionContext);
                         var code = req.QueryString["code"] != null ? req.QueryString["code"].ToString() : string.Empty;
                         var agentid = req.QueryString["agentid"] != null ? req.QueryString["agentid"].ToString() : string.Empty;
+
+                        Logger.Log4Net.Info("获取code" + code);
+                        Logger.Log4Net.Info("获取agentid" + agentid);
                         int iagentid = 0;
                         if (int.TryParse(agentid, out iagentid))
                         {
                             pUserID = userBL.GetQYUserIDByAPI(code, iagentid);
+
                             if (string.IsNullOrEmpty(pUserID))
                             {
                                 throw new Exception();
                             }
+                            Logger.Log4Net.Info("从API中获取userid：" + pUserID);
                         }
                         else
                         {

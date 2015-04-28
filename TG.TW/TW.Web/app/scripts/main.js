@@ -128,7 +128,14 @@ function (angular, app, domReady) {
             })
             .when('/html/diamondUpload', {
                 templateUrl: 'views/html/diamondUpload.html'
+            })
+            //WA页面测试
+            .when('/testAuth', {
+                templateUrl: 'views/Test/testAuth.html',
+                controller: 'orderCycleCtrl',
+                access_level: ACCESS_LEVELS.pub
             });// end
+
 
             $httpProvider.defaults.withCredentials = true;
             $httpProvider.defaults.useXDomain = true;

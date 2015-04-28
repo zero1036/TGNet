@@ -34,8 +34,9 @@ namespace TW.Web.Controllers
         /// </summary>
         public QYController()
         {
-           
+
         }
+
 
         /// <summary>
         /// 微信后台验证地址（使用Get），微信企业后台应用的“修改配置”的Url填写如：http://weixin.senparc.com/qy
@@ -47,7 +48,7 @@ namespace TW.Web.Controllers
             //return Content(echostr); //返回随机字符串则表示验证通过
             var verifyUrl = Senparc.Weixin.QY.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce,
                 echostr);
-           
+
             //var verifyUrl = new TW.Platform.BL.WXCorpBaseBL().VerifyWXUrl(msg_signature, timestamp, nonce, echostr);
             if (verifyUrl != null)
             {

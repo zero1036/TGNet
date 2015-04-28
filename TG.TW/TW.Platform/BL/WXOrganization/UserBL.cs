@@ -42,31 +42,31 @@ namespace TW.Platform.BL
             if (string.IsNullOrEmpty(code) || agentid < 1)
                 return string.Empty;
 
-            ////目标：只获取OpenID
-            //Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult result;
-            //try
-            //{
-            //    result = Senparc.Weixin.QY.AdvancedAPIs.OAuth2.OAuth2Api.GetUserId(WeiXinSDKExtension.GetCurrentAccessTokenQY(), code, agentid);
-            //}
-            //catch (Exception ex)
-            //{
-            //    //如果获取不到，返回NULL，外部进行错误处理。
-            //    return string.Empty;
-            //}
+            //目标：只获取OpenID
+            Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult result;
+            try
+            {
+                result = Senparc.Weixin.QY.AdvancedAPIs.OAuth2.OAuth2Api.GetUserId(WeiXinSDKExtension.GetCurrentAccessTokenQY(), code, agentid);
+            }
+            catch (Exception ex)
+            {
+                //如果获取不到，返回NULL，外部进行错误处理。
+                return string.Empty;
+            }
 
-            //if (result != null)
-            //{
-            //    SessionHelper.Add(ConstStr.SESSION_CURRENT_USERID, result.UserId);
-            //    //返回结果
-            //    return result.UserId;
-            //}
-            //else
-            //{
-            //    return string.Empty;
-            //}
+            if (result != null)
+            {
+                SessionHelper.Add(ConstStr.SESSION_CURRENT_USERID, result.UserId);
+                //返回结果
+                return result.UserId;
+            }
+            else
+            {
+                return string.Empty;
+            }
 
-            SessionHelper.Add(ConstStr.SESSION_CURRENT_USERID, code + agentid);
-            return code + agentid;
+            //SessionHelper.Add(ConstStr.SESSION_CURRENT_USERID, code + agentid);
+            //return code + agentid;
         }
     }
 }

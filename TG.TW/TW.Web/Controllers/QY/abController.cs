@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
+using System.Net;
+using System.Net.Http;
+using System.Web.Caching;
+using TW.Platform.BL;
 
 namespace TW.Web.Controllers
 {
-    public class abController : Controller
+    public class abController : ApiController
     {
-        //
-        // GET: /ab/
-
-        public ActionResult Index()
+        [WXOAuth]
+        [HttpGet]
+        public HttpResponseMessage db()
         {
-            return View();
+            var userBL = new UserBL();
+            string pUserID = userBL.GetQYUserIDBySession();
+            return Request.CreateResponse(HttpStatusCode.OK, new { Name = pUserID });
         }
 
     }

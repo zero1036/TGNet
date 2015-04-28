@@ -38,14 +38,23 @@ define(['controllers/controllers', 'services/orderService', 'services/commonServ
                         //var ss = { 'Authorization': { 'Parameter': Auth.getToken() } };
                         //var px = JSON.stringify(ss);
 
+                        //$http({
+                        //    method: 'GET',
+                        //    url: '/Home/Index',
+                        //    headers: { 'Authorization': Auth.getToken() } //请求头里会添加Authorization属性为'code_bunny'
+                        //})
+                        //    .success(function (data) {
+                        //        console.log(data);
+                        //    })
+
                         $http({
                             method: 'GET',
-                            url: '/Home/Index',
-                            headers: { 'Authorization': Auth.getToken() } //请求头里会添加Authorization属性为'code_bunny'
+                            url: '/api/ab/db'
                         })
-                            .success(function (data) {
-                                console.log(data);
-                            })
+                          .success(function (data) {
+                              console.log(data);
+                          })
+
                         //.catch(function (reason) {
                         //    $q.reject(reason);
                         //});
