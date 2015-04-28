@@ -23,6 +23,11 @@ namespace TW.Web
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+
+            EG.Business.Common.ConfigCache.LoadAppConfig(new string[] 
+            {//##需要解密的字段 
+                "WX_appID"                                         //数据库
+            });
             WeiXinConfiguration.cropId = "wxe619b76b4aeb0e85";
             WeiXinConfiguration.corpSecret = "nrJRcZzunsLRiEzXsMRPfOCFPXq7I_dq7WPd_-bq7sm-I-vXqdPrJhE6wq8svcIu";
         }

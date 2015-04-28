@@ -74,9 +74,11 @@ namespace TW.Web.Controllers
             string userName = userTicketData.Substring(0, userTicketData.IndexOf(":"));
             string password = userTicketData.Substring(userTicketData.IndexOf(":") + 1);
 
+            var pUserBL = new TW.Platform.BL.UserBL();
+            return pUserBL.VerifyBCLoginUser(userName, password);
             //检查用户名、密码是否正确，验证是合法用户
             //var isQuilified = CheckUser(userName, password);
-            return true;
+            //return true;
         }
     }
 }

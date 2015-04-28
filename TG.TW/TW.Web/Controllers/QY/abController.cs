@@ -16,8 +16,9 @@ namespace TW.Web.Controllers
         [HttpGet]
         public HttpResponseMessage db()
         {
-            var userBL = new UserBL();
-            string pUserID = userBL.GetQYUserIDBySession();
+          
+            //var userBL = new UserBL();
+            string pUserID = TW.Platform.Sys.SysCurUser.GetCurUserID();
             return Request.CreateResponse(HttpStatusCode.OK, new { Name = pUserID });
         }
 

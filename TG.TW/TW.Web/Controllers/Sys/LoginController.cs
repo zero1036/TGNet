@@ -26,8 +26,8 @@ namespace TW.Web.Controllers
                     //创建用户ticket信息
                     var token = accountModel.CreateLoginUserTicket(strUserName, strPassword);
 
-                    //读取用户权限数据
-                    accountModel.GetUserAuthorities(strUserName);
+                    ////读取用户权限数据
+                    //accountModel.GetUserAuthorities(strUserName);
                     response = Request.CreateResponse(HttpStatusCode.OK, new { id = strUserName, token = token });
                 }
                 else
@@ -37,8 +37,8 @@ namespace TW.Web.Controllers
             }
             catch (Exception ex)
             {
-                //LogHelper.Write(this.GetType(), ex);
-                //response = Request.CreateResponse<string>(HttpStatusCode.InternalServerError, ex.Message);
+                Logger.Log4Net.Info("登陆错误" + ex.Message);
+                response = Request.CreateResponse<string>(HttpStatusCode.InternalServerError, ex.Message);
             }
             return response;
         }

@@ -65,8 +65,8 @@ namespace TW.Web.Controllers
         /// <returns></returns>
         internal bool ValidateUserLogin(string name, string password)
         {
-            //bool isValid = password == passwordInDatabase;
-            return true;
+            var pUserBL = new TW.Platform.BL.UserBL();
+            return pUserBL.VerifyBCLoginUser(name, password);
         }
 
         /// <summary>
