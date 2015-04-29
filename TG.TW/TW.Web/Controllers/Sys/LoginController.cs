@@ -34,7 +34,7 @@ namespace TW.Web.Controllers
                     //获取当前用户
                     var pCurUser = SysCurUser.GetCurUser<CurUserM>();
 
-                    response = Request.CreateResponse(HttpStatusCode.OK, new { userId = pCurUser.UserId, role = 1, token = token, time = 0 });
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { userId = pCurUser.UserId, role = 1, token = token, time = 0, menu = pCurUser.Menus.Select(p => p.Href).Where(p => !string.IsNullOrEmpty(p)).ToList() });
                 }
                 else
                 {
