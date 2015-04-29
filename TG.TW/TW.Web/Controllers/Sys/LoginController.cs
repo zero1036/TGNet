@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TW.Platform.Model;
+using TW.Platform.Sys;
 
 namespace TW.Web.Controllers
 {
@@ -28,11 +30,16 @@ namespace TW.Web.Controllers
 
                     ////读取用户权限数据
                     //accountModel.GetUserAuthorities(strUserName);
-                    response = Request.CreateResponse(HttpStatusCode.OK, new { id = strUserName, token = token });
+
+                    //获取当前用户
+                    var pCurUser = SysCurUser.GetCurUser<CurUserM>();
+
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { userId = pCurUser.UserId, role = 1, token = token, time = 0 });
                 }
                 else
                 {
                     response = Request.CreateResponse(HttpStatusCode.Forbidden);
+                    //response = Request.CreateResponse(HttpStatusCode.OK, new { userId = string.Empty, role = 1, token = string.Empty, time = 0 });
                 }
             }
             catch (Exception ex)
