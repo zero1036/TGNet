@@ -22,6 +22,10 @@ namespace TW.Platform.BL
 {
     public class UserBL
     {
+        #region 私有变量
+        private UserDA _da = new UserDA();
+        #endregion
+
         #region Public
         /// <summary>
         /// 验证WA端登陆用户信息
@@ -32,7 +36,7 @@ namespace TW.Platform.BL
         {
             //先通过session，查出用户ID
             string pUserID = SysCurUser.GetCurUserID();
-            LogSwHelper.Sing.Info("从Session中获取userid：" + pUserID);
+            LogSwHelper.Sing.Info("WA验证，从Session中获取userid：" + pUserID);
             if (string.IsNullOrEmpty(pUserID))
             {
                 LogSwHelper.Sing.Info("获取code:" + code);
@@ -40,15 +44,17 @@ namespace TW.Platform.BL
                 int iagentid = 0;
                 if (int.TryParse(agentid, out iagentid))
                 {
-                    pUserID = GetQYUserIDByAPI(code, iagentid);
-                    if (string.IsNullOrEmpty(pUserID))
+                    var pWeixinid = GetWeixinidByAPI(code, iagentid);
+                    if (string.IsNullOrEmpty(pWeixinid))
+                        throw new Exception();
+                    LogSwHelper.Sing.Info("从API中获取微信号：" + pWeixinid);
+                    //适用于登陆验证，通过微信号获取当前用户
+                    UserTM pUser = GetUserByID(pWeixinid, _da.GetUserByWeixinid);
+                    //WA端验证的是微信号
+                    if (pUser == null || pUser.WeixinId != pWeixinid)
                         throw new Exception();
 
-                    UserTM pUser = GetUserByUserID(pUserID);
-                    if (pUser == null || pUser.UserId != pUserID)
-                        throw new Exception();
-
-                    LogSwHelper.Sing.Info("从API中获取userid：" + pUserID);
+                    LogSwHelper.Sing.Info("从API中获取userid：" + pUser.UserId);
                 }
                 else
                 {
@@ -63,8 +69,13 @@ namespace TW.Platform.BL
         /// <param name="passWord"></param>
         public bool VerifyBCLoginUser(string userId, string passWord)
         {
+            //先通过session，查出用户ID
+            string pUserID = SysCurUser.GetCurUserID();
+            LogSwHelper.Sing.Info("BC验证，从Session中获取userid：" + pUserID);
+            if (!string.IsNullOrEmpty(pUserID) && pUserID == userId)
+                return true;
             //适用于登陆验证，通过用户ID获取当前用户
-            UserTM pUser = GetUserByUserID(userId);
+            UserTM pUser = GetUserByID(userId, _da.GetUserByUserID);
             if (pUser != null && pUser.UserId == userId)
             {
                 var pwdCode = Emperor.UtilityLib.CyberUtils.Encrypt("Aes", 256, passWord, "TW" + userId);
@@ -80,26 +91,40 @@ namespace TW.Platform.BL
         /// </summary>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        private UserTM GetUserByUserID(string UserID)
+        private CurUserM GetUserByID(string pID, Func<string, DataTable> pFunc)
         {
-            UserDA pDa = new UserDA();
-            DataTable dt = pDa.GetUserByUserID(UserID);
-            if (VerificationHelper.VDTableNull(dt))
+            //通过UserID获取用户 或 通过微信号获取用户，根据传入Func而定
+            DataTable dt = pFunc.Invoke(pID);
+            if (!VerificationHelper.VDTableNull(dt)) return null;
+            var pUsers = CommonFunction.GetEntitiesFromDataTable<CurUserM>(dt);
+            var pUser = pUsers[0];
+            //CurUserM pCurUser = pUser as CurUserM;
+            //获取用户所在部门
+            var dtDeparts = _da.GetDepartmentBySysUserID(pUser.Tid, pUser.SysUserId);
+            if (VerificationHelper.VDTableNull(dtDeparts))
             {
-                var pUsers = CommonFunction.GetEntitiesFromDataTable<UserTM>(dt);
-                var pUser = pUsers[0];
-                //设置当前用户
-                SysCurUser.SetCurUser<UserTM>(pUser);
-                return pUser;
+                var pDepartments = CommonFunction.GetEntitiesFromDataTable<DepartmentTM>(dtDeparts);
+                pUser.Departments = pDepartments;
+                //获取用户及部门所属标签
+                var dtTags = _da.GetTagsBySysUserID(pUser.Tid, pUser.SysUserId, pDepartments.Select(p => p.SysDepartmentId).ToArray());
+
+                if (VerificationHelper.VDTableNull(dtTags))
+                {
+                    var pTags = CommonFunction.GetEntitiesFromDataTable<TagTM>(dtTags);
+                    pUser.Tags = pTags;
+                }
             }
-            return null;
+            //设置当前用户
+            SysCurUser.SetCurUser<CurUserM>(pUser);
+            return pUser;
+
         }
         /// <summary>
-        /// 通过回调OAuth地址所得code及agentid参数，获取请求的userid
+        /// 通过回调OAuth地址所得code及agentid参数，获取请求的weixinid
         /// </summary>
         /// <param name="code"></param>
         /// <param name="agentid"></param>
-        private string GetQYUserIDByAPI(string code, int agentid)
+        private string GetWeixinidByAPI(string code, int agentid)
         {
             //参数检查
             if (string.IsNullOrEmpty(code) || agentid < 1)

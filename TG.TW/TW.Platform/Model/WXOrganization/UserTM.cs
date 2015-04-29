@@ -63,4 +63,16 @@ namespace TW.Platform.Model
         /// </summary>
         public string Password { get; set; }
     }
+
+    public class CurUserM : UserTM
+    {
+        /// <summary>
+        /// 所在部门
+        /// </summary>
+        public List<DepartmentTM> Departments { get; set; }
+        /// <summary>
+        /// 所属标签
+        /// </summary>
+        public List<TagTM> Tags { get; set; }
+    }
 }

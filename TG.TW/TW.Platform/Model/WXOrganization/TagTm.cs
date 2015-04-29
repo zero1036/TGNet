@@ -21,6 +21,6 @@ namespace TW.Platform.Model
         public int SysTagId { get; set; }
         public int Tid { get; set; }
         public int TagId { get; set; }
-        public int TagName { get; set; }
+        public string TagName { get; set; }
     }
 }

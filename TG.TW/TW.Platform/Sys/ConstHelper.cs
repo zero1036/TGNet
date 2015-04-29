@@ -21,6 +21,11 @@ namespace TW.Platform.Sys
         public const string SESSION_CURRENT_TID = "CURRENT_TID";
         #endregion
 
-
+        #region Limit 限制
+        /// <summary>
+        /// 用户分支表最大分支表数
+        /// </summary>
+        public const int LM_USERTABLECOUNT = 10;
+        #endregion
     }
 }
