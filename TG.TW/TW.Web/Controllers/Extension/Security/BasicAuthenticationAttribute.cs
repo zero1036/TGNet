@@ -26,38 +26,46 @@ namespace TW.Web.Controllers
         /// <param name="actionContext"></param>
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            //检验用户ticket信息，用户ticket信息来自调用发起方
-            var authorization = actionContext.Request.Headers.Authorization;
-            //if ((authorization != null) && (authorization.Parameter != null))
-            if (authorization != null)
+            try
             {
-                //解密用户ticket,并校验用户名密码是否匹配
-                var encryptTicket = authorization.ToString();
-                if (ValidateUserTicket(encryptTicket))
-                    base.OnActionExecuting(actionContext);
-                else
-                    actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-            }
-            else
-            {
-                //检查web.config配置是否要求权限校验
-                bool isRquired = (WebConfigurationManager.AppSettings["WebApiAuthenticatedFlag"].ToString() == "true");
-                if (isRquired)
+                //检验用户ticket信息，用户ticket信息来自调用发起方
+                var authorization = actionContext.Request.Headers.Authorization;
+                //if ((authorization != null) && (authorization.Parameter != null))
+                if (authorization != null)
                 {
-                    //如果请求Header不包含ticket，则判断是否是匿名调用
-                    var attr = actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().OfType<AllowAnonymousAttribute>();
-                    bool isAnonymous = attr.Any(a => a is AllowAnonymousAttribute);
-
-                    //是匿名用户，则继续执行；非匿名用户，抛出“未授权访问”信息
-                    if (isAnonymous)
+                    //解密用户ticket,并校验用户名密码是否匹配
+                    var encryptTicket = authorization.ToString();
+                    if (ValidateUserTicket(encryptTicket))
                         base.OnActionExecuting(actionContext);
                     else
                         actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 }
                 else
                 {
-                    base.OnActionExecuting(actionContext);
+                    //检查web.config配置是否要求权限校验
+                    bool isRquired = (WebConfigurationManager.AppSettings["WebApiAuthenticatedFlag"].ToString() == "true");
+                    if (isRquired)
+                    {
+                        //如果请求Header不包含ticket，则判断是否是匿名调用
+                        var attr = actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().OfType<AllowAnonymousAttribute>();
+                        bool isAnonymous = attr.Any(a => a is AllowAnonymousAttribute);
+
+                        //是匿名用户，则继续执行；非匿名用户，抛出“未授权访问”信息
+                        if (isAnonymous)
+                            base.OnActionExecuting(actionContext);
+                        else
+                            actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                    }
+                    else
+                    {
+                        base.OnActionExecuting(actionContext);
+                    }
                 }
+
+            }
+            catch
+            {
+                actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
         }
 
