@@ -89,6 +89,7 @@
     <Compile Include="Model\WXConfig\WXConfigM.cs" />
     <Compile Include="Model\WXMessage\WXGsMessageVM.cs" />
     <Compile Include="Model\WXOrganization\DepartmentTM.cs" />
+    <Compile Include="Model\WXOrganization\MenuTM.cs" />
     <Compile Include="Model\WXOrganization\TagTm.cs" />
     <Compile Include="Model\WXOrganization\UserTM.cs" />
     <Compile Include="Model\WXOrganization\WeChatUser.cs" />

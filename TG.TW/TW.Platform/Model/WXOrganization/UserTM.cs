@@ -63,7 +63,9 @@ namespace TW.Platform.Model
         /// </summary>
         public string Password { get; set; }
     }
-
+    /// <summary>
+    /// 当前用户
+    /// </summary>
     public class CurUserM : UserTM
     {
         /// <summary>
@@ -74,5 +76,9 @@ namespace TW.Platform.Model
         /// 所属标签
         /// </summary>
         public List<TagTM> Tags { get; set; }
+        /// <summary>
+        /// 所有菜单
+        /// </summary>
+        public List<MenuTM> Menus { get; set; }
     }
 }

@@ -77,5 +77,22 @@ namespace TW.Platform.DA
             sFilter = string.Format(SqlScriptHelper.SEL_TAG4USER, sFilter);
             return _pADO.Query(sFilter, new string[] { "?tid", }, new object[] { tid, }, string.Empty);
         }
+        /// <summary>
+        /// 查询标签拥有菜单
+        /// </summary>
+        /// <param name="iSysTagID"></param>
+        /// <returns></returns>
+        public DataTable GetMenuBySysTagID(int[] iSysTagIDs)
+        {
+            var sFilter = string.Empty;
+            foreach (int itagid in iSysTagIDs)
+            {
+                sFilter = string.Format("{0} and r.systagid<>{1}", sFilter, itagid);
+            }
+            sFilter = sFilter.Substring(4, sFilter.Length - 4);
+            sFilter = string.Format("({0})", sFilter);
+            sFilter = string.Format(SqlScriptHelper.SEL_MENU4TAG, sFilter);
+            return _pADO.Query(sFilter, null, null, string.Empty);
+        }
     }
 }

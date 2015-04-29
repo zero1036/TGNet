@@ -37,8 +37,11 @@ namespace TW.Platform.Sys
         /// <summary>
         /// 查询用户及部门所属标签
         /// </summary>
-        //public const string SEL_TAG4USER = "select * from sys_tag where tid=?tid and (sysuserid=?sysuserid or sysdepartmentid=?sysdepartmentid);";
         public const string SEL_TAG4USER = "select * from sys_tag where tid=?tid and {0};";
+        /// <summary>
+        /// 查询标签拥有菜单
+        /// </summary>
+        public const string SEL_MENU4TAG = "select * from sys_menu m left outer join sys_tag2menu r on m.code=r.code where r.systagid is null or {0} order by m.code,m.sort ;";
         #endregion
     }
 

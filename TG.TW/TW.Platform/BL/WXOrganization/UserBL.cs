@@ -112,6 +112,14 @@ namespace TW.Platform.BL
                 {
                     var pTags = CommonFunction.GetEntitiesFromDataTable<TagTM>(dtTags);
                     pUser.Tags = pTags;
+
+                    //获取标签所有菜单
+                    var dtMenus = _da.GetMenuBySysTagID(pTags.Select(p => p.SysTagId).ToArray());
+                    if (VerificationHelper.VDTableNull(dtMenus))
+                    {
+                        var pMenus = CommonFunction.GetEntitiesFromDataTable<MenuTM>(dtMenus);
+                        pUser.Menus = pMenus;
+                    }
                 }
             }
             //设置当前用户
