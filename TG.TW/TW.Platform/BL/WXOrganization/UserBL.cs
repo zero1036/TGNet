@@ -72,15 +72,26 @@ namespace TW.Platform.BL
             //先通过session，查出用户ID
             string pUserID = SysCurUser.GetCurUserID();
             LogSwHelper.Sing.Info("BC验证，从Session中获取userid：" + pUserID);
-            if (!string.IsNullOrEmpty(pUserID) && pUserID == userId)
-                return true;
-            //适用于登陆验证，通过用户ID获取当前用户
-            UserTM pUser = GetUserByID(userId, _da.GetUserByUserID);
-            if (pUser != null && pUser.UserId == userId)
+            if (!string.IsNullOrEmpty(pUserID))
             {
-                var pwdCode = Emperor.UtilityLib.CyberUtils.Encrypt("Aes", 256, passWord, "TW" + userId);
-                if (pUser.Password == pwdCode)
-                    return true;
+                CurUserM pUser = SysCurUser.GetCurUser<CurUserM>();
+                if (pUser != null && pUser.UserId == userId)
+                {
+                    var pwdCode = Emperor.UtilityLib.CyberUtils.Encrypt("Aes", 256, passWord, "TW" + userId);
+                    if (pUser.Password == pwdCode)
+                        return true;
+                }
+            }
+            else
+            {
+                //适用于登陆验证，通过用户ID获取当前用户
+                UserTM pUser = GetUserByID(userId, _da.GetUserByUserID);
+                if (pUser != null && pUser.UserId == userId)
+                {
+                    var pwdCode = Emperor.UtilityLib.CyberUtils.Encrypt("Aes", 256, passWord, "TW" + userId);
+                    if (pUser.Password == pwdCode)
+                        return true;
+                }
             }
             return false;
         }

@@ -80,5 +80,6 @@ namespace TW.Platform.Model
         /// 所有菜单
         /// </summary>
         public List<MenuTM> Menus { get; set; }
+
     }
 }
