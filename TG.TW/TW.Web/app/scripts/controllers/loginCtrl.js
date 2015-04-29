@@ -1,8 +1,8 @@
 define(['controllers/controllers', 'services/commonService', 'services/configService', 'services/baseService', 'services/loginService', 'services/permissionService', 'services/userService', 'services/authService'], function (controllers) {
     controllers.controller('loginCtrl'
         , ['$rootScope', '$scope'
-            , 'commonService', 'configService', 'baseService', 'loginService', 'permissionService', 'userService', 'Auth'
-        , function ($rootScope, $scope, commonService, configService, baseService, loginService, permissionService, userService, Auth) {
+            , 'commonService', 'configService', 'baseService', 'loginService', 'permissionService', 'userService', 'authService'
+        , function ($rootScope, $scope, commonService, configService, baseService, loginService, permissionService, userService, authService) {
 
             $scope.homePageUrl = 'index.html';
             $scope.User = {};
@@ -34,7 +34,7 @@ define(['controllers/controllers', 'services/commonService', 'services/configSer
                 //登录
                 loginService.signin($scope.user.account, $scope.user.password)
                     .success(function (result, status, headers, config) {
-                        Auth.setUser(result);
+                        authService.setUser(result);
                         //成功后跳转到首页
                         //return $location.path($scope.homePageUrl);
                         window.location.href = $scope.homePageUrl;
@@ -83,7 +83,7 @@ define(['controllers/controllers', 'services/commonService', 'services/configSer
 
                 var txtAccount = document.getElementById("txtAccount");
                 txtAccount.focus();
-                $scope.user = { account: 'superadmin', password: '123' };
+                $scope.user = { account: 'mark', password: '504' };
 
             }
             $scope.initPage();

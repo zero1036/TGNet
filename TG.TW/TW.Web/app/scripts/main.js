@@ -85,7 +85,8 @@ function (angular, app, domReady) {
             $routeProvider
             .when('/home', {
                 templateUrl: 'views/home.html',
-                // controller: 'mainCtrl'
+                controller: 'mainCtrl',
+                access_level: ACCESS_LEVELS.pub
             })
             .when('/userList', {
                 templateUrl: 'views/Sys/userList.html',
@@ -144,11 +145,11 @@ function (angular, app, domReady) {
             $httpProvider.interceptors.push(function ($q, $location, $rootScope) {
                 return {
                     'response': function (resp) {
-                        if (resp.config.url == '/Login/Login') {
-                            // 假设API服务器返回的数据格式如下:
-                            // { token: "AUTH_TOKEN" }
-                            Auth.setToken(resp.data.token);
-                        }
+                        //if (resp.config.url == 'api/Login/Login') {
+                        //    // 假设API服务器返回的数据格式如下:
+                        //    // { token: "AUTH_TOKEN" }
+                        //    authService.setToken(resp.data.token);
+                        //}
                         return resp;
                     },
                     'responseError': function (rejection) {
@@ -171,17 +172,6 @@ function (angular, app, domReady) {
                         }
                         return $q.reject(rejection);
                     }
-
-                    //'responseError': function (rejection) {
-                    //    if (rejection.status == 401) {      //会话过期
-                    //        //$rootScope.isReLogin = true;
-                    //        //return $location.path("login");
-                    //        window.location.href = 'login.html';
-                    //    } else if (rejection.status == 500) {       //后台出错
-                    //        //return $location.path("login");
-                    //    }
-                    //    return $q.reject(rejection);
-                    //}
                 };
             });
         }
@@ -239,48 +229,27 @@ function (angular, app, domReady) {
 
     //    }]);
 
-    app.factory('Auth', function ($cookieStore, ACCESS_LEVELS) {
-        var _user = $cookieStore.get('user');
-        var setUser = function (user) {
-            if (!user.role || user.role < 0) {
-                user.role = ACCESS_LEVELS.pub;
-            }
-            _user = user;
-            $cookieStore.put('user', _user);
-        };
-        return {
-            isAuthorized: function (lvl) {
-                return _user.role >= lvl;
-            },
-            setUser: setUser,
-            isLoggedIn: function () {
-                return _user ? true : false;
-            },
-            getUser: function () {
-                return _user;
-            },
-            getId: function () {
-                return _user ? _user._id : null;
-            },
-            getToken: function () {
-                return _user ? _user.token : '';
-            },
-            logout: function () {
-                $cookieStore.remove('user');
-                _user = null;
-            }
-        }
-    });
 
-    app.run(function ($rootScope, $location, Auth) {
+    app.run(function ($rootScope, $location, authService) {
         // 给$routeChangeStart设置监听
         $rootScope.$on('$routeChangeStart', function (evt, next, curr) {
-            if (!Auth.isAuthorized(next.$$route.access_level)) {
-                if (Auth.isLoggedIn()) {
-                    // 用户登录了，但没有访问当前视图的权限
-                    $location.path('/');
-                } else {
-                    $location.path('/login');
+            if (!authService.getUserIsUsed()) {
+                alert("登录超时，请重新登陆");
+                window.location.href = "login.html";
+            } else {
+                if (!authService.isAuthorized(next.$$route.access_level)) {
+                    //if (authService.isLoggedIn()) {
+                    //    // 用户登录了，但没有访问当前视图的权限
+                    //    $location.path('/');
+                    //} else {
+                    //    $location.path('/login');
+                    //}
+                    if (!authService.isMenuAuthorized(next.$$route.originalPath)) {
+                        $location.path('/home');
+                    }
+                }
+                else {
+                    $location.path('/home');
                 }
             }
         });
