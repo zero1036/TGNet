@@ -23,7 +23,7 @@ define(['services/services'], function (services) {
         };
         return {
             isAuthorized: function (lvl) {
-                return _user.role >= lvl;
+                return _user.role > lvl;
             },
             isMenuAuthorized: function () {
                 return true;

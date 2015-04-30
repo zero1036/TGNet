@@ -21,7 +21,10 @@ require.config({
         // xml to json
         x2js: 'vendor/x2js/xml2json',
         // angular-file-uploader
-        uploader: 'vendor/angular-file-uploader/angular-file-upload'
+        uploader: 'vendor/angular-file-uploader/angular-file-upload',
+        aceElement: 'vendor/ace/ace-elements',
+        ace: 'vendor/ace/ace',
+        aceExtra: 'vendor/ace/ace-extra'
     },
     shim: {
         /*
@@ -55,13 +58,25 @@ require.config({
         },
         uploader: {
             deps: ['angular']
-        }
+        },
+        aceElement: {
+            deps: ['jquery']
+        },
+        ace: {
+            deps: ['jquery']
+        },
+        aceExtra: {
+            deps: ['jquery']
+        },
     }
 });
 require([
 	'angular',
 	'app',
 	'domReady',
+    'aceElement',
+    'ace',
+    'aceExtra',
     // 自定义controllers,services,directives,filters都需要在这里添加路径
     'controllers/mainCtrl',
     'controllers/userCtrl',
@@ -73,7 +88,7 @@ require([
     'controllers/modelCtrl',
     'controllers/dictionaryCtrl'
 ],
-function (angular, app, domReady) {
+function (angular, app, domReady, aceElement, ace, aceExtra) {
     'use strict';
     app.constant('ACCESS_LEVELS', {
         pub: 1,
@@ -261,5 +276,14 @@ function (angular, app, domReady) {
         angular.bootstrap(document, ['eOrderingApp']);
 
         $('html').addClass('ng-app: eOrderingApp');
+        $.get("/api/Menu/GetMenu", null, function (datas) {
+            $("#nav-left").NavMenu({
+                url: "/Menu/GetMenu",
+                bArrow: false,
+                data: datas.data,
+                dicIcon: { "M0001": "fa fa-desktop fa-lg", "M0002": "fa fa-weixin fa-lg", "M0003": "fa fa-gears fa-lg", "M9999": "fa fa-gears fa-lg" },
+                ignorelist: ["M9999"]
+            });
+        });
     })
 });

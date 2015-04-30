@@ -1,70 +1,208 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>主页</title>
-	<link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="styles/common.css">
-	<link rel="stylesheet" href="styles/diamond.css">
-	</head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/ace/ace.min.css" />
+    <link rel="stylesheet" href="styles/ace/ace-rtl.min.css" />
+    <link rel="stylesheet" href="styles/ace/ace-skins.min.css" />
+    <!--<link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/diamond.css">-->
+</head>
 <body ng-controller="mainCtrl">
 
-	<div class="header clearfix header-fix-top">
-		<div class="container p0">
-			<div class="navbar-header">
-				<a href="javascript:;" class="navbar-brand">EWJ訂貨系統</a>
-			</div>
-			<nav>
-				<ul class="nav navbar-nav">
-					<li class="dropdown" ng-repeat="menu in Menu">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" ng-bind="menu.name"></a>
-						<ul class="dropdown-menu" role="menu">
-							<li ng-repeat="item in menu.childList">
-								<a ng-href="#{{item.path}}" ng-bind="item.name"></a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="javascript:;" ng-click="signout()">登出</a>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right p15">
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expand="false">
-							David Sun
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<a href="javascript:;"></a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expand="false">选择语言</a>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<a href="javascript:;" ng-click="changeLanguage('cn')">简体中文</a>
-							</li>
-							<li>
-								<a href="javascript:;" ng-click="changeLanguage('en')">English</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
+    <div class="navbar navbar-default" id="navbar">
+        <script type="text/javascript">
+            try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+        </script>
 
-	<div class="container">
-		<!--<div>
-		<h1>{{"Team_Title" | translate}}</h1>
-	</div>
-	-->
-	<div ng-view=""></div>
-</div>
-<script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+        <div class="navbar-container" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="#HomeX" class="navbar-brand">
+                    <small>
+                        <i class="fa fa-weixin fa-lg"></i>
+                        EMPEROR GROUP
+                    </small>
+                </a>
+                <!-- /.brand -->
+            </div>
+            <!-- /.navbar-header -->
+
+            <div class="navbar-header pull-right" role="navigation">
+                <ul class="nav ace-nav">
+
+
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="javascript:void(0);" class="dropdown-toggle">
+
+                            <span class="user-info">
+                                <small>Welcome,</small>
+                                Mark
+                            </span>
+
+                            <i class="fa fa-user fa-lg"></i>
+                        </a>
+
+                        <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+
+
+                            <li>
+                                <a href="#HomeX">
+                                    <i class="icon-user"></i>
+                                    &nbsp;&nbsp;
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="#Home/Logout">
+                                    <i class="icon-off"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.ace-nav -->
+            </div>
+            <!-- /.navbar-header -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.navbar -->
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+        </script>
+
+        <div class="main-container-inner">
+            <a class="menu-toggler" id="menu-toggler" href="javascript:void(0);">
+                <span class="menu-text"></span>
+            </a>
+
+            <div class="sidebar" id="sidebar">
+                <script type="text/javascript">
+                    try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+                </script>
+
+
+                <!-- #sidebar-shortcuts -->
+
+
+                <div id="nav-left"></div>
+                <!-- #左侧导航菜单 -->
+                <!-- /.nav-list -->
+
+
+
+                <script type="text/javascript">
+                    try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+                </script>
+            </div>
+            <!-- /.sidebar-nav -->
+
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <script type="text/javascript">
+                        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                    </script>
+
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home home-icon"></i>
+                            <a href="#">首页</a>
+                        </li>
+                        <li class="active">控制台</li>
+                    </ul>
+                    <!-- .breadcrumb -->
+
+                    <div class="nav-search" id="nav-search">
+                        <form class="form-search">
+                            <span class="input-icon">
+                                <input type="text" placeholder="搜索 ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                                <i class="icon-search nav-search-icon"></i>
+                            </span>
+                        </form>
+                    </div>
+                    <!-- #nav-search -->
+                </div>
+
+                <div class="page-content">
+
+                    <!-- /.page-header -->
+
+                    <div class="row">
+                        <!--<div class="container">-->
+                        <div ng-view=""></div>
+                        <!--</div>-->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.page-content -->
+            </div>
+            <!-- /.main-content -->
+
+            <div class="ace-settings-container" id="ace-settings-container">
+                <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                    <i class="fa fa-cog fa-2x"></i>
+                </div>
+
+                <div class="ace-settings-box" id="ace-settings-box">
+                    <div>
+                        <div class="pull-left">
+                            <select id="skin-colorpicker" class="hide">
+                                <option data-skin="default" value="#438EB9">#438EB9</option>
+                                <option data-skin="skin-1" value="#222A2D">#222A2D</option>
+                                <option data-skin="skin-2" value="#C6487E">#C6487E</option>
+                                <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+                            </select>
+                        </div>
+                        <span>&nbsp; 选择皮肤</span>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+                        <label class="lbl" for="ace-settings-navbar">固定导航条</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+                        <label class="lbl" for="ace-settings-sidebar">固定滑动条</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+                        <label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+                        <label class="lbl" for="ace-settings-rtl">切换到左边</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
+                        <label class="lbl" for="ace-settings-add-container">
+                            切换窄屏
+                            <b></b>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- /#ace-settings-container -->
+        </div>
+        <!-- /.main-container-inner -->
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="icon-double-angle-up icon-only bigger-110"></i>
+        </a>
+    </div>
+    <!-- /.main-container -->
+
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
 </body>
 </html>

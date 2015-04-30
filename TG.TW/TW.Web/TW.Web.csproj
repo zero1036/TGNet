@@ -146,6 +146,7 @@
     <Compile Include="Controllers\QY\abController.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\Sys\LoginController.cs" />
+    <Compile Include="Controllers\Sys\MenuController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,7 +181,10 @@
     <Content Include="app\scripts\controllers\modelCtrl.js" />
     <Content Include="app\scripts\controllers\orderCycleCtrl.js" />
     <Content Include="app\scripts\controllers\orderCycleEditCtrl.js" />
+    <Content Include="app\scripts\controllers\testIscrollCtrl.js" />
+    <Content Include="app\scripts\controllers\testWACtrl.js" />
     <Content Include="app\scripts\controllers\userCtrl.js" />
+    <Content Include="app\scripts\controllers\waMainCtrl.js" />
     <Content Include="app\scripts\directives\directives.js" />
     <Content Include="app\scripts\filters\filters.js" />
     <Content Include="app\scripts\loginApp.js" />
@@ -199,6 +203,13 @@
     <Content Include="app\scripts\services\services.js" />
     <Content Include="app\scripts\services\testService.js" />
     <Content Include="app\scripts\services\userService.js" />
+    <Content Include="app\scripts\vendor\ace\ace-elements.js" />
+    <Content Include="app\scripts\vendor\ace\ace-elements.min.js" />
+    <Content Include="app\scripts\vendor\ace\ace-extra.js" />
+    <Content Include="app\scripts\vendor\ace\ace-extra.min.js" />
+    <Content Include="app\scripts\vendor\ace\ace.js" />
+    <Content Include="app\scripts\vendor\ace\ace.min.js" />
+    <Content Include="app\scripts\vendor\ace\iscroll.js" />
     <Content Include="app\scripts\vendor\angular-file-uploader\angular-file-upload.js" />
     <Content Include="app\scripts\vendor\angular-file-uploader\angular-file-upload.min.js" />
     <Content Include="app\scripts\vendor\angular\angular-animate.js" />
@@ -247,6 +258,13 @@
     <Content Include="app\scripts\vendor\x2js\xml2json.min.js" />
     <Content Include="app\scripts\waApp.js" />
     <Content Include="app\scripts\waMain.js" />
+    <Content Include="app\styles\ace\ace-ie.min.css" />
+    <Content Include="app\styles\ace\ace-rtl.min.css" />
+    <Content Include="app\styles\ace\ace-skins.min.css" />
+    <Content Include="app\styles\ace\ace-wa.css" />
+    <Content Include="app\styles\ace\ace.css" />
+    <Content Include="app\styles\ace\ace.min.css" />
+    <Content Include="app\styles\ace\font-awesome.min.css" />
     <Content Include="app\styles\bootstrap\css\bootstrap-theme.css" />
     <Content Include="app\styles\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="app\styles\bootstrap\css\bootstrap.css" />
@@ -273,6 +291,7 @@
     <Content Include="app\views\Sys\dictionaryList.html" />
     <Content Include="app\views\Sys\userList.html" />
     <Content Include="app\views\Test\testAuth.html" />
+    <Content Include="app\views\Test\testIscroll.html" />
     <Content Include="app\waIndex.html" />
     <Content Include="config.xml" />
     <Content Include="Global.asax" />

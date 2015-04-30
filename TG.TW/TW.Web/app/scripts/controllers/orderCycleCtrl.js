@@ -2,8 +2,8 @@
 define(['controllers/controllers', 'services/orderService', 'services/commonService', 'services/configService']
         , function (controllers) {
             controllers.controller('orderCycleCtrl'
-                , ['$scope', '$location', '$routeParams', 'orderService', '$translatePartialLoader', '$translate', 'configService', 'commonService', 'Auth', '$http'
-                    , function ($scope, $location, $routeParams, orderService, $translatePartialLoader, $translate, configService, commonService, Auth, $http) {
+                , ['$scope', '$location', '$routeParams', 'orderService', '$translatePartialLoader', '$translate', 'configService', 'commonService', '$http'
+                    , function ($scope, $location, $routeParams, orderService, $translatePartialLoader, $translate, configService, commonService, $http) {
                         //console.log($routeParams.code);
 
                         //$scope.orderCycles = [];

@@ -18,7 +18,7 @@ namespace TW.Web.Controllers
     /// Controller的基类，用于实现适合业务场景的基础功能
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [BasicAuthentication]
+    //[BasicAuthentication]
     public abstract class ApiControllerBase : ApiController
     {
         /// <summary>

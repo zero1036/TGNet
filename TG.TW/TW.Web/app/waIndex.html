@@ -1,70 +1,29 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>主页</title>
-	<link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="styles/common.css">
-	<link rel="stylesheet" href="styles/diamond.css">
-	</head>
-<body ng-controller="mainCtrl">
-
-	<div class="header clearfix header-fix-top">
-		<div class="container p0">
-			<div class="navbar-header">
-				<a href="javascript:;" class="navbar-brand">EWJ訂貨系統</a>
-			</div>
-			<nav>
-				<ul class="nav navbar-nav">
-					<li class="dropdown" ng-repeat="menu in Menu">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" ng-bind="menu.name"></a>
-						<ul class="dropdown-menu" role="menu">
-							<li ng-repeat="item in menu.childList">
-								<a ng-href="#{{item.path}}" ng-bind="item.name"></a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="javascript:;" ng-click="signout()">登出</a>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right p15">
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expand="false">
-							David Sun
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<a href="javascript:;"></a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expand="false">选择语言</a>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<a href="javascript:;" ng-click="changeLanguage('cn')">简体中文</a>
-							</li>
-							<li>
-								<a href="javascript:;" ng-click="changeLanguage('en')">English</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-
-	<div class="container">
-		<!--<div>
-		<h1>{{"Team_Title" | translate}}</h1>
-	</div>
-	-->
-	<div ng-view=""></div>
-</div>
-<script data-main="scripts/waMain" src="scripts/vendor/require.js"></script>
+    <meta charset="UTF-8">
+    <!--IE兼容标签-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--响应式布局-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui" />
+    <!--启动webapp功能，会删除默认的苹果工具栏和菜单栏-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!--忽略页面中的数字识别为电话号码-->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!--默认使用webkit内核进行渲染-->
+    <meta name="renderer" content="webkit">
+    <title>主页</title>
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/ace/ace-wa.css">
+    <!--<link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/diamond.css">-->
+</head>
+<body ng-controller="waMainCtrl">
+    <div class="container">
+        <div ng-view=""></div>
+    </div>
+    <script data-main="scripts/waMain" src="scripts/vendor/require.js"></script>
 </body>
 </html>
