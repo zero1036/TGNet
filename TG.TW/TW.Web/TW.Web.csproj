@@ -261,6 +261,7 @@
     <Content Include="app\styles\ace\ace-ie.min.css" />
     <Content Include="app\styles\ace\ace-rtl.min.css" />
     <Content Include="app\styles\ace\ace-skins.min.css" />
+    <Content Include="app\styles\ace\ace-wa-bs.css" />
     <Content Include="app\styles\ace\ace-wa.css" />
     <Content Include="app\styles\ace\ace.css" />
     <Content Include="app\styles\ace\ace.min.css" />
@@ -292,6 +293,7 @@
     <Content Include="app\views\Sys\userList.html" />
     <Content Include="app\views\Test\testAuth.html" />
     <Content Include="app\views\Test\testIscroll.html" />
+    <Content Include="app\views\Test\testSlider.html" />
     <Content Include="app\waIndex.html" />
     <Content Include="config.xml" />
     <Content Include="Global.asax" />

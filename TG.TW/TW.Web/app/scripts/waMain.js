@@ -92,6 +92,11 @@ function (angular, waApp, domReady, iscroll) {
                 templateUrl: 'views/Test/testIscroll.html',
                 controller: 'testIscrollCtrl',
                 access_level: ACCESS_LEVELS.pub
+            })
+            .when('/testSlider', {
+                templateUrl: 'views/Test/testSlider.html',
+                controller: 'testIscrollCtrl',
+                access_level: ACCESS_LEVELS.pub
             });// end
 
 

@@ -1,19 +1,22 @@
-﻿/*body {
+﻿body {
     min-height: 100%;
     color: gray;
     font-size: 1.5em;
     font-family:   "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
-    line-height: 1.5;
+    /*line-height: 1.5;*/
     -webkit-user-select: none;
     -webkit-text-size-adjust: none;
-}*/
+}
 
-    body {
+
+
+
+/*body {
             font-size: 12px;
             -webkit-user-select: none;
             -webkit-text-size-adjust: none;
             font-family: helvetica;
-        }
+        }*/
 
 body, ul, li {
     padding: 0;
@@ -27,13 +30,16 @@ body, ul, li {
     top: 0;
     left: 0;
     width: 100%;
-    height: 45px;
+    height: 50px;
     line-height: 45px;
-    background-color: #d51875;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #fe96c9), color-stop(0.05, #d51875), color-stop(1, #7b0a2e));
+    background-color: #f0ad4e;
+    /*background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #fe96c9), color-stop(0.05, #d51875), color-stop(1, #7b0a2e));
     background-image: -moz-linear-gradient(top, #fe96c9, #d51875 5%, #7b0a2e);
-    background-image: -o-linear-gradient(top, #fe96c9, #d51875 5%, #7b0a2e);
-    padding: 0;
+    background-image: -o-linear-gradient(top, #fe96c9, #d51875 5%, #7b0a2e);*/
+    /*padding: 0;*/
+    /*padding-top: 7px;
+    padding-left: 7px;
+    padding-right: 7px;*/
     color: #eee;
     font-size: 20px;
     text-align: center;
@@ -46,6 +52,14 @@ body, ul, li {
         text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
     }
 
+    #header > div > * {
+        display: inline-block;
+    }
+
+        #header > div > *:nth-child(1) {
+            width: 70%;
+        }
+
 #footer {
     position: absolute;
     z-index: 2;
@@ -53,12 +67,12 @@ body, ul, li {
     left: 0;
     width: 100%;
     height: 48px;
-    background-color: #222;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #999), color-stop(0.02, #666), color-stop(1, #222));
+    background-color: #f0ad4e;
+    /*background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #999), color-stop(0.02, #666), color-stop(1, #222));
     background-image: -moz-linear-gradient(top, #999, #666 2%, #222);
-    background-image: -o-linear-gradient(top, #999, #666 2%, #222);
+    background-image: -o-linear-gradient(top, #999, #666 2%, #222);*/
     padding: 0;
-    border-top: 1px solid #444;
+    border-top: 1px solid #D98700;
 }
 
 #wrapper {
@@ -68,7 +82,7 @@ body, ul, li {
     bottom: 48px;
     left: -9999px;
     width: 100%;
-    background: #aaa;
+    /*background: #aaa;*/
     overflow: auto;
 }
 
@@ -81,23 +95,7 @@ body, ul, li {
     padding: 0;
 }
 
-    #scroller ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        text-align: left;
-    }
-
-    #scroller li {
-        padding: 0 10px;
-        height: 140px;
-        line-height: 40px;
-        border-bottom: 1px solid #ccc;
-        border-top: 1px solid #fff;
-        background-color: #fafafa;
-        font-size: 14px;
-    }
+    
 
 #myFrame {
     position: absolute;
@@ -107,13 +105,13 @@ body, ul, li {
 
 #pullDown, #pullUp {
     background: #fff;
-    height: 40px;
+    height: 50px;
     line-height: 40px;
     padding: 5px 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #f2f2f2;
     font-weight: bold;
     font-size: 14px;
-    color: #888;
+    color: #F8B155;
 }
 
     #pullDown .pullDownIcon, #pullUp .pullUpIcon {
@@ -121,7 +119,7 @@ body, ul, li {
         float: left;
         width: 40px;
         height: 40px;
-        background: url(pull-icon@2x.png) 0 0 no-repeat;
+        background: url(http://cubiq.org/dropbox/iscroll4/examples/pull-to-refresh/pull-icon@2x.png) 0 0 no-repeat;
         -webkit-background-size: 40px 80px;
         background-size: 40px 80px;
         -webkit-transition-property: -webkit-transform;
@@ -154,7 +152,7 @@ body, ul, li {
         -webkit-animation-timing-function: linear;
     }
 
-/*@-webkit-keyframes loading {
+@-webkit-keyframes loading {
     from {
         -webkit-transform: rotate(0deg) translateZ(0);
     }
@@ -162,4 +160,4 @@ body, ul, li {
     to {
         -webkit-transform: rotate(360deg) translateZ(0);
     }
-}*/
+}
