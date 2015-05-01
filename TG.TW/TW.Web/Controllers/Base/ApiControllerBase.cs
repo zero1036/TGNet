@@ -46,7 +46,7 @@ namespace TW.Web.Controllers
                     Logger.Log4Net.Info(string.Format("异常代码：{0};异常信息：{1}", pEGResult.ExCode, pEGResult.Message));
 
                 //消息不为空时，确保异常消息返回前端
-                if (pEGResult.StCode != null)
+                if (pEGResult.StCode == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, pActionResult);
                 }
