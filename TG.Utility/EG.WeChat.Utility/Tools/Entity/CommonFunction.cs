@@ -53,6 +53,15 @@ namespace EG.WeChat.Utility.Tools
             }
             return pEntityCollect;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static List<T> ToList<T>(this DataTable dt)
+        {
+            return GetEntitiesFromDataTable<T>(dt);
+        }
         /// <summary>    
         /// 转化一个DataTable
         /// 自动创建表结构并填充值

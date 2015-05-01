@@ -96,6 +96,7 @@
     <Compile Include="Tools\Proxy\CastleAOPUtil.cs" />
     <Compile Include="Tools\Proxy\Interceptor\DataWritingInterceptor.cs" />
     <Compile Include="Tools\Session\SessionHelper.cs" />
+    <Compile Include="Tools\Sys\VerificationHelper.cs" />
     <Compile Include="Tools\TimeStamp\UnixTimeStampHelper.cs" />
     <Compile Include="Tools\WCF\WcfClient.cs" />
     <Compile Include="Tools\WebHelper\AmazeUI\AUIBase.cs" />
