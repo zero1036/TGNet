@@ -28,8 +28,22 @@ namespace TW.Web.Controllers.Sys
                     Description = "detail",
                     Href = "/orderCycleList"
                 };
+
+                MenuVM pvm2 = new MenuVM();
+                pvm2.TemData = new MenuTM()
+                {
+                    Code = "M1001",
+                    Type = 1,
+                    Name = "测试菜单2",
+                    FatherCode = "M100",
+                    Sort = 1,
+                    State = 0,
+                    Description = "detail",
+                    Href = "/orderCycleList"
+                };
                 List<MenuVM> pli = new List<MenuVM>();
                 pli.Add(pvm);
+                pli.Add(pvm2);
                 return pli;
             });
         }

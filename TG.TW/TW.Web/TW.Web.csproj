@@ -143,6 +143,7 @@
     <Compile Include="Controllers\Extension\Security\RequireAuthorizeAttribute.cs" />
     <Compile Include="Controllers\Extension\Security\WXOAuthAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Org\OrgController.cs" />
     <Compile Include="Controllers\QY\abController.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\Sys\LoginController.cs" />
