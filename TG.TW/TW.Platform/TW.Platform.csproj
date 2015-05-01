@@ -66,6 +66,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\WXOrganization\DepartmentBL.cs" />
+    <Compile Include="BL\WXOrganization\TagBL.cs" />
+    <Compile Include="DA\BaseDA.cs" />
     <Compile Include="BL\Message\QyCustomMessageContext.cs" />
     <Compile Include="BL\Message\QyCustomMessageHandler.cs" />
     <Compile Include="BL\Message\WXMessageBL.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="BL\SdkETS\SDKETSFactory.cs" />
     <Compile Include="BL\WXConfig\WXCorpBaseBL.cs" />
     <Compile Include="BL\WXOrganization\IWeChatUserService.cs" />
+    <Compile Include="BL\WXOrganization\OrgBL.cs" />
     <Compile Include="BL\WXOrganization\UserBL.cs" />
     <Compile Include="BL\WXResource\MediaConverterQueue.cs" />
     <Compile Include="BL\WXResource\WXArticleBL.cs" />
@@ -84,12 +88,17 @@
     <Compile Include="BL\WXResource\WXVoiceBL.cs" />
     <Compile Include="DA\WXConfigDA\WXConfigDA.cs" />
     <Compile Include="DA\WXMessageDA\WXGsMessageDA.cs" />
+    <Compile Include="DA\WXOrganization\DepartmentDA.cs" />
+    <Compile Include="DA\WXOrganization\TagDA.cs" />
     <Compile Include="DA\WXOrganization\UserDA.cs" />
     <Compile Include="DA\WXResourceDA\WXResourceDA.cs" />
+    <Compile Include="Model\TenantRouteTM.cs" />
     <Compile Include="Model\WXConfig\WXConfigM.cs" />
     <Compile Include="Model\WXMessage\WXGsMessageVM.cs" />
+    <Compile Include="Model\WXOrganization\Dep2UserRelTM.cs" />
     <Compile Include="Model\WXOrganization\DepartmentTM.cs" />
     <Compile Include="Model\WXOrganization\MenuTM.cs" />
+    <Compile Include="Model\WXOrganization\OrgM.cs" />
     <Compile Include="Model\WXOrganization\TagTm.cs" />
     <Compile Include="Model\WXOrganization\UserTM.cs" />
     <Compile Include="Model\WXOrganization\WeChatUser.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 /*****************************************************
-* 目的：标签模型
+* 目的：路由信息表模型DA
 * 创建人：林子聪
 * 创建时间：20150427
 * 备注：
@@ -13,16 +13,22 @@ using System.Text;
 *****************************************************/
 namespace TW.Platform.Model
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class TagTM
+    public class TenantRouteTM
     {
-        public int SysTagId { get; set; }
+        public int TenID { get; set; }
+        public string TbName { get; set; }
         public int Tid { get; set; }
-        public int TagId { get; set; }
-        public string TagName { get; set; }
-        public int SysDepartmentId { get; set; }
-        public int SysUserId { get; set; }
+        public int Trid { get; set; }
+    }
+
+    public class TenantRouteM : TenantRouteTM
+    {
+        public string TbNameFull
+        {
+            get
+            {
+                return string.Format("{0}_{1}", base.TbName, base.Trid);
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 /*****************************************************
-* 目的：标签模型
+* 目的：部门to用户关系模型
 * 创建人：林子聪
 * 创建时间：20150427
 * 备注：
@@ -14,15 +14,17 @@ using System.Text;
 namespace TW.Platform.Model
 {
     /// <summary>
-    /// 
+    /// 部门to用户关系模型
     /// </summary>
-    public class TagTM
+    public class Dep2UserRelTM
     {
-        public int SysTagId { get; set; }
-        public int Tid { get; set; }
-        public int TagId { get; set; }
-        public string TagName { get; set; }
+        /// <summary>
+        /// 系统部门编号
+        /// </summary>
         public int SysDepartmentId { get; set; }
+        /// <summary>
+        /// 系统用户编号
+        /// </summary>
         public int SysUserId { get; set; }
     }
 }

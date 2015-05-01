@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +14,29 @@ using System.Text;
 *****************************************************/
 namespace TW.Platform.Sys
 {
-    public static class VerificationHelper
-    {
-        /// <summary>
-        /// 验证datatable是否为空
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        public static bool VDTableNull(System.Data.DataTable dt)
-        {
-            if (dt == null || dt.Rows.Count == 0)
-                return false;
-            return true;
-        }
-    }
+    //public static class VerificationHelper
+    //{
+    //    /// <summary>
+    //    /// 验证datatable是否为空
+    //    /// </summary>
+    //    /// <param name="dt"></param>
+    //    /// <returns></returns>
+    //    public static bool VDTableNull(System.Data.DataTable dt)
+    //    {
+    //        if (dt == null || dt.Rows.Count == 0)
+    //            return false;
+    //        return true;
+    //    }
+    //    /// <summary>
+    //    /// 验证集合是否为空
+    //    /// </summary>
+    //    /// <param name="p"></param>
+    //    /// <returns></returns>
+    //    public static bool VNotNull(this IList p)
+    //    {
+    //        if (p != null || p.Count != 0)
+    //            return true;
+    //        return false;
+    //    }
+    //}
 }

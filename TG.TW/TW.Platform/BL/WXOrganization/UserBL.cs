@@ -10,7 +10,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using TW.Platform.Model;
 using TW.Platform.DA;
 /*****************************************************
-* 目的：系统/微信用户逻辑处理
+* 目的：系统/微信用户登录验证处理
 * 创建人：林子聪
 * 创建时间：20140427
 * 备注：
@@ -23,7 +23,8 @@ namespace TW.Platform.BL
     public class UserBL
     {
         #region 私有变量
-        private UserDA _da = new UserDA();
+        private OrgDA _da = new OrgDA();
+        private UserDA _daUser = new UserDA();
         #endregion
 
         #region Public
@@ -74,7 +75,7 @@ namespace TW.Platform.BL
             LogSwHelper.Sing.Info("BC验证，从Session中获取userid：" + pUserID);
             if (!string.IsNullOrEmpty(pUserID))
             {
-                CurUserM pUser = SysCurUser.GetCurUser<CurUserM>();
+                CurUserM pUser = SysCurUser.GetCurUser();
                 if (pUser != null && pUser.UserId == userId)
                 {
                     var pwdCode = Emperor.UtilityLib.CyberUtils.Encrypt("Aes", 256, passWord, "TW" + userId);
@@ -95,8 +96,19 @@ namespace TW.Platform.BL
             }
             return false;
         }
+        /// <summary>
+        /// 获取租户所有用户
+        /// </summary>
+        /// <typeparam name="User"></typeparam>
+        /// <returns></returns>
+        public List<User> GetUsers<User>()
+        {
+            var dt = _daUser.GetUsers();
+            return dt.ToList<User>();
+        }
         #endregion
 
+        #region private
         /// <summary>
         /// 适用于登陆验证，通过用户ID获取当前用户
         /// </summary>
@@ -106,35 +118,41 @@ namespace TW.Platform.BL
         {
             //通过UserID获取用户 或 通过微信号获取用户，根据传入Func而定
             DataTable dt = pFunc.Invoke(pID);
-            if (!VerificationHelper.VDTableNull(dt)) return null;
+            if (dt.IsNull()) return null;
             var pUsers = CommonFunction.GetEntitiesFromDataTable<CurUserM>(dt);
             var pUser = pUsers[0];
-            //CurUserM pCurUser = pUser as CurUserM;
-            //获取用户所在部门
-            var dtDeparts = _da.GetDepartmentBySysUserID(pUser.Tid, pUser.SysUserId);
-            if (VerificationHelper.VDTableNull(dtDeparts))
+            //获取租户路由信息
+            var dttr = _da.GetTenantRoutesByTid(pUser.Tid);
+            if (!dttr.IsNull())
             {
-                var pDepartments = CommonFunction.GetEntitiesFromDataTable<DepartmentTM>(dtDeparts);
-                pUser.Departments = pDepartments;
-                //获取用户及部门所属标签
-                var dtTags = _da.GetTagsBySysUserID(pUser.Tid, pUser.SysUserId, pDepartments.Select(p => p.SysDepartmentId).ToArray());
-
-                if (VerificationHelper.VDTableNull(dtTags))
+                var pTenRoutes = CommonFunction.GetEntitiesFromDataTable<TenantRouteM>(dttr);
+                pUser.TenantRoutes = pTenRoutes;
+                //获取用户所在部门
+                var dtDeparts = _da.GetDepartmentBySysUserID(pUser.Tid, pUser.SysUserId);
+                if (!dtDeparts.IsNull())
                 {
-                    var pTags = CommonFunction.GetEntitiesFromDataTable<TagTM>(dtTags);
-                    pUser.Tags = pTags;
+                    var pDepartments = CommonFunction.GetEntitiesFromDataTable<DepartmentTM>(dtDeparts);
+                    pUser.Departments = pDepartments;
+                    //获取用户及部门所属标签
+                    var dtTags = _da.GetTagsBySysUserID(pUser.Tid, pUser.SysUserId, pDepartments.Select(p => p.SysDepartmentId).ToArray());
 
-                    //获取标签所有菜单
-                    var dtMenus = _da.GetMenuBySysTagID(pTags.Select(p => p.SysTagId).ToArray());
-                    if (VerificationHelper.VDTableNull(dtMenus))
+                    if (!dtTags.IsNull())
                     {
-                        var pMenus = CommonFunction.GetEntitiesFromDataTable<MenuTM>(dtMenus);
-                        pUser.Menus = pMenus;
+                        var pTags = CommonFunction.GetEntitiesFromDataTable<TagTM>(dtTags);
+                        pUser.Tags = pTags;
+
+                        //获取标签所有菜单
+                        var dtMenus = _da.GetMenuBySysTagID(pTags.Select(p => p.SysTagId).ToArray());
+                        if (!dtMenus.IsNull())
+                        {
+                            var pMenus = CommonFunction.GetEntitiesFromDataTable<MenuTM>(dtMenus);
+                            pUser.Menus = pMenus;
+                        }
                     }
                 }
             }
             //设置当前用户
-            SysCurUser.SetCurUser<CurUserM>(pUser);
+            SysCurUser.SetCurUser(pUser);
             return pUser;
 
         }
@@ -175,6 +193,7 @@ namespace TW.Platform.BL
             //SessionHelper.Add(ConstStr.SESSION_CURRENT_USERID, code + agentid);
             //return code + agentid;
         }
+        #endregion
 
     }
 }

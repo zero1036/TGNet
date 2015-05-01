@@ -5,12 +5,33 @@ using System.Text;
 using System.Data;
 using TW.Platform.Model;
 using TW.Platform.Sys;
-
+/*****************************************************
+* 目的：用户相关DA
+* 创建人：林子聪
+* 创建时间：20150427
+* 备注：
+* 依赖性：
+* 版权：
+* 使用本文件时，必须保留本内容的完整性！
+*****************************************************/
 namespace TW.Platform.DA
 {
-    public class UserDA
+    /// <summary>
+    /// 组织机构DA模块，主要用于登录验证，无需限制租户编号
+    /// </summary>
+    public class OrgDA
     {
-        private ADOTemplateX _pADO = new ADOTemplateX();
+        protected ADOTemplateX _pADO = new ADOTemplateX();
+        #region 登录验证
+        /// <summary>
+        /// 通过租户ID获取路由信息
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetTenantRoutesByTid(int tid)
+        {
+            DataTable dt = _pADO.Query(SqlScriptHelper.SEL_TENANTROUTES, new string[] { "?tid" }, new object[] { tid }, string.Empty);
+            return dt;
+        }
         /// <summary>
         /// 通过UserID获取用户信息
         /// </summary>
@@ -20,7 +41,7 @@ namespace TW.Platform.DA
         {
             DataTable dt = _pADO.Query(SqlScriptHelper.SEL_USER2TID, new string[] { "?userid", "?tbname" }, new object[] { UserId, SqlScriptHelper.T_USER }, string.Empty);
 
-            if (!VerificationHelper.VDTableNull(dt))
+            if (dt.IsNull())
                 return null;
             string tbname = dt.Rows[0][0] + string.Empty;
             int tid = Convert.ToInt32(dt.Rows[0][1] + string.Empty);
@@ -43,7 +64,7 @@ namespace TW.Platform.DA
                 var sql = string.Format(SqlScriptHelper.SEL_USERBYWEIXINID, tbn);
 
                 var dt = _pADO.Query(sql, null, null, string.Empty);
-                if (!VerificationHelper.VDTableNull(dt))
+                if (!dt.IsNull())
                 {
                     return dt;
                 }
@@ -93,6 +114,27 @@ namespace TW.Platform.DA
             sFilter = string.Format("({0})", sFilter);
             sFilter = string.Format(SqlScriptHelper.SEL_MENU4TAG, sFilter);
             return _pADO.Query(sFilter, null, null, string.Empty);
+        }
+
+        #endregion
+    }
+    public class UserDA : BaseDA
+    {
+        protected ADOTemplateX _pADO = new ADOTemplateX();
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public DataTable GetUsers()
+        {
+            var tid = SysCurUser.GetCurUser().Tid;
+            if (tid == -1) return null;
+            var tbNameFull = SysCurUser.GetCurUser().TenantRoutes.Single(t => t.TbName == SqlScriptHelper.T_USER).TbNameFull;
+
+            var sFIlter = string.Format(SqlScriptHelper.SEL_USERS, tbNameFull);
+            DataTable dt = _pADO.Query(sFIlter, new string[] { "?tid" }, new object[] { tid }, string.Empty);
+            return dt;
         }
     }
 }

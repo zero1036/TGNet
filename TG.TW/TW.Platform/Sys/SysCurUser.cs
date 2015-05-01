@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EG.WeChat.Utility.Tools;
+using TW.Platform.Model;
 /*****************************************************
 * 目的：当前用户For session
 * 创建人：林子聪
@@ -49,22 +50,20 @@ namespace TW.Platform.Sys
         /// 获取当前用户
         /// </summary>
         /// <returns></returns>
-        public static T GetCurUser<T>()
-            where T : TW.Platform.Model.UserTM
+        public static CurUserM GetCurUser()
         {
             var pUser = SessionHelper.Get(ConstStr.SESSION_CURRENT_USER);
-            if (pUser != null)
-                return pUser as T;
+            if (pUser != null && pUser is CurUserM)
+                return pUser as CurUserM;
             return null;
         }
         /// <summary>
         /// 设置当前用户
         /// </summary>
         /// <returns></returns>
-        public static void SetCurUser<T>(T pT)
-             where T : TW.Platform.Model.UserTM
+        public static void SetCurUser(CurUserM pT)
         {
-            var pu = GetCurUser<T>();
+            var pu = GetCurUser();
             if (pu == null)
             {
                 SessionHelper.Add(ConstStr.SESSION_CURRENT_USER, pT);

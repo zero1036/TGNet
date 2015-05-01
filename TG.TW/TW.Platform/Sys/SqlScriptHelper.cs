@@ -19,6 +19,14 @@ namespace TW.Platform.Sys
         #region
         public const string T_USER = "t_user";
         /// <summary>
+        /// 通过租户对应路由信息
+        /// </summary>
+        public const string SEL_TENANTROUTES = "select * from sys_tenantroute where tid=?tid;";
+        /// <summary>
+        /// 通过租户ID获取租户所有用户
+        /// </summary>
+        public const string SEL_USERS = "select * from {0} where tid=?tid;";
+        /// <summary>
         /// 通过用户ID（UserID）查询用户所在租户及制定表分支
         /// </summary>
         public const string SEL_USER2TID = "select concat(tbname , '_', trid),tid from sys_tenantroute where tid =(select tid from sys_user where userid=?userid) and tbname=?tbname";
@@ -43,6 +51,26 @@ namespace TW.Platform.Sys
         /// </summary>
         public const string SEL_MENU4TAG = "select * from sys_menu m left outer join sys_tag2menu r on m.code=r.code where r.systagid is null or {0} order by m.code,m.sort ;";
         #endregion
+
+        public struct Department
+        {
+            /// <summary>
+            /// 通过租户ID获取租户所有部门
+            /// </summary>
+            public const string SEL_DEPARTMENTS = "select * from sys_department where tid=?tid";
+            /// <summary>
+            /// 通过租户ID获取部门对应用户关系
+            /// </summary>
+            public const string SEL_DEP2USERREL = "select * from sys_depuserrel where tid=?tid";
+        }
+
+        public struct Tag
+        {
+            /// <summary>
+            /// 通过租户ID获取租户所有标签
+            /// </summary>
+            public const string SEL_TAGS = "select * from sys_tag where tid=?tid";
+        }
     }
 
 

@@ -14,9 +14,9 @@ using System.Text;
 namespace TW.Platform.Model
 {
     /// <summary>
-    /// 
+    /// 基础属性模型
     /// </summary>
-    public class UserTM
+    public class UserBM
     {
         /// <summary>
         /// 系统用户编号
@@ -26,10 +26,6 @@ namespace TW.Platform.Model
         /// 用户编号
         /// </summary>
         public string UserId { get; set; }
-        /// <summary>
-        /// 租户编号
-        /// </summary>
-        public int Tid { get; set; }
         /// <summary>
         /// 用户名称
         /// </summary>
@@ -58,16 +54,32 @@ namespace TW.Platform.Model
         /// 关注状态
         /// </summary>
         public int Status { get; set; }
+    }
+    /// <summary>
+    /// 数据表模型
+    /// </summary>
+    public class UserTM : UserBM
+    {
+
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public int Tid { get; set; }
         /// <summary>
         /// 登陆密码
         /// </summary>
         public string Password { get; set; }
     }
     /// <summary>
-    /// 当前用户
+    /// 当前用户——系统模型
     /// </summary>
     public class CurUserM : UserTM
     {
+        /// <summary>
+        /// 路由映射关系
+        /// </summary>
+        /// <returns></returns>
+        public List<TenantRouteM> TenantRoutes { get; set; }
         /// <summary>
         /// 所在部门
         /// </summary>
@@ -82,4 +94,19 @@ namespace TW.Platform.Model
         public List<MenuTM> Menus { get; set; }
 
     }
+    /// <summary>
+    /// 视图模型
+    /// </summary>
+    public class UserVM : UserBM
+    {
+        /// <summary>
+        /// 所在部门集合名称
+        /// </summary>
+        public List<string> DepartmentsName { get; set; }
+        /// <summary>
+        /// 所属标签集合名称
+        /// </summary>
+        public List<string> TagsName { get; set; }
+    }
+
 }

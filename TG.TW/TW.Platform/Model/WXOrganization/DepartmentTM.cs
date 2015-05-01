@@ -14,18 +14,36 @@ using System.Text;
 namespace TW.Platform.Model
 {
     /// <summary>
-    /// 
+    /// 部门基础属性模型
     /// </summary>
-    public class DepartmentTM
+    public class DepartmentBM
     {
         /// <summary>
         /// 系统部门编号
         /// </summary>
         public int SysDepartmentId { get; set; }
-        public int Tid { get; set; }
+
         public int Did { get; set; }
         public int ParentDid { get; set; }
         public string Name { get; set; }
         public string Order { get; set; }
     }
+    /// <summary>
+    /// 部门数据表模型
+    /// </summary>
+    public class DepartmentTM : DepartmentBM
+    {
+        public int Tid { get; set; }
+    }
+    /// <summary>
+    /// 部门视图模型
+    /// </summary>
+    public class DepartmentVM : DepartmentBM
+    {
+        /// <summary>
+        /// 所有用户
+        /// </summary>
+        public List<UserVM> Users { get; set; }
+    }
+
 }
