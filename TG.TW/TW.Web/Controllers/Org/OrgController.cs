@@ -25,7 +25,8 @@ namespace TW.Web.Controllers.Org
             return this.ExecuteTryCatch(() =>
             {
                 var org = new OrgBL();
-                return org.GetOrgVM4();
+                var deps = org.GetDepsFromOrgM();
+                return deps;
             });
         }
     }

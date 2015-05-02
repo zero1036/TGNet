@@ -66,6 +66,7 @@ require([
     'controllers/waMainCtrl',
     'controllers/testWACtrl',
     'controllers/testIscrollCtrl',
+    'controllers/orgCtrl',
 ],
 function (angular, waApp, domReady, iscroll) {
     'use strict';
@@ -80,6 +81,12 @@ function (angular, waApp, domReady, iscroll) {
             .when('/home', {
                 templateUrl: 'views/home.html',
                 controller: 'waMainCtrl'
+            })
+            //通讯录
+            .when('/orgList', {
+                templateUrl: 'views/org/orgList.html',
+                controller: 'orgCtrl',
+                access_level: ACCESS_LEVELS.pub
             })
             //WA页面测试
             .when('/testAuth', {

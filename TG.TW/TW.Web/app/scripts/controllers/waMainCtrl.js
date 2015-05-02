@@ -13,7 +13,7 @@
                 pullUpEl, pullUpOffset;
             //generatedCount = 0;
             $scope.loaded = function () {
-                console.log(commonService.page4Config);
+                //console.log(commonService.page4Config);
 
                 pullDownEl = document.getElementById('pullDown');
                 pullDownOffset = pullDownEl.offsetHeight;

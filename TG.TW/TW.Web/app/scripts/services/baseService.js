@@ -1,8 +1,7 @@
 ﻿'use strict'
-define(['services/services'
-        , 'services/commonService']
+define(['services/services', 'services/commonService', 'services/authService']
         , function (services) {
-            services.factory('baseService', function ($http, commonService) {
+            services.factory('baseService', function ($http, commonService, authService) {
                 var service = {};
 
                 function getPostUrl(api, action, url) {
@@ -22,6 +21,19 @@ define(['services/services'
                 service.doPost = function (api, action, param, url) {
                     var result = {};
                     result = $http.post(getPostUrl(api, action, url), param);
+                    return result;
+                }
+
+                service.doPostToken = function (api, action, param, url) {
+                    var result = {};
+                    var purl = getPostUrl(api, action, url);
+
+                    result = $http({
+                        method: 'POST',
+                        url: purl,
+                        data: param,
+                        //headers: { 'Authorization': authService.getToken() }
+                    })
                     return result;
                 }
 

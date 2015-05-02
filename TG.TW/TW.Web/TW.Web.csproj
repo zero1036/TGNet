@@ -182,6 +182,7 @@
     <Content Include="app\scripts\controllers\modelCtrl.js" />
     <Content Include="app\scripts\controllers\orderCycleCtrl.js" />
     <Content Include="app\scripts\controllers\orderCycleEditCtrl.js" />
+    <Content Include="app\scripts\controllers\orgCtrl.js" />
     <Content Include="app\scripts\controllers\testIscrollCtrl.js" />
     <Content Include="app\scripts\controllers\testWACtrl.js" />
     <Content Include="app\scripts\controllers\userCtrl.js" />
@@ -200,6 +201,7 @@
     <Content Include="app\scripts\services\loginService.js" />
     <Content Include="app\scripts\services\ModelService.js" />
     <Content Include="app\scripts\services\orderService.js" />
+    <Content Include="app\scripts\services\orgService.js" />
     <Content Include="app\scripts\services\permissionService.js" />
     <Content Include="app\scripts\services\services.js" />
     <Content Include="app\scripts\services\testService.js" />
@@ -290,6 +292,7 @@
     <Content Include="app\views\Model\SCModel.html" />
     <Content Include="app\views\Order\orderCycleEdit.html" />
     <Content Include="app\views\Order\orderCycleList.html" />
+    <Content Include="app\views\org\orgList.html" />
     <Content Include="app\views\Sys\dictionaryList.html" />
     <Content Include="app\views\Sys\userList.html" />
     <Content Include="app\views\Test\testAuth.html" />

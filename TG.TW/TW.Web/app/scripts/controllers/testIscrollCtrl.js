@@ -32,5 +32,11 @@
             $scope.childInit = function () {
                 $scope.$emit('childInit', false);
             }
+
+            $scope.ok = true;
+            $scope.changeActive = function () {
+                if ($scope.isActive) $scope.isActive = false;
+                else $scope.isActive = true;
+            }
         }]);
     });
