@@ -36,14 +36,17 @@ namespace TW.Platform.Model
         public int Tid { get; set; }
     }
     /// <summary>
-    /// 部门视图模型
+    /// DepartmentVM1
+    /// 部门结构视图1
+    /// 用于：WA通讯录部门首页
     /// </summary>
     public class DepartmentVM : DepartmentBM
     {
         /// <summary>
         /// 所有用户
         /// </summary>
-        public List<UserVM> Users { get; set; }
+        public List<int> SysUserIDs { get; set; }
     }
+
 
 }

@@ -22,10 +22,10 @@ namespace TW.Platform.Sys
         /// 通过租户对应路由信息
         /// </summary>
         public const string SEL_TENANTROUTES = "select * from sys_tenantroute where tid=?tid;";
-        /// <summary>
-        /// 通过租户ID获取租户所有用户
-        /// </summary>
-        public const string SEL_USERS = "select * from {0} where tid=?tid;";
+        ///// <summary>
+        ///// 通过租户ID获取租户所有用户
+        ///// </summary>
+        //public const string SEL_USERS = "select * from {0} where tid=?tid;";
         /// <summary>
         /// 通过用户ID（UserID）查询用户所在租户及制定表分支
         /// </summary>

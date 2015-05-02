@@ -16,13 +16,20 @@ namespace TW.Platform.Model
     /// <summary>
     /// 
     /// </summary>
-    public class TagTM
+    public class TagBM
     {
         public int SysTagId { get; set; }
-        public int Tid { get; set; }
         public int TagId { get; set; }
         public string TagName { get; set; }
         public int SysDepartmentId { get; set; }
         public int SysUserId { get; set; }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TagTM : TagBM
+    {
+        public int Tid { get; set; }
+
     }
 }

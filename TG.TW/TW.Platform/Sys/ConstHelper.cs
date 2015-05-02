@@ -27,5 +27,12 @@ namespace TW.Platform.Sys
         /// </summary>
         public const int LM_USERTABLECOUNT = 10;
         #endregion
+
+        #region CacheKey
+        /// <summary>
+        /// 组织机构模型
+        /// </summary>
+        public const string CACHE_ORGNIZATIONMODEL = "CACHE_ORG";
+        #endregion
     }
 }

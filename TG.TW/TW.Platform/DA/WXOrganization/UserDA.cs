@@ -89,10 +89,10 @@ namespace TW.Platform.DA
         /// <returns></returns>
         public DataTable GetTagsBySysUserID(int tid, int iSysUserID, int[] iSysDepartmentIDs)
         {
-            var sFilter = string.Format("sysuserid={0} or", iSysUserID);
+            var sFilter = string.Format("sysuserid={0} ", iSysUserID);
             foreach (int idid in iSysDepartmentIDs)
             {
-                sFilter = string.Format("{0} sysdepartmentid={1}", sFilter, idid);
+                sFilter = string.Format("{0} or sysdepartmentid={1}", sFilter, idid);
             }
             sFilter = string.Format("({0})", sFilter);
             sFilter = string.Format(SqlScriptHelper.SEL_TAG4USER, sFilter);
@@ -132,7 +132,7 @@ namespace TW.Platform.DA
             if (tid == -1) return null;
             var tbNameFull = SysCurUser.GetCurUser().TenantRoutes.Single(t => t.TbName == SqlScriptHelper.T_USER).TbNameFull;
 
-            var sFIlter = string.Format(SqlScriptHelper.SEL_USERS, tbNameFull);
+            var sFIlter = string.Format(SqlScriptHelper.SEL_SINGLEUSER, tbNameFull, "1=1");
             DataTable dt = _pADO.Query(sFIlter, new string[] { "?tid" }, new object[] { tid }, string.Empty);
             return dt;
         }
