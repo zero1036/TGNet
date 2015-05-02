@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Cache\CacheConfig.cs" />
+    <Compile Include="Tools\Cache\CacheHelper.cs" />
     <Compile Include="Tools\Cache\ICacheConfig.cs" />
     <Compile Include="Tools\Delegate\CommonDelegate.cs" />
     <Compile Include="Tools\Entity\CommonFunction.cs" />
