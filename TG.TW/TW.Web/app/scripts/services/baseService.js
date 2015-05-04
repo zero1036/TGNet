@@ -11,6 +11,9 @@ define(['services/services', 'services/commonService', 'services/authService']
                     } else {
                         result = url;
                     }
+                    //if (result == null) {
+                        result = "/api";
+                    //}
                     result += '/' + api;
                     if (action != null && action != '') {
                         result += '/' + action;
@@ -20,17 +23,19 @@ define(['services/services', 'services/commonService', 'services/authService']
 
                 service.doPost = function (api, action, param, url) {
                     var result = {};
-                    result = $http.post(getPostUrl(api, action, url), param);
+                    var url = getPostUrl(api, action, url);
+
+                    result = $http.post(url, param);
                     return result;
                 }
 
                 service.doPostToken = function (api, action, param, url) {
                     var result = {};
-                    var purl = getPostUrl(api, action, url);
+                    var url = getPostUrl(api, action, url);
 
                     result = $http({
                         method: 'POST',
-                        url: purl,
+                        url: url,
                         data: param,
                         //headers: { 'Authorization': authService.getToken() }
                     })

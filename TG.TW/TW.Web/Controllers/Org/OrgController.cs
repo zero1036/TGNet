@@ -16,7 +16,7 @@ namespace TW.Web.Controllers.Org
         /// 获取用户，以部门分组形式展示
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
 #if Publishes
         [WXOAuth]
 #endif

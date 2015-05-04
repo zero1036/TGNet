@@ -10,8 +10,8 @@
 
         #scroller li {
             padding: 0 10px;
-            height: 5rem;
-            line-height: 40px;
+            height: 4.4rem;
+            line-height: 4.2rem;
             border-bottom: 1px solid #f2f2f2;
             border-top: 1px solid #fff;
             /*background-color: #fafafa;*/
@@ -19,25 +19,34 @@
         }
 
             #scroller li.li-bc-un {
-                height: 5rem;
+                /*height: 5rem;*/
+                display: none;
             }
 
             #scroller li.li-bc-active {
-                height: 15rem;
+                /*height: 15rem;*/
+                display: block;
             }
     </style>
     <div>
-        <button type="button" ng-click="loadOrgs()">doc</button>
         <ul id="thelist">
-            <li>
-                Pretty row 1
-                <!--    <button type="button" class="btn btn-primary btn-block">ceshi</button>-->
-            </li>
-            <li ng-show="ok" ng-swipe-left="ok=false">Pretty row 2</li>
+            <!--<li ng-show="ok" ng-swipe-left="ok=false">Pretty row 2</li>
             <li ng-click="changeActive()" ng-class="{true: 'li-bc-active', false: 'li-bc-un'}[isActive]">Pretty row 3</li>
             <li>Pretty row 4</li>
-            <li>Pretty row 5</li>
-
+            <li>Pretty row 5</li>-->
+            <li ng-repeat="dep in orgs" ng-class="{true: 'li-bc-active', false: 'li-bc-un'}[dep.isActive]">
+                <div ng-click="openChildDep(dep)" ng-swipe-left="getUsers()" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <i ng-if="dep.level>1">&nbsp;</i>
+                    <i ng-if="dep.level>2">&nbsp;</i>
+                    <i ng-if="dep.level>3">&nbsp;</i>
+                    <!--<i ng-if="dep.level>1" class="fa fa-angle-down fa-lg"></i>-->
+                    <span>{{dep.name}}</span>
+                </div>
+                <div ng-click="getUsers()" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>{{dep.usersCount}}</span>
+                </div>
+            </li>
         </ul>
+        <button type="button" ng-class="test()"></button>
     </div>
 </div>

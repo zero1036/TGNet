@@ -23,7 +23,8 @@
                 }
                 else {
                     pullUpEl = document.getElementById('pullUp');
-                    pullUpEl.outerText = "";
+                    if (pullUpEl != undefined && pullUpEl != null)
+                        pullUpEl.outerText = "";
                 }
 
                 myScroll = new iScroll('wrapper', {

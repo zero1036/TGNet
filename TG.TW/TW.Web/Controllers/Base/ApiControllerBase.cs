@@ -31,6 +31,12 @@ namespace TW.Web.Controllers
             CActionResult pActionResult;
             try
             {
+#if DEBUG
+                //调试模式下，自动注册
+                var pUserBL = new TW.Platform.BL.UserBL();
+                pUserBL.VerifyBCLoginUser("mark", "504");
+#endif
+
                 var vm = action.Invoke();
                 pActionResult = new CActionResult() { ok = true, message = "", data = vm };
                 return Request.CreateResponse(HttpStatusCode.OK, pActionResult);
