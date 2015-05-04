@@ -62,6 +62,13 @@ namespace TW.Platform.Model
             {
                 this.Departments.ForEach(d =>
                 {
+                    //生成部门所在级别
+                    int iLvl = 1;
+                    GetDepartmentLevel(d.Did, ref iLvl);
+                    d.Level = iLvl;
+                    //生成部门向下级别所有ID集合
+                    var pChildDeps = GetDepartmentTreeDown(d.Did);
+                    d.ChildDid = pChildDeps;
                     //通过部门-人员关系，获取部门关系集拥有的用户
                     IEnumerable<int> pRel = this.Dep2UserRel.Where(r => r.SysDepartmentId == d.SysDepartmentId).Select(r => r.SysUserId);
                     //设置到d的uses——首先BM强转VM，然后再where查询
@@ -84,18 +91,37 @@ namespace TW.Platform.Model
             }
         }
         /// <summary>
-        /// 获取部门上级关系树
+        /// 获取部门对于关系树最顶层部门所在级别
         /// </summary>
         /// <param name="did"></param>
         /// <returns></returns>
-        protected List<int> GetDepartmentTreeUp(int did)
+        protected void GetDepartmentLevel(int did, ref int level)
         {
             var parentDid = this.Departments.Single(de => de.Did == did).ParentDid;
             if (parentDid != 0)
             {
+                //所在级别递增
+                level += 1;
+                //递归获取部门上级关系树
+                GetDepartmentLevel(parentDid, ref level);
+            }
+        }
+        /// <summary>
+        /// 获取部门上级关系树
+        /// </summary>
+        /// <param name="did"></param>
+        /// <returns></returns>
+        protected List<int> GetDepartmentTreeUp(int did, ref int level)
+        {
+            var parentDid = this.Departments.Single(de => de.Did == did).ParentDid;
+            if (parentDid != 0)
+            {
+                //所在级别递增
+                level += 1;
                 List<int> plist = new List<int>();
                 plist.Add(parentDid);
-                var pPids = GetDepartmentTreeUp(did);
+                //递归获取部门上级关系树
+                var pPids = GetDepartmentTreeUp(parentDid, ref level);
                 if (!pPids.IsNull()) plist.AddRange(pPids);
                 return plist;
             }

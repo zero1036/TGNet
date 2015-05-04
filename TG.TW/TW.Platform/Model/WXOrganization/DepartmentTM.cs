@@ -46,6 +46,48 @@ namespace TW.Platform.Model
         /// 所有用户
         /// </summary>
         public List<int> SysUserIDs { get; set; }
+        /// <summary>
+        /// 用户数量
+        /// </summary>
+        public int UsersCount
+        {
+            get
+            {
+                if (SysUserIDs.IsNull())
+                {
+                    return 0;
+                }
+                return SysUserIDs.Count;
+            }
+        }
+        /// <summary>
+        /// 等级
+        /// </summary>
+        public int Level { get; set; }
+        /// <summary>
+        /// 子级部门ID集合
+        /// </summary>
+        public List<int> ChildDid { get; set; }
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        public bool IsActive
+        {
+            get
+            {
+                return this.Level == 1;
+            }
+        }
+        /// <summary>
+        /// 展开状态
+        /// </summary>
+        public bool ActiveStatus
+        {
+            get
+            {
+                return false; ;
+            }
+        }
     }
 
 
