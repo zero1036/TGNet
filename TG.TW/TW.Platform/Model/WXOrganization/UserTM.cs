@@ -107,6 +107,21 @@ namespace TW.Platform.Model
         /// 所属标签集合名称
         /// </summary>
         public List<string> TagsName { get; set; }
+        /// <summary>
+        /// 名称首字母
+        /// </summary>
+        public string FirstNameChar
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(base.Name)) return string.Empty;
+                return TW.Platform.Sys.StringHelper.GetFirstSpell(base.Name).ToLower();
+            }
+        }
+        /// <summary>
+        /// 是否首字母分组第一位
+        /// </summary>
+        public bool IsFirst { get; set; }
     }
 
 }

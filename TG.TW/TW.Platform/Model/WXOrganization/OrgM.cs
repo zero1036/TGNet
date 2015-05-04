@@ -36,6 +36,7 @@ namespace TW.Platform.Model
             this.Dep2UserRel = pDep2UserRel;
             this.Tags = pTags;
             InitDepartmentV();
+            InitUserV();
         }
         /// <summary>
         /// 租户所有用户
@@ -89,6 +90,28 @@ namespace TW.Platform.Model
                         });
                 });
             }
+        }
+        /// <summary>
+        /// 初始化用户模型
+        /// </summary>
+        protected void InitUserV()
+        {
+            if (this.Users.IsNull())
+                return;
+
+            string curChar = string.Empty;
+            this.Users.ForEach(u =>
+            {
+                if (curChar != u.FirstNameChar)
+                {
+                    u.IsFirst = true;
+                    curChar = u.FirstNameChar;
+                }
+                else
+                {
+                    u.IsFirst = false;
+                }
+            });
         }
         /// <summary>
         /// 获取部门对于关系树最顶层部门所在级别

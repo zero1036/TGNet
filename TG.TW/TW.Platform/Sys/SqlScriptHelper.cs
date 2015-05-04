@@ -33,7 +33,7 @@ namespace TW.Platform.Sys
         /// <summary>
         /// 查询用户
         /// </summary>
-        public const string SEL_SINGLEUSER = "select * FROM {0} t left outer join sys_user s on t.sysuserid = s.sysuserid  where tid = ?tid and {1}";
+        public const string SEL_SINGLEUSER = "select * FROM {0} t left outer join sys_user s on t.sysuserid = s.sysuserid  where tid = ?tid and {1} order by t.name";
         /// <summary>
         /// 通过微信号查询用户
         /// </summary>

@@ -121,6 +121,7 @@
     <Compile Include="Sys\CustomCacheHelper.cs" />
     <Compile Include="Sys\LogSwHelper.cs" />
     <Compile Include="Sys\SqlScriptHelper.cs" />
+    <Compile Include="Sys\StringHelper.cs" />
     <Compile Include="Sys\SysCurUser.cs" />
     <Compile Include="Sys\VerificationHelper.cs" />
   </ItemGroup>
