@@ -68,12 +68,32 @@ body, ul, li {
     width: 100%;
     height: 48px;
     background-color: #f0ad4e;
+    color: white;
     /*background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #999), color-stop(0.02, #666), color-stop(1, #222));
     background-image: -moz-linear-gradient(top, #999, #666 2%, #222);
     background-image: -o-linear-gradient(top, #999, #666 2%, #222);*/
     padding: 0;
     border-top: 1px solid #D98700;
 }
+
+    #footer > div {
+        text-align: center;
+    }
+
+        #footer > div:nth-child(1) {
+            font-size: 3.6rem;
+            line-height: 4.6rem;
+        }
+
+        #footer > div:nth-child(2) {
+            font-size: 2.3rem;
+            line-height: 4.3rem;
+        }
+
+        #footer > div:nth-child(3) {
+            font-size: 2rem;
+            line-height: 4.3rem;
+        }
 
 #wrapper {
     position: absolute;
@@ -95,7 +115,7 @@ body, ul, li {
     padding: 0;
 }
 
-    
+
 
 #myFrame {
     position: absolute;
