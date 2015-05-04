@@ -7,9 +7,11 @@ define(['controllers/controllers', 'services/commonService', 'services/orgServic
                         //监听下拉pullDown事件
                         $scope.$on('pullDownAction', function (e, myScroll) {
                         });                        //监听上拉pullup事件                        $scope.$on('pullUpAction', function (e, myScroll) {
+                        });                        //监听返回事件                        $scope.$on('goBack', function (e, param) {
+                            $location.path("/orgList");
                         });                        //
                         $scope.childInit = function () {
-                            $scope.loadUsers(null, true);
+                            $scope.loadUsers(null, false);
                             //$scope.$emit('childInit', false);
                         }
                         $scope.users = [];

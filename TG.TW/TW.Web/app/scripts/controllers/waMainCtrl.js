@@ -81,7 +81,19 @@
             //pullUpAction
             function pullUpAction() {
                 $scope.$broadcast('pullUpAction', myScroll);
-
+            }
+            //返回按钮
+            $scope.goBack = function () {
+                $scope.$broadcast('goBack', 123);
+            }
+            //确认按钮
+            $scope.enter = function () {
+                $scope.$broadcast('enter', 123);
+            }
+            //置顶按钮
+            $scope.goUp = function () {
+                myScroll.scrollTo(0, 2000, 200);
+                myScroll.refresh();
             }
         }]);
     });

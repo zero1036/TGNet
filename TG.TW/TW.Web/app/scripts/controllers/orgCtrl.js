@@ -8,7 +8,6 @@ define(['controllers/controllers', 'services/commonService', 'services/orgServic
                         $scope.$on('pullDownAction', function (e, myScroll) {
                             $scope.loadOrgs(myScroll, true);
                         });                        //监听上拉pullup事件                        $scope.$on('pullUpAction', function (e, myScroll) {
-
                         });                        //
                         $scope.childInit = function () {
                             $scope.loadOrgs(null, false);
@@ -56,6 +55,7 @@ define(['controllers/controllers', 'services/commonService', 'services/orgServic
                         $scope.test = function () {
 
                         }
+
                     }
                 ]
             )

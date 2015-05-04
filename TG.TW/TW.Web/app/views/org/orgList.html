@@ -35,18 +35,18 @@
             <li>Pretty row 4</li>
             <li>Pretty row 5</li>-->
             <li ng-repeat="dep in orgs" ng-class="{true: 'li-bc-active', false: 'li-bc-un'}[dep.isActive]">
-                <div ng-click="openChildDep(dep)" ng-swipe-left="getUsers(dep)" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <div ng-click="openChildDep(dep)" ng-swipe-left="getUsers(dep)" class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
                     <i ng-if="dep.level>1">&nbsp;</i>
                     <i ng-if="dep.level>2">&nbsp;</i>
                     <i ng-if="dep.level>3">&nbsp;</i>
                     <!--<i ng-if="dep.level>1" class="fa fa-angle-down fa-lg"></i>-->
                     <span>{{dep.name}}</span>
                 </div>
-                <div ng-click="getUsers(dep)" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div ng-click="getUsers(dep)" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                     <span>{{dep.usersCount}}</span>
                 </div>
             </li>
         </ul>
-        <button type="button" ng-class="test()"></button>
+        <!--<button type="button" ng-class="test()"></button>-->
     </div>
 </div>
