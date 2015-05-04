@@ -20,10 +20,10 @@ namespace TW.Platform.BL
     public class OrgBL
     {
         private CustomCacheHelper _Cache = new CustomCacheHelper();
+
+        #region
         /// <summary>
-        /// OrgVM1
-        /// 获取组织结构视图1
-        /// 用于：WA通讯录部门首页
+        /// 获取部门
         /// </summary>
         /// <returns></returns>
         public object GetDepsFromOrgM()
@@ -31,7 +31,20 @@ namespace TW.Platform.BL
             var orgM = GetOrgM();
             return orgM.Departments;
         }
-
+        /// <summary>
+        /// 通过部门获取部门拥有的用户
+        /// </summary>
+        /// <returns></returns>
+        public object GetUsersByDepId(int depId)
+        {
+            var orgM = GetOrgM();
+            var dep = orgM.Departments.Single(d => d.Did == depId);
+            var users = orgM.Users.Where(u => dep.SysUserIDs.Contains(u.SysUserId)).ToList();
+            if (users.IsNull())
+                EGExceptionOperator.ThrowX<Exception>("缺少用户数据", string.Empty);
+            return users;
+        }
+        #endregion
 
         #region 获取基础租户模型
         /// <summary>
