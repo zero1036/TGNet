@@ -13,19 +13,36 @@ namespace TW.Web.Controllers.Org
     public class OrgController : ApiControllerBase
     {
         /// <summary>
-        /// 获取用户，以部门分组形式展示
+        /// 获取部门
         /// </summary>
         /// <returns></returns>
         [HttpPost]
 #if Publishes
         [WXOAuth]
 #endif
-        public HttpResponseMessage GetUsersGroup()
+        public HttpResponseMessage GetDeps()
         {
             return this.ExecuteTryCatch(() =>
             {
                 var org = new OrgBL();
                 var deps = org.GetDepsFromOrgM();
+                return deps;
+            });
+        }
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+#if Publishes
+        [WXOAuth]
+#endif
+        public HttpResponseMessage GetUsers(int did)
+        {
+            return this.ExecuteTryCatch(() =>
+            {
+                var org = new OrgBL();
+                var deps = org.GetUsersByDepId(did);
                 return deps;
             });
         }

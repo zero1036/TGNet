@@ -1,25 +1,24 @@
 ﻿'use strict';
 define(['controllers/controllers', 'services/commonService', 'services/orgService']
         , function (controllers) {
-            controllers.controller('orgCtrl'
+            controllers.controller('usersCtrlWa'
                 , ['$scope', '$location', '$routeParams', 'commonService', 'orgService'
                     , function ($scope, $location, $routeParams, commonService, orgService) {
                         //监听下拉pullDown事件
                         $scope.$on('pullDownAction', function (e, myScroll) {
-                            $scope.loadOrgs(myScroll, true);
                         });                        //监听上拉pullup事件                        $scope.$on('pullUpAction', function (e, myScroll) {
-
                         });                        //
                         $scope.childInit = function () {
-                            $scope.loadOrgs(null, false);
+                            $scope.loadUsers(null, true);
+                            //$scope.$emit('childInit', false);
                         }
-                        $scope.orgs = [];
-                        $scope.loadOrgs = function (myScroll, bRefresh) {
-                            orgService.getOrgs()
+                        $scope.users = [];
+                        $scope.loadUsers = function (myScroll, bRefresh) {
+                            orgService.getUsers($routeParams.did)
                                 .success(function (result, status, headers, config) {
                                     if (result.ok != undefined && result.ok != null && result.ok == true) {
-                                        $scope.orgs = result.data;
-                                        console.log($scope.orgs);
+                                        $scope.users = result.data;
+                                        console.log($scope.users);
 
                                         if (bRefresh) {
                                             if (myScroll != undefined && myScroll != null) {
@@ -38,24 +37,23 @@ define(['controllers/controllers', 'services/commonService', 'services/orgServic
                                     console.log("");
                                 });
                         }
-                        $scope.openChildDep = function (dep) {
-                            var pActive = dep.activeStatus ? false : true;
-                            dep.activeStatus = pActive;
-                            if (dep.childDid != undefined && dep.childDid != null && dep.childDid.length > 0) {
-                                for (var i = 0, pen; pen = $scope.orgs[i++];) {
-                                    if (dep.childDid.indexOf(pen.did) >= 0) {
-                                        pen.isActive = pActive;
-                                    }
-                                }
-                            }
-                        }
-                        $scope.getUsers = function (dep) {
-                            if (dep.usersCount > 0)
-                                $location.path("/userListWa/" + dep.did);
-                        }
-                        $scope.test = function () {
+                        //$scope.openChildDep = function (dep) {
+                        //    var pActive = dep.activeStatus ? false : true;
+                        //    dep.activeStatus = pActive;
+                        //    if (dep.childDid != undefined && dep.childDid != null && dep.childDid.length > 0) {
+                        //        for (var i = 0, pen; pen = $scope.orgs[i++];) {
+                        //            if (dep.childDid.indexOf(pen.did) >= 0) {
+                        //                pen.isActive = pActive;
+                        //            }
+                        //        }
+                        //    }
+                        //}
+                        //$scope.getUsers = function (dep) {
 
-                        }
+                        //}
+                        //$scope.test = function () {
+
+                        //}
                     }
                 ]
             )

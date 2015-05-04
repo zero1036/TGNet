@@ -186,6 +186,7 @@
     <Content Include="app\scripts\controllers\testIscrollCtrl.js" />
     <Content Include="app\scripts\controllers\testWACtrl.js" />
     <Content Include="app\scripts\controllers\userCtrl.js" />
+    <Content Include="app\scripts\controllers\usersCtrlWa.js" />
     <Content Include="app\scripts\controllers\waMainCtrl.js" />
     <Content Include="app\scripts\directives\directives.js" />
     <Content Include="app\scripts\filters\filters.js" />
@@ -293,6 +294,7 @@
     <Content Include="app\views\Order\orderCycleEdit.html" />
     <Content Include="app\views\Order\orderCycleList.html" />
     <Content Include="app\views\org\orgList.html" />
+    <Content Include="app\views\org\userListWa.html" />
     <Content Include="app\views\Sys\dictionaryList.html" />
     <Content Include="app\views\Sys\userList.html" />
     <Content Include="app\views\Test\testAuth.html" />

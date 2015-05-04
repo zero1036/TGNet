@@ -67,6 +67,7 @@ require([
     'controllers/testWACtrl',
     'controllers/testIscrollCtrl',
     'controllers/orgCtrl',
+    'controllers/usersCtrlWa',
 ],
 function (angular, waApp, domReady, iscroll) {
     'use strict';
@@ -82,10 +83,16 @@ function (angular, waApp, domReady, iscroll) {
                 templateUrl: 'views/home.html',
                 controller: 'waMainCtrl'
             })
-            //通讯录
+            //通讯录--部门列表
             .when('/orgList', {
                 templateUrl: 'views/org/orgList.html',
                 controller: 'orgCtrl',
+                access_level: ACCESS_LEVELS.pub
+            })
+            //通讯录--用户列表
+            .when('/userListWa/:did/', {
+                templateUrl: 'views/org/userListWa.html',
+                controller: 'usersCtrlWa',
                 access_level: ACCESS_LEVELS.pub
             })
             //WA页面测试
