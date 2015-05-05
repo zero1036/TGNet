@@ -5,7 +5,9 @@
             $scope.pullUpEnabled = false;
             $scope.$on('childInit', function (e, pPullUpEnabled) {
                 $scope.pullUpEnabled = pPullUpEnabled;
-                $scope.loaded();
+                //非常关键：如果没有子页面childInit的时候都重新创建myScroll的话，会导致myScroll注册事件重复调用
+                if (myScroll == undefined || myScroll == null)
+                    $scope.loaded();
             });
 
             var myScroll,
@@ -28,6 +30,7 @@
                 }
 
                 myScroll = new iScroll('wrapper', {
+                    handleClick: true,
                     useTransition: true,
                     topOffset: pullDownOffset,
                     onRefresh: function () {
