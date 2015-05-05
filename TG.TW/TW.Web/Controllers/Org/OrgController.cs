@@ -17,9 +17,9 @@ namespace TW.Web.Controllers.Org
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-#if Publishes
-        [WXOAuth]
-#endif
+        //#if Publishes
+        //        [WXOAuth]
+        //#endif
         public HttpResponseMessage GetDeps()
         {
             return this.ExecuteTryCatch(() =>
@@ -34,10 +34,27 @@ namespace TW.Web.Controllers.Org
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-#if Publishes
-        [WXOAuth]
-#endif
+        //#if Publishes
+        //        [WXOAuth]
+        //#endif
         public HttpResponseMessage GetUsers(int did)
+        {
+            return this.ExecuteTryCatch(() =>
+            {
+                var org = new OrgBL();
+                var deps = org.GetUsersByDepId(did);
+                return deps;
+            });
+        }
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //#if Publishes
+        //        [WXOAuth]
+        //#endif
+        public HttpResponseMessage GetUsersX(int did)
         {
             return this.ExecuteTryCatch(() =>
             {

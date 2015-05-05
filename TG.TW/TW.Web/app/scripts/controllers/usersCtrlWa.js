@@ -39,23 +39,10 @@ define(['controllers/controllers', 'services/commonService', 'services/orgServic
                                     console.log("");
                                 });
                         }
-                        //$scope.openChildDep = function (dep) {
-                        //    var pActive = dep.activeStatus ? false : true;
-                        //    dep.activeStatus = pActive;
-                        //    if (dep.childDid != undefined && dep.childDid != null && dep.childDid.length > 0) {
-                        //        for (var i = 0, pen; pen = $scope.orgs[i++];) {
-                        //            if (dep.childDid.indexOf(pen.did) >= 0) {
-                        //                pen.isActive = pActive;
-                        //            }
-                        //        }
-                        //    }
-                        //}
-                        //$scope.getUsers = function (dep) {
-
-                        //}
-                        //$scope.test = function () {
-
-                        //}
+                        $scope.openUserInfo = function (user) {
+                            commonService.curUser = user;
+                            $location.path("/userDetailWa");
+                        }
                     }
                 ]
             )
