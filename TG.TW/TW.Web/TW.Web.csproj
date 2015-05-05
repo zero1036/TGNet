@@ -291,6 +291,7 @@
     <Content Include="app\views\html\diamondAssign.html" />
     <Content Include="app\views\html\diamondQuery.html" />
     <Content Include="app\views\html\diamondUpload.html" />
+    <Content Include="app\views\matter\wxArticleEdit.html" />
     <Content Include="app\views\Model\SCModel.html" />
     <Content Include="app\views\Order\orderCycleEdit.html" />
     <Content Include="app\views\Order\orderCycleList.html" />

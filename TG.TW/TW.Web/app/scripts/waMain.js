@@ -102,6 +102,12 @@ function (angular, waApp, domReady, iscroll) {
                 controller: 'userDetailCtrlWa',
                 access_level: ACCESS_LEVELS.pub
             })
+            //素材--图文素材编辑
+            .when('/wxArticleEdit', {
+                templateUrl: 'views/matter/wxArticleEdit.html',
+                //controller: 'userDetailCtrlWa',
+                access_level: ACCESS_LEVELS.pub
+            })
             //WA页面测试
             .when('/testAuth', {
                 templateUrl: 'views/Test/testAuth.html',
