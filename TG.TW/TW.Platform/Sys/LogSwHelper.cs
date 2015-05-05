@@ -30,6 +30,8 @@ namespace TW.Platform.Sys
             {
                 if (_IsWriteLog == null)
                 {
+                    if (WebConfigurationManager.AppSettings["ModuleLog"] == null)
+                        return false;
                     _IsWriteLog = WebConfigurationManager.AppSettings["ModuleLog"].ToString() == "true" ? true : false;
                 }
                 return _IsWriteLog;
