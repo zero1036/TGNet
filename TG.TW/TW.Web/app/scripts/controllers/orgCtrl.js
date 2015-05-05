@@ -38,7 +38,7 @@ define(['controllers/controllers', 'services/commonService', 'services/orgServic
                                 });
                         }
                         $scope.openChildDep = function (dep) {
-                            var pActive = dep.activeStatus ? false : true;
+                            var pActive = dep.activeStatus == true ? false : true;
                             dep.activeStatus = pActive;
                             if (dep.childDid != undefined && dep.childDid != null && dep.childDid.length > 0) {
                                 for (var i = 0, pen; pen = $scope.orgs[i++];) {

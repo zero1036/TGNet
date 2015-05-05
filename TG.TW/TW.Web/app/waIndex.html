@@ -43,9 +43,15 @@
         </div>
     </div>
     <div id="footer">
-        <div ng-click="goBack()" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">◀</div>
-        <div ng-click="enter()" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">●</div>
-        <div ng-click="goUp()" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">▲</div>
+        <div ng-click="goBack()" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </div>
+        <div ng-click="goSearch()" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </div>
+        <div ng-click="goUp()" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+        </div>
     </div>
     <script data-main="scripts/waMain" src="scripts/vendor/require.js"></script>
 </body>

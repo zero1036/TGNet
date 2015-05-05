@@ -93,6 +93,14 @@
             $scope.enter = function () {
                 $scope.$broadcast('enter', 123);
             }
+            //
+            $scope.goSearch = function () {
+                var pHeader = angular.element("#header");
+                var pWrapper = angular.element("#wrapper");
+                pHeader.fadeToggle(300);
+                pWrapper.toggleClass("wrap-hidden");
+            }
+            $scope.goSearch();
             //置顶按钮
             $scope.goUp = function () {
                 myScroll.scrollTo(0, 2000, 200);

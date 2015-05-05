@@ -29,7 +29,7 @@
 
                 #scroller li:nth-child(1) {
                     height: 9rem;
-                    line-height: 5rem;
+                    line-height: 10rem;
                     background-color: #f2f2f2;
                     border-bottom: 1px solid #f2f2f2;
                     border-top: 1px solid #fff;
@@ -62,7 +62,7 @@
                     <span>部门</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9">
-                    <span ng-repeat="dep in user.departmentsName"> {{dep}} </span>
+                    <span ng-repeat="dep in user.departmentsName">{{dep}} </span>
                 </div>
             </li>
             <li>
@@ -80,7 +80,7 @@
                     <span>手机</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9">
-                    <a href="javascripts:;" ng-click="showInfo()">{{user.mobile}}</a>
+                    <a href="javascripts:void(0);" ng-click="showInfo()">{{user.mobile}}</a>
                 </div>
             </li>
             <li>
@@ -89,7 +89,7 @@
                     <span>邮箱</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9">
-                    <a href="javascripts:;" ng-click="showInfo()">{{user.email}}</a>
+                    <a href="javascripts:void(0);" ng-click="showInfo()">{{user.email}}</a>
                 </div>
             </li>
         </ul>
