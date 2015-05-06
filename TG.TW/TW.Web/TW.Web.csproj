@@ -144,6 +144,7 @@
     <Compile Include="Controllers\Extension\Security\RequireAuthorizeAttribute.cs" />
     <Compile Include="Controllers\Extension\Security\WXOAuthAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Inform\InformController.cs" />
     <Compile Include="Controllers\Org\OrgController.cs" />
     <Compile Include="Controllers\QY\abController.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
@@ -179,9 +180,11 @@
     <Content Include="app\scripts\controllers\diamondUploadCtrl.js" />
     <Content Include="app\scripts\controllers\dictionaryCtrl.js" />
     <Content Include="app\scripts\controllers\expCtrlWa.js" />
+    <Content Include="app\scripts\controllers\informCtrlWa.js" />
     <Content Include="app\scripts\controllers\loginCtrl.js" />
     <Content Include="app\scripts\controllers\mainCtrl.js" />
     <Content Include="app\scripts\controllers\modelCtrl.js" />
+    <Content Include="app\scripts\controllers\newsModelCtrlWa.js" />
     <Content Include="app\scripts\controllers\orderCycleCtrl.js" />
     <Content Include="app\scripts\controllers\orderCycleEditCtrl.js" />
     <Content Include="app\scripts\controllers\orgCtrl.js" />
@@ -204,6 +207,7 @@
     <Content Include="app\scripts\services\dictionaryService.js" />
     <Content Include="app\scripts\services\expService.js" />
     <Content Include="app\scripts\services\loginService.js" />
+    <Content Include="app\scripts\services\matterService.js" />
     <Content Include="app\scripts\services\ModelService.js" />
     <Content Include="app\scripts\services\orderService.js" />
     <Content Include="app\scripts\services\orgService.js" />
@@ -295,6 +299,9 @@
     <Content Include="app\views\html\diamondAssign.html" />
     <Content Include="app\views\html\diamondQuery.html" />
     <Content Include="app\views\html\diamondUpload.html" />
+    <Content Include="app\views\inform\informsPubWa.html" />
+    <Content Include="app\views\matter\articleDisplay.html" />
+    <Content Include="app\views\matter\newsModelWa.html" />
     <Content Include="app\views\matter\wxArticleEdit.html" />
     <Content Include="app\views\Model\SCModel.html" />
     <Content Include="app\views\Order\orderCycleEdit.html" />

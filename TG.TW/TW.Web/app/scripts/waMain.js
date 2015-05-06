@@ -60,15 +60,20 @@ require([
 	'domReady',
     'iscroll',
     // 自定义controllers,services,directives,filters都需要在这里添加路径
-    //'controllers/mainCtrl',
-    //'controllers/orderCycleCtrl',
-    //'controllers/orderCycleEditCtrl',
+    //父级控制
     'controllers/waMainCtrl',
+    //测试
     'controllers/testWACtrl',
     'controllers/testIscrollCtrl',
+    //组织机构
     'controllers/orgCtrl',
     'controllers/usersCtrlWa',
     'controllers/userDetailCtrlWa',
+    //素材
+    'controllers/newsModelCtrlWa',
+    //通告
+    'controllers/informCtrlWa',
+    //exp
     'controllers/expCtrlWa',
 ],
 function (angular, waApp, domReady, iscroll) {
@@ -103,6 +108,12 @@ function (angular, waApp, domReady, iscroll) {
                 controller: 'userDetailCtrlWa',
                 access_level: ACCESS_LEVELS.pub
             })
+            //通告--公司动态
+            .when('/informsPubWa', {
+                templateUrl: 'views/inform/informsPubWa.html',
+                controller: 'informCtrlWa',
+                access_level: ACCESS_LEVELS.pub
+            })
             //店铺exp--选货配石
             .when('/selModel', {
                 templateUrl: 'views/exp/selModel.html',
@@ -113,6 +124,12 @@ function (angular, waApp, domReady, iscroll) {
             .when('/wxArticleEdit', {
                 templateUrl: 'views/matter/wxArticleEdit.html',
                 //controller: 'userDetailCtrlWa',
+                access_level: ACCESS_LEVELS.pub
+            })
+            //素材--段落详细内容
+            .when('/newsModelWa', {
+                templateUrl: 'views/matter/newsModelWa.html',
+                controller: 'newsModelCtrlWa',
                 access_level: ACCESS_LEVELS.pub
             })
             //WA页面测试

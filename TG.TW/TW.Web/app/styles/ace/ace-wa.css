@@ -118,15 +118,14 @@ ul, ol, li {
         text-align: left;
     }
 
-    #scroller li {
+    /*#scroller li {
         padding: 0 10px;
         height: 5rem;
         line-height: 5rem;
         border-bottom: 1px solid #f2f2f2;
         border-top: 1px solid #fff;
-        /*background-color: #fafafa;*/
         font-size: 2rem;
-    }
+    }*/
 
 #myFrame {
     position: absolute;

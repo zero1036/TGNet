@@ -1,0 +1,26 @@
+﻿<div ng-init="childInit()">
+    <div>
+        <h2 style="margin-left: 5px; margin-top: 5px">{{curNewsModel.title}}</h2>
+        <p style="font-size: 9px">{{curDate()}}<a href="javascript:void(0);"><span>泛智(广州)咨询</span></a></p>
+        <img ng-src="{{curNewsModel.RPath}}" style="height: 200px; width: 96%">
+        <br />
+        <br />
+        <style type="text/css">
+            .suofang {
+                MARGIN: auto;
+                WIDTH: 315px;
+            }
+
+                .suofang img {
+                    MAX-WIDTH: 100%!important;
+                    HEIGHT: auto!important;
+                    width: expression(this.width > 315 ? "315px" : this.width)!important;
+                }
+        </style>
+        <div class="suofang">
+            <div id="{{'sm' + article.media_id+childCtrlSym}}"></div>
+        </div>
+        <br />
+        <p style="font-size: 9px; color: gray"><a href="{{curNewsModel.content_source_url}}"><span>阅读原文</span></a>&nbsp;&nbsp;阅读&nbsp;5&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;赞</p>
+    </div>
+</div>

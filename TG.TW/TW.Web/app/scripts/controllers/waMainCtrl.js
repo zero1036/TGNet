@@ -5,9 +5,21 @@
             $scope.pullUpEnabled = false;
             $scope.$on('childInit', function (e, pPullUpEnabled) {
                 $scope.pullUpEnabled = pPullUpEnabled;
+
+                //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+
                 //非常关键：如果没有子页面childInit的时候都重新创建myScroll的话，会导致myScroll注册事件重复调用
-                if (myScroll == undefined || myScroll == null)
-                    $scope.loaded();
+                if (myScroll == undefined || myScroll == null) {
+                    //$scope.loaded();
+                    setTimeout($scope.loaded, 200);
+                }
+
+
+                //document.addEventListener('DOMContentLoaded', function () {
+                //    setTimeout(lbload, 200);
+                //}, false);
+
             });
 
             var myScroll,
@@ -33,6 +45,7 @@
                     handleClick: true,
                     useTransition: true,
                     topOffset: pullDownOffset,
+                    onBeforeScrollStart: function (e) { e.preventDefault(); },
                     onRefresh: function () {
                         if (pullDownEl.className.match('loading')) {
                             pullDownEl.className = '';
@@ -75,7 +88,7 @@
                 });
 
                 document.getElementById('wrapper').style.left = '0';
-                //setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+                //setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 100);
             }
             //pullDownAction
             function pullDownAction() {
