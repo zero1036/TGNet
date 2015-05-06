@@ -8,7 +8,7 @@ using TW.Platform.BL;
 using TW.Platform.Model;
 using TW.Platform.Sys;
 
-namespace TW.Web.Controllers.Org
+namespace TW.Web.Controllers
 {
     public class OrgController : ApiControllerBase
     {

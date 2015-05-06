@@ -69,6 +69,7 @@ require([
     'controllers/orgCtrl',
     'controllers/usersCtrlWa',
     'controllers/userDetailCtrlWa',
+    'controllers/expCtrlWa',
 ],
 function (angular, waApp, domReady, iscroll) {
     'use strict';
@@ -100,6 +101,12 @@ function (angular, waApp, domReady, iscroll) {
             .when('/userDetailWa', {
                 templateUrl: 'views/org/userDetailWa.html',
                 controller: 'userDetailCtrlWa',
+                access_level: ACCESS_LEVELS.pub
+            })
+            //店铺exp--选货配石
+            .when('/selModel', {
+                templateUrl: 'views/exp/selModel.html',
+                controller: 'expCtrlWa',
                 access_level: ACCESS_LEVELS.pub
             })
             //素材--图文素材编辑

@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Base\ApiControllerBase.cs" />
+    <Compile Include="Controllers\Exp\ExpController.cs" />
     <Compile Include="Controllers\Extension\AccountHelper.cs" />
     <Compile Include="Controllers\Extension\CustomerAuthorizeAttribute.cs" />
     <Compile Include="Controllers\Extension\Security\AuthorizedUser.cs" />
@@ -177,6 +178,7 @@
     <Content Include="app\scripts\controllers\diamondQueryCtrl.js" />
     <Content Include="app\scripts\controllers\diamondUploadCtrl.js" />
     <Content Include="app\scripts\controllers\dictionaryCtrl.js" />
+    <Content Include="app\scripts\controllers\expCtrlWa.js" />
     <Content Include="app\scripts\controllers\loginCtrl.js" />
     <Content Include="app\scripts\controllers\mainCtrl.js" />
     <Content Include="app\scripts\controllers\modelCtrl.js" />
@@ -200,6 +202,7 @@
     <Content Include="app\scripts\services\configService.js" />
     <Content Include="app\scripts\services\diamondService.js" />
     <Content Include="app\scripts\services\dictionaryService.js" />
+    <Content Include="app\scripts\services\expService.js" />
     <Content Include="app\scripts\services\loginService.js" />
     <Content Include="app\scripts\services\ModelService.js" />
     <Content Include="app\scripts\services\orderService.js" />
@@ -287,6 +290,7 @@
     <Content Include="app\views\diamond\diamondAssign.html" />
     <Content Include="app\views\diamond\diamondQuery.html" />
     <Content Include="app\views\diamond\diamondUpload.html" />
+    <Content Include="app\views\exp\selModel.html" />
     <Content Include="app\views\home.html" />
     <Content Include="app\views\html\diamondAssign.html" />
     <Content Include="app\views\html\diamondQuery.html" />
