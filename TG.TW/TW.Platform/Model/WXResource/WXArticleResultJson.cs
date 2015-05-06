@@ -22,6 +22,24 @@ namespace TW.Platform.Model
     public class WXArticleResultJson : LCResultJon
     {
         /// <summary>
+        /// 发送时间
+        /// </summary>
+        public string SendTimeStr
+        {
+            get
+            {
+                return string.Format("{0:f}", this.SendTime);
+            }
+        }
+        /// <summary>
+        /// 发送时间
+        /// </summary>
+        public DateTime SendTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 
         /// </summary>
         public bool byLink
