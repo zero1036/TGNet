@@ -12,7 +12,7 @@ define(['services/services', 'services/commonService', 'services/authService']
                         result = url;
                     }
                     //if (result == null) {
-                        result = "/api";
+                    result = "/api";
                     //}
                     result += '/' + api;
                     if (action != null && action != '') {
@@ -21,11 +21,28 @@ define(['services/services', 'services/commonService', 'services/authService']
                     return result;
                 };
 
+                var startWaiting = function () {
+                    //开启等待
+                    commonService.wait();
+                };
+
+                var EndWaiting = function (result) {
+                    //结束等待
+                    result.success(function (result, status, headers, config) {
+                        commonService.wait();
+                    }).error(function () {
+                        commonService.wait();
+                    });
+                };
+
                 service.doPost = function (api, action, param, url) {
                     var result = {};
                     var url = getPostUrl(api, action, url);
 
+                    startWaiting();
                     result = $http.post(url, param);
+                    EndWaiting(result);
+
                     return result;
                 }
 
@@ -33,12 +50,15 @@ define(['services/services', 'services/commonService', 'services/authService']
                     var result = {};
                     var url = getPostUrl(api, action, url);
 
+                    startWaiting();
                     result = $http({
                         method: 'POST',
                         url: url,
                         data: param,
                         //headers: { 'Authorization': authService.getToken() }
-                    })
+                    });
+                    EndWaiting(result);
+
                     return result;
                 }
 

@@ -311,6 +311,7 @@
     <Content Include="app\views\org\userListWa.html" />
     <Content Include="app\views\Sys\dictionaryList.html" />
     <Content Include="app\views\Sys\userList.html" />
+    <Content Include="app\views\Sys\waitingView.html" />
     <Content Include="app\views\Test\testAuth.html" />
     <Content Include="app\views\Test\testIscroll.html" />
     <Content Include="app\views\Test\testSlider.html" />
@@ -357,7 +358,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\images\" />
+    <Folder Include="app\images\sys\" />
     <Folder Include="app\scripts\vendor\angular\angular-translate-storage-cookie\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
@@ -375,6 +376,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\scripts\vendor\ace\iscroll.min.js" />
     <None Include="Properties\PublishProfiles\TWPub.pubxml" />
   </ItemGroup>
   <PropertyGroup>

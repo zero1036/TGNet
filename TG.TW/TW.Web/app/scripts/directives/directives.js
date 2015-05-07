@@ -18,5 +18,12 @@ define(['angular'], function (angular) {
             templateUrl: 'views/matter/articleDisplay.html'
         }
     });
+    pdirectives.directive("waitingview", function () {
+        return {
+            restrict: "E",
+            replace: true,
+            templateUrl: 'views/Sys/waitingView.html'
+        }
+    });
     return pdirectives;
 });

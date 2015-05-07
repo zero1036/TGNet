@@ -25,6 +25,13 @@ ul, ol, li {
     list-style: none;
 }
 
+/*******************************
+    概述：iscroll样式
+    修改说明：新增
+    修改人：TG
+    修改时间：20150317
+*******************************/
+
 #header {
     position: absolute;
     z-index: 2;
@@ -118,7 +125,7 @@ ul, ol, li {
         text-align: left;
     }
 
-    /*#scroller li {
+/*#scroller li {
         padding: 0 10px;
         height: 5rem;
         line-height: 5rem;
@@ -149,7 +156,7 @@ ul, ol, li {
         float: left;
         width: 40px;
         height: 40px;
-        background: url(http://cubiq.org/dropbox/iscroll4/examples/pull-to-refresh/pull-icon@2x.png) 0 0 no-repeat;
+        background: url(/app/images/sys/pull-icon@2x.png) 0 0 no-repeat;
         -webkit-background-size: 40px 80px;
         background-size: 40px 80px;
         -webkit-transition-property: -webkit-transform;
@@ -190,4 +197,155 @@ ul, ol, li {
     to {
         -webkit-transform: rotate(360deg) translateZ(0);
     }
+}
+
+/*******************************
+    概述：等待栏
+    修改说明：新增
+    修改人：TG
+    修改时间：20150317
+*******************************/
+
+.cube {
+    background-color: #f0ad4e;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    -webkit-animation: cubemove 4s infinite ease-in-out;
+    animation: cubemove 4s infinite;
+}
+
+@-webkit-keyframes cubemove {
+    35% {
+        -webkit-transform: scale(0.005);
+    }
+
+    50% {
+        -webkit-transform: scale(1.7);
+    }
+
+    65% {
+        -webkit-transform: scale(0.005);
+    }
+}
+
+.cube1 {
+    left: 14px;
+    top: 0px;
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.1s;
+}
+
+.cube2 {
+    left: 28px;
+    top: 0px;
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.2s;
+}
+
+.cube3 {
+    left: 42px;
+    top: 0px;
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.3s;
+}
+
+.cube4 {
+    left: 0px;
+    top: 14px;
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.1s;
+}
+
+.cube5 {
+    left: 14px;
+    top: 14px;
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.2s;
+}
+
+.cube6 {
+    left: 28px;
+    top: 14px;
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.3s;
+}
+
+.cube7 {
+    left: 42px;
+    top: 14px;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.4s;
+}
+
+.cube8 {
+    left: 0px;
+    top: 28px;
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.2s;
+}
+
+.cube9 {
+    left: 14px;
+    top: 28px;
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.3s;
+}
+
+.cube10 {
+    left: 28px;
+    top: 28px;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.4s;
+}
+
+.cube11 {
+    left: 42px;
+    top: 28px;
+    -webkit-animation-delay: 1s;
+    animation-delay: 0.5s;
+}
+
+.cube12 {
+    left: 0px;
+    top: 42px;
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.3s;
+}
+
+.cube13 {
+    left: 14px;
+    top: 42px;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.4s;
+}
+
+.cube14 {
+    left: 28px;
+    top: 42px;
+    -webkit-animation-delay: 1s;
+    animation-delay: 0.5s;
+}
+
+.cube15 {
+    left: 42px;
+    top: 42px;
+    -webkit-animation-delay: 1.2s;
+    animation-delay: 0.6s;
+}
+
+.spinner {
+    margin: 200px auto;
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
+#wi-div-waiting {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: block;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.8);
 }

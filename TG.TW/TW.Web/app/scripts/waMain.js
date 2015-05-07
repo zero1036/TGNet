@@ -4,23 +4,23 @@
          * 引入类库
          */
         // jQuery
-        jquery: 'vendor/jquery',
-        // bootstrap
-        bootstrap: 'vendor/bootstrap/js/bootstrap',
+        jquery: 'http://cdn.bootcss.com/jquery/1.9.0/jquery.min',
+        //// bootstrap
+        //bootstrap: 'vendor/bootstrap/js/bootstrap',
         // Angular
-        angular: 'vendor/angular/angular',
-        cookies: 'vendor/angular/angular-cookies',
-        route: 'vendor/angular/angular-route',
-        animate: 'vendor/angular/angular-animate',
-        touch: 'vendor/angular/angular-touch',
+        angular: 'http://cdn.bootcss.com/angular.js/1.3.15/angular.min',
+        cookies: 'vendor/angular/angular-cookies.min',
+        route: 'vendor/angular/angular-route.min',
+        animate: 'vendor/angular/angular-animate.min',
+        touch: 'vendor/angular/angular-touch.min',
         // domReady
         domReady: 'vendor/domReady',
         // xml to json
         x2js: 'vendor/x2js/xml2json',
-        // angular-file-uploader
-        uploader: 'vendor/angular-file-uploader/angular-file-upload',
+        //// angular-file-uploader
+        //uploader: 'vendor/angular-file-uploader/angular-file-upload',
         // iscroll
-        iscroll: 'vendor/ace/iscroll'
+        iscroll: 'vendor/ace/iscroll.min'
     },
     shim: {
         /*
@@ -43,15 +43,15 @@
         touch: {
             deps: ['angular']
         },
-        bootstrap: {
-            deps: ['jquery']
-        },
+        //bootstrap: {
+        //    deps: ['jquery']
+        //},
         x2js: {
             deps: ['jquery']
         },
-        uploader: {
-            deps: ['angular']
-        }
+        //uploader: {
+        //    deps: ['angular']
+        //}
     }
 });
 require([
@@ -158,11 +158,6 @@ function (angular, waApp, domReady, iscroll) {
             $httpProvider.interceptors.push(function ($q, $location, $rootScope) {
                 return {
                     'response': function (resp) {
-                        //if (resp.config.url == '/Login/Login') {
-                        //    // 假设API服务器返回的数据格式如下:
-                        //    // { token: "AUTH_TOKEN" }
-                        //    Auth.setToken(resp.data.token);
-                        //}
                         return resp;
                     },
                     'responseError': function (rejection) {
@@ -186,21 +181,10 @@ function (angular, waApp, domReady, iscroll) {
                         return $q.reject(rejection);
                     }
 
-                    //'responseError': function (rejection) {
-                    //    if (rejection.status == 401) {      //会话过期
-                    //        //$rootScope.isReLogin = true;
-                    //        //return $location.path("login");
-                    //        window.location.href = 'login.html';
-                    //    } else if (rejection.status == 500) {       //后台出错
-                    //        //return $location.path("login");
-                    //    }
-                    //    return $q.reject(rejection);
-                    //}
                 };
             });
         }
     ]);
-
 
     domReady(function () {
         angular.bootstrap(document, ['eOrderingApp']);

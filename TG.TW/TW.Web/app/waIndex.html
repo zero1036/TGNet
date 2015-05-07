@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="styles/diamond.css">-->
 </head>
 <body ng-controller="waMainCtrl">
+    <waitingview></waitingview>
     <div id="header">
         <div>
             <input type="text" class="form-control" id="ss" />
@@ -35,7 +36,6 @@
             </div>
 
             <div ng-view=""></div>
-            <!--<div ng-view="" ng-init="loaded()"></div>-->
 
             <div id="pullUp">
                 <span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>

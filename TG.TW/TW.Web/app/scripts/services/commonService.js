@@ -41,7 +41,9 @@ define(['services/services'], function (services) {
             service.delSession(service.SESSION_KEY_CURRENT_USER_PERMISSION);
         };
 
-
+        service.wait = function () {
+            angular.element("#wi-div-waiting").toggle();
+        }
         /*--------------------- Session ----------------------------*/
 
         //Session
