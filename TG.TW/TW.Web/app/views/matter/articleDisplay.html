@@ -8,44 +8,20 @@
             padding-right: 15px;
         }
 
-
-
-        /*.thumbnail {
-            display: block;
-            padding: 4px;
-            margin-bottom: 1px;
-            line-height: 1.42857143;
-            background-color: #fff;
-            border: none;
-            border-radius: 0;
-            -webkit-transition: none;
-            -o-transition: none;
-            transition: none;
-        }*/
-
-        .thumbnail p {
+        p {
             margin: 0;
             overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        img {
+            height: inherit;
+            width: 100%;
         }
 
         .thumbnail {
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            box-orient: horizontal;
-            box-orient: -webkit-horizontal;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-
-        .thumbnail {
-            height: 100px;
-            padding: 4px;
-            margin-bottom: 1px;
-            /*line-height: 1.42857143;*/
+            padding: 0;
+            margin-bottom: 2px;
             background-color: #fff;
             border: none;
             border-radius: 0;
@@ -54,50 +30,87 @@
             transition: none;
         }
 
-            .thumbnail > * {
-                height: inherit;
+            .thumbnail.thumb-header {
+                height: 120px;
             }
 
-            .thumbnail > p {
-                width: 70%;
-                font-size: 1.8rem;
-                word-wrap: break-word;
-                text-overflow: ellipsis;
-            }
-
-            .thumbnail > div {
-                width: 30%;
-                height: 96%;
-                /*border: 1px solid red;*/
-            }
-
-                .thumbnail > div > img {
-                    height: inherit;
+                .thumbnail.thumb-header > div {
                     width: 100%;
+                }
+
+                    .thumbnail.thumb-header > div:nth-child(1) {
+                        height: 94px;
+                        padding-top: 4px;
+                        padding-left: 4px;
+                        padding-right: 4px;
+                    }
+
+                    .thumbnail.thumb-header > div:nth-child(2) {
+                        padding-bottom: 4px;
+                        padding-left: 4px;
+                        padding-right: 4px;
+                    }
+
+                        .thumbnail.thumb-header > div:nth-child(2) > p {
+                            background-color: #f2f2f2;
+                            font-size: 1.5rem;
+                            white-space: nowrap;
+                        }
+
+            .thumbnail.thumb-others {
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                box-orient: horizontal;
+                box-orient: -webkit-horizontal;
+                box-pack: center;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                height: 60px;
+            }
+
+                .thumbnail.thumb-others > div:nth-child(1) {
+                    width: 80%;
+                    height: 100%;
+                    padding: 6px;
+                }
+
+                .thumbnail.thumb-others > div:nth-child(2) {
+                    width: 20%;
+                    height: 100%;
+                    padding: 4px;
+                }
+
+                .thumbnail.thumb-others > div:nth-child(1) > p {
+                    height: 98%;
+                    margin: 0;
+                    width: 80%;
+                    font-size: 1.8rem;
+                    word-wrap: break-word;
                 }
     </style>
     <div>
 
-
-        <!--<div class="thumbnail" ng-click="selectNewsModel(newsmodel);"
-             ng-repeat="newsmodel in article.listNews | filterT1:0">
-            <img ng-src="{{newsmodel.rPath}}" style="height: 100px; width: 100%" name="{{newsmodel.title}}">
-            <p style="background-color: #f5f5f5; width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{newsmodel.title}}</p>
-        </div>-->
-
-        <div class="thumbnail" ng-repeat="newsmodel in article.listNews | filterT2:0" ng-click="SelectNewsModel(article.media_id,newsmodel,$index+2)" style="list-style-type: none">
-
-
-            <!--<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">-->
-            <p>{{newsmodel.title}}</p>
+        <div class="thumbnail thumb-header" ng-click="selectNewsModel(newsmodel);" ng-repeat="newsmodel in article.listNews | filterT1:0">
             <div>
-                <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">-->
                 <img ng-src="{{newsmodel.rPath}}">
+            </div>
+            <div>
+                <p>{{newsmodel.title}}</p>
             </div>
         </div>
 
-
-
+        <div class="thumbnail thumb-others" ng-repeat="newsmodel in article.listNews | filterT2:0" ng-click="SelectNewsModel(article.media_id,newsmodel,$index+2)" style="list-style-type: none">
+            <div>
+                <p>{{newsmodel.title}}</p>
+            </div>
+            <div>
+                <img ng-src="{{newsmodel.rPath}}">
+            </div>
+        </div>
 
     </div>
 </div>
