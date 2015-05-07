@@ -103,7 +103,7 @@
             </div>
         </div>
 
-        <div class="thumbnail thumb-others" ng-repeat="newsmodel in article.listNews | filterT2:0" ng-click="SelectNewsModel(article.media_id,newsmodel,$index+2)" style="list-style-type: none">
+        <div class="thumbnail thumb-others" ng-repeat="newsmodel in article.listNews | filterT2:0" ng-click="selectNewsModel(newsmodel)">
             <div>
                 <p>{{newsmodel.title}}</p>
             </div>

@@ -1,26 +1,40 @@
 ﻿<div ng-init="childInit()">
-    <div>
-        <h2 style="margin-left: 5px; margin-top: 5px">{{curNewsModel.title}}</h2>
-        <p style="font-size: 9px">{{curDate()}}<a href="javascript:void(0);"><span>泛智(广州)咨询</span></a></p>
-        <img ng-src="{{curNewsModel.RPath}}" style="height: 200px; width: 96%">
-        <br />
-        <br />
-        <style type="text/css">
-            .suofang {
-                MARGIN: auto;
-                WIDTH: 315px;
+    <style>
+        #nmw-div-main {
+            padding: 1rem;
+        }
+
+            #nmw-div-main > h2 {
+                overflow: hidden;
             }
 
-                .suofang img {
-                    MAX-WIDTH: 100%!important;
-                    HEIGHT: auto!important;
-                    width: expression(this.width > 315 ? "315px" : this.width)!important;
-                }
-        </style>
+        p {
+            font-size: 1rem;
+        }
+
+        img {
+            max-width: 100%!important;
+            height: auto!important;
+            width: expression(this.width > 315 ? "315px" : this.width)!important;
+        }
+
+        .suofang {
+            MARGIN: auto;
+            /*WIDTH: 315px;*/
+        }
+    </style>
+    <div id="nmw-div-main">
+        <h2>{{curNewsModel.title}}</h2>
+        <p>{{curDate()}}<a href="javascript:void(0);"><span>英皇集团·泛智(广州)</span></a></p>
+        <img ng-src="{{curNewsModel.rPath}}" />
+        <br />
+        <br />
         <div class="suofang">
-            <div id="{{'sm' + article.media_id+childCtrlSym}}"></div>
+            <div id="nmw-div-content"></div>
         </div>
         <br />
-        <p style="font-size: 9px; color: gray"><a href="{{curNewsModel.content_source_url}}"><span>阅读原文</span></a>&nbsp;&nbsp;阅读&nbsp;5&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;赞</p>
+        <p style="font-size: 1rem; color: gray">
+            <a href="{{curNewsModel.content_source_url}}"><span>阅读原文</span></a>&nbsp;&nbsp;阅读&nbsp;5&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;赞
+        </p>
     </div>
 </div>

@@ -16,25 +16,25 @@ define(['controllers/controllers', 'services/commonService', 'services/matterSer
                     $scope.loadCurNewsModel(null, false);
                 }
                 $scope.loadCurNewsModel = function (myScroll, bRefresh) {
-                    $scope.loadNewsModel = function (myScroll, bRefresh) {
-                        if (commonService.curNewsModel != undefined && commonService.curNewsModel != null) {
-                            $scope.curNewsModel = commonService.curNewsModel;
-                            commonService.curNewsModel = null;
+                    if (commonService.curNewsModel != undefined && commonService.curNewsModel != null) {
+                        $scope.curNewsModel = commonService.curNewsModel;
+                        angular.element("#nmw-div-content").html($scope.curNewsModel.content);
+                        commonService.curNewsModel = null;
 
-                            if (bRefresh) {
-                                if (myScroll != undefined && myScroll != null) {
-                                    myScroll.refresh();
-                                }
-                            }
-                            else {
-                                $scope.$emit('childInit', false);
+                        if (bRefresh) {
+                            if (myScroll != undefined && myScroll != null) {
+                                myScroll.refresh();
                             }
                         }
                         else {
-                            if (commonService.returnPath != undefined && commonService.returnPath != null && commonService.returnPath != "")
-                                $location.path(commonService.returnPath);
+                            $scope.$emit('childInit', false);
                         }
                     }
+                    else {
+                        if (commonService.returnPath != undefined && commonService.returnPath != null && commonService.returnPath != "")
+                            $location.path(commonService.returnPath);
+                    }
+
                 }
 
             }
