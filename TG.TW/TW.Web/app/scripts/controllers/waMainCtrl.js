@@ -43,8 +43,11 @@
 
                 myScroll = new iScroll('wrapper', {
                     handleClick: true,
-                    useTransition: true,
+                    useTransform: true, //是否使用CSS形变
+                    useTransition: false,//是否使用CSS形变--重要，需要禁止，否则会拖动卡顿
                     topOffset: pullDownOffset,
+                    //拖动惯性
+                    momentum: true,
                     onBeforeScrollStart: function (e) { e.preventDefault(); },
                     onRefresh: function () {
                         if (pullDownEl.className.match('loading')) {
