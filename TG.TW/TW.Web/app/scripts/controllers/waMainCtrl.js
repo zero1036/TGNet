@@ -1,4 +1,4 @@
-﻿define(['controllers/controllers', 'services/commonService'],
+﻿define(['controllers/controllers', 'services/baseUnionService'],
     function (controllers) {
         controllers.controller('waMainCtrl', ['$scope', 'commonService', function ($scope, commonService) {
             $scope.name = "home main";

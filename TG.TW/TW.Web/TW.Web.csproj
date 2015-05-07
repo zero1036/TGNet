@@ -203,6 +203,7 @@
     <Content Include="app\scripts\main.js" />
     <Content Include="app\scripts\services\authService.js" />
     <Content Include="app\scripts\services\baseService.js" />
+    <Content Include="app\scripts\services\baseUnionService.js" />
     <Content Include="app\scripts\services\commonService.js" />
     <Content Include="app\scripts\services\configService.js" />
     <Content Include="app\scripts\services\diamondService.js" />

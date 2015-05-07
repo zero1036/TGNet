@@ -1,5 +1,5 @@
 ﻿'use strict';
-define(['controllers/controllers', 'services/commonService', 'services/orgService']
+define(['controllers/controllers', 'services/baseUnionService', 'services/orgService']
         , function (controllers) {
             //通讯录部门列表
             controllers.controller('orgCtrl'

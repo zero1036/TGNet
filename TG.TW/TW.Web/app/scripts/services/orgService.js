@@ -1,5 +1,5 @@
 ﻿'use strict'
-define(['services/services', 'services/baseService'], function (services) {
+define(['services/services', 'services/baseUnionService'], function (services) {
     services.factory('orgService', function (baseService) {
         var service = {};
         var api = 'Org';

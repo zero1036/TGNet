@@ -59,7 +59,7 @@ require([
     //父级控制
     'controllers/waMainCtrl',
     //组织机构
-    'controllers/orgCtrlWa.min',
+    'controllers/orgCtrlWa',
     //'controllers/usersCtrlWa',
     //'controllers/userDetailCtrlWa',
 ],
