@@ -188,6 +188,8 @@
     <Content Include="app\scripts\controllers\orderCycleCtrl.js" />
     <Content Include="app\scripts\controllers\orderCycleEditCtrl.js" />
     <Content Include="app\scripts\controllers\orgCtrl.js" />
+    <Content Include="app\scripts\controllers\orgCtrlWa.js" />
+    <Content Include="app\scripts\controllers\orgCtrlWa.min.js" />
     <Content Include="app\scripts\controllers\testIscrollCtrl.js" />
     <Content Include="app\scripts\controllers\testWACtrl.js" />
     <Content Include="app\scripts\controllers\userCtrl.js" />
@@ -270,6 +272,8 @@
     <Content Include="app\scripts\vendor\x2js\xml2json.min.js" />
     <Content Include="app\scripts\waApp.js" />
     <Content Include="app\scripts\waMain.js" />
+    <Content Include="app\scripts\orgApp.js" />
+    <Content Include="app\scripts\orgMain.js" />
     <Content Include="app\styles\ace\ace-ie.min.css" />
     <Content Include="app\styles\ace\ace-rtl.min.css" />
     <Content Include="app\styles\ace\ace-skins.min.css" />
@@ -312,9 +316,11 @@
     <Content Include="app\views\Sys\dictionaryList.html" />
     <Content Include="app\views\Sys\userList.html" />
     <Content Include="app\views\Sys\waitingView.html" />
+    <Content Include="app\views\Sys\waNavView.html" />
     <Content Include="app\views\Test\testAuth.html" />
     <Content Include="app\views\Test\testIscroll.html" />
     <Content Include="app\views\Test\testSlider.html" />
+    <Content Include="app\waOrgIndex.html" />
     <Content Include="app\waIndex.html" />
     <Content Include="config.xml" />
     <Content Include="Global.asax" />

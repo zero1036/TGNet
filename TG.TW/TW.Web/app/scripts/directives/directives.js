@@ -18,11 +18,20 @@ define(['angular'], function (angular) {
             templateUrl: 'views/matter/articleDisplay.html'
         }
     });
+    //等待视图
     pdirectives.directive("waitingview", function () {
         return {
             restrict: "E",
             replace: true,
             templateUrl: 'views/Sys/waitingView.html'
+        }
+    });
+    //wa主框架视图
+    pdirectives.directive("wanavview", function () {
+        return {
+            restrict: "E",
+            replace: true,
+            templateUrl: 'views/Sys/waNavView.html'
         }
     });
     return pdirectives;
