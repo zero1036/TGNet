@@ -198,6 +198,7 @@
     <Content Include="app\scripts\controllers\waMainCtrl.js" />
     <Content Include="app\scripts\directives\directives.js" />
     <Content Include="app\scripts\filters\filters.js" />
+    <Content Include="app\scripts\informMain.js" />
     <Content Include="app\scripts\loginApp.js" />
     <Content Include="app\scripts\loginMain.js" />
     <Content Include="app\scripts\main.js" />
@@ -305,6 +306,7 @@
     <Content Include="app\views\html\diamondQuery.html" />
     <Content Include="app\views\html\diamondUpload.html" />
     <Content Include="app\views\inform\informsPubWa.html" />
+    <Content Include="app\views\inform\informsPvtWa.html" />
     <Content Include="app\views\matter\articleDisplay.html" />
     <Content Include="app\views\matter\newsModelWa.html" />
     <Content Include="app\views\matter\wxArticleEdit.html" />
@@ -321,6 +323,7 @@
     <Content Include="app\views\Test\testAuth.html" />
     <Content Include="app\views\Test\testIscroll.html" />
     <Content Include="app\views\Test\testSlider.html" />
+    <Content Include="app\waInformIndex.html" />
     <Content Include="app\waOrgIndex.html" />
     <Content Include="app\waIndex.html" />
     <Content Include="config.xml" />

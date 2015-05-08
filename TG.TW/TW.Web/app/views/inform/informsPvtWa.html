@@ -1,0 +1,40 @@
+﻿<div ng-init="childInit()">
+    <style>
+        #div-informsArc {
+            padding: 10px;
+            /*line-height: 5rem;*/
+            background-color: #EBEBEB;
+            font-size: 2rem;
+        }
+
+            #div-informsArc > div {
+                margin-bottom: 1rem;
+            }
+
+        .div-time {
+            width: 120px;
+            font-size: 1.3rem;
+            color: white;
+            background-color: #f0ad4e;
+            text-align: center;
+            border-radius: 3px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <div id="div-informsArc">
+        <!--  <ul id="thelist">
+            <li ng-repeat="article in articles">
+                <div>
+                    <articledisplay></articledisplay>
+                </div>
+            </li>
+        </ul>-->
+        <div ng-repeat="article in articles">
+            <div class="div-time">{{article.sendTimeStr}}</div>
+            <articledisplay></articledisplay>
+        </div>
+    </div>
+</div>
