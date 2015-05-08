@@ -35,7 +35,7 @@ namespace TW.Platform.BL
         /// 通过部门获取部门拥有的用户
         /// </summary>
         /// <returns></returns>
-        public object GetUsersByDepId(int depId)
+        public List<UserVM> GetUsersByDepId(int depId)
         {
             var orgM = GetOrgM();
             var dep = orgM.Departments.Single(d => d.Did == depId);
@@ -43,6 +43,31 @@ namespace TW.Platform.BL
             if (users.IsNull())
                 EGExceptionOperator.ThrowX<Exception>("缺少用户数据", string.Empty);
             return users;
+        }
+        /// <summary>
+        /// 通过部门集合获取这些部门拥有的用户
+        /// </summary>
+        /// <returns></returns>
+        public List<UserVM> GetUsersByDeps(List<int> depIds)
+        {
+            var orgM = GetOrgM();
+            var userIDs = orgM.Departments.Where(d => depIds.Contains(d.Did)).SelectMany(d => d.SysUserIDs);
+            var users = orgM.Users.Where(u => userIDs.Contains(u.SysUserId)).ToList();
+            if (users.IsNull())
+                EGExceptionOperator.ThrowX<Exception>("缺少用户数据", string.Empty);
+            return users;
+        }
+        /// <summary>
+        /// 通过部门集合获取这些部门拥有的用户ID
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetUserIDsByDeps(List<int> depIds)
+        {
+            var orgM = GetOrgM();
+            var userIDs = orgM.Departments.Where(d => depIds.Contains(d.Did)).SelectMany(d => d.SysUserIDs).ToList();
+            if (userIDs.IsNull())
+                EGExceptionOperator.ThrowX<Exception>("缺少用户数据", string.Empty);
+            return userIDs;
         }
         #endregion
 
