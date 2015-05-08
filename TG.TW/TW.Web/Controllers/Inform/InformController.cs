@@ -92,16 +92,15 @@ namespace TW.Web.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetInformPvt()
+        public HttpResponseMessage GetInforms()
         {
             return this.ExecuteTryCatch(() =>
             {
                 var pa = CreateTestA();
 
                 var pInformNews = new List<InformVM>();
-                var pInformNew = new InformVM();
+                var pInformNew = new InformVM((new List<int>() { 1, 2 }), (new List<int>() { 1 }), null);
                 pInformNew.SendTime = DateTime.Now;
-                pInformNew.SendUsers = (new List<int>() { 1, 2 });
                 pInformNew.OwnerID = 1;
                 pInformNew.InformType = 2;
                 pInformNew.Content = pa;
@@ -145,8 +144,35 @@ namespace TW.Web.Controllers
         }
     }
 
+    public class InformBL
+    {
+
+    }
+
     public class InformVM : InformM
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pUsers"></param>
+        /// <param name="pDeps"></param>
+        /// <param name="pTags"></param>
+        public InformVM(List<int> pUsers, List<int> pDeps, List<int> pTags)
+        {
+            base.SendUsers = pUsers;
+            base.SendDeps = pDeps;
+            base.SendTags = pTags;
+
+            base.SendAllUsers = new List<int>();
+            base.SendAllUsers.AddRange(pUsers);
+
+            if (!pDeps.IsNull())
+            {
+                var org = new OrgBL();
+                var pUsersFromDeps = org.GetUserIDsByDeps(pDeps);
+                base.SendAllUsers.AddRange(pUsersFromDeps);
+            }
+        }
         /// <summary>
         /// 发送时间
         /// </summary>
@@ -190,28 +216,23 @@ namespace TW.Web.Controllers
         /// </summary>
         public string ContentType { get; set; }
         /// <summary>
+        /// 是否需要确认
+        /// </summary>
+        public bool ConfirmNeed { get; set; }
+        /// <summary>
+        /// 是否允许讨论
+        /// </summary>
+        public bool Disc { get; set; }
+        /// <summary>
         /// 确定用户
         /// </summary>
         public List<int> ConfirmUsers { get; set; }
-
     }
     /// <summary>
     /// 
     /// </summary>
     public class BaseMessageM
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pUsers"></param>
-        /// <param name="pDeps"></param>
-        /// <param name="pTags"></param>
-        public void Init(List<int> pUsers, List<int> pDeps, List<int> pTags)
-        {
-            this.SendUsers = pUsers;
-            this.SendDeps = pDeps;
-         new   OrgBL().GetUsersByDepId
-        }
         /// <summary>
         /// 发送时间
         /// </summary>

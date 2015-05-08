@@ -305,6 +305,7 @@
     <Content Include="app\views\html\diamondAssign.html" />
     <Content Include="app\views\html\diamondQuery.html" />
     <Content Include="app\views\html\diamondUpload.html" />
+    <Content Include="app\views\inform\informsManageWa.html" />
     <Content Include="app\views\inform\informsPubWa.html" />
     <Content Include="app\views\inform\informsPvtWa.html" />
     <Content Include="app\views\matter\articleDisplay.html" />

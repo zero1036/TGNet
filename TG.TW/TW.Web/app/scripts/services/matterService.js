@@ -11,6 +11,10 @@ define(['services/services', 'services/baseUnionService'], function (services) {
         service.getInformsPvt = function () {
             return baseService.doPost(api, "GetInformPvt");
         }
+        //获取通告
+        service.getInforms = function () {
+            return baseService.doPost(api, "GetInforms");
+        }
         return service;
     });
 });

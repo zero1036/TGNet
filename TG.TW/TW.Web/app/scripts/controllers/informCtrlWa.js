@@ -84,29 +84,24 @@ define(['controllers/controllers', 'services/baseUnionService', 'services/matter
                });
         };
     }]);
-
-    controller.controller('informPvtCtrlWa', ['$scope', '$location', '$routeParams', 'commonService', 'matterService', function ($scope, $location, $routeParams, commonService, matterService) {
+    //通告管理
+    controllers.controller('informManageCtrlWa', ['$scope', '$location', '$routeParams', 'commonService', 'matterService', function ($scope, $location, $routeParams, commonService, matterService) {
         //监听下拉pullDown事件
         $scope.$on('pullDownAction', function (e, myScroll) {
-            $scope.loadInformsPub(myScroll, true);
+            $scope.loadInforms(myScroll, true);
         });        //监听上拉pullup事件        $scope.$on('pullUpAction', function (e, myScroll) {
         });        //监听返回事件        $scope.$on('goBack', function (e, param) {
         });        //
         $scope.childInit = function () {
-            //$scope.$emit('childInit', false);
-            $scope.loadInformsPub(null, false);
+            $scope.loadInforms(null, false);
         };
-        $scope.selectNewsModel = function (newsModel) {
-            commonService.curNewsModel = newsModel;
-            commonService.returnPath = "/informsPubWa";
-            $location.path("/newsModelWa");
-        };
-        $scope.loadInformsPub = function (myScroll, bRefresh) {
-            matterService.getInformsPub()
+        $scope.informs = [];
+        $scope.loadInforms = function (myScroll, bRefresh) {
+            matterService.getInforms()
                .success(function (result, status, headers, config) {
                    if (result.ok != undefined && result.ok != null && result.ok == true) {
-                       $scope.articles = result.data;
-                       console.log($scope.articles);
+                       $scope.informs = result.data;
+                       console.log($scope.informs);
 
                        if (bRefresh) {
                            if (myScroll != undefined && myScroll != null) {

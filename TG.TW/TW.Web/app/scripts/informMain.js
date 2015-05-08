@@ -89,6 +89,12 @@ function (angular, orgApp, domReady, iscroll) {
                 controller: 'informPvtCtrlWa',
                 access_level: ACCESS_LEVELS.pub
             })
+            //通告--通告管理
+            .when('/informsManageWa', {
+                templateUrl: 'views/inform/informsManageWa.html',
+                controller: 'informManageCtrlWa',
+                access_level: ACCESS_LEVELS.pub
+            })
             //素材--段落详细内容
             .when('/newsModelWa', {
                 templateUrl: 'views/matter/newsModelWa.html',
