@@ -7,6 +7,10 @@ define(['services/services', 'services/baseUnionService'], function (services) {
         service.getInformsPub = function () {
             return baseService.doPost(api, "GetInformPub");
         }
+        //获取内部通告
+        service.getInformsPvt = function () {
+            return baseService.doPost(api, "GetInformPvt");
+        }
         return service;
     });
 });
