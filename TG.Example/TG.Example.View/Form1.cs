@@ -88,6 +88,18 @@ namespace TG.Example.View
             Console.WriteLine(_MysqlTest.InsertFunc3());
         }
 
+        private void btnAutofac_Click(object sender, EventArgs e)
+        {
+            var au = new AutofacExampleClass();
+            au.RegisterAssemblyAutofac();
+        }
+
+        private void btnReflect_Click(object sender, EventArgs e)
+        {
+            var au = new AutofacExampleClass();
+            au.RegisterAssemblyReflection();
+        }
+
 
 
     }

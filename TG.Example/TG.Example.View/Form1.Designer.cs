@@ -38,6 +38,8 @@
             this.btnProcedure = new System.Windows.Forms.Button();
             this.btnInsert2 = new System.Windows.Forms.Button();
             this.btnInsert3 = new System.Windows.Forms.Button();
+            this.btnAutofac = new System.Windows.Forms.Button();
+            this.btnReflect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -122,7 +124,7 @@
             // 
             // btnInsert2
             // 
-            this.btnInsert2.Location = new System.Drawing.Point(346, 126);
+            this.btnInsert2.Location = new System.Drawing.Point(179, 126);
             this.btnInsert2.Name = "btnInsert2";
             this.btnInsert2.Size = new System.Drawing.Size(161, 32);
             this.btnInsert2.TabIndex = 8;
@@ -132,7 +134,7 @@
             // 
             // btnInsert3
             // 
-            this.btnInsert3.Location = new System.Drawing.Point(346, 164);
+            this.btnInsert3.Location = new System.Drawing.Point(346, 126);
             this.btnInsert3.Name = "btnInsert3";
             this.btnInsert3.Size = new System.Drawing.Size(161, 32);
             this.btnInsert3.TabIndex = 9;
@@ -140,11 +142,33 @@
             this.btnInsert3.UseVisualStyleBackColor = true;
             this.btnInsert3.Click += new System.EventHandler(this.btnInsert3_Click);
             // 
+            // btnAutofac
+            // 
+            this.btnAutofac.Location = new System.Drawing.Point(179, 164);
+            this.btnAutofac.Name = "btnAutofac";
+            this.btnAutofac.Size = new System.Drawing.Size(161, 32);
+            this.btnAutofac.TabIndex = 10;
+            this.btnAutofac.Text = "Autofac性能测试";
+            this.btnAutofac.UseVisualStyleBackColor = true;
+            this.btnAutofac.Click += new System.EventHandler(this.btnAutofac_Click);
+            // 
+            // btnReflect
+            // 
+            this.btnReflect.Location = new System.Drawing.Point(346, 164);
+            this.btnReflect.Name = "btnReflect";
+            this.btnReflect.Size = new System.Drawing.Size(161, 32);
+            this.btnReflect.TabIndex = 11;
+            this.btnReflect.Text = "反射性能测试";
+            this.btnReflect.UseVisualStyleBackColor = true;
+            this.btnReflect.Click += new System.EventHandler(this.btnReflect_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 311);
+            this.Controls.Add(this.btnReflect);
+            this.Controls.Add(this.btnAutofac);
             this.Controls.Add(this.btnInsert3);
             this.Controls.Add(this.btnInsert2);
             this.Controls.Add(this.btnProcedure);
@@ -173,6 +197,8 @@
         private System.Windows.Forms.Button btnProcedure;
         private System.Windows.Forms.Button btnInsert2;
         private System.Windows.Forms.Button btnInsert3;
+        private System.Windows.Forms.Button btnAutofac;
+        private System.Windows.Forms.Button btnReflect;
     }
 }
 
