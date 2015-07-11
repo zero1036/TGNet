@@ -100,6 +100,12 @@ namespace TG.Example.View
             au.RegisterAssemblyReflection();
         }
 
+        private void btnYUI_Click(object sender, EventArgs e)
+        {
+            var au = new AutoCompress();
+            au.Compress();
+        }
+
 
 
     }

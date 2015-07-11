@@ -2,3 +2,4 @@ bin
 obj
 *.suo
 *.user
+/TG.TW/TW.Web/App_Data/log/*.log

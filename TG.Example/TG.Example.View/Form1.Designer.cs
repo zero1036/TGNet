@@ -40,6 +40,7 @@
             this.btnInsert3 = new System.Windows.Forms.Button();
             this.btnAutofac = new System.Windows.Forms.Button();
             this.btnReflect = new System.Windows.Forms.Button();
+            this.btnYUI = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -162,11 +163,22 @@
             this.btnReflect.UseVisualStyleBackColor = true;
             this.btnReflect.Click += new System.EventHandler(this.btnReflect_Click);
             // 
+            // btnYUI
+            // 
+            this.btnYUI.Location = new System.Drawing.Point(12, 164);
+            this.btnYUI.Name = "btnYUI";
+            this.btnYUI.Size = new System.Drawing.Size(161, 32);
+            this.btnYUI.TabIndex = 12;
+            this.btnYUI.Text = "JS压缩测试";
+            this.btnYUI.UseVisualStyleBackColor = true;
+            this.btnYUI.Click += new System.EventHandler(this.btnYUI_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 311);
+            this.Controls.Add(this.btnYUI);
             this.Controls.Add(this.btnReflect);
             this.Controls.Add(this.btnAutofac);
             this.Controls.Add(this.btnInsert3);
@@ -199,6 +211,7 @@
         private System.Windows.Forms.Button btnInsert3;
         private System.Windows.Forms.Button btnAutofac;
         private System.Windows.Forms.Button btnReflect;
+        private System.Windows.Forms.Button btnYUI;
     }
 }
 

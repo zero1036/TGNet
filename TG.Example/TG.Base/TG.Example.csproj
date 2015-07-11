@@ -39,6 +39,9 @@
     <Reference Include="Autofac.Configuration">
       <HintPath>..\..\Lib\Autofac.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="EcmaScript.NET.modified">
+      <HintPath>..\..\Lib\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -49,6 +52,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\..\Lib\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autofac\AutofacExampleClass.cs" />
@@ -80,6 +86,7 @@
     <Compile Include="Thread\BlockingQueue\BlockingQueue.cs" />
     <Compile Include="Thread\BlockingQueue\ThreadClass.cs" />
     <Compile Include="Thread\ThreadPool\ThreadPoolClass.cs" />
+    <Compile Include="YuiCompressor\AutoCompress.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Delegate\Form1.resx">
