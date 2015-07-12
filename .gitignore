@@ -3,3 +3,12 @@ obj
 *.suo
 *.user
 /TG.TW/TW.Web/App_Data/log/*.log
+/Lib/EG.WeChat.Business.dll.config
+/Lib/EG.WeChat.Business.pdb
+/Lib/EG.WeChat.Platform.pdb
+/Lib/EG.WeChat.Utility.pdb
+/Lib/EGCommon.pdb
+/Lib/Senparc.Weixin.MP.MvcExtension.xml
+/Lib/Senparc.Weixin.MP.xml
+/Lib/Senparc.Weixin.QY.xml
+/Lib/Senparc.Weixin.xml
