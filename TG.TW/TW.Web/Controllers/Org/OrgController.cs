@@ -64,4 +64,31 @@ namespace TW.Web.Controllers
             });
         }
     }
+
+    public class OrgXController : ApiController
+    {
+        /// <summary>
+        /// 获取部门
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        //#if Publishes
+        //        [WXOAuth]
+        //#endif
+        public HttpResponseMessage GetDeps()
+        {
+            var Departments = new List<DepartmentVM>();
+
+            Departments.Add(new DepartmentVM()
+            {
+                SysDepartmentId = 1,
+                Did = 1,
+                Name = "OK",
+                Level = 1
+            });
+
+            //pActionResult = new CActionResult() { ok = true, message = "", data = vm };
+            return Request.CreateResponse(HttpStatusCode.OK, new { ok = true, message = "", data = Departments }); 
+        }
+    }
 }
