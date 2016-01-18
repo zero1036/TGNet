@@ -188,7 +188,7 @@ namespace TG.Example
                 {
                     //ires = _ado.Execute("pr_User_SingleAdd2", new string[] { "ptid", "puserid", "pname", "pposition", "pmobile", "pemail", "pweixinid", "pavatar", "pstatus", "ppassword", "plitmitcount" }, new object[] { 1, "Mark2", "M2", "PG", "602424", "799", "zero1036", "touxiang", 1, "504", 1000000 }, string.Empty, CommandType.StoredProcedure);
 
-                    ires = _ado.Execute("pr_User_SingleAdd3", new string[] { "ptid", "puserid", "pname", "pposition", "pmobile", "pemail", "pweixinid", "pavatar", "pstatus", "ppassword", "plitmitcount", "pcurtrid", "ptbname" }, new object[] { 1, "Mark2", "M2", "PG", "602424", "799", "zero1036", "touxiang", 1, "504", 1000000, 1, "t_User_1" }, string.Empty, CommandType.StoredProcedure);
+                    //ires = _ado.Execute("pr_User_SingleAdd3", new string[] { "ptid", "puserid", "pname", "pposition", "pmobile", "pemail", "pweixinid", "pavatar", "pstatus", "ppassword", "plitmitcount", "pcurtrid", "ptbname" }, new object[] { 1, "Mark2", "M2", "PG", "602424", "799", "zero1036", "touxiang", 1, "504", 1000000, 1, "t_User_1" }, string.Empty, CommandType.StoredProcedure);
 
                     //ires = _ado.Execute("pr_User_SingleAdd4", new string[] { "ptid", "pcurtrid", "ptbname" }, new object[] { 1, 1, "t_User_1" }, string.Empty, CommandType.StoredProcedure);
 

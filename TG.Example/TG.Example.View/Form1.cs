@@ -100,6 +100,23 @@ namespace TG.Example.View
             au.RegisterAssemblyReflection();
         }
 
+        private void btnRedisRobMoney_Click(object sender, EventArgs e)
+        {
+            var ru = new RobMoney();
+            ru.GoRobMoney();
+        }
+
+        private void btnAddHongbao_Click(object sender, EventArgs e)
+        {
+            var ru = new RobMoney();
+            ru.AddMoneyToRedis();
+        }
+
+        private void btnCheckConsumed_Click(object sender, EventArgs e)
+        {
+            var ru = new RobMoney();
+            ru.TestConsumedHongbao();
+        }
 
 
     }

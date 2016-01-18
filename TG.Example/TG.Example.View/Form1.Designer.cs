@@ -40,6 +40,9 @@
             this.btnInsert3 = new System.Windows.Forms.Button();
             this.btnAutofac = new System.Windows.Forms.Button();
             this.btnReflect = new System.Windows.Forms.Button();
+            this.btnRedisRobMoney = new System.Windows.Forms.Button();
+            this.btnAddHongbao = new System.Windows.Forms.Button();
+            this.btnCheckConsumed = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -162,11 +165,44 @@
             this.btnReflect.UseVisualStyleBackColor = true;
             this.btnReflect.Click += new System.EventHandler(this.btnReflect_Click);
             // 
+            // btnRedisRobMoney
+            // 
+            this.btnRedisRobMoney.Location = new System.Drawing.Point(179, 202);
+            this.btnRedisRobMoney.Name = "btnRedisRobMoney";
+            this.btnRedisRobMoney.Size = new System.Drawing.Size(161, 32);
+            this.btnRedisRobMoney.TabIndex = 12;
+            this.btnRedisRobMoney.Text = "Redis抢红包";
+            this.btnRedisRobMoney.UseVisualStyleBackColor = true;
+            this.btnRedisRobMoney.Click += new System.EventHandler(this.btnRedisRobMoney_Click);
+            // 
+            // btnAddHongbao
+            // 
+            this.btnAddHongbao.Location = new System.Drawing.Point(12, 202);
+            this.btnAddHongbao.Name = "btnAddHongbao";
+            this.btnAddHongbao.Size = new System.Drawing.Size(161, 32);
+            this.btnAddHongbao.TabIndex = 13;
+            this.btnAddHongbao.Text = "Redis发放红包";
+            this.btnAddHongbao.UseVisualStyleBackColor = true;
+            this.btnAddHongbao.Click += new System.EventHandler(this.btnAddHongbao_Click);
+            // 
+            // btnCheckConsumed
+            // 
+            this.btnCheckConsumed.Location = new System.Drawing.Point(346, 202);
+            this.btnCheckConsumed.Name = "btnCheckConsumed";
+            this.btnCheckConsumed.Size = new System.Drawing.Size(161, 32);
+            this.btnCheckConsumed.TabIndex = 14;
+            this.btnCheckConsumed.Text = "Redis检查红包消费";
+            this.btnCheckConsumed.UseVisualStyleBackColor = true;
+            this.btnCheckConsumed.Click += new System.EventHandler(this.btnCheckConsumed_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 311);
+            this.Controls.Add(this.btnCheckConsumed);
+            this.Controls.Add(this.btnAddHongbao);
+            this.Controls.Add(this.btnRedisRobMoney);
             this.Controls.Add(this.btnReflect);
             this.Controls.Add(this.btnAutofac);
             this.Controls.Add(this.btnInsert3);
@@ -199,6 +235,9 @@
         private System.Windows.Forms.Button btnInsert3;
         private System.Windows.Forms.Button btnAutofac;
         private System.Windows.Forms.Button btnReflect;
+        private System.Windows.Forms.Button btnRedisRobMoney;
+        private System.Windows.Forms.Button btnAddHongbao;
+        private System.Windows.Forms.Button btnCheckConsumed;
     }
 }
 
