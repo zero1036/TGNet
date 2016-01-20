@@ -45,6 +45,7 @@
             this.btnCheckConsumed = new System.Windows.Forms.Button();
             this.btnRedisHashset = new System.Windows.Forms.Button();
             this.btnHashGet = new System.Windows.Forms.Button();
+            this.btnAsyncAndAwait = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -217,11 +218,22 @@
             this.btnHashGet.UseVisualStyleBackColor = true;
             this.btnHashGet.Click += new System.EventHandler(this.btnHashGet_Click);
             // 
+            // btnAsyncAndAwait
+            // 
+            this.btnAsyncAndAwait.Location = new System.Drawing.Point(12, 50);
+            this.btnAsyncAndAwait.Name = "btnAsyncAndAwait";
+            this.btnAsyncAndAwait.Size = new System.Drawing.Size(161, 32);
+            this.btnAsyncAndAwait.TabIndex = 17;
+            this.btnAsyncAndAwait.Text = "Async与Await";
+            this.btnAsyncAndAwait.UseVisualStyleBackColor = true;
+            this.btnAsyncAndAwait.Click += new System.EventHandler(this.btnAsyncAndAwait_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 343);
+            this.Controls.Add(this.btnAsyncAndAwait);
             this.Controls.Add(this.btnHashGet);
             this.Controls.Add(this.btnRedisHashset);
             this.Controls.Add(this.btnCheckConsumed);
@@ -264,6 +276,7 @@
         private System.Windows.Forms.Button btnCheckConsumed;
         private System.Windows.Forms.Button btnRedisHashset;
         private System.Windows.Forms.Button btnHashGet;
+        private System.Windows.Forms.Button btnAsyncAndAwait;
     }
 }
 

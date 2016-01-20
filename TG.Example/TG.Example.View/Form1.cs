@@ -130,6 +130,12 @@ namespace TG.Example.View
             ru.hget();
         }
 
+        private void btnAsyncAndAwait_Click(object sender, EventArgs e)
+        {
+            var aa = new AsyncAwait();
+            aa.GoFunc();
+        }
+
 
     }
 }
