@@ -118,6 +118,18 @@ namespace TG.Example.View
             ru.TestConsumedHongbao();
         }
 
+        private void btnRedisHashset_Click(object sender, EventArgs e)
+        {
+            var ru = new RedisHash();
+            ru.hset();
+        }
+
+        private void btnHashGet_Click(object sender, EventArgs e)
+        {
+            var ru = new RedisHash();
+            ru.hget();
+        }
+
 
     }
 }

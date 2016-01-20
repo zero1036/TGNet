@@ -83,6 +83,7 @@
     <Compile Include="PLinq\PLinqMapreduceEC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Redis\Lua\RobMoney.cs" />
+    <Compile Include="Redis\RedisHash.cs" />
     <Compile Include="Redis\RedisProvider.cs" />
     <Compile Include="Thread\AsyncCall\AsyncCallClass.cs" />
     <Compile Include="Thread\BlockingQueue\BlockingQueue.cs" />

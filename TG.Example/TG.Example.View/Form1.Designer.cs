@@ -43,6 +43,8 @@
             this.btnRedisRobMoney = new System.Windows.Forms.Button();
             this.btnAddHongbao = new System.Windows.Forms.Button();
             this.btnCheckConsumed = new System.Windows.Forms.Button();
+            this.btnRedisHashset = new System.Windows.Forms.Button();
+            this.btnHashGet = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -195,11 +197,33 @@
             this.btnCheckConsumed.UseVisualStyleBackColor = true;
             this.btnCheckConsumed.Click += new System.EventHandler(this.btnCheckConsumed_Click);
             // 
+            // btnRedisHashset
+            // 
+            this.btnRedisHashset.Location = new System.Drawing.Point(12, 240);
+            this.btnRedisHashset.Name = "btnRedisHashset";
+            this.btnRedisHashset.Size = new System.Drawing.Size(161, 32);
+            this.btnRedisHashset.TabIndex = 15;
+            this.btnRedisHashset.Text = "Redis Hash Set";
+            this.btnRedisHashset.UseVisualStyleBackColor = true;
+            this.btnRedisHashset.Click += new System.EventHandler(this.btnRedisHashset_Click);
+            // 
+            // btnHashGet
+            // 
+            this.btnHashGet.Location = new System.Drawing.Point(179, 240);
+            this.btnHashGet.Name = "btnHashGet";
+            this.btnHashGet.Size = new System.Drawing.Size(161, 32);
+            this.btnHashGet.TabIndex = 16;
+            this.btnHashGet.Text = "Redis Hash Get";
+            this.btnHashGet.UseVisualStyleBackColor = true;
+            this.btnHashGet.Click += new System.EventHandler(this.btnHashGet_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 311);
+            this.ClientSize = new System.Drawing.Size(561, 343);
+            this.Controls.Add(this.btnHashGet);
+            this.Controls.Add(this.btnRedisHashset);
             this.Controls.Add(this.btnCheckConsumed);
             this.Controls.Add(this.btnAddHongbao);
             this.Controls.Add(this.btnRedisRobMoney);
@@ -238,6 +262,8 @@
         private System.Windows.Forms.Button btnRedisRobMoney;
         private System.Windows.Forms.Button btnAddHongbao;
         private System.Windows.Forms.Button btnCheckConsumed;
+        private System.Windows.Forms.Button btnRedisHashset;
+        private System.Windows.Forms.Button btnHashGet;
     }
 }
 

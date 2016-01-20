@@ -119,7 +119,7 @@ namespace TG.Example
 
             Console.WriteLine(list.Count == 100 && listDis.Count == 100 ? "分发成功" : "分发失败");
         }
-
+        
         public class HongbaoComparer : IEqualityComparer<Hongbao>
         {
             public bool Equals(Hongbao x, Hongbao y)
