@@ -136,6 +136,18 @@ namespace TG.Example.View
             aa.GoFunc();
         }
 
+        private void btnRedisStringSet_Click(object sender, EventArgs e)
+        {
+            var dc = new RedisString();
+            dc.StringSet();
+        }
+
+        private void btnhmset_Click(object sender, EventArgs e)
+        {
+            var ru = new RedisHash();
+            ru.hmset();
+        }
+
 
     }
 }

@@ -26,5 +26,15 @@ namespace TG.Example
             var vall = redisdb.HashGet("bill", "cus:148", CommandFlags.None);
             Console.WriteLine(vall);
         }
+
+        public void hmset()
+        {
+            IDatabase redisdb = RedisProvider.redis.GetDatabase();
+
+            redisdb.HashSet("bill", new HashEntry[] { 
+                new HashEntry("hmset1","tg1"),
+                new HashEntry("hmset2","tg2")
+            });
+        }
     }
 }

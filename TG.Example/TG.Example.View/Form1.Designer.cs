@@ -46,6 +46,8 @@
             this.btnRedisHashset = new System.Windows.Forms.Button();
             this.btnHashGet = new System.Windows.Forms.Button();
             this.btnAsyncAndAwait = new System.Windows.Forms.Button();
+            this.btnRedisStringSet = new System.Windows.Forms.Button();
+            this.btnhmset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -228,11 +230,33 @@
             this.btnAsyncAndAwait.UseVisualStyleBackColor = true;
             this.btnAsyncAndAwait.Click += new System.EventHandler(this.btnAsyncAndAwait_Click);
             // 
+            // btnRedisStringSet
+            // 
+            this.btnRedisStringSet.Location = new System.Drawing.Point(12, 278);
+            this.btnRedisStringSet.Name = "btnRedisStringSet";
+            this.btnRedisStringSet.Size = new System.Drawing.Size(161, 32);
+            this.btnRedisStringSet.TabIndex = 18;
+            this.btnRedisStringSet.Text = "Redis StringSet";
+            this.btnRedisStringSet.UseVisualStyleBackColor = true;
+            this.btnRedisStringSet.Click += new System.EventHandler(this.btnRedisStringSet_Click);
+            // 
+            // btnhmset
+            // 
+            this.btnhmset.Location = new System.Drawing.Point(346, 240);
+            this.btnhmset.Name = "btnhmset";
+            this.btnhmset.Size = new System.Drawing.Size(161, 32);
+            this.btnhmset.TabIndex = 19;
+            this.btnhmset.Text = "Redis hmset";
+            this.btnhmset.UseVisualStyleBackColor = true;
+            this.btnhmset.Click += new System.EventHandler(this.btnhmset_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 343);
+            this.ClientSize = new System.Drawing.Size(526, 374);
+            this.Controls.Add(this.btnhmset);
+            this.Controls.Add(this.btnRedisStringSet);
             this.Controls.Add(this.btnAsyncAndAwait);
             this.Controls.Add(this.btnHashGet);
             this.Controls.Add(this.btnRedisHashset);
@@ -277,6 +301,8 @@
         private System.Windows.Forms.Button btnRedisHashset;
         private System.Windows.Forms.Button btnHashGet;
         private System.Windows.Forms.Button btnAsyncAndAwait;
+        private System.Windows.Forms.Button btnRedisStringSet;
+        private System.Windows.Forms.Button btnhmset;
     }
 }
 
