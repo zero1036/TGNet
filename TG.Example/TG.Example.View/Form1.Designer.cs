@@ -48,6 +48,8 @@
             this.btnAsyncAndAwait = new System.Windows.Forms.Button();
             this.btnRedisStringSet = new System.Windows.Forms.Button();
             this.btnhmset = new System.Windows.Forms.Button();
+            this.btnSortedSetsRank = new System.Windows.Forms.Button();
+            this.btnSingleAndStatic = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -250,11 +252,33 @@
             this.btnhmset.UseVisualStyleBackColor = true;
             this.btnhmset.Click += new System.EventHandler(this.btnhmset_Click);
             // 
+            // btnSortedSetsRank
+            // 
+            this.btnSortedSetsRank.Location = new System.Drawing.Point(12, 316);
+            this.btnSortedSetsRank.Name = "btnSortedSetsRank";
+            this.btnSortedSetsRank.Size = new System.Drawing.Size(161, 32);
+            this.btnSortedSetsRank.TabIndex = 20;
+            this.btnSortedSetsRank.Text = "Redis SortedSets ZRank";
+            this.btnSortedSetsRank.UseVisualStyleBackColor = true;
+            this.btnSortedSetsRank.Click += new System.EventHandler(this.btnSortedSetsRank_Click);
+            // 
+            // btnSingleAndStatic
+            // 
+            this.btnSingleAndStatic.Location = new System.Drawing.Point(346, 50);
+            this.btnSingleAndStatic.Name = "btnSingleAndStatic";
+            this.btnSingleAndStatic.Size = new System.Drawing.Size(161, 32);
+            this.btnSingleAndStatic.TabIndex = 21;
+            this.btnSingleAndStatic.Text = "单例及静态测试";
+            this.btnSingleAndStatic.UseVisualStyleBackColor = true;
+            this.btnSingleAndStatic.Click += new System.EventHandler(this.btnSingleAndStatic_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 374);
+            this.Controls.Add(this.btnSingleAndStatic);
+            this.Controls.Add(this.btnSortedSetsRank);
             this.Controls.Add(this.btnhmset);
             this.Controls.Add(this.btnRedisStringSet);
             this.Controls.Add(this.btnAsyncAndAwait);
@@ -303,6 +327,8 @@
         private System.Windows.Forms.Button btnAsyncAndAwait;
         private System.Windows.Forms.Button btnRedisStringSet;
         private System.Windows.Forms.Button btnhmset;
+        private System.Windows.Forms.Button btnSortedSetsRank;
+        private System.Windows.Forms.Button btnSingleAndStatic;
     }
 }
 

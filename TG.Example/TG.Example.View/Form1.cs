@@ -148,6 +148,18 @@ namespace TG.Example.View
             ru.hmset();
         }
 
+        private void btnSortedSetsRank_Click(object sender, EventArgs e)
+        {
+            var ru = new RedisSortedSets();
+            ru.ZRank();
+        }
+
+        private void btnSingleAndStatic_Click(object sender, EventArgs e)
+        {
+            var ss = new SingleInstanceAndStatic();
+            ss.Go();
+        }
+
 
     }
 }

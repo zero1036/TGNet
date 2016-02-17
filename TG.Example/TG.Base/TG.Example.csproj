@@ -60,6 +60,7 @@
     <Compile Include="Autofac\AutofacExampleClass.cs" />
     <Compile Include="Base\BaseClass.cs" />
     <Compile Include="Base\BoxingClass.cs" />
+    <Compile Include="Base\SingleInstanceAndStatic.cs" />
     <Compile Include="Delegate\DelegateClass.cs" />
     <Compile Include="Delegate\DelegateClass2.cs" />
     <Compile Include="Delegate\Form1.cs">
@@ -86,6 +87,7 @@
     <Compile Include="Redis\Lua\RobMoney.cs" />
     <Compile Include="Redis\RedisHash.cs" />
     <Compile Include="Redis\RedisProvider.cs" />
+    <Compile Include="Redis\RedisSortedSets.cs" />
     <Compile Include="Redis\RedisString.cs" />
     <Compile Include="Thread\AsyncCall\AsyncCallClass.cs" />
     <Compile Include="Thread\BlockingQueue\BlockingQueue.cs" />
