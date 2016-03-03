@@ -1,14 +1,16 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using TG.Example;
 
 namespace TG.Example.Test
 {
-    [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        [Fact]
         public void TestMethod1()
         {
+            var ts = new RedisTest();
+            ts.StringSet();
         }
     }
 }
