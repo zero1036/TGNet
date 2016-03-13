@@ -60,23 +60,44 @@ namespace TG.Example.Test
         #endregion
 
         [TestMethod]
+        public void TestMethod1()
+        {
+            var rt = new RedisTestData();
+            rt.AddNum();
+        }
+
+        [TestMethod]
+        public void BitmapSet()
+        {
+            var rt = new RedisString();
+            rt.BitmapSet();
+        }
+
+        [TestMethod]
+        public void BitmapGet()
+        {
+            var rt = new RedisString();
+            rt.BitmapGet();
+        }
+
+        [TestMethod]
         public void HashSplit_Common()
         {
-            var rt = new RedisTest();
+            var rt = new RedisTestData();
             rt.HashSplit_Common();
         }
 
         [TestMethod]
         public void HashSplit_ByHashHead2()
         {
-            var rt = new RedisTest();
+            var rt = new RedisTestData();
             rt.HashSplit_ByHashHead2();
         }
 
         [TestMethod]
         public void HashSplit_ByHashBack2()
         {
-            var rt = new RedisTest();
+            var rt = new RedisTestData();
             rt.HashSplit_ByHashBack2();
         }
     }
