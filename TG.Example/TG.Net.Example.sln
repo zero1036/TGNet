@@ -7,12 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TG.Example.View", "TG.Examp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TG.Example", "TG.Base\TG.Example.csproj", "{0E304481-B41E-49FF-B724-6FBA4916269B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TG.Example.Test", "TG.Example.Test\TG.Example.Test.csproj", "{131B85C5-BF9C-4612-A3F2-55C8DD9F51E1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1DC10659-2B9A-403C-88F8-8AC39125E951}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TG.Example.Test", "TG.Example.Test\TG.Example.Test.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{0E304481-B41E-49FF-B724-6FBA4916269B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E304481-B41E-49FF-B724-6FBA4916269B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E304481-B41E-49FF-B724-6FBA4916269B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{131B85C5-BF9C-4612-A3F2-55C8DD9F51E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{131B85C5-BF9C-4612-A3F2-55C8DD9F51E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{131B85C5-BF9C-4612-A3F2-55C8DD9F51E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{131B85C5-BF9C-4612-A3F2-55C8DD9F51E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,20 +7,20 @@ using StackExchange.Redis;
 
 namespace TG.Example
 {
-    public class RedisTest
+    public class RedisTestData
     {
         /// <summary>
         /// 批量插入
         /// </summary>
-        public void StringSet()
+        public void AddNum()
         {
             IDatabase redisdb = RedisProvider.redis.GetDatabase();
 
             var dic = new Dictionary<RedisKey, RedisValue>();
 
-            for (var i = 1; i <= 100000; i++)
+            for (var i = 600001; i <= 900000; i++)
             {
-                dic.Add("Num" + i, i);
+                dic.Add("Num" + i, "this.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             }
 
             redisdb.StringSet(dic.ToArray(), When.Always);
