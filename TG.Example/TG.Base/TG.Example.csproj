@@ -89,7 +89,7 @@
     <Compile Include="Redis\RedisProvider.cs" />
     <Compile Include="Redis\RedisSortedSets.cs" />
     <Compile Include="Redis\RedisString.cs" />
-    <Compile Include="Redis\RedisTest.cs" />
+    <Compile Include="Redis\RedisTestData.cs" />
     <Compile Include="Thread\AsyncCall\AsyncCallClass.cs" />
     <Compile Include="Thread\BlockingQueue\BlockingQueue.cs" />
     <Compile Include="Thread\BlockingQueue\ThreadClass.cs" />

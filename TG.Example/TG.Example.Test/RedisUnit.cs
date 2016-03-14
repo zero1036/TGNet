@@ -12,72 +12,74 @@ namespace TG.Example.Test
     [TestClass]
     public class RedisUnit
     {
-        public RedisUnit()
-        {
-            //
-            //TODO:  在此处添加构造函数逻辑
-            //
-        }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///获取或设置测试上下文，该上下文提供
-        ///有关当前测试运行及其功能的信息。
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region 附加测试特性
-        //
-        // 编写测试时，可以使用以下附加特性: 
-        //
-        // 在运行类中的第一个测试之前使用 ClassInitialize 运行代码
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // 在类中的所有测试都已运行之后使用 ClassCleanup 运行代码
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // 在运行每个测试之前，使用 TestInitialize 来运行代码
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // 在每个测试运行完之后，使用 TestCleanup 来运行代码
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
-
+        #region hash 切分
         [TestMethod]
         public void HashSplit_Common()
         {
-            var rt = new RedisTest();
+            var rt = new RedisTestData();
             rt.HashSplit_Common();
         }
 
         [TestMethod]
         public void HashSplit_ByHashHead2()
         {
-            var rt = new RedisTest();
+            var rt = new RedisTestData();
             rt.HashSplit_ByHashHead2();
         }
 
         [TestMethod]
         public void HashSplit_ByHashBack2()
         {
-            var rt = new RedisTest();
+            var rt = new RedisTestData();
             rt.HashSplit_ByHashBack2();
         }
+        #endregion
+
+        #region Bitmap 测试
+        [TestMethod]
+        public void TestMethod1()
+        {
+            var rt = new RedisTestData();
+            rt.AddNum();
+        }
+
+        [TestMethod]
+        public void BitmapSet()
+        {
+            var rt = new RedisString();
+            rt.BitmapSet();
+        }
+
+        [TestMethod]
+        public void BitmapGet()
+        {
+            var rt = new RedisString();
+            rt.BitmapGet();
+        }
+        #endregion
+
+        #region 碎片率实验  Fragmentation ratio
+        [TestMethod]
+        /// <summary>
+        /// FragRatioTest
+        /// </summary>
+        /// <param name="factor">倍数因子</param>
+        public void FragRatioTest_10()
+        {
+            var rt = new RedisTestData();
+            rt.FragRatioTest(10, 10 * 10000);
+        }
+
+        [TestMethod]
+        /// <summary>
+        /// FragRatioTest
+        /// </summary>
+        /// <param name="factor">倍数因子</param>
+        public void FragRatioTest_13()
+        {
+            var rt = new RedisTestData();
+            rt.FragRatioTest(13, 9 * 10000);
+        }
+        #endregion
     }
 }

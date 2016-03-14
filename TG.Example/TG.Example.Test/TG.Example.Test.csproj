@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="RedisUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedisTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
