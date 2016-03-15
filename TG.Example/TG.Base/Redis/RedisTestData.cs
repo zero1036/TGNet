@@ -9,6 +9,14 @@ namespace TG.Example
 {
     public class RedisTestData
     {
+        private IDatabase _redisdb;
+
+        public RedisTestData()
+        {
+            _redisdb = RedisProvider.redis.GetDatabase();
+        }
+
+        #region
         /// <summary>
         /// 批量插入
         /// </summary>
@@ -25,7 +33,9 @@ namespace TG.Example
 
             redisdb.StringSet(dic.ToArray(), When.Always);
         }
+        #endregion
 
+        #region hash 切分
         /// <summary>
         /// Hash对象切分——普通无切分
         /// </summary>
@@ -107,5 +117,77 @@ namespace TG.Example
             }
         }
 
+        #endregion
+
+        #region 碎片率实验  Fragmentation ratio
+
+        /// <summary>
+        /// FragRatioTest
+        /// </summary>
+        /// <param name="factor">倍数因子</param>
+        /// <param name="count">产生样本数，必须小于等于10000000（1千万）</param>
+        public void FragRatioTest(int factor, int count)
+        {
+            var dic = new Dictionary<RedisKey, RedisValue>();
+
+            var listVal = Enumerable.Range(1, factor).Select((p) =>
+            {
+                return "1111111111";
+            }).ToArray();
+            string val = string.Join("", listVal);
+
+            Random rm = new Random();
+
+            //10万条数据，key是8字节byte，value是100字节byte
+            for (var i = 1; i <= count; i++)
+            {
+                string key = string.Empty;
+                //非随机
+                key = (count * 2 - i).ToString();
+
+                dic.Add(key, val);
+            }
+
+            _redisdb.StringSet(dic.ToArray(), When.Always);
+        }
+
+        /// <summary>
+        /// FragRatioTest
+        /// </summary>
+        /// <param name="factor">倍数因子</param>
+        /// <param name="count">产生样本数，必须小于等于10000000（1千万）</param>
+        public void FragRatioTestRamdom(int factor, int count)
+        {
+            var dic = new Dictionary<RedisKey, RedisValue>();
+
+            var listVal = Enumerable.Range(1, factor).Select((p) =>
+            {
+                return "1111111111";
+            }).ToArray();
+            string val = string.Join("", listVal);
+
+            Random rm = new Random();
+
+            //10万条数据，key是8字节byte，value是100字节byte
+            for (var i = 1; i <= count; i++)
+            {
+                string key = string.Empty;
+
+                if (isRam)
+                {
+                    //随机
+                    var target = rm.Next(1, count);
+                    key = (count * 2 - i).ToString();
+                }
+              
+                dic.Add(key, val);
+            }
+
+            _redisdb.StringSet(dic.ToArray(), When.Always);
+        }
+
+
+        private 
+        #endregion
     }
 }
