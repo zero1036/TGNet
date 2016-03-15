@@ -136,58 +136,73 @@ namespace TG.Example
             }).ToArray();
             string val = string.Join("", listVal);
 
-            Random rm = new Random();
 
-            //10万条数据，key是8字节byte，value是100字节byte
-            for (var i = 1; i <= count; i++)
+            //已10万为一包
+            var singlePackage = count / 100000;
+
+            for (var j = 1; j <= singlePackage; j++)
             {
-                string key = string.Empty;
-                //非随机
-                key = (count * 2 - i).ToString();
-
-                dic.Add(key, val);
-            }
-
-            _redisdb.StringSet(dic.ToArray(), When.Always);
-        }
-
-        /// <summary>
-        /// FragRatioTest
-        /// </summary>
-        /// <param name="factor">倍数因子</param>
-        /// <param name="count">产生样本数，必须小于等于10000000（1千万）</param>
-        public void FragRatioTestRamdom(int factor, int count)
-        {
-            var dic = new Dictionary<RedisKey, RedisValue>();
-
-            var listVal = Enumerable.Range(1, factor).Select((p) =>
-            {
-                return "1111111111";
-            }).ToArray();
-            string val = string.Join("", listVal);
-
-            Random rm = new Random();
-
-            //10万条数据，key是8字节byte，value是100字节byte
-            for (var i = 1; i <= count; i++)
-            {
-                string key = string.Empty;
-
-                if (isRam)
+                long begin = (j - 1) * 100000 + 1;
+                long end = j * 100000;
+                dic.Clear();
+                for (var i = begin; i <= end; i++)
                 {
-                    //随机
-                    var target = rm.Next(1, count);
+                    string key = string.Empty;
+                    //非随机
                     key = (count * 2 - i).ToString();
+
+                    dic.Add(key, val);
                 }
-              
-                dic.Add(key, val);
+                _redisdb.StringSet(dic.ToArray(), When.Always);
             }
 
-            _redisdb.StringSet(dic.ToArray(), When.Always);
+            ////10万条数据，key是8字节byte，value是100字节byte
+            //for (var i = 1; i <= count; i++)
+            //{
+            //    string key = string.Empty;
+            //    //非随机
+            //    key = (count * 2 - i).ToString();
+
+            //    dic.Add(key, val);
+            //}
+
+            //_redisdb.StringSet(dic.ToArray(), When.Always);
         }
 
+        ///// <summary>
+        ///// FragRatioTest
+        ///// </summary>
+        ///// <param name="factor">倍数因子</param>
+        ///// <param name="count">产生样本数，必须小于等于10000000（1千万）</param>
+        //public void FragRatioTestRamdom(int factor, int count)
+        //{
+        //    var dic = new Dictionary<RedisKey, RedisValue>();
 
-        private 
+        //    var listVal = Enumerable.Range(1, factor).Select((p) =>
+        //    {
+        //        return "1111111111";
+        //    }).ToArray();
+        //    string val = string.Join("", listVal);
+
+        //    Random rm = new Random();
+
+        //    //10万条数据，key是8字节byte，value是100字节byte
+        //    for (var i = 1; i <= count; i++)
+        //    {
+        //        string key = string.Empty;
+
+        //        if (isRam)
+        //        {
+        //            //随机
+        //            var target = rm.Next(1, count);
+        //            key = (count * 2 - i).ToString();
+        //        }
+
+        //        dic.Add(key, val);
+        //    }
+
+        //    _redisdb.StringSet(dic.ToArray(), When.Always);
+        //}         
         #endregion
     }
 }

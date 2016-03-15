@@ -67,7 +67,7 @@ namespace TG.Example.Test
         public void FragRatioTest_10()
         {
             var rt = new RedisTestData();
-            rt.FragRatioTest(10, 10 * 10000);
+            rt.FragRatioTest(10, 1000 * 10000);
         }
 
         [TestMethod]
@@ -78,7 +78,29 @@ namespace TG.Example.Test
         public void FragRatioTest_13()
         {
             var rt = new RedisTestData();
-            rt.FragRatioTest(13, 9 * 10000);
+            rt.FragRatioTest(13, 900 * 10000);
+        }
+
+        [TestMethod]
+        /// <summary>
+        /// FragRatioTest
+        /// </summary>
+        /// <param name="factor">倍数因子</param>
+        public void FragRatioTest_17()
+        {
+            var rt = new RedisTestData();
+            rt.FragRatioTest(17, 900 * 10000);
+        }
+
+        [TestMethod]
+        /// <summary>
+        /// FragRatioTest
+        /// </summary>
+        /// <param name="factor">倍数因子</param>
+        public void FragRatioTest_21()
+        {
+            var rt = new RedisTestData();
+            rt.FragRatioTest(21, 900 * 10000);
         }
         #endregion
     }
