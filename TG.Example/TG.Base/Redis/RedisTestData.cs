@@ -169,40 +169,44 @@ namespace TG.Example
             //_redisdb.StringSet(dic.ToArray(), When.Always);
         }
 
-        ///// <summary>
-        ///// FragRatioTest
-        ///// </summary>
-        ///// <param name="factor">倍数因子</param>
-        ///// <param name="count">产生样本数，必须小于等于10000000（1千万）</param>
-        //public void FragRatioTestRamdom(int factor, int count)
-        //{
-        //    var dic = new Dictionary<RedisKey, RedisValue>();
+        /// <summary>
+        /// FragRatioTestRamdom
+        /// </summary>
+        /// <param name="factor">倍数因子</param>
+        /// <param name="count">产生样本数，必须小于等于10000000（1千万）</param>
+        public void FragRatioTestRamdom(int factor, int count)
+        {
+            var dic = new Dictionary<RedisKey, RedisValue>();
 
-        //    var listVal = Enumerable.Range(1, factor).Select((p) =>
-        //    {
-        //        return "1111111111";
-        //    }).ToArray();
-        //    string val = string.Join("", listVal);
+            var listVal = Enumerable.Range(1, factor).Select((p) =>
+            {
+                return "1111111111";
+            }).ToArray();
+            string val = string.Join("", listVal);
 
-        //    Random rm = new Random();
+            Random rm = new Random();
 
-        //    //10万条数据，key是8字节byte，value是100字节byte
-        //    for (var i = 1; i <= count; i++)
-        //    {
-        //        string key = string.Empty;
+            //10万条数据，key是8字节byte，value是100字节byte
+            for (var i = 1; i <= count; i++)
+            {
+                string key = string.Empty;
 
-        //        if (isRam)
-        //        {
-        //            //随机
-        //            var target = rm.Next(1, count);
-        //            key = (count * 2 - i).ToString();
-        //        }
+                //随机
+                var target = rm.Next(1, count);
+                key = (count * 2 - i).ToString();
 
-        //        dic.Add(key, val);
-        //    }
-
-        //    _redisdb.StringSet(dic.ToArray(), When.Always);
-        //}         
+                if (dic.Count == 10000)
+                {
+                    dic.Add(key, val);    
+                    _redisdb.StringSet(dic.ToArray(), When.Always);
+                    dic.Clear();                                  
+                }
+                else
+                {
+                    dic.Add(key, val);                    
+                }
+            }
+        }
         #endregion
     }
 }

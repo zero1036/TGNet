@@ -59,6 +59,7 @@ namespace TG.Example.Test
         #endregion
 
         #region 碎片率实验  Fragmentation ratio
+
         [TestMethod]
         /// <summary>
         /// FragRatioTest
@@ -67,9 +68,10 @@ namespace TG.Example.Test
         public void FragRatioTest_10()
         {
             var rt = new RedisTestData();
-            rt.FragRatioTest(10, 1000 * 10000);
+            rt.FragRatioTest(10, 100 * 10000);
         }
 
+        #region 指定
         [TestMethod]
         /// <summary>
         /// FragRatioTest
@@ -78,7 +80,7 @@ namespace TG.Example.Test
         public void FragRatioTest_13()
         {
             var rt = new RedisTestData();
-            rt.FragRatioTest(13, 900 * 10000);
+            rt.FragRatioTest(13, 90 * 10000);
         }
 
         [TestMethod]
@@ -89,7 +91,7 @@ namespace TG.Example.Test
         public void FragRatioTest_17()
         {
             var rt = new RedisTestData();
-            rt.FragRatioTest(17, 900 * 10000);
+            rt.FragRatioTest(17, 90 * 10000);
         }
 
         [TestMethod]
@@ -100,8 +102,33 @@ namespace TG.Example.Test
         public void FragRatioTest_21()
         {
             var rt = new RedisTestData();
-            rt.FragRatioTest(21, 900 * 10000);
+            rt.FragRatioTest(21, 90 * 10000);
         }
+        #endregion
+
+        #region 随机
+        [TestMethod]
+        public void FragRatioTestRamdom_13()
+        {
+            var rt = new RedisTestData();
+            rt.FragRatioTestRamdom(13, 90 * 10000);
+        }
+
+        [TestMethod]
+        public void FragRatioTestRamdom_17()
+        {
+            var rt = new RedisTestData();
+            rt.FragRatioTestRamdom(17, 90 * 10000);
+        }
+
+        [TestMethod]
+        public void FragRatioTestRamdom_21()
+        {
+            var rt = new RedisTestData();
+            rt.FragRatioTestRamdom(21, 90 * 10000);
+        }
+        #endregion
+
         #endregion
     }
 }
