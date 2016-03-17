@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AutofacContrib.DynamicProxy2</id>
+    <version>2.4.5.724</version>
+    <title>AutofacContrib.DynamicProxy2</title>
+    <authors>kschneider</authors>
+    <owners>kschneider</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://code.google.com/p/autofac/wiki/DynamicProxy2</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Autofac DynamicProxy2</description>
+    <summary>Autofac DynamicProxy2</summary>
+    <tags>Autofac AutofacContrib DynamicProxy</tags>
+    <dependencies>
+      <dependency id="Autofac" version="2.4.5.724" />
+      <dependency id="Castle.Core" version="2.5.2" />
+      <dependency id="Castle.DynamicProxy" version="2.2.0" />
+    </dependencies>
+  </metadata>
+</package>
