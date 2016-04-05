@@ -20,14 +20,14 @@ namespace TG.Example.View
 {
     public partial class Form1 : Form
     {
-        private MysqlTest _MysqlTest;
+        //private MysqlTest _MysqlTest;
         /// <summary>
         /// 
         /// </summary>
         public Form1()
         {
             InitializeComponent();
-            _MysqlTest = new MysqlTest();
+            //_MysqlTest = new MysqlTest();
         }
         /// <summary>
         /// Task Example
@@ -60,32 +60,32 @@ namespace TG.Example.View
 
         private void btnMysqlQuery_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(_MysqlTest.QueryFunc2());
+            //Console.WriteLine(_MysqlTest.QueryFunc2());
         }
 
         private void btnMysqlQuery1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(_MysqlTest.QueryFunc());
+            //Console.WriteLine(_MysqlTest.QueryFunc());
         }
 
         private void btnMysqlInsert_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(_MysqlTest.InsertFunc());
+            //Console.WriteLine(_MysqlTest.InsertFunc());
         }
 
         private void btnProcedure_Click(object sender, EventArgs e)
         {
-            _MysqlTest.ProcedureFunc();
+            //_MysqlTest.ProcedureFunc();
         }
 
         private void btnInsert2_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(_MysqlTest.InsertFunc2());
+            //Console.WriteLine(_MysqlTest.InsertFunc2());
         }
 
         private void btnInsert3_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(_MysqlTest.InsertFunc3());
+            //Console.WriteLine(_MysqlTest.InsertFunc3());
         }
 
         private void btnAutofac_Click(object sender, EventArgs e)
