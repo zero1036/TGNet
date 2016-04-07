@@ -44,6 +44,7 @@ namespace TG.Example
             IDatabase redisdb = RedisProvider.redis.GetDatabase();
 
             var dic = new Dictionary<RedisKey, RedisValue>();
+            //10万
             for (var i = 1; i <= 100000; i++)
             {
                 dic.Add("object:" + i, "val");
@@ -95,6 +96,7 @@ namespace TG.Example
 
             var less100 = new List<HashEntry>();
 
+            //10w
             for (var i = 1; i <= 100000; i++)
             {
                 var si = i.ToString();
@@ -116,6 +118,7 @@ namespace TG.Example
                 redisdb.HashSet("object:", less100.ToArray());
             }
         }
+
 
         #endregion
 

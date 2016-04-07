@@ -129,6 +129,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="RabbitMQ\" />
     <Folder Include="Thread\Entity\" />
   </ItemGroup>
   <ItemGroup>

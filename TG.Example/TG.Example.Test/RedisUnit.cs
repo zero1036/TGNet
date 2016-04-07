@@ -33,6 +33,9 @@ namespace TG.Example.Test
             var rt = new RedisTestData();
             rt.HashSplit_ByHashBack2();
         }
+
+
+
         #endregion
 
         #region Bitmap 测试
