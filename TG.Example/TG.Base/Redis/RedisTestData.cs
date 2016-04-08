@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using StackExchange.Redis;
 
 namespace TG.Example
@@ -39,7 +40,7 @@ namespace TG.Example
         /// <summary>
         /// Hash对象切分——普通无切分
         /// </summary>
-        public void HashSplit_Common()
+        public void HashSplit_Full()
         {
             IDatabase redisdb = RedisProvider.redis.GetDatabase();
 
@@ -55,48 +56,14 @@ namespace TG.Example
 
         /// <summary>
         /// Hash对象切分——划分成Hash对象，每个Hash切分100
-        /// 
         /// </summary>
-        public void HashSplit_ByHashHead2()
+        public void HashSplit_ByHash()
         {
             IDatabase redisdb = RedisProvider.redis.GetDatabase();
 
             var less100 = new List<HashEntry>();
 
-            for (var i = 1; i <= 100000; i++)
-            {
-                var si = i.ToString();
-                if (si.Length > 2)
-                {
-                    var key = si.Substring(0, 2);
-                    var hkey = si.Substring(2, si.Length - 2);
-
-                    redisdb.HashSet("object:" + key, new HashEntry[] { 
-                        new HashEntry(hkey, "val")});
-                }
-                else
-                {
-                    less100.Add(new HashEntry(si, "val"));
-
-                }
-
-
-                redisdb.HashSet("object:", less100.ToArray());
-            }
-        }
-
-
-        /// <summary>
-        /// Hash对象切分——划分成Hash对象，每个Hash切分100
-        /// 
-        /// </summary>
-        public void HashSplit_ByHashBack2()
-        {
-            IDatabase redisdb = RedisProvider.redis.GetDatabase();
-
-            var less100 = new List<HashEntry>();
-
-            //10w
+            //10万
             for (var i = 1; i <= 100000; i++)
             {
                 var si = i.ToString();
@@ -113,16 +80,37 @@ namespace TG.Example
                     less100.Add(new HashEntry(si, "val"));
 
                 }
-
-
                 redisdb.HashSet("object:", less100.ToArray());
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public void HashSplit_OneHash()
+        {
+            IDatabase redisdb = RedisProvider.redis.GetDatabase();
+            var less100 = new List<HashEntry>();
+
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            //10万
+            for (var i = 1; i <= 100000; i++)
+            {
+                less100.Add(new HashEntry(i.ToString(), "val"));
+                if (i % 100 == 0)
+                {
+                    redisdb.HashSet("object:", less100.ToArray());
+                    less100.Clear();
+                }
+            }
+            watch.Stop();
+            Debug.WriteLine("耗时：" + watch.ElapsedMilliseconds);
+        }
 
         #endregion
 
-        #region 碎片率实验  Fragmentation ratio
+        #region 碎片率  Fragmentation ratio
 
         /// <summary>
         /// FragRatioTest
@@ -200,13 +188,13 @@ namespace TG.Example
 
                 if (dic.Count == 10000)
                 {
-                    dic.Add(key, val);    
+                    dic.Add(key, val);
                     _redisdb.StringSet(dic.ToArray(), When.Always);
-                    dic.Clear();                                  
+                    dic.Clear();
                 }
                 else
                 {
-                    dic.Add(key, val);                    
+                    dic.Add(key, val);
                 }
             }
         }

@@ -57,6 +57,19 @@ namespace TG.Example
             System.Diagnostics.Debug.WriteLine("偏移100000004，结果：" + res);
         }
 
+        /// <summary>
+        /// And操作
+        /// </summary>
+        public void BitmapOperation_And()
+        {
+            redisdb.StringSetBit("bitsource-2015", 7, true);
+            redisdb.StringSetBit("bitsource-2015", 8, true);
+
+            redisdb.StringSetBit("bitsource-2016", 8, true);
+
+            redisdb.StringBitOperation(Bitwise.And, "bittarget", "bitsource-2015", "bitsource-2016");
+        }
+
         ///// <summary>
         ///// 
         ///// </summary>

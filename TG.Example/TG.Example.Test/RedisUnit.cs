@@ -14,27 +14,25 @@ namespace TG.Example.Test
     {
         #region hash 切分
         [TestMethod]
-        public void HashSplit_Common()
+        public void HashSplit_Full()
         {
             var rt = new RedisTestData();
-            rt.HashSplit_Common();
+            rt.HashSplit_Full();
         }
 
         [TestMethod]
-        public void HashSplit_ByHashHead2()
+        public void HashSplit_ByHash()
         {
             var rt = new RedisTestData();
-            rt.HashSplit_ByHashHead2();
+            rt.HashSplit_ByHash();
         }
 
         [TestMethod]
-        public void HashSplit_ByHashBack2()
+        public void HashSplit_OneHash()
         {
             var rt = new RedisTestData();
-            rt.HashSplit_ByHashBack2();
+            rt.HashSplit_OneHash();
         }
-
-
 
         #endregion
 
@@ -58,6 +56,13 @@ namespace TG.Example.Test
         {
             var rt = new RedisString();
             rt.BitmapGet();
+        }
+
+        [TestMethod]
+        public void BitmapOperation_And()
+        {
+            var rt = new RedisString();
+            rt.BitmapOperation_And();
         }
         #endregion
 
