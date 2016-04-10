@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="User" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <alias>
+    <typeAlias alias="User" assembly="TG.Example.dll" type="TG.Example.User" />
+  </alias>
+  <cacheModels>
+    <cacheModel id="person-cache" implementation="MEMORY" >
+      <flushInterval hours="24"/>
+      <flushOnExecute  statement="UpdateAccountViaInlineParameters"/>
+      <flushOnExecute  statement="UpdateAccountViaParameterMap"/>
+      <property name="Type" value="Weak"/>
+    </cacheModel>
+  </cacheModels>
+
+  <resultMaps>
+    <resultMap id="User-result"  class="User">
+      <result property="SysUserId"    column="sysuserid"/>
+      <result property="UserId"    column="userid"/>
+      <result property="Tid"    column="tid"/>
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="sql_selectByid" resultMap="User-result">
+      select * from sys_user
+      <dynamic prepend="where">
+        <isParameterPresent property="Tid" prepend="">
+          tid = #Tid#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="sql_selectAll" resultMap="User-result">
+      select * from sys_user
+    </select>
+
+    <!--<insert id="sql_InsertOne" parameterClass="Account">
+        insert into Accounts (Item,Money,Year,Month,Day,CreateOn,Level)
+        values
+        (#Item#,
+        #Money#,
+        #Year#,
+        #Month#,
+        #Day#,
+        #CreateOn#,
+        #Level#
+        )
+        <selectKey  type="post" resultClass="int" property="Id">
+          SELECT CAST(@@IDENTITY as int) as Id
+        </selectKey>
+      </insert>-->
+  </statements>
+</sqlMap>
