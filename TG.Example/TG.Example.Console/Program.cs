@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TG.Example;
+using System.IO;
 
 namespace TG.Example.Console
 {
@@ -11,8 +12,14 @@ namespace TG.Example.Console
     {
         static void Main(string[] args)
         {
-            QuartzClass qu = new QuartzClass();
-            qu.Main();
+            //QuartzClass qu = new QuartzClass();
+            //qu.Main();
+
+
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Log4net.config"));
+            UserService service = new UserService();
+            User user = service.GetUser(3);
+            System.Console.WriteLine("SysUserId:" + user.SysUserId);
         }
     }
 }

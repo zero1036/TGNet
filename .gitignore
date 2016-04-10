@@ -37,6 +37,7 @@ StyleCop.Cache
 *.vspscc
 *.vssscc
 .builds
+Logs/
 
 # Visual Studio profiler
 *.psess

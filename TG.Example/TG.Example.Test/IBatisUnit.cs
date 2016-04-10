@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TG.Example;
+using System.IO;
 
 namespace TG.Example.Test
 {
@@ -10,6 +11,8 @@ namespace TG.Example.Test
         private readonly UserService _service;
         public IBatisUnit()
         {
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Log4net.config"));
+
             _service = new UserService();
         }
 
