@@ -17,9 +17,12 @@ namespace TG.Example.Console
 
 
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Log4net.config"));
+            //UserService service = new UserService();
+            //User user = service.GetUser(3);
+            //System.Console.WriteLine("SysUserId:" + user.SysUserId);
+
             UserService service = new UserService();
-            User user = service.GetUser(3);
-            System.Console.WriteLine("SysUserId:" + user.SysUserId);
+            int result = service.Update();
         }
     }
 }

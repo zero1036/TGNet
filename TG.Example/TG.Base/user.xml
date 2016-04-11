@@ -34,20 +34,16 @@
       select * from sys_user
     </select>
 
-    <!--<insert id="sql_InsertOne" parameterClass="Account">
-        insert into Accounts (Item,Money,Year,Month,Day,CreateOn,Level)
-        values
-        (#Item#,
-        #Money#,
-        #Year#,
-        #Month#,
-        #Day#,
-        #CreateOn#,
-        #Level#
-        )
-        <selectKey  type="post" resultClass="int" property="Id">
-          SELECT CAST(@@IDENTITY as int) as Id
-        </selectKey>
-      </insert>-->
+    <insert id="sql_InsertOne" parameterClass="User">
+      insert into sys_user (sysuserid,tid)
+      values
+      (0,
+      #tid#
+      )
+    </insert>
+
+    <update id="sql_update" parameterClass="hashtable" restltClass="int">
+      UPDATE sys_user SET tid=#tid# WHERE sysuserid=#sysuserid#
+    </update>
   </statements>
 </sqlMap>

@@ -22,5 +22,12 @@ namespace TG.Example.Test
             User user = _service.GetUser(3);
             Assert.IsTrue(user.SysUserId == 1);
         }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            int res = _service.Update();
+            Assert.IsTrue(res == 1);
+        }
     }
 }
