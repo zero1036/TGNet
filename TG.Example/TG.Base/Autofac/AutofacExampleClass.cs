@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using System.Reflection;
 using System.Diagnostics;
+using Autofac.Features.Indexed;
 
 namespace TG.Example
 {
@@ -52,6 +53,20 @@ namespace TG.Example
 
             //watch.Stop();
             //Console.WriteLine(string.Format("time:" + watch.ElapsedMilliseconds));
+        }
+        
+        public void RegistDym()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<SerCla1>().Named<IBaseSer>("SerCla1");
+            builder.RegisterType<SerCla2>().Named<IBaseSer>("SerCla2");
+
+            IContainer container = builder.Build();
+            var repository1 = container.Resolve<IBaseSer>();
+            var repository2 = container.Resolve<IBaseSer>();
+
+            repository1.Say();
+            repository2.Say();            
         }
     }
     public interface IBaseSer

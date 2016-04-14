@@ -103,6 +103,7 @@
     <Compile Include="Autofac\AutofacAOP\InterceptorsChosenByMetadataFixture.cs" />
     <Compile Include="Autofac\AutofacAOP\InterfaceInterceptorsFixture.cs" />
     <Compile Include="Autofac\AutofacExampleClass.cs" />
+    <Compile Include="Autofac\AutofacIIndex.cs" />
     <Compile Include="Base\BaseClass.cs" />
     <Compile Include="Base\BoxingClass.cs" />
     <Compile Include="Base\SingleInstanceAndStatic.cs" />

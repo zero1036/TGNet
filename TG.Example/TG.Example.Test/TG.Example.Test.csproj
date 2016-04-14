@@ -72,6 +72,7 @@
     <Compile Include="RedisUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IBatisUnit.cs" />
+    <Compile Include="AutofacUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
