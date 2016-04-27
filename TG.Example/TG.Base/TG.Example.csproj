@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Examination\ExaminationClass.cs" />
     <Compile Include="IBatis\Mapper.cs" />
+    <Compile Include="IBatis\TransactionTest.cs" />
     <Compile Include="IBatis\UserModel.cs" />
     <Compile Include="IBatis\UserService.cs" />
     <Compile Include="Index\Class1.cs" />
@@ -165,9 +166,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="User.xml">
+    <EmbeddedResource Include="User.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

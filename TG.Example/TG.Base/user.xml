@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="User" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <alias>
-    <typeAlias alias="User" assembly="TG.Example.dll" type="TG.Example.User" />
+    <typeAlias alias="UserModel" assembly="TG.Example.dll" type="TG.Example.User" />
   </alias>
   <cacheModels>
     <cacheModel id="person-cache" implementation="MEMORY" >
@@ -13,7 +13,7 @@
   </cacheModels>
 
   <resultMaps>
-    <resultMap id="User-result"  class="User">
+    <resultMap id="User-result"  class="UserModel">
       <result property="SysUserId"    column="sysuserid"/>
       <result property="UserId"    column="userid"/>
       <result property="Tid"    column="tid"/>
@@ -34,11 +34,12 @@
       select * from sys_user
     </select>
 
-    <insert id="sql_InsertOne" parameterClass="User">
-      insert into sys_user (sysuserid,tid)
+    <insert id="sql_InsertOne" parameterClass="UserModel">
+      insert into sys_user (sysuserid,userid,tid)
       values
       (0,
-      #tid#
+      #UserId#,
+      #Tid#
       )
     </insert>
 

@@ -29,5 +29,12 @@ namespace TG.Example.Test
             int res = _service.Update();
             Assert.IsTrue(res == 1);
         }
+
+        [TestMethod]
+        public void TransactionTest()
+        {
+            var ts = new TransactionTest();
+            ts.Commit();
+        }
     }
 }
