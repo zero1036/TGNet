@@ -13,7 +13,6 @@ namespace TG.Example
         {
             User account = new User()
             {
-                SysUserId = 1,
                 UserId = "123",
                 Tid = 3
             };
@@ -25,6 +24,24 @@ namespace TG.Example
             Object obj = sqlMap.Insert("User.sql_InsertOne", account);
 
             sqlMap.CommitTransaction();
+        }
+
+
+        public void Rollback()
+        {
+            User account = new User()
+            {
+                UserId = "tgor",
+                Tid = 4
+            };
+
+            ISqlMapper sqlMap = Mapper.GetMaper;
+
+            sqlMap.BeginTransaction();
+
+            Object obj = sqlMap.Insert("User.sql_InsertOne", account);
+
+            sqlMap.RollBackTransaction();
         }
     }
 }

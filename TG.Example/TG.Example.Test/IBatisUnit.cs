@@ -31,10 +31,17 @@ namespace TG.Example.Test
         }
 
         [TestMethod]
-        public void TransactionTest()
+        public void Transaction_Commit()
         {
             var ts = new TransactionTest();
             ts.Commit();
+        }
+
+        [TestMethod]
+        public void Transaction_Rolback()
+        {
+            var ts = new TransactionTest();
+            ts.Rollback();
         }
     }
 }
