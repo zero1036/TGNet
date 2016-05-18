@@ -73,6 +73,15 @@
     <Reference Include="log4net">
       <HintPath>..\..\Lib\IBatisNew\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\MongoDB.Bson.2.2.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\MongoDB.Driver.2.2.4\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.2.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\Lib\MySql.Data.dll</HintPath>
     </Reference>
@@ -127,6 +136,7 @@
     <Compile Include="IBatis\UserModel.cs" />
     <Compile Include="IBatis\UserService.cs" />
     <Compile Include="Index\Class1.cs" />
+    <Compile Include="Mongodb\MongoBase.cs" />
     <Compile Include="MysqlTest\MysqlTest.cs" />
     <Compile Include="Parallel\AsyncAwait.cs" />
     <Compile Include="Parallel\TaskExampleClass.cs" />

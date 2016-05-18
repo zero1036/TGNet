@@ -68,11 +68,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="QuartzUnit.cs" />
-    <Compile Include="RedisUnit.cs" />
+    <Compile Include="Unit\QuartzUnit.cs" />
+    <Compile Include="Unit\RedisUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IBatisUnit.cs" />
-    <Compile Include="AutofacUnit.cs" />
+    <Compile Include="Unit\IBatisUnit.cs" />
+    <Compile Include="Unit\AutofacUnit.cs" />
+    <Compile Include="Unit\MongoUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
