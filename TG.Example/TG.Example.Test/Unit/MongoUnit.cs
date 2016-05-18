@@ -10,6 +10,8 @@ namespace TG.Example.Test
         [TestMethod]
         public void TestMethod1()
         {
+MongoBase mb = new MongoBase();
+            mb.FindAPI();
         }
     }
 }
