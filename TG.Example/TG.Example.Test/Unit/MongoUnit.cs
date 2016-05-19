@@ -8,10 +8,38 @@ namespace TG.Example.Test
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void FindAPI()
         {
-MongoBase mb = new MongoBase();
+            MongoBase mb = new MongoBase();
             mb.FindAPI();
+        }
+
+        [TestMethod]
+        public void DynamicDataTest1()
+        {
+            MongoBase mb = new MongoBase();
+            mb.DynamicDataTest1();
+        }
+
+        [TestMethod]
+        public void DynamicDataTest2()
+        {
+            MongoBase mb = new MongoBase();
+            mb.DynamicDataTest2();
+        }
+
+        [TestMethod]
+        public void DynamicDataTest3()
+        {
+            MongoBase mb = new MongoBase();
+            mb.DynamicDataTest3();
+        }
+
+        [TestMethod]
+        public void LoadDynamicData()
+        {
+            MongoBase mb = new MongoBase();
+            mb.LoadDynamicData();
         }
     }
 }

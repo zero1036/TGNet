@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,8 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Shared;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace TG.Example
 {
@@ -51,6 +54,70 @@ namespace TG.Example
             List<User> users = db.GetCollection<User>("users").Aggregate().Match(x => x.name == "tg").ToList();
         }
 
+
+        public void CreateCollectionlkmoney()
+        {
+            IMongoDatabase db = GetDatabase();
+            db.CreateCollection("lkmoney");
+        }
+
+        public void DynamicDataTest1()
+        {
+            lkmoney my = new lkmoney()
+            {
+                name = "51money",
+                creator = "tg",
+                Metadata = new BsonDocument("content", "10元现金券")
+            };
+
+            IMongoDatabase db = GetDatabase();
+            db.GetCollection<lkmoney>("lkmoney").InsertOne(my);
+        }
+
+        public void DynamicDataTest2()
+        {
+            lkmoney2 my = new lkmoney2()
+            {
+                name = "51money",
+                creator = "tg",
+                Metadata = new BsonDocument  
+                {  
+                   {"NO","1000"},  
+                   {"Name","Name1"}  
+                }
+            };
+
+            IMongoDatabase db = GetDatabase();
+            db.GetCollection<lkmoney2>("lkmoney").InsertOne(my);
+        }
+
+        public void DynamicDataTest3()
+        {
+            dynamic person = new ExpandoObject();
+            person.FirstName = "Jane";
+            person.Age = 12;
+            person.PetNames = new List<dynamic> { "Sherlock", "Watson" };
+
+            lkmoney3 my = new lkmoney3()
+            {
+                name = "51money",
+                creator = "tg",
+                Content = person
+            };
+
+            IMongoDatabase db = GetDatabase();
+            db.GetCollection<lkmoney3>("lkmoney").InsertOne(my);
+        }
+
+        public void LoadDynamicData()
+        {
+            IMongoDatabase db = GetDatabase();
+            var money = db.GetCollection<lkmoney3>("lkmoney").Find(x => x.name == "519money").SingleOrDefault();
+            var age = (money.Content as IDictionary<String, Object>)["Age"];
+
+            System.Diagnostics.Debug.WriteLine(money.name);
+        }
+
         private static IMongoDatabase GetDatabase(string key = "")
         {
             var connectString = "mongodb://localhost/MissionV2";
@@ -60,9 +127,41 @@ namespace TG.Example
         }
 
 
-        public class User
+        public class MongoEntityBase
         {
             public ObjectId _id { get; set; }
+        }
+
+        public class lkmoney : MongoEntityBase
+        {
+            public string name { get; set; }
+
+            public string creator { get; set; }
+            public BsonDocument Metadata { get; set; }
+        }
+
+        public class lkmoney2 : MongoEntityBase
+        {
+            public string name { get; set; }
+
+            public string creator { get; set; }
+
+            [BsonExtraElements]
+            public BsonDocument Metadata { get; set; }
+        }
+
+        public class lkmoney3 : MongoEntityBase
+        {
+            public string name { get; set; }
+
+            public string creator { get; set; }
+
+            [BsonSerializer(typeof(ExpandoObjectSerializer))]
+            public ExpandoObject Content { get; set; }
+        }
+
+        public class User : MongoEntityBase
+        {
             public string name { get; set; }
             public int age { get; set; }
             public string editDate { get; set; }
