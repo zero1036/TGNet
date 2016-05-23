@@ -138,5 +138,14 @@ namespace TG.Example.Test
         #endregion
 
         #endregion
+
+        #region 事务
+        [TestMethod]
+        public void ConditionTest()
+        {
+            var rt = new RedisTrans();
+            rt.ConditionTest();
+        }
+        #endregion
     }
 }
