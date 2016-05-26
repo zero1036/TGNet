@@ -137,6 +137,7 @@
     <Compile Include="IBatis\UserService.cs" />
     <Compile Include="Index\Class1.cs" />
     <Compile Include="Mongodb\MongoBase.cs" />
+    <Compile Include="Mongodb\MongoIndex.cs" />
     <Compile Include="MysqlTest\MysqlTest.cs" />
     <Compile Include="Parallel\AsyncAwait.cs" />
     <Compile Include="Parallel\TaskExampleClass.cs" />
