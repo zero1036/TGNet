@@ -41,5 +41,12 @@ namespace TG.Example.Test
             MongoBase mb = new MongoBase();
             mb.LoadDynamicData();
         }
+
+        [TestMethod]
+        public void InsertMany()
+        {
+            MongoIndex mb = new MongoIndex();
+            mb.InsertMany();
+        }
     }
 }

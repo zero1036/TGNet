@@ -49,9 +49,9 @@ namespace TG.Example
         public void FindAPI()
         {
             IMongoDatabase db = GetDatabase();
-            IMongoCollection<User> col = db.GetCollection<User>("users");
+            IMongoCollection<MyUser> col = db.GetCollection<MyUser>("users");
 
-            List<User> users = db.GetCollection<User>("users").Aggregate().Match(x => x.name == "tg").ToList();
+            List<MyUser> users = db.GetCollection<MyUser>("users").Aggregate().Match(x => x.name == "tg").ToList();
         }
 
 
@@ -124,49 +124,48 @@ namespace TG.Example
             var mongoUrl = new MongoUrl(connectString);
             var client = new MongoClient(connectString);
             return client.GetDatabase(mongoUrl.DatabaseName);
-        }
+        }      
+    }
 
+    public class MongoEntityBase
+    {
+        public ObjectId _id { get; set; }
+    }
 
-        public class MongoEntityBase
-        {
-            public ObjectId _id { get; set; }
-        }
+    public class lkmoney : MongoEntityBase
+    {
+        public string name { get; set; }
 
-        public class lkmoney : MongoEntityBase
-        {
-            public string name { get; set; }
+        public string creator { get; set; }
+        public BsonDocument Metadata { get; set; }
+    }
 
-            public string creator { get; set; }
-            public BsonDocument Metadata { get; set; }
-        }
+    public class lkmoney2 : MongoEntityBase
+    {
+        public string name { get; set; }
 
-        public class lkmoney2 : MongoEntityBase
-        {
-            public string name { get; set; }
+        public string creator { get; set; }
 
-            public string creator { get; set; }
+        [BsonExtraElements]
+        public BsonDocument Metadata { get; set; }
+    }
 
-            [BsonExtraElements]
-            public BsonDocument Metadata { get; set; }
-        }
+    public class lkmoney3 : MongoEntityBase
+    {
+        public string name { get; set; }
 
-        public class lkmoney3 : MongoEntityBase
-        {
-            public string name { get; set; }
+        public string creator { get; set; }
 
-            public string creator { get; set; }
+        [BsonSerializer(typeof(ExpandoObjectSerializer))]
+        public ExpandoObject Content { get; set; }
+    }
 
-            [BsonSerializer(typeof(ExpandoObjectSerializer))]
-            public ExpandoObject Content { get; set; }
-        }
-
-        public class User : MongoEntityBase
-        {
-            public string name { get; set; }
-            public int age { get; set; }
-            public string editDate { get; set; }
-            public string amount { get; set; }
-            public IEnumerable<string> qq { get; set; }
-        }
+    public class MyUser : MongoEntityBase
+    {
+        public string name { get; set; }
+        public int age { get; set; }
+        public string editDate { get; set; }
+        public string amount { get; set; }
+        public IEnumerable<string> qq { get; set; }
     }
 }
