@@ -48,5 +48,19 @@ namespace TG.Example.Test
             MongoIndex mb = new MongoIndex();
             mb.InsertMany();
         }
+
+        [TestMethod]
+        public void CountAll()
+        {
+            MongoAggregation mb = new MongoAggregation();
+            mb.CountAll();
+        }
+
+        [TestMethod]
+        public void Distinct()
+        {
+            MongoAggregation mb = new MongoAggregation();
+            mb.Distinct();
+        }
     }
 }

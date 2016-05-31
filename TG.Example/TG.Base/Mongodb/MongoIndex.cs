@@ -44,13 +44,5 @@ namespace TG.Example
                 GC.Collect();
             }
         }
-
-        public void CountAll()
-        {
-            IMongoDatabase db = GetDatabase();
-            var col = db.GetCollection<MyUser>("users");
-
-            long count = col.Count<MyUser>(x => true);
-        }
     }
 }

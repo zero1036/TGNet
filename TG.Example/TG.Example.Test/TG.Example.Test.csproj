@@ -68,6 +68,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Unit\CSharpBaseUnit.cs" />
     <Compile Include="Unit\QuartzUnit.cs" />
     <Compile Include="Unit\RedisUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
