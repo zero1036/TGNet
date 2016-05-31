@@ -147,5 +147,14 @@ namespace TG.Example.Test
             rt.ConditionTest();
         }
         #endregion
+
+        #region List
+        [TestMethod]
+        public void ListTest()
+        {
+            RedisList list = new RedisList();
+            list.ListTest();
+        }
+        #endregion
     }
 }
