@@ -131,6 +131,7 @@
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
     <Compile Include="Examination\ExaminationClass.cs" />
+    <Compile Include="Expression\ExpressLearn.cs" />
     <Compile Include="IBatis\Mapper.cs" />
     <Compile Include="IBatis\TransactionTest.cs" />
     <Compile Include="IBatis\UserModel.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Mongodb\LuckyMoney.cs" />
     <Compile Include="Mongodb\LuckyMoneyPackage.cs" />
     <Compile Include="Mongodb\LuckyPrize.cs" />
+    <Compile Include="Mongodb\MongoAggregation.cs" />
     <Compile Include="Mongodb\MongoBase.cs" />
     <Compile Include="Mongodb\MongoIndex.cs" />
     <Compile Include="MysqlTest\MysqlTest.cs" />
