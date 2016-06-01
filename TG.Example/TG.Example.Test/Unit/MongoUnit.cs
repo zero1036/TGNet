@@ -48,5 +48,26 @@ namespace TG.Example.Test
             MongoIndex mb = new MongoIndex();
             mb.InsertMany();
         }
+
+        [TestMethod]
+        public void InsertOne()
+        {
+            MongoIndex mb = new MongoIndex();
+            mb.InsertOne();
+        }
+
+        [TestMethod]
+        public void ValidateCollectionNull()
+        {
+            MongoIndex mb = new MongoIndex();
+            mb.ValidateCollectionNull();
+        }
+
+        [TestMethod]
+        public void CreateIndex()
+        {
+            MongoIndex mb = new MongoIndex();
+            mb.CreateIndex();
+        }
     }
 }
