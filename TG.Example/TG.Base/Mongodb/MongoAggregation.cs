@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace TG.Example
 {
@@ -36,13 +37,29 @@ namespace TG.Example
 
             var col = db.GetCollection<MyUser>("users");
 
-            IAsyncCursor<MyUser> ac = col.Distinct(x => x, "age");
+            //FieldDefinition : Json文本形式
+            IAsyncCursor<int> ac = col.Distinct(x => x.age, "{'name':'tg1'}");
 
-            MyUser sf = ac.SingleOrDefault();
+            //FieldDefinition : bson形式
+            IAsyncCursor<int> ac2 = col.Distinct(x => x.age, new BsonDocument { 
+               {"name","tg1"}            
+            });
 
-            Console.WriteLine(sf.age);
+            int sf = ac.SingleOrDefault();
+
+            Console.WriteLine(sf);
             //List<string> list = new List<string>();
             //list.AsQueryable().
+        }
+
+
+        public void MapReduce()
+        {
+            IMongoDatabase db = GetDatabase();
+
+            var col = db.GetCollection<MyUser>("users");
+
+            //col.MapReduce()
         }
     }
 }
