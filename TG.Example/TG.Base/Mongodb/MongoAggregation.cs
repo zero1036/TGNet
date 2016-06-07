@@ -59,7 +59,7 @@ namespace TG.Example
 
             var col = db.GetCollection<MyUser>("users");
 
-            //col.MapReduce()
+      //var result=      col.MapReduce("",)
         }
     }
 }
