@@ -5,7 +5,7 @@ using TG.Example;
 namespace TG.Example.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class MongoUnit
     {
         [TestMethod]
         public void FindAPI()
@@ -82,6 +82,13 @@ namespace TG.Example.Test
         {
             MongoAggregation mb = new MongoAggregation();
             mb.Distinct();
+        }
+
+        [TestMethod]
+        public void MongoObjectIdSerialize()
+        {
+            MongoBase mb = new MongoBase();
+            mb.MongoObjectIdSerialize();
         }
     }
 }

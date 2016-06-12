@@ -156,5 +156,15 @@ namespace TG.Example.Test
             list.ListTest();
         }
         #endregion
+
+        #region Lua
+        [TestMethod]
+        public void PPlkMoney1Test()
+        {
+            RobMoney rb = new RobMoney();
+            rb.PPlkMoney1();
+        }
+        #endregion
+
     }
 }

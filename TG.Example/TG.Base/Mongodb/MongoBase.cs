@@ -9,6 +9,8 @@ using MongoDB.Driver;
 using MongoDB.Shared;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Serializers;
+using StackExchange.Redis;
+using Newtonsoft.Json;
 
 namespace TG.Example
 {
@@ -118,17 +120,65 @@ namespace TG.Example
             System.Diagnostics.Debug.WriteLine(money.name);
         }
 
+        public void MongoObjectIdSerialize()
+        {
+            IDatabase redisdb = RedisProvider.redis.GetDatabase();
+            IMongoDatabase mongodb = GetDatabase();
+            MyUser user = mongodb.GetCollection<MyUser>("users").Find(x => x.name == "tg99942").ToList()[0];
+
+            var jsonResult = JsonConvert.SerializeObject(user);
+
+            redisdb.StringSet("tst", jsonResult);
+
+            var jsonResultOut = redisdb.StringGet("tst").ToString();
+
+
+            MyUser userOut = JsonConvert.DeserializeObject<MyUser>(jsonResultOut);
+
+            System.Diagnostics.Debug.WriteLine(jsonResultOut);
+        }
+
         private static IMongoDatabase GetDatabase(string key = "")
         {
             var connectString = "mongodb://localhost/MissionV2";
             var mongoUrl = new MongoUrl(connectString);
             var client = new MongoClient(connectString);
             return client.GetDatabase(mongoUrl.DatabaseName);
-        }      
+        }
     }
+
+    public class ObjectIdConverter : JsonConverter
+    {
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            //serializer.Serialize(writer, value.ToString());
+
+
+            serializer.Serialize(writer, value.ToJson(typeof(ObjectId)));
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            return ObjectId.Parse(existingValue.ToString());
+
+            //throw new NotImplementedException();
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return typeof(ObjectId).IsAssignableFrom(objectType);
+            //return true;
+        }
+
+
+    }
+
 
     public class MongoEntityBase
     {
+        [BsonSerializer(typeof(ObjectIdSerializer))]
+        //[JsonConverter(typeof(ObjectIdConverter))]
         public ObjectId _id { get; set; }
     }
 
