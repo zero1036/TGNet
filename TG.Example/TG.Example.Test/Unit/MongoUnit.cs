@@ -62,5 +62,12 @@ namespace TG.Example.Test
             MongoAggregation mb = new MongoAggregation();
             mb.Distinct();
         }
+
+        [TestMethod]
+        public void CreateCappedCollection()
+        {
+            MongoCollectionExp mc = new MongoCollectionExp();
+            mc.CreateCappedCollection();
+        }
     }
 }

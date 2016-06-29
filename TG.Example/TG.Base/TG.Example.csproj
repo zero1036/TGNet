@@ -139,6 +139,7 @@
     <Compile Include="Index\Class1.cs" />
     <Compile Include="Mongodb\MongoAggregation.cs" />
     <Compile Include="Mongodb\MongoBase.cs" />
+    <Compile Include="Mongodb\MongoCollectionExp.cs" />
     <Compile Include="Mongodb\MongoIndex.cs" />
     <Compile Include="MysqlTest\MysqlTest.cs" />
     <Compile Include="Parallel\AsyncAwait.cs" />
