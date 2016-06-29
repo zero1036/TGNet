@@ -168,6 +168,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Spider2Controller.cs" />
+    <Compile Include="Controllers\SpiderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +205,9 @@
     <Content Include="providers.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Spider\Index.cshtml" />
+    <Content Include="Views\Spider\About.cshtml" />
+    <Content Include="Views\Spider2\Me.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TG.Base\TG.Example.csproj">
