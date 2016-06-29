@@ -26,8 +26,10 @@ namespace TG.Example
 
             long te = this.redisdb.ListRightPush("cbd", "0");
 
-            Debug.WriteLine(te);
+            Debug.WriteLine(te.ToString());
         }
+        
     }
 }
+
 

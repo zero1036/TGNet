@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace TG.Example
             {
                 MyUser my;
                 IList<MyUser> list = new List<MyUser>();
-                for (int i = 1; i <= 1000000; i++)
+                for (int i = 1; i <= 100000; i++)
                 {
                     my = new MyUser()
                     {
@@ -43,6 +44,51 @@ namespace TG.Example
                 list = null;
                 GC.Collect();
             }
+        }
+
+        public void InsertOne()
+        {
+            IMongoDatabase db = GetDatabase();
+            var col = db.GetCollection<MyUser>("users");
+
+            MyUser my;
+
+            my = new MyUser()
+            {
+                name = "tg" + 1,
+                age = 3,
+                amount = "1283"
+            };
+
+            col.InsertOne(my);
+        }
+
+        public void CountAll()
+        {
+            IMongoDatabase db = GetDatabase();
+            var col = db.GetCollection<MyUser>("users");
+
+            long count = col.Count<MyUser>(x => true);
+        }
+
+        public void ValidateCollectionNull()
+        {
+            IMongoDatabase db = GetDatabase();
+            var col = db.GetCollection<LuckyMoney>("LuckyMoney11Day");
+
+            long count = col.Count(x => true);
+            IFindFluent<LuckyMoney, LuckyMoney> findFluent = col.Find(x => x.Id != null).Limit(1);
+
+            //findFluent.Count()
+        }
+
+
+        public void CreateIndex()
+        {
+            IMongoDatabase db = GetDatabase();
+            var col = db.GetCollection<LuckyMoney>("users");
+
+            col.Indexes.CreateOne(new BsonDocument() { { "name", 1 } }, new CreateIndexOptions() { Background = true });
         }
     }
 }

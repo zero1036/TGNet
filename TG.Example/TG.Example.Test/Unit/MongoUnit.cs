@@ -5,7 +5,7 @@ using TG.Example;
 namespace TG.Example.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class MongoUnit
     {
         [TestMethod]
         public void FindAPI()
@@ -50,6 +50,27 @@ namespace TG.Example.Test
         }
 
         [TestMethod]
+        public void InsertOne()
+        {
+            MongoIndex mb = new MongoIndex();
+            mb.InsertOne();
+        }
+
+        [TestMethod]
+        public void ValidateCollectionNull()
+        {
+            MongoIndex mb = new MongoIndex();
+            mb.ValidateCollectionNull();
+        }
+
+        [TestMethod]
+        public void CreateIndex()
+        {
+            MongoIndex mb = new MongoIndex();
+            mb.CreateIndex();
+        }
+
+        [TestMethod]
         public void CountAll()
         {
             MongoAggregation mb = new MongoAggregation();
@@ -68,6 +89,13 @@ namespace TG.Example.Test
         {
             MongoCollectionExp mc = new MongoCollectionExp();
             mc.CreateCappedCollection();
+        }
+
+        [TestMethod]
+        public void MongoObjectIdSerialize()
+        {
+            MongoBase mb = new MongoBase();
+            mb.MongoObjectIdSerialize();
         }
     }
 }

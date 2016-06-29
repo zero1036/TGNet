@@ -70,6 +70,47 @@ namespace TG.Example
 
         }
 
+
+        public void PPlkMoney1()
+        {
+            IDatabase redisdb = RedisProvider.redis.GetDatabase(5);
+
+            string moneyScript = @"-- 函数：尝试获得红包，如果成功，则返回json字符串，如果不成功，则返回空
+                                        -- 参数：红包队列名， 已消费的队列名，去重的Map名，用户ID
+                                        -- 返回值：nil 或者 json字符串，包含用户ID：userId，红包ID：id，红包金额：money
+
+local result={};
+local inventoriesCount=redis.call('LLEN', KEYS[1]);
+local inventoriesTotalCount=redis.call('LLEN', KEYS[2]);
+
+if inventoriesCount ~= 0 then
+    result['CurrentRecord']=inventoriesCount-1;
+    result['TotalRecord']=inventoriesTotalCount-1;
+    
+    local prize = redis.call('LRANGE', KEYS[1], 0, 50); 
+    local prizeTemp = 0; 
+    for i,v in ipairs(prize) do
+	    prizeTemp = prizeTemp + v;
+    end  
+    result['CurrentPrize']=prizeTemp;
+    
+    local prizeTotal = redis.call('LRANGE', KEYS[2], 0, 50);  
+    prizeTemp = 0; 
+    for i,v in ipairs(prizeTotal) do
+	    prizeTemp = prizeTemp + v;
+    end  
+    result['TotalPrize']=prizeTemp
+end
+
+local re = cjson.encode(result);
+return re;";
+
+            var res = redisdb.ScriptEvaluate(moneyScript, new RedisKey[] { "Activity:LuckyMoney2Inventory:DragonBoat:148_196745", "Activity:LuckyMoney2Inventory:DragonBoat:148_196745Total" }, new RedisValue[] { }, CommandFlags.None);
+
+            Console.WriteLine(res.ToString());
+        }
+
+
         public void GoRobMoney()
         {
             IDatabase redisdb = RedisProvider.redis.GetDatabase();
@@ -119,7 +160,7 @@ namespace TG.Example
 
             Console.WriteLine(list.Count == 100 && listDis.Count == 100 ? "分发成功" : "分发失败");
         }
-        
+
         public class HongbaoComparer : IEqualityComparer<Hongbao>
         {
             public bool Equals(Hongbao x, Hongbao y)

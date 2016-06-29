@@ -34,6 +34,16 @@ namespace TG.Example
             });
             Console.ReadKey();
         }
+
+
+        public void sdfs()
+        {
+            var x = Expression.Parameter(typeof(int), "x");
+            var y = Expression.Parameter(typeof(int), "y");
+            var body = Expression.Add(x, y);
+            var add = Expression.Lambda<Func<int, int, int>>(
+                  body, x, y).Compile();
+        }
     }
 
 

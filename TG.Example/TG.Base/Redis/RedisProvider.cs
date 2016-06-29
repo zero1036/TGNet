@@ -9,7 +9,7 @@ namespace TG.Example
 {
     public static class RedisProvider
     {
-        private static string constr = "127.0.0.1";
+        private static string constr = "192.168.1.43";
 
         private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
         {
