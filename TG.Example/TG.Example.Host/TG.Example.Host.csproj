@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MonController.cs" />
     <Compile Include="Controllers\Spider2Controller.cs" />
     <Compile Include="Controllers\SpiderController.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,6 +196,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\Mon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -97,5 +97,12 @@ namespace TG.Example.Test
             MongoBase mb = new MongoBase();
             mb.MongoObjectIdSerialize();
         }
+
+        [TestMethod]
+        public void CappedColVsRedis1()
+        {
+            MongoCollectionExp mb = new MongoCollectionExp();
+            mb.CappedColVsRedis1();
+        }
     }
 }

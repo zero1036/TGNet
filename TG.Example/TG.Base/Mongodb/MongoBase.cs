@@ -138,7 +138,7 @@ namespace TG.Example
             System.Diagnostics.Debug.WriteLine(jsonResultOut);
         }
 
-        private static IMongoDatabase GetDatabase(string key = "")
+        //private static IMongoDatabase GetDatabase(string key = "")
         public static IMongoDatabase GetDatabase(string key = "")
         {
             var connectString = "mongodb://localhost/MissionV2";
