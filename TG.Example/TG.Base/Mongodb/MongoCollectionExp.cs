@@ -19,12 +19,12 @@ namespace TG.Example
 
         public MongoCollectionExp()
         {
-            this._db = MongoBase.GetDatabase();
-            redisdb = RedisProvider.redis.GetDatabase();
+                     
         }
 
         public void CreateCappedCollection()
         {
+            this._db = MongoBase.GetDatabase();
             this._db.CreateCollection("cappedcol1", new CreateCollectionOptions()
             {
                 Capped = true,
@@ -37,6 +37,8 @@ namespace TG.Example
         public void CappedColVsRedis1()
         {
             int level = 1000000;
+            this._db = MongoBase.GetDatabase();
+
             //this._db.CreateCollection("col2redis", new CreateCollectionOptions()
             //{
             //    Capped = true,
@@ -55,9 +57,27 @@ namespace TG.Example
             col.InsertOne(my);
         }
 
+        public string CappedColVsRedis1_read()
+        {
+            this._db = MongoBase.GetDatabase();
+
+            var col = _db.GetCollection<MyUser>("cappedcol1");
+
+            MyUser my = new MyUser()
+            {
+                name = "tg",
+                age = 12,
+                amount = "1283"
+            };
+            col.Find(my);
+        }
+
+
         private IDatabase redisdb;
         public void CappedColVsRedis2()
         {
+            redisdb = RedisProvider.redis.GetDatabase();
+
             MyUser my = new MyUser()
             {
                 name = "tg",
@@ -69,5 +89,7 @@ namespace TG.Example
 
             long te = redisdb.ListRightPush("cappedcol2", val);
         }
+
+
     }
 }
