@@ -210,6 +210,7 @@
     <Content Include="Views\Spider\Index.cshtml" />
     <Content Include="Views\Spider\About.cshtml" />
     <Content Include="Views\Spider2\Me.cshtml" />
+    <None Include="Properties\PublishProfiles\TG.Example.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TG.Base\TG.Example.csproj">

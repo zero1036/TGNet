@@ -24,8 +24,8 @@ namespace TG.Example.Host.Controllers
         public ActionResult RedisInsertOneToCappedCollection()
         {
             MongoCollectionExp me = new MongoCollectionExp();
-            me.CappedColVsRedis1();
-
+            me.CappedColVsRedis2();
+            
             return Content("Ok");
         }
     }
