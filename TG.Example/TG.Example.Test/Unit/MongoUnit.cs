@@ -104,5 +104,26 @@ namespace TG.Example.Test
             MongoCollectionExp mb = new MongoCollectionExp();
             mb.CappedColVsRedis1();
         }
+
+        [TestMethod]
+        public void UpdateOne1()
+        {
+            var up = new MongoUpdate();
+            up.UpdateOne1();
+        }
+
+        [TestMethod]
+        public void UpdateOne2()
+        {
+            var up = new MongoUpdate();
+            up.UpdateOne2();
+        }
+
+        [TestMethod]
+        public void UpdateOneNoMatched()
+        {
+            var up = new MongoUpdate();
+            up.UpdateOneNoMatched();
+        }
     }
 }
