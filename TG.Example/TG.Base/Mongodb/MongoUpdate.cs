@@ -67,6 +67,45 @@ namespace TG.Example
 
             System.Diagnostics.Debug.WriteLine(res.ToJson());
         }
+
+        /// <summary>
+        /// 更新一个，但多个匹配
+        /// 只会更新第一个匹配
+        /// </summary>
+        public void UpdateOneManyMatched()
+        {
+            IMongoDatabase db = MongoBase.GetDatabase();
+            var col = db.GetCollection<Foo>("foo");
+
+            var doc = new BsonDocument { { "$set", new BsonDocument { { "Name", "droba" }, { "Age", 40 } } } };
+            UpdateResult res = col.UpdateOne(x => x.Sex == 1, doc);
+
+            System.Diagnostics.Debug.WriteLine(res.ToJson());
+        }
+
+        public void UpdateMany()
+        {
+            IMongoDatabase db = MongoBase.GetDatabase();
+            var col = db.GetCollection<Foo>("foo");
+
+            var doc = new BsonDocument { { "$set", new BsonDocument { { "Name", "droba" }, { "Age", 40 } } } };
+            UpdateResult res = col.UpdateMany(x => x.Sex == 1, doc);
+
+            System.Diagnostics.Debug.WriteLine(res.ToJson());
+        }
+
+        public void UpdateMany()
+        {
+            IMongoDatabase db = MongoBase.GetDatabase();
+            var col = db.GetCollection<Foo>("foo");
+
+            var doc = new BsonDocument { { "$set", new BsonDocument { { "Name", "droba" }, { "Age", 40 } } } };
+            UpdateResult res = col.UpdateMany(x => x.Sex == 1, doc);
+
+            System.Diagnostics.Debug.WriteLine(res.ToJson());
+        }
+
+
     }
 
     public class Foo
@@ -75,5 +114,6 @@ namespace TG.Example
         public ObjectId Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
+        public int Sex { get; set; }
     }
 }

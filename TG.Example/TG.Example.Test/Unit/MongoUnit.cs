@@ -125,5 +125,19 @@ namespace TG.Example.Test
             var up = new MongoUpdate();
             up.UpdateOneNoMatched();
         }
+
+        [TestMethod]
+        public void UpdateOneManyMatched()
+        {
+            var up = new MongoUpdate();
+            up.UpdateOneManyMatched();
+        }
+
+        [TestMethod]
+        public void UpdateMany()
+        {
+            var up = new MongoUpdate();
+            up.UpdateMany();
+        }
     }
 }
