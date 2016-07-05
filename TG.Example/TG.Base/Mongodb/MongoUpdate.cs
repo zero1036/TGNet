@@ -83,6 +83,9 @@ namespace TG.Example
             System.Diagnostics.Debug.WriteLine(res.ToJson());
         }
 
+        /// <summary>
+        /// 同时更新多个
+        /// </summary>
         public void UpdateMany()
         {
             IMongoDatabase db = MongoBase.GetDatabase();
@@ -94,18 +97,22 @@ namespace TG.Example
             System.Diagnostics.Debug.WriteLine(res.ToJson());
         }
 
-        public void UpdateMany()
+        /// <summary>
+        /// 整个对象替换，效率不及UpdateOne，有针对性更新
+        /// </summary>
+        public void ReplaceOne()
         {
             IMongoDatabase db = MongoBase.GetDatabase();
             var col = db.GetCollection<Foo>("foo");
 
-            var doc = new BsonDocument { { "$set", new BsonDocument { { "Name", "droba" }, { "Age", 40 } } } };
-            UpdateResult res = col.UpdateMany(x => x.Sex == 1, doc);
+            var myfoo = col.Find(x => x.Name == "tg").SingleOrDefault();
+            myfoo.Name = "tg2";
+            myfoo.Age = 77;
+                        
+            ReplaceOneResult res = col.ReplaceOne(x => x.Id == myfoo.Id, myfoo);
 
             System.Diagnostics.Debug.WriteLine(res.ToJson());
         }
-
-
     }
 
     public class Foo

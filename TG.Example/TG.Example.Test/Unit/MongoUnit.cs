@@ -139,5 +139,12 @@ namespace TG.Example.Test
             var up = new MongoUpdate();
             up.UpdateMany();
         }
+
+        [TestMethod]
+        public void ReplaceOne()
+        {
+            var up = new MongoUpdate();
+            up.ReplaceOne();
+        }
     }
 }
