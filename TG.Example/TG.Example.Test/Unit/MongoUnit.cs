@@ -146,5 +146,12 @@ namespace TG.Example.Test
             var up = new MongoUpdate();
             up.ReplaceOne();
         }
+
+        [TestMethod]
+        public void QueryMultiConditions()
+        {
+            var mc = new MongoQuery();
+            mc.QueryMultiConditions();
+        }
     }
 }

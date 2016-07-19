@@ -108,7 +108,7 @@ namespace TG.Example
             var myfoo = col.Find(x => x.Name == "tg").SingleOrDefault();
             myfoo.Name = "tg2";
             myfoo.Age = 77;
-                        
+
             ReplaceOneResult res = col.ReplaceOne(x => x.Id == myfoo.Id, myfoo);
 
             System.Diagnostics.Debug.WriteLine(res.ToJson());
@@ -122,5 +122,6 @@ namespace TG.Example
         public string Name { get; set; }
         public int Age { get; set; }
         public int Sex { get; set; }
+        public string Phone { get; set; }
     }
 }
