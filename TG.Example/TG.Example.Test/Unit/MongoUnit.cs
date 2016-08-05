@@ -153,5 +153,12 @@ namespace TG.Example.Test
             var mc = new MongoQuery();
             mc.QueryMultiConditions();
         }
+
+        [TestMethod]
+        public void MongoReadSplit()
+        {
+            var op = new MongoReadSplit();
+            op.ReadFromSecondary();
+        }
     }
 }

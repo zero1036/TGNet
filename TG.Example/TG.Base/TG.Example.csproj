@@ -147,6 +147,7 @@
     <Compile Include="Mongodb\MongoCollectionExp.cs" />
     <Compile Include="Mongodb\MongoIndex.cs" />
     <Compile Include="Mongodb\MongoQuery.cs" />
+    <Compile Include="Mongodb\MongoReadSplit.cs" />
     <Compile Include="Mongodb\MongoRepository.cs" />
     <Compile Include="Mongodb\MongoUpdate.cs" />
     <Compile Include="MysqlTest\MysqlTest.cs" />
