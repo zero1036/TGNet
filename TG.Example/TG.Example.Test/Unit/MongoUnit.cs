@@ -158,7 +158,8 @@ namespace TG.Example.Test
         public void MongoReadSplit()
         {
             var op = new MongoReadSplit();
-            op.ReadFromSecondary();
+            bool ok = op.ReadFromSecondary();
+            Assert.IsTrue(ok);
         }
     }
 }
