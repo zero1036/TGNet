@@ -161,16 +161,18 @@ namespace TG.Example.Test
             bool ok = op.ReadFromSecondary();
             Assert.IsTrue(ok);
         }
-        
+
         [TestMethod]
         public void MongoReplSetTest2()
         {
             int x = 1;
-            var count = 10 * 10000;
-            while (x <= count)
+            //var count = 10 * 10000;
+            var sample = 1 * 10000;
+            while (x <= sample)
             {
                 Random rd = new Random(DateTime.Now.Millisecond);
-                var name = string.Format("olympic_{0}", rd.Next(10000));
+                //var name = string.Format("olympic_{0}", rd.Next(x));
+                var name = x.ToString();
                 MongoReplSet me = new MongoReplSet();
                 me.InsertSingle(name);
                 x += 1;

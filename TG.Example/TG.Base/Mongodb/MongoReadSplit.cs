@@ -34,10 +34,10 @@ namespace TG.Example
             IList<Tag> tags = new List<Tag>();
             tags.Add(new Tag("", ""));
             tagSets.Add(new TagSet(tags));
-            collectionSetting.ReadPreference = new ReadPreference(ReadPreferenceMode.Secondary, tagSets);
+            collectionSetting.ReadPreference = ReadPreference.Secondary;
 
             var col = db.GetCollection<lkmoney>("lkmoney", collectionSetting);
-            var obj = col.Find(x => x.creator == "sys").SingleOrDefault();
+            var obj = col.Find(x => x.name == "olympic_3").SingleOrDefault();
             Debug.WriteLine(obj.name);
 
             return !string.IsNullOrEmpty(obj.name);
