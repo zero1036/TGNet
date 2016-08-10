@@ -146,6 +146,21 @@ namespace TG.Example.Test
             var up = new MongoUpdate();
             up.ReplaceOne();
         }
+
+        [TestMethod]
+        public void QueryMultiConditions()
+        {
+            var mc = new MongoQuery();
+            mc.QueryMultiConditions();
+        }
+
+        [TestMethod]
+        public void MongoReadSplit()
+        {
+            var op = new MongoReadSplit();
+            bool ok = op.ReadFromSecondary();
+            Assert.IsTrue(ok);
+        }
         
         [TestMethod]
         public void MongoReplSetTest2()

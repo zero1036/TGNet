@@ -24,12 +24,13 @@ namespace TG.Example
 
         public void CreateCappedCollection()
         {
+            int level = 1000000;
             this._db = MongoBase.GetDatabase();
-            this._db.CreateCollection("cappedcol1", new CreateCollectionOptions()
+            this._db.CreateCollection("col2redis", new CreateCollectionOptions()
             {
                 Capped = true,
-                MaxDocuments = 5,
-                MaxSize = 500
+                MaxDocuments = level,
+                MaxSize = level * 100
             });
         }
 

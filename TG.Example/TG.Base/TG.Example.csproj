@@ -115,6 +115,7 @@
     <Compile Include="Autofac\AutofacIIndex.cs" />
     <Compile Include="Base\BaseClass.cs" />
     <Compile Include="Base\BoxingClass.cs" />
+    <Compile Include="Base\HttpHelper.cs" />
     <Compile Include="Base\SingleInstanceAndStatic.cs" />
     <Compile Include="Delegate\DelegateClass.cs" />
     <Compile Include="Delegate\DelegateClass2.cs" />
@@ -132,6 +133,7 @@
     </Compile>
     <Compile Include="Examination\ExaminationClass.cs" />
     <Compile Include="Expression\ExpressLearn.cs" />
+    <Compile Include="Graylog\GraylogApi.cs" />
     <Compile Include="IBatis\Mapper.cs" />
     <Compile Include="IBatis\TransactionTest.cs" />
     <Compile Include="IBatis\UserModel.cs" />
@@ -144,6 +146,8 @@
     <Compile Include="Mongodb\MongoBase.cs" />
     <Compile Include="Mongodb\MongoCollectionExp.cs" />
     <Compile Include="Mongodb\MongoIndex.cs" />
+    <Compile Include="Mongodb\MongoQuery.cs" />
+    <Compile Include="Mongodb\MongoReadSplit.cs" />
     <Compile Include="Mongodb\MongoReplSet.cs" />
     <Compile Include="Mongodb\MongoRepository.cs" />
     <Compile Include="Mongodb\MongoScript.cs" />
