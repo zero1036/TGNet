@@ -146,5 +146,20 @@ namespace TG.Example.Test
             var up = new MongoUpdate();
             up.ReplaceOne();
         }
+        
+        [TestMethod]
+        public void MongoReplSetTest2()
+        {
+            int x = 1;
+            var count = 10 * 10000;
+            while (x <= count)
+            {
+                Random rd = new Random(DateTime.Now.Millisecond);
+                var name = string.Format("olympic_{0}", rd.Next(10000));
+                MongoReplSet me = new MongoReplSet();
+                me.InsertSingle(name);
+                x += 1;
+            }
+        }
     }
 }
