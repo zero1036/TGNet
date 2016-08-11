@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TG.Example;
 
@@ -165,9 +166,11 @@ namespace TG.Example.Test
         [TestMethod]
         public void MongoReplSetTest2()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             int x = 1;
             //var count = 10 * 10000;
-            var sample = 1 * 10000;
+            var sample = 10 * 10000;
             while (x <= sample)
             {
                 Random rd = new Random(DateTime.Now.Millisecond);
@@ -177,6 +180,9 @@ namespace TG.Example.Test
                 me.InsertSingle(name);
                 x += 1;
             }
+
+            sw.Stop();
+            Debug.WriteLine("耗时：" + sw.ElapsedMilliseconds.ToString());
         }
     }
 }
