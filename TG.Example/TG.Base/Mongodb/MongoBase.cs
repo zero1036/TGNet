@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -145,6 +146,103 @@ namespace TG.Example
             var mongoUrl = new MongoUrl(connectString);
             var client = new MongoClient(connectString);
             return client.GetDatabase(mongoUrl.DatabaseName);
+        }
+
+
+        public void LoadCustomerId()
+        {
+            var connectString = "mongodb://localhost/WeixinApi";
+            var mongoUrl = new MongoUrl(connectString);
+            var client = new MongoClient(connectString);
+            var db = client.GetDatabase(mongoUrl.DatabaseName);
+
+            var prizes = db.GetCollection<LuckyPrize>("LuckyPrizeOlympic1").Find(x => true).ToList();
+
+            var filter = string.Empty;
+            var sql = string.Empty;
+            List<string> result = new List<string>();
+
+            foreach (var prize in prizes)
+            {
+                filter = prize.WinnerPhone;
+                if (result.Contains(filter))
+                {
+                    continue;
+                }
+                else
+                {
+                    result.Add(filter);
+                }
+
+                sql = string.Format("{0},'{1}'", sql, filter);
+            }
+            sql = sql.Substring(1, sql.Length - 1);
+            sql = string.Format("select Id,Phone from Customer where Phone in ({0})", sql);
+
+            //if (System.IO.File.Exists(@"D:\moneyfix\money.sql"))
+            //{
+            //Console.WriteLine("文件已经存在，是否覆盖？（Y/N）");
+            //string o = Console.ReadLine();
+            //if (o == "y")
+            //{
+            System.IO.File.WriteAllText(@"D:\moneyfix\money.sql", sql);
+            //}
+            //}
+        }
+
+        public void LoadJS()
+        {
+            var dt = CSVFileHelper.OpenCSV(@"D:\moneyfix\lzc_phone.csv");
+            Dictionary<string, string> dct = new Dictionary<string, string>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                dct.Add(dr[1].ToString(), dr[0].ToString());
+            }
+
+            var connectString = "mongodb://localhost/WeixinApi";
+            var mongoUrl = new MongoUrl(connectString);
+            var client = new MongoClient(connectString);
+            var db = client.GetDatabase(mongoUrl.DatabaseName);
+
+            var col = db.GetCollection<LuckyPrize>("LuckyPrizeOlympic1");
+            var prizes = col.Find(x => true).ToList();
+            foreach (var prize in prizes)
+            {
+                if (dct.ContainsKey(prize.WinnerPhone))
+                {
+                    prize.WinnerId = int.Parse(dct[prize.WinnerPhone]);
+                    col.ReplaceOne(x => x.Id == prize.Id, prize);
+                }
+            }
+        }
+
+
+        public void BuildJs()
+        {
+            var connectString = "mongodb://localhost/WeixinApi";
+            var mongoUrl = new MongoUrl(connectString);
+            var client = new MongoClient(connectString);
+            var db = client.GetDatabase(mongoUrl.DatabaseName);
+            var col = db.GetCollection<LuckyPrize>("LuckyPrizeOlympic1");
+            var prizes = col.Find(x => true).ToList();
+            var js = JsonConvert.SerializeObject(prizes);
+            var js2 = @"for (var i = 0, pEn; pEn = prizes[i++];) {
+                            pEn.CreateDate = new Date(pEn.CreateDate);
+                            pEn.Content.CreateDate = new Date(pEn.CreateDate);
+
+                            var count = db.LuckyPrizeOlympic.count({ '$and': [{ 'MoneyKey': pEn.MoneyKey }, { 'WinnerPhone': pEn.WinnerPhone }] });                            
+                            if (count == 0) {                                
+                                db.LuckyPrizeOlympic.insert(pEn);
+                                print(pEn.MoneyKey+'_'+pEn.WinnerPhone+':done');
+                            }
+                            else{
+                                print(pEn.MoneyKey+'_'+pEn.WinnerPhone+':exists');
+                            }
+                            //printjson(pEn);
+                        }";
+
+            js = string.Format("var prizes = {0};{1}", js, js2);
+            System.IO.File.WriteAllText(@"D:\moneyfix\moneystore.js", js);
         }
     }
 

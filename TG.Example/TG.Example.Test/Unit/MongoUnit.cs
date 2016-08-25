@@ -184,5 +184,26 @@ namespace TG.Example.Test
             sw.Stop();
             Debug.WriteLine("耗时：" + sw.ElapsedMilliseconds.ToString());
         }
+
+        [TestMethod]
+        public void LoadMoney()
+        {
+            MongoBase mb = new MongoBase();
+            mb.LoadCustomerId();
+        }
+
+        [TestMethod]
+        public void LoadJS()
+        {
+            MongoBase mb = new MongoBase();
+            mb.LoadJS();
+        }
+
+        [TestMethod]
+        public void BuildJs()
+        {
+            MongoBase mb = new MongoBase();
+            mb.BuildJs();
+        }
     }
 }

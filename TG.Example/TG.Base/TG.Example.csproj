@@ -116,6 +116,7 @@
     <Compile Include="Base\BaseClass.cs" />
     <Compile Include="Base\BoxingClass.cs" />
     <Compile Include="Base\HttpHelper.cs" />
+    <Compile Include="Base\IOClass.cs" />
     <Compile Include="Base\SingleInstanceAndStatic.cs" />
     <Compile Include="Delegate\DelegateClass.cs" />
     <Compile Include="Delegate\DelegateClass2.cs" />

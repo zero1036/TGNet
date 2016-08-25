@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace TG.Example
 {
@@ -13,6 +14,7 @@ namespace TG.Example
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
+        [JsonIgnore]
         public ObjectId Id { get; set; }
     }
 
