@@ -21,8 +21,11 @@ namespace TG.Example.Console
             //User user = service.GetUser(3);
             //System.Console.WriteLine("SysUserId:" + user.SysUserId);
 
-            UserService service = new UserService();
-            int result = service.Update();
+            //UserService service = new UserService();
+            //int result = service.Update();
+
+            RedisTrans rt = new RedisTrans();
+            rt.MoneyBug_MultiBulk();
         }
     }
 }
