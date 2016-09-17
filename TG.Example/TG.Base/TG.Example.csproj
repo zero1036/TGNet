@@ -172,6 +172,7 @@
     <Compile Include="Thread\AsyncCall\AsyncCallClass.cs" />
     <Compile Include="Thread\BlockingQueue\BlockingQueue.cs" />
     <Compile Include="Thread\BlockingQueue\ThreadClass.cs" />
+    <Compile Include="Thread\Monitor\MonitorClass.cs" />
     <Compile Include="Thread\ThreadPool\ThreadPoolClass.cs" />
   </ItemGroup>
   <ItemGroup>

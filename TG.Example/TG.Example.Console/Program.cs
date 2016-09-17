@@ -24,8 +24,13 @@ namespace TG.Example.Console
             //UserService service = new UserService();
             //int result = service.Update();
 
-            RedisTrans rt = new RedisTrans();
-            rt.MoneyBug_MultiBulk();
+            //RedisTrans rt = new RedisTrans();
+            //rt.MoneyBug_MultiBulk();
+
+            MonitorClass mc = new MonitorClass();
+            mc.StartHeart();
+            mc.SendMessage();
+            System.Console.ReadLine();
         }
     }
 }
