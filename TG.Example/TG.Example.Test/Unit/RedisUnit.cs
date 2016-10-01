@@ -155,6 +155,13 @@ namespace TG.Example.Test
             RedisList list = new RedisList();
             list.ListTest();
         }
+
+        [TestMethod]
+        public void ListCapacityTest()
+        {
+            RedisList list = new RedisList();
+            list.ListCapacityTest();
+        }
         #endregion
 
         #region Lua

@@ -48,56 +48,106 @@ namespace TG.Example
         /// </summary>
         public void MoneyBug_MultiBulk()
         {
-            //for (var i = 1; i <= 20; i++)
-            //{
-            //    Thread th = new Thread(this.MultiBulk);
-            //    th.Start();
-            //}
-            this.MultiBulk();
+            for (var i = 1; i <= 20; i++)
+            {
+                Thread th = new Thread(this.MultiBulk);
+                th.Start();
+            }
+            //this.MultiBulk();
         }
 
         public void MultiBulk()
         {
-            Random rand = new Random();
-            //while (true)
-            //{
-            try
+            var ts = DateTime.Now.AddDays(7).Ticks;
+            var now = DateTime.Now;
+
+            Random rand = new Random(Thread.CurrentThread.ManagedThreadId * DateTime.Now.Second);
+            while (true)
             {
-                string prizeKey = "myPrize";
-                string lotteryResultStr = "test prize data";
-                var ts = DateTime.Now.AddDays(7).Ticks;
-
-                //var phone = rand.Next(1000);
-                //string phoneNum = phone.ToString();
-
-                string phoneNum = "999";
-
-                var trans = redisdb.CreateTransaction();
-                trans.AddCondition(Condition.HashNotExists(prizeKey, phoneNum));
-                trans.HashSetAsync(prizeKey, phoneNum, lotteryResultStr);
-                trans.KeyExpireAsync(prizeKey, new TimeSpan(ts));
-
-                //Thread.Sleep(100 * 1000);
-
-                if (trans.Execute())
+                if (now.Hour == 10 && now.Minute < 38)
                 {
-                    Console.WriteLine(string.Format("线程：{0}；成功：{1}", Thread.CurrentThread.CurrentCulture.LCID, phoneNum));
-                }
-                else
-                {
-                    Console.WriteLine(string.Format("线程：{0}；存在：{1}", Thread.CurrentThread.CurrentCulture.LCID, phoneNum));
+                    var sec = rand.Next(100, 1000);
+                    Thread.Sleep(sec);
+                    continue;
                 }
 
-                var sec = rand.Next(100, 1000);
-                Thread.Sleep(sec);
+                try
+                {
+                    string prizeKey = "myPrize";
+                    string lotteryResultStr = "test prize data";
+
+                    //var phone = rand.Next(20);
+                    //string phoneNum = phone.ToString();
+
+                    string phoneNum = "999";
+
+                    var trans = redisdb.CreateTransaction();
+                    trans.AddCondition(Condition.HashNotExists(prizeKey, phoneNum));
+                    trans.HashSetAsync(prizeKey, phoneNum, lotteryResultStr);
+                    trans.KeyExpireAsync(prizeKey, new TimeSpan(ts));
+
+                    if (trans.Execute())
+                    {
+                        Console.WriteLine(string.Format("线程：{0}；成功：{1}", Thread.CurrentThread.ManagedThreadId, phoneNum));
+                    }
+                    else
+                    {
+                        Console.WriteLine(string.Format("线程：{0}；存在：{1}", Thread.CurrentThread.ManagedThreadId, phoneNum));
+                    }
+
+                    var sec = rand.Next(100, 1000);
+                    Thread.Sleep(sec);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message);
+                    break;
+                }
             }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                Console.WriteLine(ex.Message);
-                //break;
-            }
-            //}
         }
+
+        //public void MultiBulk()
+        //{
+        //    var ts = DateTime.Now.AddDays(7).Ticks;
+
+        //    Random rand = new Random(Thread.CurrentThread.ManagedThreadId * DateTime.Now.Second);
+        //    while (true)
+        //    {
+        //        try
+        //        {
+        //            string prizeKey = "myPrize";
+        //            string lotteryResultStr = "test prize data";
+
+        //            var phone = rand.Next(20);
+        //            string phoneNum = phone.ToString();
+
+        //            //string phoneNum = "999";
+
+        //            var trans = redisdb.CreateTransaction();
+        //            trans.AddCondition(Condition.HashNotExists(prizeKey, phoneNum));
+        //            trans.HashSetAsync(prizeKey, phoneNum, lotteryResultStr);
+        //            trans.KeyExpireAsync(prizeKey, new TimeSpan(ts));
+
+        //            if (trans.Execute())
+        //            {
+        //                Console.WriteLine(string.Format("线程：{0}；成功：{1}", Thread.CurrentThread.ManagedThreadId, phoneNum));
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine(string.Format("线程：{0}；存在：{1}", Thread.CurrentThread.ManagedThreadId, phoneNum));
+        //            }
+
+        //            var sec = rand.Next(100, 1000);
+        //            Thread.Sleep(sec);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            System.Diagnostics.Debug.WriteLine(ex.Message);
+        //            Console.WriteLine(ex.Message);
+        //            break;
+        //        }
+        //    }
+        //}
     }
 }

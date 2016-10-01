@@ -15,5 +15,12 @@ namespace TG.Example.Test
             el.Start();
         }
 
+        [TestMethod]
+        public void ExpressAndLearn()
+        {
+            ExpressLearn el = new ExpressLearn();
+            el.TestAnd();
+        }
+
     }
 }
