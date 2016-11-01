@@ -27,9 +27,14 @@ namespace TG.Example.Console
             //RedisTrans rt = new RedisTrans();
             //rt.MoneyBug_MultiBulk();
 
-            MonitorClass mc = new MonitorClass();
-            mc.StartHeart();
-            mc.SendMessage();
+            //MonitorClass mc = new MonitorClass();
+            //mc.StartHeart();
+            //mc.SendMessage();
+
+
+            IOClass ic = new IOClass();
+            string res = ic.OpenFile(@"D:\Origin04.txt");
+
             System.Console.ReadLine();
         }
     }

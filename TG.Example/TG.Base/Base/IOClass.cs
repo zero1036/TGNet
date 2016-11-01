@@ -10,7 +10,49 @@ namespace TG.Example
 {
     public class IOClass
     {
+        /// <summary>
+        /// 将CSV文件的数据读取到DataTable中
+        /// </summary>
+        /// <param name="fileName">CSV文件路径</param>
+        /// <returns>返回读取了CSV数据的DataTable</returns>
+        public string OpenFile(string filePath)
+        {
+            //Encoding encoding = Common.GetType(filePath); //Encoding.ASCII;//
+            FileStream fs = new FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
 
+            StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            //StreamReader sr = new StreamReader(fs, encoding);
+            //string fileContent = sr.ReadToEnd();
+            //encoding = sr.CurrentEncoding;
+            //记录每次读取的一行记录
+            string strLine = "";
+            //记录每行记录中的各字段内容
+            string[] aryLine = null;
+            string[] tableHead = null;
+            List<string> list = new List<string>();
+            //标示列数
+            int columnCount = 0;
+            //标示是否是读取的第一行
+            bool IsFirst = true;
+            //逐行读取CSV中的数据
+            while ((strLine = sr.ReadLine()) != null)
+            {
+                //strLine = Common.ConvertStringUTF8(strLine, encoding);
+                //strLine = Common.ConvertStringUTF8(strLine);
+
+                System.Console.WriteLine(strLine);
+                list.Add(strLine);
+            }
+            //if (aryLine != null && aryLine.Length > 0)
+            //{
+            //    dt.DefaultView.Sort = tableHead[0] + " " + "asc";
+            //}
+
+            //sr.Close();
+            //fs.Close();
+
+            return string.Join(",", list.ToArray());
+        }
     }
 
     public class CSVFileHelper

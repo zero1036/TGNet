@@ -64,6 +64,13 @@ namespace TG.Example.Test
             var rt = new RedisString();
             rt.BitmapOperation_And();
         }
+
+        [TestMethod]
+        public void BitmapCompareMethod()
+        {
+            var rt = new RedisString();
+            rt.BitmapCompareMethod();
+        }
         #endregion
 
         #region 碎片率实验  Fragmentation ratio

@@ -16,7 +16,7 @@ namespace TG.Example
         /// </summary>
         public RedisString()
         {
-            redisdb = RedisProvider.redis.GetDatabase();
+            redisdb = RedisProvider.redis.GetDatabase(4);
         }
 
         /// <summary>
@@ -69,6 +69,18 @@ namespace TG.Example
 
             redisdb.StringBitOperation(Bitwise.And, "bittarget", "bitsource-2015", "bitsource-2016");
         }
+
+        /// <summary>
+        /// 模拟比较10万用户，用CustomerId作为string key，记录消耗内存
+        /// </summary>
+        public void BitmapCompareMethod()
+        {
+            for (int i = 100000; i <= 200000; i++)
+            {
+                redisdb.StringSet(string.Format("BCMTest_{0}", i), 1, TimeSpan.FromMinutes(10));
+            }
+        }
+
 
         ///// <summary>
         ///// 
